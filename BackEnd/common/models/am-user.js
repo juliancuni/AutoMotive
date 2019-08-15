@@ -16,11 +16,11 @@ module.exports = function (Amuser) {
             } else {
                 let res = context.res;
                 const orgs = app.models.org;
-                orgs.findOne({}, function(err, org) {
+                orgs.findOne({}, function (err, org) {
                     if (err) console.log(err)
                     res.redirect('https://' + org.domain + '/tokenExpired');
                 })
-                
+
             }
         })
     })
@@ -36,7 +36,7 @@ module.exports = function (Amuser) {
                 subject: 'Verifikim ' + org.orgname,
                 headers: { 'Mime-Version': '1.0' },
                 template: './templates/verify.ejs',
-                redirect: org.domain +'/verifikim/?uid=' + user.id,
+                redirect: org.domain + '/verifikim/?uid=' + user.id,
                 user: user,
                 org: org,
                 host: org.domain,
@@ -67,5 +67,42 @@ module.exports = function (Amuser) {
             }
         })
         next();
+    });
+    //Before Login Shiko per vlefshmerine e username ose password
+    Amuser.beforeRemote('login', function (ctx, modelInstance, next) {
+        Amuser.findOne({ where: { "username": ctx.req.body.username } }, function (err, perdorues) {
+            if (err) {
+                err = new Error('Fatal ERROR! ' + err);
+                err.statusCode = 500;
+                err.code = 'FATAL_ERROR';
+                next(err);
+            }
+            if (perdorues) {
+                if (perdorues.enabled) {
+                    perdorues.hasPassword(ctx.req.body.password, function (err, isMatch) {
+                        if (err) {
+                            //handle fatal error ketu
+                        } else if (!isMatch) {
+                            var defaultError = new Error('Fjalëkalimi gabim');
+                            defaultError.statusCode = 401;
+                            defaultError.code = 'FJALEKALIMI_GABIM';
+                            next(defaultError);
+                        } else {
+                            next();
+                        }
+                    })
+                } else {
+                    var defaultError = new Error('Kjo llogari është e bllokuar!');
+                    defaultError.statusCode = 401;
+                    defaultError.code = 'LLOGARI_INAKTIVE';
+                    next(defaultError);
+                }
+            } else {
+                var defaultError = new Error('Ky Përdorues nuk egziston');
+                defaultError.statusCode = 401;
+                defaultError.code = 'PERDORUES_NUK_EGZISTON';
+                next(defaultError);
+            }
+        });
     });
 };
