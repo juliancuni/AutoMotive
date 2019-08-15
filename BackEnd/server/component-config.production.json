@@ -1,0 +1,10 @@
+{
+    "loopback-component-explorer": null,
+    "@mean-expert/loopback-component-realtime": {
+        "auth": true,
+        "debug": false,
+        "driver": {
+            "name": "socket.io"
+        }
+    }
+}
