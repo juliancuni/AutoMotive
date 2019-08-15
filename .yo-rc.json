@@ -5,7 +5,18 @@
       "BackEnd": {
         "path": "./BackEnd",
         "type": "server"
+      },
+      "FrontEnd": {
+        "path": "./FrontEnd",
+        "type": "ng2web",
+        "name": "FrontEnd",
+        "sdkPath": "FrontEnd\\src\\app\\shared\\sdk"
       }
+    },
+    "promptValues": {
+      "sdkFeatures": [
+        "Enable PubSub + IO + FireLoop functionality"
+      ]
     }
   }
 }
