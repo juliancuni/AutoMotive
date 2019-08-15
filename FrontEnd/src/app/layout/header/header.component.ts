@@ -5,6 +5,9 @@ import { UserblockService } from '../sidebar/userblock/userblock.service';
 import { SettingsService } from '../../core/settings/settings.service';
 import { MenuService } from '../../core/menu/menu.service';
 
+import { Router } from '@angular/router';
+import { AmUserApi } from '../../shared/sdk/services/custom';
+
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -18,7 +21,13 @@ export class HeaderComponent implements OnInit {
     isNavSearchVisible: boolean;
     @ViewChild('fsbutton', { static: true }) fsbutton;  // the fullscreen button
 
-    constructor(public menu: MenuService, public userblockService: UserblockService, public settings: SettingsService) {
+    constructor(
+        public menu: MenuService, 
+        public userblockService: UserblockService, 
+        public settings: SettingsService,
+        private _perdorues: AmUserApi,
+        private _router: Router,
+        ) {
 
         // show only a few items on demo
         this.menuItems = menu.getMenu().slice(0, 4); // for horizontal layout
@@ -77,5 +86,13 @@ export class HeaderComponent implements OnInit {
         if (screenfull.enabled) {
             screenfull.toggle();
         }
+    }
+    
+    logOut() {
+        this.postLogOut();
+    }
+    postLogOut(): void {
+        this._perdorues.logout().subscribe();
+        this._router.navigate(['/login']);
     }
 }

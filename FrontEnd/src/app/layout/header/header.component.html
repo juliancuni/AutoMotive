@@ -2,7 +2,7 @@
 <nav class="navbar topnavbar" role="navigation">
     <!-- START navbar header-->
     <div class="navbar-header">
-        <a class="navbar-brand" href="#/">
+        <a class="navbar-brand" [routerLink]="'/home'">
             <div class="brand-logo">
                 <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" />
             </div>
@@ -39,6 +39,14 @@
             </a>
         </li>
         <!-- END lock screen-->
+        <!-- START Logout -->
+        <li class="nav-item">
+            <a class="nav-link" (click)="logOut()" title="Logout">
+                <!-- <em class="fas fa-sign-out-alt"></em> -->
+                <em class="icon-logout"></em>
+            </a>
+        </li>
+        <!-- END Logout-->
     </ul>
     <!-- END Left navbar-->
     <!-- START Right Navbar-->

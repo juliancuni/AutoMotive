@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeAl from '@angular/common/locales/sq';
+registerLocaleData(localeAl, 'al');
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -11,6 +14,12 @@ import { CoreModule } from './core/core.module';
 import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { RoutesModule } from './routes/routes.module';
+
+import { SDKBrowserModule } from './shared/sdk/index';
+import { AuthModule } from './auth/auth.module';
+import { MsToasterService } from './shared/services/mstoaster.service';
+// import { KyPerdoruesService } from './shared/services/kyPerdorues.service';
+import { ToasterService } from 'angular2-toaster/angular2-toaster';
 
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient) {
@@ -28,6 +37,8 @@ export function createTranslateLoader(http: HttpClient) {
         LayoutModule,
         SharedModule.forRoot(),
         RoutesModule,
+        AuthModule,
+        SDKBrowserModule.forRoot(),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -36,7 +47,11 @@ export function createTranslateLoader(http: HttpClient) {
             }
         })
     ],
-    providers: [],
+    providers: [
+        ToasterService,
+        MsToasterService,
+        { provide: LOCALE_ID, useValue: 'al'}
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
