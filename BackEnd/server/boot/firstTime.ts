@@ -88,11 +88,19 @@ module.exports = function (app: any) {
                                                                 console.log(`ACL model: ${model} : ALLOW root u krijua`)
                                                             })
                                                         })
+                                                        Role.create({
+                                                            name: "client",
+                                                            description: "Client role. Nuk ka shume te drejta"
+                                                        }, (err: any, role: any) => {
+                                                            if (err) console.log(err)
+                                                            console.log(`\n\nFinal: u krijua Role ${role.name}`)
+                                                            console.log("\x1b[32m", "\n\nProcedura u zbatua me sukses. Mund te vazhdoni te veproni nga web/mobile/desktop app.")
+                                                        })
                                                     });
                                                 })
                                             })
                                         })
-                                    }) 
+                                    })
                                 } // callback hell
                             })
                         })
