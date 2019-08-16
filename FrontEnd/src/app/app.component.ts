@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         // prevent empty links to reload the page
-        this._themesService.setTheme('E');
+        this._themesService.setTheme('A');
         LoopBackConfig.setBaseURL(environment.API_BASE_PATH);
         document.addEventListener('click', e => {
             const target = e.target as HTMLElement;

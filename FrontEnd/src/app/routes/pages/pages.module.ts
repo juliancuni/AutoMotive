@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { Error404Component } from './error404/error404.component';
 import { RegisterComponent } from './register/register.component';
 import { RecoverComponent } from './recover/recover.component';
+import { TermsComponent } from './terms/terms.component';
 import { SharedModule } from '../../shared/shared.module';
 
 import { UnauthGuard } from '../../auth/guards/unauth.guard';
@@ -15,11 +16,12 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [UnauthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [UnauthGuard] },
   { path: 'recover', component: RecoverComponent, canActivate: [UnauthGuard] },
+  { path: 'terms', component: TermsComponent },
   { path: '404', component: Error404Component },
 ];
 
 @NgModule({
-  declarations: [LoginComponent, Error404Component, RegisterComponent, RecoverComponent],
+  declarations: [LoginComponent, Error404Component, RegisterComponent, RecoverComponent, TermsComponent],
   imports: [
     CommonModule,
     SharedModule,

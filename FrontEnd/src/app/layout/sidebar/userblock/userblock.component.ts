@@ -12,7 +12,7 @@ export class UserblockComponent implements OnInit {
     constructor(public userblockService: UserblockService) {
 
         this.user = {
-            picture: 'assets/img/user/01.jpg'
+            picture: 'assets/img/no-pic.png'
         };
     }
 
