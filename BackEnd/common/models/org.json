@@ -1,1 +1,21 @@
-{"name":"org","base":"PersistedModel","idInjection":true,"options":{"validateUpsert":true,"strictObjectIDCoercion":true},"properties":{"orgname":{"type":"string"},"domain":{"type":"string"}},"validations":[],"relations":{},"acls":[],"methods":{}}
+{
+    "name": "org",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true,
+        "strictObjectIDCoercion": true
+    },
+    "properties": {
+        "orgname": {
+            "type": "string"
+        },
+        "domain": {
+            "type": "string"
+        }
+    },
+    "validations": [],
+    "relations": {},
+    "acls": [],
+    "methods": {}
+}

@@ -1,1 +1,12 @@
-{"loopback-component-explorer":{"mountPath":"/explorer"},"@mean-expert/loopback-component-realtime":{"auth":true,"debug":false,"driver":{"name":"socket.io"}}}
+{
+    "loopback-component-explorer": {
+        "mountPath": "/explorer"
+    },
+    "@mean-expert/loopback-component-realtime": {
+        "auth": true,
+        "debug": false,
+        "driver": {
+            "name": "socket.io"
+        }
+    }
+}
