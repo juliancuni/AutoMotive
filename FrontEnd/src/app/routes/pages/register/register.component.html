@@ -10,14 +10,69 @@
                 </a>
             </div>
             <div class="card-body">
-                <p class="text-center py-2">SIGNUP TO GET INSTANT ACCESS.</p>
-                <form [formGroup]="valForm" class="form-validate mb-3" role="form" name="registerForm" novalidate=""
-                    (submit)="submitForm($event, valForm.value)">
+                <p class="text-center py-2">REGJISTROHUNI, është e thjeshtë.</p>
+                <small class="text-center py-2 text-muted">Emri, Mbiemri, E-mail-i dhe Fjalëkalimi janë të
+                    detyrueshme.</small>
+                <form [formGroup]="registerForm" class="form-validate mb-3" role="form" name="registerForm"
+                    novalidate="" (submit)="submitForm($event, registerForm.value)">
+                    <!-- Emer TB -->
                     <div class="form-group">
-                        <label class="text-muted mb-1">Email address</label>
+                        <!-- <label class="text-muted mb-1">Emri</label> -->
+                        <div class="input-group with-focus">
+                            <input class="form-control border-right-0" type="text" name="account_emer"
+                                placeholder="Emri" autocomplete="off" formControlName="emer" required="" />
+                            <div class="input-group-append">
+                                <span class="input-group-text text-muted bg-transparent border-left-0">
+                                    <em class="fa"></em>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="registerForm.controls['emer'].hasError('required') && (registerForm.controls['emer'].dirty || registerForm.controls['emer'].touched)">
+                            Emri s'mund të lihet bosh.</div>
+                    </div>
+                    <!-- End Emer TB -->
+                    <!-- Mbiemer TB -->
+                    <div class="form-group">
+                        <!-- <label class="text-muted mb-1">Emri</label> -->
+                        <div class="input-group with-focus">
+                            <input class="form-control border-right-0" type="text" name="account_mbiemer"
+                                placeholder="Mbiemri" autocomplete="off" formControlName="mbiemer" required="" />
+                            <div class="input-group-append">
+                                <span class="input-group-text text-muted bg-transparent border-left-0">
+                                    <em class="fa"></em>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="registerForm.controls['mbiemer'].hasError('required') && (registerForm.controls['mbiemer'].dirty || registerForm.controls['mbiemer'].touched)">
+                            Mbiemri s'mund të lihet bosh.</div>
+                    </div>
+                    <!-- End Mbiemer TB -->
+                    <!-- Perdoruesi TB -->
+                    <div class="form-group">
+                        <!-- <label class="text-muted mb-1">Emri</label> -->
+                        <div class="input-group with-focus">
+                            <input class="form-control border-right-0" type="text" name="account_username"
+                                placeholder="Përdoruesi" autocomplete="off" formControlName="username" required="" />
+                            <div class="input-group-append">
+                                <span class="input-group-text text-muted bg-transparent border-left-0">
+                                    <em class="fa fa-user"></em>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="registerForm.controls['username'].hasError('required') && (registerForm.controls['username'].dirty || registerForm.controls['username'].touched)">
+                            Përdoruesi s'mund të lihet bosh.</div>
+                        <div class="text-danger" *ngIf="usernameError">{{error.username}}</div>
+                    </div>
+                    <!-- End Perdoruesi TB -->
+                    <!-- Email TB -->
+                    <div class="form-group">
+                        <!-- <label class="text-muted mb-1">Email address</label> -->
                         <div class="input-group with-focus">
                             <input class="form-control border-right-0" type="email" name="account_email"
-                                placeholder="Enter email" autocomplete="off" formControlName="email" required="" />
+                                placeholder="E-mail" autocomplete="off" formControlName="email" required="" />
                             <div class="input-group-append">
                                 <span class="input-group-text text-muted bg-transparent border-left-0">
                                     <em class="fa fa-envelope"></em>
@@ -25,70 +80,69 @@
                             </div>
                         </div>
                         <div class="text-danger"
-                            *ngIf="valForm.controls['email'].hasError('required') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">
-                            This field is required</div>
+                            *ngIf="registerForm.controls['email'].hasError('required') && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">
+                            E-mail s'mund të lihet bosh.</div>
                         <div class="text-danger"
-                            *ngIf="valForm.controls['email'].hasError('email') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">
-                            This field must be a valid email address</div>
+                            *ngIf="registerForm.controls['email'].hasError('email') && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">
+                            E-mail format i gabuar.</div>
+                        <div class="text-danger" *ngIf="emailError">{{error.email}}</div>
                     </div>
-                    <div formGroupName="passwordGroup">
-                        <div class="form-group">
-                            <label class="text-muted mb-1">Password</label>
-                            <div class="input-group with-focus">
-                                <input class="form-control border-right-0" id="id-password" type="password"
-                                    name="password" formControlName="password"
-                                    [formControl]="valForm.get('passwordGroup.password')" />
-                                <div class="input-group-append">
-                                    <span class="input-group-text text-muted bg-transparent border-left-0">
-                                        <em class="fa fa-lock"></em>
-                                    </span>
-                                </div>
+                    <!-- End Email TB -->
+                    <!-- Telefon TB -->
+                    <div class="form-group">
+                        <!-- <label class="text-muted mb-1">Telefon</label> -->
+                        <div class="input-group with-focus">
+                            <input class="form-control border-right-0" type="text" name="account_telefon"
+                                placeholder="Telefoni" autocomplete="off" formControlName="telefon" />
+                            <div class="input-group-append">
+                                <span class="input-group-text text-muted bg-transparent border-left-0">
+                                    <em class="fa fa-mobile"></em>
+                                </span>
                             </div>
-                            <div class="text-danger"
-                                *ngIf="valForm.get('passwordGroup.password').hasError('required') && (valForm.get('passwordGroup.password').dirty || valForm.get('passwordGroup.password').touched)">
-                                This field is required</div>
-                            <div class="text-danger"
-                                *ngIf="valForm.get('passwordGroup.password').hasError('pattern') && (valForm.get('passwordGroup.password').dirty || valForm.get('passwordGroup.password').touched)">
-                                Input should match 'a-zA-Z0-9' and 6-10 length</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="text-muted mb-1">Retype Password</label>
-                            <div class="input-group with-focus">
-                                <input class="form-control border-right-0" type="password" name="confirmPassword"
-                                    formControlName="confirmPassword"
-                                    [formControl]="valForm.get('passwordGroup.confirmPassword')" />
-                                <div class="input-group-append">
-                                    <span class="input-group-text text-muted bg-transparent border-left-0">
-                                        <em class="fa fa-lock"></em>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="valForm.get('passwordGroup.confirmPassword').hasError('required') && (valForm.get('passwordGroup.confirmPassword').dirty || valForm.get('passwordGroup.confirmPassword').touched)">
-                                This field is required</div>
-                            <div class="text-danger"
-                                *ngIf="valForm.get('passwordGroup.confirmPassword').hasError('equalTo')">Password does
-                                Not match</div>
                         </div>
                     </div>
+                    <!-- End Telefon TB -->
+                    <!-- Fjalekalimi TB -->
+                    <div class="form-group">
+                        <!-- <label class="text-muted mb-1">Emri</label> -->
+                        <div class="input-group with-focus">
+                            <input class="form-control border-right-0" type="password" name="account_password"
+                                placeholder="Fjalëkalimi" autocomplete="off" formControlName="password"
+                                id="fjalekalim" />
+                            <div class="input-group-append">
+                                <span class="input-group-text text-muted bg-transparent border-left-0">
+                                    <em class="fa fa-eye" (click)="toggleFjalekalim()" id="eyeIcon"></em>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="registerForm.controls['password'].hasError('required') && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)">
+                            Fjalëkalimi s'mund të lihet bosh.</div>
+                        <div class="text-danger" *ngIf="passowrdError">{{error.password}}</div>
+                    </div>
+                    <!-- End Fjalekalimi TB -->
+                    <!-- Termat CHB -->
                     <div class="clearfix">
                         <div class="checkbox c-checkbox float-left mt0">
                             <label>
-                                <input type="checkbox" required="" name="account_agreed"
-                                    formControlName="accountagreed" />
-                                <span class="fa fa-check"></span>I agree with the
-                                <a [routerLink]="'/terms'">terms</a>
+                                <!-- <input type="checkbox" required="" name="account_dakord" formControlName="dakord" [disabled]="true"/> -->
+                                <input type="checkbox" required="" name="account_dakord" [disabled]="true" checked />
+                                <span class="fa fa-check"></span>Jam dakord me kushtet ..
+                                <a [routerLink]="'/terms'">(Lexoni këtu)</a>
                             </label>
                         </div>
                     </div>
-                    <span class="text-danger"
-                        *ngIf="valForm.controls['accountagreed'].hasError('required') && (valForm.controls['accountagreed'].dirty || valForm.controls['accountagreed'].touched)">You
-                        must agree the terms</span>
-                    <button class="btn btn-block btn-primary mt-3" type="submit">Create account</button>
+                    <!-- <span class="text-danger"
+                        *ngIf="registerForm.controls['dakord'].hasError('required') && (registerForm.controls['dakord'].dirty || registerForm.controls['dakord'].touched)">Duhet
+                        të pranoni kushtet.</span> -->
+                    <!-- End Termat CHB -->
+                    <button class="btn btn-block btn-primary mt-3" type="submit"
+                        [disabled]="loading || !registerForm.valid">
+                        <span style="display:inline-block;">{{loading ? "Prisni" : "Regjistrohuni"}}</span>
+                    </button>
                 </form>
-                <!-- <div class="alert alert-danger text-center"></div> -->
-                <p class="pt-3 text-center">Have an account?</p>
-                <a class="btn btn-block btn-secondary" [routerLink]="'/login'">Signup</a>
+                <p class="pt-3 text-center">Keni ndërkohë llogari?</p>
+                <a class="btn btn-block btn-secondary" [routerLink]="'/login'">Login këtu</a>
             </div>
         </div>
         <!-- END card-->

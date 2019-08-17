@@ -1,40 +1,45 @@
 {
-    "name": "amUser",
-    "base": "User",
-    "idInjection": true,
-    "options": {
-        "validateUpsert": true,
-        "strictObjectIDCoercion": true
+  "name": "amUser",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true,
+    "strictObjectIDCoercion": true
+  },
+  "restrictResetPasswordTokenScope": true,
+  "emailVerificationRequired": true,
+  "properties": {
+    "emer": {
+      "type": "string",
+      "required": true
     },
-    "restrictResetPasswordTokenScope": true,
-    "emailVerificationRequired": true,
-    "properties": {
-        "username": {
-            "type": "string"
-        },
-        "name": {
-            "type": "string"
-        },
-        "surname": {
-            "type": "string"
-        },
-        "middlename": {
-            "type": "string"
-        },
-        "avatar": {
-            "type": "string"
-        },
-        "birthday": {
-            "type": "string"
-        },
-        "enabled": {
-            "type": "boolean",
-            "required": true,
-            "default": true
-        }
+    "mbiemer": {
+      "type": "string",
+      "required": true
     },
-    "validations": [],
-    "relations": {},
-    "acls": [],
-    "methods": {}
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "telefon": {
+      "type": "string"
+    },
+    "datelindja": {
+      "type": "date"
+    },
+    "avatar": {
+      "type": "string",
+      "required": true,
+      "default": "assets/img/no-pic.png"
+    },
+    "enabled": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
 }

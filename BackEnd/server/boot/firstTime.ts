@@ -46,7 +46,8 @@ module.exports = function (app: any) {
                                         console.log("Org u krijua")
                                         amUser.create({
                                             username: "root",
-                                            name: "root",
+                                            emer: "Root",
+                                            mbiemer: "User",
                                             email: rootEmail,
                                             password: rootPass,
                                             emailVerified: true,

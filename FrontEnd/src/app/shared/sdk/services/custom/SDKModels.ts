@@ -5,6 +5,7 @@ import { Role } from '../../models/Role';
 import { Email } from '../../models/Email';
 import { AmUser } from '../../models/AmUser';
 import { Org } from '../../models/Org';
+import { Client } from '../../models/Client';
 
 export interface Models { [name: string]: any }
 
@@ -17,6 +18,7 @@ export class SDKModels {
     Email: Email,
     AmUser: AmUser,
     Org: Org,
+    Client: Client,
     
   };
 

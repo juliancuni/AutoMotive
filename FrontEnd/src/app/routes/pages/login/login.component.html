@@ -45,9 +45,9 @@
                 </div>
                 <div class="clearfix">
                     <div class="checkbox c-checkbox float-left mt0">
-                        <label>
+                        <!-- <label>
                             <input type="checkbox" value="" name="account_remember" formControlName="remebmerMe" />
-                            <span class="fa fa-check"></span>Më ruaj</label>
+                            <span class="fa fa-check"></span>Më ruaj</label> -->
                     </div>
                     <div class="float-right">
                         <a class="text-muted" [routerLink]="'/recover'"
@@ -56,8 +56,7 @@
                 </div>
                 <button class="btn btn-block btn-primary mt-3" type="submit" [disabled]="loading || !loginForm.valid">
                     <i class="fa fa-sign-in" *ngIf="!loading" style="display:inline-block;"></i>
-                    <span *ngIf="!loading" style="display:inline-block;">Login</span>
-                    <span *ngIf="loading" style="display:inline-block;">Prisni</span>
+                    <span style="display:inline-block;">{{loading ? "Prisni" : "Login"}}</span>
                 </button>
             </form>
             <!-- <div class="alert alert-danger text-center" ></div> -->

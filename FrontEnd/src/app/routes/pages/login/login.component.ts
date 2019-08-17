@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
             this.perdoruesResponseErr = false;
             this.fjaleKalimiResponseErr = false;
             this._perdorues.login(kredencialet, "", value.remebmerMe).subscribe(() => {
-
             }, (err) => {
                 this.loading = false;
                 this.loginForm.enable();
@@ -73,21 +72,19 @@ export class LoginComponent implements OnInit {
                     this.perdoruesResponseErr = false;
                     this.fjaleKalimiResponseErr = false;
                 }
-                if (err.statusCode == 500) {
-                    this.errorLoginTxt = "API ERR: " + err.message;
-                    this.toast = { type: "error", title: "API ERR", body: err.message };
+                if (err.code == "LOGIN_FAILED_EMAIL_NOT_VERIFIED") {
+                    this.errorLoginTxt = "Verifikoni emailin para se të logoheni"
+                    this.toast = { type: "warning", title: "Kujdes!", body: "VERIFIKO_EMAILIN" };
                 }
-                if (err == "Server error") {
-                    this.toast = { type: "error", title: "API_ERR", body: "Server_Down" };
-                    this.errorLoginTxt = "API ERR: Server Down";
+                if (err.statusCode == 500 || err == "Server error") {
+                    this.errorLoginTxt = "API ERR: " + err.message;
+                    this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
                 }
                 this._msToasterService.toastData(this.toast);
             }, () => {
-                this.loading = false;
-                // this.loginForm.enable();
                 this._router.navigate(['/home']);
-                // this.toast = { type: "success", title: "Logged_In", body: "U loguat me sukses." };
-                // this._msToasterService.toastData(this.toast);
+                this.toast = { type: "success", title: "Mirësererdhe " + kredencialet.username, body: "" };
+                this._msToasterService.toastData(this.toast);
             });
         }
     }

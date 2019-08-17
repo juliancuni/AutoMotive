@@ -53,6 +53,7 @@ import { RoleApi } from './services/custom/Role';
 import { EmailApi } from './services/custom/Email';
 import { AmUserApi } from './services/custom/AmUser';
 import { OrgApi } from './services/custom/Org';
+import { ClientApi } from './services/custom/Client';
 /**
 * @module SDKBrowserModule
 * @description
@@ -88,6 +89,7 @@ export class SDKBrowserModule {
         EmailApi,
         AmUserApi,
         OrgApi,
+        ClientApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

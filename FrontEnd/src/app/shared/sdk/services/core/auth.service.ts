@@ -21,7 +21,7 @@ export class LoopBackAuth {
   /**
    * @type {string}
    **/
-  protected prefix: string = '$MSA$';
+  protected prefix: string = '$LoopBackSDK$';
   /**
    * @method constructor
    * @param {InternalStorage} storage Internal Storage Driver

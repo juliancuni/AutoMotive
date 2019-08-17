@@ -2,8 +2,16 @@
 
 module.exports = function (Amuser) {
 
-    // const senderAddress = 'noreply@microservices.al';
     const app = require('../../server/server');
+
+    Amuser.beforeRemote('create', function (context, empty, next) {
+        if (context.args.data.password.length < 6) {
+            return next({ statusCode: 422, code: "FJALEKALIMI_SHKURTER", name: "ValidationError", message: "Fjalëkalimi i shkurtër. Duhet 6 karaktere" });
+        }
+        Amuser.validatesUniquenessOf('email', { code: "EMAIL_UNIQUE", message: 'Ky email është regjistruar më parë' });
+        Amuser.validatesUniquenessOf('username', { code: "USERNAME_UNIQUE", message: 'Ky përdorues është regjistruar më parë' });
+        next();
+    })
 
     //Para se te konfirmoje useri, kontrollo nese ka bere konfirmim me pare duke kerkuar verificationToken ne user object.
     //Nese ska bere konfirmim vazhdo, nese jo redirect to client app tokenExpired. 

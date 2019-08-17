@@ -1,13 +1,12 @@
 /* tslint:disable */
 
 declare var Object: any;
-export interface AmUserInterface {
+export interface ClientInterface {
   "emer": string;
   "mbiemer": string;
   "email": string;
   "telefon"?: string;
   "datelindja"?: Date;
-  "avatar": string;
   "enabled": boolean;
   "realm"?: string;
   "username"?: string;
@@ -17,13 +16,12 @@ export interface AmUserInterface {
   accessTokens?: any[];
 }
 
-export class AmUser implements AmUserInterface {
+export class Client implements ClientInterface {
   "emer": string;
   "mbiemer": string;
   "email": string;
   "telefon": string;
   "datelindja": Date;
-  "avatar": string;
   "enabled": boolean;
   "realm": string;
   "username": string;
@@ -31,24 +29,24 @@ export class AmUser implements AmUserInterface {
   "id": any;
   "password": string;
   accessTokens: any[];
-  constructor(data?: AmUserInterface) {
+  constructor(data?: ClientInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `AmUser`.
+   * i.e. `Client`.
    */
   public static getModelName() {
-    return "AmUser";
+    return "Client";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of AmUser for dynamic purposes.
+  * This method creates an instance of Client for dynamic purposes.
   **/
-  public static factory(data: AmUserInterface): AmUser{
-    return new AmUser(data);
+  public static factory(data: ClientInterface): Client{
+    return new Client(data);
   }
   /**
   * @method getModelDefinition
@@ -59,9 +57,9 @@ export class AmUser implements AmUserInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'AmUser',
-      plural: 'AmUsers',
-      path: 'AmUsers',
+      name: 'Client',
+      plural: 'Clients',
+      path: 'Clients',
       idName: 'id',
       properties: {
         "emer": {
@@ -83,11 +81,6 @@ export class AmUser implements AmUserInterface {
         "datelindja": {
           name: 'datelindja',
           type: 'Date'
-        },
-        "avatar": {
-          name: 'avatar',
-          type: 'string',
-          default: 'assets/img/no-pic.png'
         },
         "enabled": {
           name: 'enabled',
