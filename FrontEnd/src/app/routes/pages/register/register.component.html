@@ -4,9 +4,7 @@
         <div class="card card-flat">
             <div class="card-header text-center">
                 <a [routerLink]="'/'">
-                    <img class="block-center rounded" src="assets/img/LogoGGaugeVetemKuq.svg" alt="Image" width="70"
-                        title="{{settings.getAppSetting('description')}}" /><span style="color: #4D4D4D">
-                        {{settings.getAppSetting('name')}}</span>
+                    <img class="block-center rounded" src="assets/img/LogoGGaugeVetemKuq.svg" alt="Image" width="70" title="{{org?.slogan}}"/><span style="color: #4D4D4D"> {{org?.orgname}}</span>
                 </a>
             </div>
             <div class="card-body">
@@ -150,9 +148,9 @@
             <span>&copy;</span>
             <span>{{ settings.getAppSetting('year') }}</span>
             <span class="mx-2">-</span>
-            <span>{{ settings.getAppSetting('name') }}</span>
+            <span>{{ org?.orgname }}</span>
             <br />
-            <span>{{ settings.getAppSetting('description') }}</span>
+            <span>{{ org?.slogan }}</span>
         </div>
     </div>
 </div>

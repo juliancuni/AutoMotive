@@ -3,16 +3,22 @@
 module.exports = function (Amuser) {
 
     const app = require('../../server/server');
+    const loopback = require("loopback");
+    var path = require('path');
 
+    //Disa validation me mesazhe te percaktuara.
+    //<TODO> duhen rishikuar. Nuk jane standard.
     Amuser.beforeRemote('create', function (context, empty, next) {
         if (context.args.data.password.length < 6) {
-            return next({ statusCode: 422, code: "FJALEKALIMI_SHKURTER", name: "ValidationError", message: "Fjalëkalimi i shkurtër. Duhet 6 karaktere" });
+            let error = new Error("Fjalëkalimi i shkurtër. Duhet 6 karaktere")
+            error.statusCode = 422;
+            error.code = "FJALEKALIMI_SHKURTER";
+            return next(error);
         }
         Amuser.validatesUniquenessOf('email', { code: "EMAIL_UNIQUE", message: 'Ky email është regjistruar më parë' });
         Amuser.validatesUniquenessOf('username', { code: "USERNAME_UNIQUE", message: 'Ky përdorues është regjistruar më parë' });
         next();
     })
-
     //Para se te konfirmoje useri, kontrollo nese ka bere konfirmim me pare duke kerkuar verificationToken ne user object.
     //Nese ska bere konfirmim vazhdo, nese jo redirect to client app tokenExpired. 
     Amuser.beforeRemote('confirm', function (context, empty, next) {
@@ -32,11 +38,22 @@ module.exports = function (Amuser) {
             }
         })
     })
+    //Para se te resetoje pass validate password;
+    Amuser.beforeRemote('setPassword', function(context, empty, next) {
+        let newPass = context.args.newPassword;
+        if (newPass.length < 6) {
+            let error = new Error("Fjalëkalimi i shkurtër. Duhet 6 karaktere")
+            error.statusCode = 422;
+            error.code = "FJALEKALIMI_SHKURTER";
+            return next(error);
+            // return next(new Error = { statusCode: 422, code: "FJALEKALIMI_SHKURTER", name: "ValidationError", message: "Fjalëkalimi i shkurtër. Duhet 6 karaktere" });
+        }
+        next();
+    })
     //Pasi user eshte regjistruar dergo email per konfirmim
     Amuser.afterRemote('create', function (context, user, next) {
         const orgs = app.models.org;
-        orgs.findOne({}, function (err, org) {
-            if (err) console.log(err)
+        gjejOrg().then(function (org) {
             var options = {
                 type: 'email',
                 to: user.email,
@@ -44,6 +61,7 @@ module.exports = function (Amuser) {
                 subject: 'Verifikim ' + org.orgname,
                 headers: { 'Mime-Version': '1.0' },
                 template: './templates/verify.ejs',
+                //TODO verification link
                 redirect: org.domain + '/verifikim/?uid=' + user.id,
                 user: user,
                 org: org,
@@ -73,6 +91,8 @@ module.exports = function (Amuser) {
                     })
                 })
             }
+        }).catch(function (err) {
+            next(err);
         })
         next();
     });
@@ -113,4 +133,36 @@ module.exports = function (Amuser) {
             }
         });
     });
+    //Reset Password. Dergo link dhe token per reset.
+    Amuser.on('resetPasswordRequest', function (info) {
+        gjejOrg().then(function (org) {
+            let data = {
+                org: org,
+                user: info.user,
+                url: (process.env == "production") ? "https://" + org.domain + "/reset?access_token=" + info.accessToken.id : "http://localhost:4200/reset?access_token=" + info.accessToken.id,
+            }
+            var renderer = loopback.template(path.resolve(__dirname, '../../templates/resetpass.ejs'));
+            var html = renderer(data);
+            Amuser.app.models.Email.send({
+                to: info.email,
+                from: "noreply@" + org.domain,
+                subject: org.orgname + " - Reset Fjalëkalimin",
+                html: html,
+                user: info.user
+            })
+        }).catch(function (err) {
+            console.log(err);
+        })
+    })
+    //GjejOrg synchronously. 
+    function gjejOrg() {
+        return new Promise(function (resolve, reject) {
+            const orgs = app.models.org;
+            orgs.findOne({}, function (err, org) {
+                if (err) reject(err)
+                resolve(org)
+            })
+
+        })
+    }
 };

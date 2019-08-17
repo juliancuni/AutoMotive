@@ -12,6 +12,9 @@
     },
     "domain": {
       "type": "string"
+    },
+    "slogan": {
+      "type": "string"
     }
   },
   "validations": [],

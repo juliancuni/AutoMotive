@@ -4,12 +4,14 @@ declare var Object: any;
 export interface OrgInterface {
   "orgname"?: string;
   "domain"?: string;
+  "slogan"?: string;
   "id"?: any;
 }
 
 export class Org implements OrgInterface {
   "orgname": string;
   "domain": string;
+  "slogan": string;
   "id": any;
   constructor(data?: OrgInterface) {
     Object.assign(this, data);
@@ -50,6 +52,10 @@ export class Org implements OrgInterface {
         },
         "domain": {
           name: 'domain',
+          type: 'string'
+        },
+        "slogan": {
+          name: 'slogan',
           type: 'string'
         },
         "id": {

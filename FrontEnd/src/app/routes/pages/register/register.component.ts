@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SettingsService } from '../../../core/settings/settings.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
-import { AmUserApi, AmUser } from 'src/app/shared/sdk';
+import { AmUserApi, AmUser, OrgApi, Org } from '../../../shared/sdk';
+
 import { MsToasterService } from '../../../shared/services/mstoaster.service';
 import { ToastModel } from '../../../shared/msInterfaces/interfaces';
+
+const swal = require('sweetalert');
+
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
@@ -20,12 +24,14 @@ export class RegisterComponent implements OnInit {
     private passowrdError: boolean = false;
     private usernameError: boolean = false;
     private error: {};
+    private org: Org;
     constructor(
         public settings: SettingsService,
         fb: FormBuilder,
         private _amUser: AmUserApi,
         private _router: Router,
         private _msToasterService: MsToasterService,
+        private _org: OrgApi
     ) {
         this.registerForm = fb.group({
             'emer': [null, Validators.required],
@@ -79,7 +85,23 @@ export class RegisterComponent implements OnInit {
             }, () => {
                 this.loading = false;
                 this.registerForm.enable();
-                this._router.navigate(['/verify']);
+                swal({
+                    title: 'LLOGARIA U KRIJUA ME SUKSES!',
+                    text: 'Hapni e-mail-in dhe ndiqni udhëzimet aty.',
+                    icon: 'success',
+                    buttons: {
+                        cancel: false,
+                        confirm: {
+                            text: 'Mbyll',
+                            value: true,
+                            visible: true,
+                            className: "bg-success",
+                            closeModal: true
+                        }
+                    }
+                }).then(() => {
+                    this._router.navigate(['/login']);
+                });
             });
         }
     }
@@ -98,6 +120,18 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
+        let userlocalStorage = localStorage.getItem("OrgData");
+        if (userlocalStorage) {
+            this.org = JSON.parse(userlocalStorage);
+        } else {
+            this._org.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Org) => {
+                this.org = res;
+            }, (err) => {
+                console.log(err);
+            }, () => {
+                localStorage.setItem("OrgData", JSON.stringify(this.org))
+            })
+        }
     }
 
 }

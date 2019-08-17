@@ -6,7 +6,7 @@ import { SettingsService } from '../../core/settings/settings.service';
 import { MenuService } from '../../core/menu/menu.service';
 
 import { Router } from '@angular/router';
-import { AmUserApi } from '../../shared/sdk/services/custom';
+import { AmUserApi, AmUser, Org } from 'src/app/shared/sdk';
 
 @Component({
     selector: 'app-header',
@@ -17,7 +17,8 @@ export class HeaderComponent implements OnInit {
 
     navCollapsed = true; // for horizontal layout
     menuItems = []; // for horizontal layout
-
+    // user: AmUser;
+    org: Org;
     isNavSearchVisible: boolean;
     @ViewChild('fsbutton', { static: true }) fsbutton;  // the fullscreen button
 
@@ -25,16 +26,16 @@ export class HeaderComponent implements OnInit {
         public menu: MenuService, 
         public userblockService: UserblockService, 
         public settings: SettingsService,
-        private _perdorues: AmUserApi,
+        private _amUser: AmUserApi,
         private _router: Router,
         ) {
 
         // show only a few items on demo
         this.menuItems = menu.getMenu().slice(0, 4); // for horizontal layout
-
     }
 
     ngOnInit() {
+        this.org = JSON.parse(localStorage.getItem("OrgData"));
         this.isNavSearchVisible = false;
 
         var ua = window.navigator.userAgent;
@@ -92,7 +93,9 @@ export class HeaderComponent implements OnInit {
         this.postLogOut();
     }
     postLogOut(): void {
-        this._perdorues.logout().subscribe();
+        localStorage.removeItem("UserPersonalData");
+        localStorage.removeItem("OrgData");
+        this._amUser.logout().subscribe();
         this._router.navigate(['/login']);
     }
 }

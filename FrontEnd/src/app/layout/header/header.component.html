@@ -4,7 +4,7 @@
     <div class="navbar-header">
         <a class="navbar-brand" [routerLink]="'/home'">
             <div class="brand-logo">
-                <img class="img-fluid" src="assets/img/LogoGGaugeVetemKuq.svg" alt="App Logo" style="width: 40px; margin: 0%; padding: 0%"/> <span style="color: aliceblue"> {{settings.getAppSetting('name')}}</span>
+                <img class="img-fluid" src="assets/img/LogoGGaugeVetemKuq.svg" alt="App Logo" style="width: 40px; margin: 0%; padding: 0%"/> <span style="color: aliceblue"> {{org.orgname}}</span>
             </div>
             <div class="brand-logo-collapsed">
                 <img class="img-fluid" src="assets/img/LogoGGaugeVetemKuq.svg" alt="App Logo" style="width: 50px" />
@@ -33,11 +33,11 @@
         </li>
         <!-- END User avatar toggle-->
         <!-- START lock screen-->
-        <li class="nav-item d-none d-md-block">
+        <!-- <li class="nav-item d-none d-md-block">
             <a class="nav-link"  title="Lock screen" [routerLink]="'/lock'">
                 <em class="icon-lock"></em>
             </a>
-        </li>
+        </li> -->
         <!-- END lock screen-->
         <!-- START Logout -->
         <li class="nav-item">
@@ -52,11 +52,11 @@
     <!-- START Right Navbar-->
     <ul class="navbar-nav flex-row">
         <!-- Search icon-->
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" (click)="openNavSearch($event)">
                 <em class="icon-magnifier"></em>
             </a>
-        </li>
+        </li> -->
         <!-- Fullscreen (only desktops)-->
         <li class="nav-item d-none d-md-block">
             <a class="nav-link" #fsbutton (click)="toggleFullScreen($event)">

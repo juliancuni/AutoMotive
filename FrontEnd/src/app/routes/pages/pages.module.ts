@@ -5,9 +5,9 @@ import { LoginComponent } from './login/login.component';
 import { Error404Component } from './error404/error404.component';
 import { RegisterComponent } from './register/register.component';
 import { RecoverComponent } from './recover/recover.component';
+import { ResetComponent } from './reset/reset.component';
 import { TermsComponent } from './terms/terms.component';
 import { SharedModule } from '../../shared/shared.module';
-import { VerifyComponent } from './verify/verify.component';
 
 import { UnauthGuard } from '../../auth/guards/unauth.guard';
 
@@ -16,14 +16,14 @@ const routes: Routes = [
   { path: '', redirectTo: 'ndertim', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [UnauthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [UnauthGuard] },
-  { path: 'verify', component: VerifyComponent, canActivate: [UnauthGuard] },
   { path: 'recover', component: RecoverComponent, canActivate: [UnauthGuard] },
+  { path: 'reset', component: ResetComponent, canActivate: [UnauthGuard] },
   { path: 'terms', component: TermsComponent },
   { path: '404', component: Error404Component },
 ];
 
 @NgModule({
-  declarations: [LoginComponent, Error404Component, RegisterComponent, RecoverComponent, TermsComponent, VerifyComponent],
+  declarations: [LoginComponent, Error404Component, RegisterComponent, RecoverComponent, TermsComponent, ResetComponent],
   imports: [
     CommonModule,
     SharedModule,

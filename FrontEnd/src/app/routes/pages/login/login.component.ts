@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // import { CustomValidators } from 'ng2-validation';
 
 import { Router } from '@angular/router';
-import { AmUserApi } from '../../../shared/sdk/services/custom';
+import { AmUserApi, OrgApi, Org } from '../../../shared/sdk';
 import { MsToasterService } from '../../../shared/services/mstoaster.service';
 import { ToastModel } from '../../../shared/msInterfaces/interfaces';
 
@@ -20,13 +20,15 @@ export class LoginComponent implements OnInit {
     perdoruesResponseErr: boolean = false;
     fjaleKalimiResponseErr: boolean = false;
     loading: boolean = false;
+    org: Org;
     private toast: ToastModel;
     constructor(
         public settings: SettingsService,
         fb: FormBuilder,
         private _router: Router,
-        private _perdorues: AmUserApi,
+        private _amUser: AmUserApi,
         private _msToasterService: MsToasterService,
+        private _org: OrgApi
     ) {
         this.loginForm = fb.group({
             'username': [null, [Validators.required]],
@@ -47,8 +49,9 @@ export class LoginComponent implements OnInit {
             this.errorLoginTxt = "";
             this.perdoruesResponseErr = false;
             this.fjaleKalimiResponseErr = false;
-            this._perdorues.login(kredencialet, "", value.remebmerMe).subscribe(() => {
+            this._amUser.login(kredencialet, "", value.remebmerMe).subscribe(() => {
             }, (err) => {
+                console.log(err);
                 this.loading = false;
                 this.loginForm.enable();
                 this.errorLoginTxt = null;
@@ -90,6 +93,17 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
+        let userlocalStorage = localStorage.getItem("OrgData");
+        if (userlocalStorage) {
+            this.org = JSON.parse(userlocalStorage);
+        } else {
+            this._org.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Org) => {
+                this.org = res;
+            }, (err) => {
+                console.log(err);
+            }, () => {
+                localStorage.setItem("OrgData", JSON.stringify(this.org))
+            })
+        }
     }
-
 }

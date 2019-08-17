@@ -1,41 +1,54 @@
 <div class="wrapper">
-  <div class="block-center mt-4 wd-xl">
-      <!-- START card-->
-      <div class="card card-flat">
-        <div class="card-header text-center">
-            <a [routerLink]="'/'">
-                <img class="block-center rounded" src="assets/img/LogoGGaugeVetemKuq.svg" alt="Image" width="70" title="{{settings.getAppSetting('description')}}"/><span style="color: #4D4D4D"> {{settings.getAppSetting('name')}}</span>
-            </a>
+    <div class="block-center mt-4 wd-xl">
+        <!-- START card-->
+        <div class="card card-flat">
+            <div class="card-header text-center">
+                <a [routerLink]="'/'">
+                    <img class="block-center rounded" src="assets/img/LogoGGaugeVetemKuq.svg" alt="Image" width="70"
+                        title="{{org?.slogan}}" /><span style="color: #4D4D4D"> {{org?.orgname}}</span>
+                </a>
+            </div>
+            <div class="card-body">
+                <p class="text-center py-2">DËRGO TË DHËNAT ME E-MAIL</p>
+                <form [formGroup]="recoveryForm" class="form-validate" role="form" name="recoverForm" novalidate=""
+                    (submit)="submitForm($event, recoveryForm.value)">
+                    <p class="text-center">Nëse keni harruar të dhënat e hyrjes në aplikimin tonë, ju lutemi shkruani adresën e saktë të
+                        e-mail-it tuaj, me të
+                        cilën jeni regjistruar.</p>
+                    <div class="form-group">
+                        <!-- <label class="text-muted">Email</label> -->
+                        <div class="input-group with-focus">
+                            <input class="form-control border-right-0" type="email" name="email"
+                                placeholder="Shkruaj e-mail-in e saktë" autocomplete="off" formControlName="email" />
+                            <div class="input-group-append">
+                                <span class="input-group-text text-muted bg-transparent border-left-0">
+                                    <em class="fa fa-envelope"></em>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="recoveryForm.controls['email'].hasError('required') && (recoveryForm.controls['email'].dirty || recoveryForm.controls['email'].touched)">
+                            E-mail s'mund të lihet bosh.</div>
+                        <div class="text-danger"
+                            *ngIf="recoveryForm.controls['email'].hasError('email') && (recoveryForm.controls['email'].dirty || recoveryForm.controls['email'].touched)">
+                            E-mail format i gabuar.</div>
+                        <div class="text-danger" *ngIf="emailError">{{error.message}}</div>
+                    </div>
+                    <button class="btn btn-danger btn-block" type="submit"
+                        [disabled]="loading || !recoveryForm.valid">Reset</button>
+                </form>
+                <p class="pt-3 text-center">Gjendeni gabimisht këtu?</p>
+                <a class="btn btn-block btn-secondary" [routerLink]="'/login'">Shko tek Login</a>
+            </div>
         </div>
-          <div class="card-body">
-              <p class="text-center py-2">PASSWORD RESET</p>
-              <form [formGroup]="valForm" class="form-validate" role="form" name="recoverForm" novalidate="" (submit)="submitForm($event, valForm.value)">
-                  <p class="text-center">Fill with your mail to receive instructions on how to reset your password.</p>
-                  <div class="form-group">
-                      <label class="text-muted">Email address</label>
-                      <div class="input-group with-focus">
-                          <input class="form-control border-right-0" type="email" name="email" placeholder="Enter email" autocomplete="off" formControlName="email" />
-                          <div class="input-group-append">
-                              <span class="input-group-text text-muted bg-transparent border-left-0">
-                                  <em class="fa fa-envelope"></em>
-                              </span>
-                          </div>
-                      </div>
-                      <div class="text-danger" *ngIf="valForm.controls['email'].hasError('required') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field is required</div>
-                      <div class="text-danger" *ngIf="valForm.controls['email'].hasError('email') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field must be a valid email address</div>
-                  </div>
-                  <button class="btn btn-danger btn-block" type="submit">Reset</button>
-              </form>
-          </div>
-      </div>
-      <!-- END card-->
-      <div class="p-3 text-center">
-          <span>&copy;</span>
-          <span>{{ settings.getAppSetting('year') }}</span>
-          <span class="mx-2">-</span>
-          <span>{{ settings.getAppSetting('name') }}</span>
-          <br/>
-          <span>{{ settings.getAppSetting('description') }}</span>
-      </div>
-  </div>
+        <!-- END card-->
+        <div class="p-3 text-center">
+            <span>&copy;</span>
+            <span>{{ settings.getAppSetting('year') }}</span>
+            <span class="mx-2">-</span>
+            <span>{{ org?.orgname }}</span>
+            <br />
+            <span>{{ org?.slogan }}</span>
+        </div>
+    </div>
 </div>
