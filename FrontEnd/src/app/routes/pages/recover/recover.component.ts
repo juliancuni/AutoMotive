@@ -46,10 +46,15 @@ export class RecoverComponent implements OnInit {
                     this.emailError = true;
                     this.error = { message: "Ky e-mail nuk është i regjistruar" }
                 }
+                if (err.code == "RESET_FAILED_EMAIL_NOT_VERIFIED") {
+                    swal("EMAIL_PROBLEM!", "Ky e-mail nuk është verifikuar. \nKontrolloni në adresën tuaj për e-mailin tonë të verifikimit.", "warning");
+                    this.emailError = true;
+                    this.error = { message: "Ky e-mail nuk është verifikuar" }
+                }
             }, () => {
                 swal({
                     title: 'OK!',
-                    text: 'Hapni e-mail-in dhe ndiqni udhëzimet aty.',
+                    text: 'Hapni e-mail-in dhe ndiqni udhëzimet aty.\n*Info: Nese e-mail ynë nuk shfaqet në INBOX, kontrolloni në SPAM.',
                     icon: 'success',
                     buttons: {
                         cancel: false,

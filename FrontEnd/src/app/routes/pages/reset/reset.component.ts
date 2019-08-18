@@ -122,21 +122,19 @@ export class ResetComponent implements OnInit {
       } else {
         this._router.navigate(['/login']);
       }
-
-      let userlocalStorage = localStorage.getItem("OrgData");
-      if (userlocalStorage) {
-        this.org = JSON.parse(userlocalStorage);
-      } else {
-        this._org.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Org) => {
-          this.org = res;
-        }, (err) => {
-          console.log(err);
-        }, () => {
-          localStorage.setItem("OrgData", JSON.stringify(this.org))
-        })
-      }
-
     });
+    let userlocalStorage = localStorage.getItem("OrgData");
+    if (userlocalStorage) {
+      this.org = JSON.parse(userlocalStorage);
+    } else {
+      this._org.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Org) => {
+        this.org = res;
+      }, (err) => {
+        console.log(err);
+      }, () => {
+        localStorage.setItem("OrgData", JSON.stringify(this.org))
+      })
+    }
   }
 
 }

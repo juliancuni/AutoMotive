@@ -3,10 +3,11 @@ import { SettingsService } from '../../../core/settings/settings.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // import { CustomValidators } from 'ng2-validation';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AmUserApi, OrgApi, Org } from '../../../shared/sdk';
 import { MsToasterService } from '../../../shared/services/mstoaster.service';
 import { ToastModel } from '../../../shared/msInterfaces/interfaces';
+const swal = require('sweetalert');
 
 @Component({
     selector: 'app-login',
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
         private _router: Router,
         private _amUser: AmUserApi,
         private _msToasterService: MsToasterService,
-        private _org: OrgApi
+        private _org: OrgApi,
+        private _route: ActivatedRoute
     ) {
         this.loginForm = fb.group({
             'username': [null, [Validators.required]],
@@ -105,5 +107,13 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem("OrgData", JSON.stringify(this.org))
             })
         }
+        this._route.queryParams.subscribe((params: any) => {
+            if (params.uid) {
+                swal("Shumë mire!", "Verifikimi u krye! Tani mund te logoheni.", "success");
+            }
+            if (params.expired) {
+                swal("Linku ka skaduar!", "Kjo llogari është verifikuar më parë. \nProvoni të logoheni me të dhënat personale", "warning");
+            }
+        });
     }
 }

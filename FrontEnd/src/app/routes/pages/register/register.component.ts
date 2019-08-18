@@ -87,7 +87,7 @@ export class RegisterComponent implements OnInit {
                 this.registerForm.enable();
                 swal({
                     title: 'LLOGARIA U KRIJUA ME SUKSES!',
-                    text: 'Hapni e-mail-in dhe ndiqni udhëzimet aty.',
+                    text: 'Hapni e-mail-in dhe ndiqni udhëzimet aty.\n*Info: Nese e-mail ynë nuk shfaqet në INBOX, kontrolloni në SPAM.',
                     icon: 'success',
                     buttons: {
                         cancel: false,

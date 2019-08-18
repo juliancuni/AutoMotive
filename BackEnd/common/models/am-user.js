@@ -5,7 +5,7 @@ module.exports = function (Amuser) {
     const app = require('../../server/server');
     const loopback = require("loopback");
     var path = require('path');
-
+    const config = require('../../server/config.json');
     //Disa validation me mesazhe te percaktuara.
     //<TODO> duhen rishikuar. Nuk jane standard.
     Amuser.beforeRemote('create', function (context, empty, next) {
@@ -32,14 +32,14 @@ module.exports = function (Amuser) {
                 const orgs = app.models.org;
                 orgs.findOne({}, function (err, org) {
                     if (err) console.log(err)
-                    res.redirect('https://' + org.domain + '/tokenExpired');
+                    res.redirect((process.env.NODE_ENV == "production") ? 'https://' + org.domain + '/login?expired=true' : 'http://localhost:4200/login?expired=true');
                 })
 
             }
         })
     })
     //Para se te resetoje pass validate password;
-    Amuser.beforeRemote('setPassword', function(context, empty, next) {
+    Amuser.beforeRemote('setPassword', function (context, empty, next) {
         let newPass = context.args.newPassword;
         if (newPass.length < 6) {
             let error = new Error("Fjalëkalimi i shkurtër. Duhet 6 karaktere")
@@ -54,6 +54,8 @@ module.exports = function (Amuser) {
     Amuser.afterRemote('create', function (context, user, next) {
         const orgs = app.models.org;
         gjejOrg().then(function (org) {
+            const orgDomain = org.domain.split(":")[0];
+            
             var options = {
                 type: 'email',
                 to: user.email,
@@ -62,12 +64,12 @@ module.exports = function (Amuser) {
                 headers: { 'Mime-Version': '1.0' },
                 template: './templates/verify.ejs',
                 //TODO verification link
-                redirect: org.domain + '/verifikim/?uid=' + user.id,
+                redirect: (process.env.NODE_ENV == "production") ? org.domain + "/login/?uid=" + user.id : "http://localhost:4200/login/?uid=" + user.id,
                 user: user,
                 org: org,
-                host: org.domain,
-                protocol: 'https',
-                port: 443
+                host: (process.env.NODE_ENV == "production") ? org.domain : orgDomain,
+                protocol: (process.env.NODE_ENV == "production") ? 'https' : 'http',
+                port: (process.env.NODE_ENV == "production") ? 443 : null,
             };
 
             user.verify(options, function (err, response) {
@@ -139,7 +141,7 @@ module.exports = function (Amuser) {
             let data = {
                 org: org,
                 user: info.user,
-                url: (process.env == "production") ? "https://" + org.domain + "/reset?access_token=" + info.accessToken.id : "http://localhost:4200/reset?access_token=" + info.accessToken.id,
+                url: (process.env.NODE_ENV == "production") ? "https://" + org.domain + "/reset?access_token=" + info.accessToken.id : "http://localhost:4200/reset?access_token=" + info.accessToken.id,
             }
             var renderer = loopback.template(path.resolve(__dirname, '../../templates/resetpass.ejs'));
             var html = renderer(data);
