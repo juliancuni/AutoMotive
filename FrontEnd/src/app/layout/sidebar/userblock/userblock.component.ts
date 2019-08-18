@@ -26,7 +26,7 @@ export class UserblockComponent implements OnInit {
             }, (err) => {
                 console.log(err);
             }, () => {
-                localStorage.setItem("OrgData", JSON.stringify(this.user))
+                localStorage.setItem("UserPersonalData", JSON.stringify(this.user))
             })
         }
 
