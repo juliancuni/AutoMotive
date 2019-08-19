@@ -8,8 +8,8 @@ export interface AmUserInterface {
   "telefon"?: string;
   "datelindja"?: Date;
   "avatar": string;
-  "adresa": string;
   "enabled": boolean;
+  "adresa"?: string;
   "realm"?: string;
   "username"?: string;
   "emailVerified"?: boolean;
@@ -25,8 +25,8 @@ export class AmUser implements AmUserInterface {
   "telefon": string;
   "datelindja": Date;
   "avatar": string;
-  "adresa": string;
   "enabled": boolean;
+  "adresa": string;
   "realm": string;
   "username": string;
   "emailVerified": boolean;
@@ -95,6 +95,10 @@ export class AmUser implements AmUserInterface {
           name: 'enabled',
           type: 'boolean',
           default: true
+        },
+        "adresa": {
+          name: 'adresa',
+          type: 'string'
         },
         "realm": {
           name: 'realm',
