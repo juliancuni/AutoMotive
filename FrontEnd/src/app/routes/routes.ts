@@ -8,7 +8,8 @@ export const routes = [
         component: LayoutComponent,
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', loadChildren: './home/home.module#HomeModule', canActivate: [AuthGuard] }
+            { path: 'home', loadChildren: './home/home.module#HomeModule', canActivate: [AuthGuard] },
+            { path: 'personal', loadChildren: './personal/personal.module#PersonalModule', canActivate: [AuthGuard] }
         ]
     },
 

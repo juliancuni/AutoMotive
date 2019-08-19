@@ -8,6 +8,7 @@ export interface AmUserInterface {
   "telefon"?: string;
   "datelindja"?: Date;
   "avatar": string;
+  "adresa": string;
   "enabled": boolean;
   "realm"?: string;
   "username"?: string;
@@ -24,6 +25,7 @@ export class AmUser implements AmUserInterface {
   "telefon": string;
   "datelindja": Date;
   "avatar": string;
+  "adresa": string;
   "enabled": boolean;
   "realm": string;
   "username": string;

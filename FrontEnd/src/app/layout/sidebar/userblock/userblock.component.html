@@ -1,14 +1,17 @@
-<div class="item user-block" *ngIf="userBlockIsVisible()">
+<div class="item user-block" *ngIf="userBlockIsVisible()" [routerLink]="'/personal/profile'">
     <!-- User picture-->
     <div class="user-block-picture">
         <div class="user-block-status">
-            <img class="img-thumbnail rounded-circle" [src]="user?.avatar || ''" alt="Avatar" />
+            <img class="img-thumbnail rounded-circle" [src]="user?.avatar || 'assets/img/looking.png'" alt="Avatar" />
             <div class="circle bg-success circle-lg"></div>
         </div>
     </div>
     <!-- Name and Job-->
     <div class="user-block-info">
         <span class="user-block-name">{{ 'sidebar.WELCOME' | translate }} {{user?.emer}} {{user?.mbiemer}}</span>
+        <!-- <span class="user-block-role">
+            <a [routerLink]="'/personal/profile'">Profile</a>
+        </span> -->
         <span class="user-block-role">
             <a href="" (click)="logOut()">Logout</a>
         </span>

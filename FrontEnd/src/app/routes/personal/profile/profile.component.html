@@ -1,0 +1,207 @@
+<div class="row">
+    <div class="col">
+        <div class="card card-default">
+            <div class="card-body text-center">
+                <div class="py-4">
+                    <img class="img-fluid rounded-circle img-thumbnail thumb96"
+                        [src]="user?.avatar || 'assets/img/looking.png'" alt="Contact" />
+                </div>
+                <h3 class="m-0 text-bold">{{user?.emer}} {{ user?.mbiemer}}</h3>
+            </div>
+        </div>
+        <div class="card card-default">
+            <div class="card-header d-flex align-items-center">
+                <div class="d-flex justify-content-center col">
+                    <div class="h4 m-0 text-center">Të dhënat personale</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row py-4 justify-content-center">
+                    <div class="col-12 col-sm-10">
+                        <form class="form-horizontal">
+                            <!-- Emer TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="emer">Emër</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus">
+                                        <input class="form-control" id="emer" type="text" placeholder="Emri juaj"
+                                            [ngModel]="user?.emer" name="emer" [disabled]="!editEmer" />
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="editEmer ? editEmer = false : editEmer = true">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editEmer, 'fa-check' : editEmer}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Emer TB  -->
+                            <!-- Mbimer TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="emer">Mbiemër</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus">
+                                        <input class="form-control" id="mbiemer" type="text" placeholder="Mbiemri juaj"
+                                            [ngModel]="user?.mbiemer" name="mbiemer" [disabled]="!editMbiemer" />
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="editMbiemer ? editMbiemer = false : editMbiemer = true">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editMbiemer, 'fa-check' : editMbiemer}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Mbimer TB  -->
+                            <!-- Ditelindja TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="emer">Ditëlindja</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus">
+                                        <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker
+                                            [bsValue]="" name="dp-basic" [bsConfig]="bsConfig"
+                                            placeholder="Vendos ditëlindjen" [ngModel]="user?.datelindja"
+                                            name="datelindja" [disabled]="!editDitelindja">
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="editDitelindja ? editDitelindja = false : editDitelindja = true">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editDitelindja, 'fa-check' : editDitelindja}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Ditelindja TB  -->
+                            <!-- Perdorues TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="emer">Përdoruesi</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus">
+                                        <input class="form-control" id="perdoruesi" type="text" placeholder="Përdoruesi"
+                                            [ngModel]="user?.username" name="username" [disabled]="!editPerdorues" />
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="editPerdorues ? editPerdorues = false : editPerdorues = true">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editPerdorues, 'fa-check' : editPerdorues}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Perdorues TB  -->
+                            <!-- Email TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="emer">E-Mail</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus">
+                                        <input class="form-control" id="email" type="text" placeholder="E-Mail"
+                                            [ngModel]="user?.email" name="email" [disabled]="!editEmail" />
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="editEmail ? editEmail = false : editEmail = true">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editEmail, 'fa-check' : editEmail}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Email TB  -->
+                            <!-- Telefon TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="emer">Telefon</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus">
+                                        <input class="form-control" id="telefon" type="text" placeholder="Telefon"
+                                            [ngModel]="user?.telefon" name="telefon" [disabled]="!editTelefon" />
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="editTelefon ? editTelefon = false : editTelefon = true">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editTelefon, 'fa-check' : editTelefon}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Telefon TB  -->
+                            <!-- Adresa TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="emer">Adresa</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus">
+                                        <textarea class="form-control" id="adresa" type="text" placeholder="Adresa"
+                                            name="adresa" [disabled]="!editAdresa"></textarea>
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="editAdresa ? editAdresa = false : editAdresa = true">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editAdresa, 'fa-check' : editAdresa}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Adresa TB  -->
+                            <!-- Password TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="emer">{{ editPassword ? "Fjalëkalimi Aktual" : "Fjalëkalimi"}}</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus">
+                                        <input class="form-control" id="password"
+                                            [attr.type]="showNewPass ? 'text' : 'password'"
+                                            placeholder="{{ editPassword ? 'Fjalëkalimi Aktual' : 'Fjalëkalimi'}}"
+                                            [ngModel]="user?.password" name="password" [disabled]="!editPassword" />
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="editPassword ? editPassword = false : editPassword = true">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editPassword, 'fa-check' : editPassword}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row" *ngIf="editPassword">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="emer">Fjalëkalimi i ri</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus">
+                                        <input class="form-control" id="telefon"
+                                            [attr.type]="showNewPass ? 'text' : 'password'"
+                                            placeholder="Fjalëkalimi i ri" name="telefon" />
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="showNewPass ? showNewPass = false : showNewPass = true">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-eye' : !showNewPass, 'fa-eye-slash' : showNewPass}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Password TB  -->
+                            <div class="form-group row">
+                                <div class="col-md-10">
+                                    <button class="btn btn-info" type="submit" disabled="">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
