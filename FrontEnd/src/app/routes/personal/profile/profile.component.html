@@ -18,184 +18,295 @@
             <div class="card-body">
                 <div class="row py-4 justify-content-center">
                     <div class="col-12 col-sm-10">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" [formGroup]="userDataForm" name="userDataForm">
                             <!-- Emer TB -->
                             <div class="form-group row">
                                 <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
                                     for="emer">Emër</label>
                                 <div class="col-xl-10 col-md-9 col-8">
-                                    <div class="input-group with-focus">
+                                    <div class="input-group with-focus input-group-sm">
                                         <input class="form-control" id="emer" type="text" placeholder="Emri juaj"
-                                            [ngModel]="user?.emer" name="emer" [disabled]="!editEmer" />
+                                            formControlName="emer" />
                                         <div class="input-group-append">
-                                            <a class="input-group-text bg-transparent border-left-0"
-                                                (click)="editEmer ? editEmer = false : editEmer = true">
-                                                <em
-                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editEmer, 'fa-check' : editEmer}"></em>
+                                            <a class="input-group-text bg-transparent border-left-0" *ngIf="editEmer"
+                                                (click)="saveField('Emer', userDataForm.controls['emer'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editEmer, 'fa-save' : editEmer}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
                                             </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="enableEdit('Emer')"
+                                                [title]="editEmer ? 'Cancel' : 'Ndrysho Emrin'">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editEmer, 'fa-window-close' : editEmer}"></em>
+                                            </a>
+
                                         </div>
                                     </div>
+                                    <div class="text-danger" *ngIf="userDataForm.controls['emer'].hasError('required')">
+                                        Emri s'mund të lihet bosh.</div>
                                 </div>
                             </div>
                             <!-- End Emer TB  -->
-                            <!-- Mbimer TB -->
+                            <!-- Mbiemer TB -->
                             <div class="form-group row">
                                 <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                    for="emer">Mbiemër</label>
+                                    for="mbiemer">Mbiemër</label>
                                 <div class="col-xl-10 col-md-9 col-8">
-                                    <div class="input-group with-focus">
+                                    <div class="input-group with-focus input-group-sm">
                                         <input class="form-control" id="mbiemer" type="text" placeholder="Mbiemri juaj"
-                                            [ngModel]="user?.mbiemer" name="mbiemer" [disabled]="!editMbiemer" />
+                                            formControlName="mbiemer" />
                                         <div class="input-group-append">
-                                            <a class="input-group-text bg-transparent border-left-0"
-                                                (click)="editMbiemer ? editMbiemer = false : editMbiemer = true">
-                                                <em
-                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editMbiemer, 'fa-check' : editMbiemer}"></em>
+                                            <a class="input-group-text bg-transparent border-left-0" *ngIf="editMbiemer"
+                                                (click)="saveField('Mbiemer', userDataForm.controls['mbiemer'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editMbiemer, 'fa-save' : editMbiemer}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
                                             </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="enableEdit('Mbiemer')"
+                                                [title]="editMbiemer ? 'Cancel' : 'Ndrysho Mbiemrin'">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editMbiemer, 'fa-window-close' : editMbiemer}"></em>
+                                            </a>
+
                                         </div>
                                     </div>
+                                    <div class="text-danger"
+                                        *ngIf="userDataForm.controls['mbiemer'].hasError('required')">
+                                        Mbiemri s'mund të lihet bosh.</div>
                                 </div>
                             </div>
-                            <!-- End Mbimer TB  -->
-                            <!-- Ditelindja TB -->
+                            <!-- End Mbiemer TB  -->
+                            <!-- Username TB -->
                             <div class="form-group row">
                                 <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                    for="emer">Ditëlindja</label>
+                                    for="username">Përdoruesi</label>
                                 <div class="col-xl-10 col-md-9 col-8">
-                                    <div class="input-group with-focus">
-                                        <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker
-                                            [bsValue]="" name="dp-basic" [bsConfig]="bsConfig"
-                                            placeholder="Vendos ditëlindjen" [ngModel]="user?.datelindja"
-                                            name="datelindja" [disabled]="!editDitelindja">
+                                    <div class="input-group with-focus input-group-sm">
+                                        <input class="form-control" id="username" type="text" placeholder="Përdoruesi"
+                                            formControlName="username" />
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0"
-                                                (click)="editDitelindja ? editDitelindja = false : editDitelindja = true">
-                                                <em
-                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editDitelindja, 'fa-check' : editDitelindja}"></em>
+                                                *ngIf="editUsername"
+                                                (click)="saveField('Username', userDataForm.controls['username'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editUsername, 'fa-save' : editUsername}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
                                             </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Ditelindja TB  -->
-                            <!-- Perdorues TB -->
-                            <div class="form-group row">
-                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                    for="emer">Përdoruesi</label>
-                                <div class="col-xl-10 col-md-9 col-8">
-                                    <div class="input-group with-focus">
-                                        <input class="form-control" id="perdoruesi" type="text" placeholder="Përdoruesi"
-                                            [ngModel]="user?.username" name="username" [disabled]="!editPerdorues" />
-                                        <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0"
-                                                (click)="editPerdorues ? editPerdorues = false : editPerdorues = true">
+                                                (click)="enableEdit('Username')"
+                                                [title]="editUsername ? 'Cancel' : 'Ndrysho Emrin e Përdoruesit'">
                                                 <em
-                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editPerdorues, 'fa-check' : editPerdorues}"></em>
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editUsername, 'fa-window-close' : editUsername}"></em>
                                             </a>
+
                                         </div>
                                     </div>
+                                    <div class="text-danger"
+                                        *ngIf="userDataForm.controls['username'].hasError('required')">
+                                        Përdoruesi s'mund të lihet bosh.</div>
                                 </div>
                             </div>
-                            <!-- End Perdorues TB  -->
+                            <!-- End Username TB  -->
                             <!-- Email TB -->
                             <div class="form-group row">
                                 <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                    for="emer">E-Mail</label>
+                                    for="email">E-mail</label>
                                 <div class="col-xl-10 col-md-9 col-8">
-                                    <div class="input-group with-focus">
-                                        <input class="form-control" id="email" type="text" placeholder="E-Mail"
-                                            [ngModel]="user?.email" name="email" [disabled]="!editEmail" />
+                                    <div class="input-group with-focus input-group-sm">
+                                        <input class="form-control" id="email" type="email" placeholder="E-mail"
+                                            formControlName="email" />
                                         <div class="input-group-append">
-                                            <a class="input-group-text bg-transparent border-left-0"
-                                                (click)="editEmail ? editEmail = false : editEmail = true">
-                                                <em
-                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editEmail, 'fa-check' : editEmail}"></em>
+                                            <a class="input-group-text bg-transparent border-left-0" *ngIf="editEmail"
+                                                (click)="saveField('Email', userDataForm.controls['email'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editEmail, 'fa-save' : editEmail}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
                                             </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="enableEdit('Email')"
+                                                [title]="editEmail ? 'Cancel' : 'Ndrysho E-mail'">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editEmail, 'fa-window-close' : editEmail}"></em>
+                                            </a>
+
                                         </div>
                                     </div>
+                                    <div class="text-danger"
+                                        *ngIf="userDataForm.controls['email'].hasError('required')">
+                                        E-mail s'mund të lihet bosh.</div>
+                                    <div class="text-danger" *ngIf="userDataForm.controls['email'].hasError('email')">
+                                        E-mail format i gabuar.</div>
                                 </div>
                             </div>
                             <!-- End Email TB  -->
-                            <!-- Telefon TB -->
-                            <div class="form-group row">
-                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                    for="emer">Telefon</label>
-                                <div class="col-xl-10 col-md-9 col-8">
-                                    <div class="input-group with-focus">
-                                        <input class="form-control" id="telefon" type="text" placeholder="Telefon"
-                                            [ngModel]="user?.telefon" name="telefon" [disabled]="!editTelefon" />
-                                        <div class="input-group-append">
-                                            <a class="input-group-text bg-transparent border-left-0"
-                                                (click)="editTelefon ? editTelefon = false : editTelefon = true">
-                                                <em
-                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editTelefon, 'fa-check' : editTelefon}"></em>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Telefon TB  -->
                             <!-- Adresa TB -->
                             <div class="form-group row">
                                 <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                    for="emer">Adresa</label>
+                                    for="adresa">Adresa</label>
                                 <div class="col-xl-10 col-md-9 col-8">
-                                    <div class="input-group with-focus">
-                                        <textarea class="form-control" id="adresa" type="text" placeholder="Adresa"
-                                            name="adresa" [disabled]="!editAdresa"></textarea>
+                                    <div class="input-group with-focus input-group-sm">
+                                        <input class="form-control" id="adresa" type="adresa" placeholder="Adresa"
+                                            formControlName="adresa" />
                                         <div class="input-group-append">
-                                            <a class="input-group-text bg-transparent border-left-0"
-                                                (click)="editAdresa ? editAdresa = false : editAdresa = true">
-                                                <em
-                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editAdresa, 'fa-check' : editAdresa}"></em>
+                                            <a class="input-group-text bg-transparent border-left-0" *ngIf="editAdresa"
+                                                (click)="saveField('Adresa', userDataForm.controls['adresa'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editAdresa, 'fa-save' : editAdresa}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
                                             </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="enableEdit('Adresa')"
+                                                [title]="editAdresa ? 'Cancel' : 'Ndrysho Adresen'">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editAdresa, 'fa-window-close' : editAdresa}"></em>
+                                            </a>
+
                                         </div>
                                     </div>
+                                    <div class="text-danger"
+                                        *ngIf="userDataForm.controls['adresa'].hasError('required')">
+                                        Adresa s'mund të lihet bosh.</div>
                                 </div>
                             </div>
                             <!-- End Adresa TB  -->
+                            <!-- Datelindja TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="adresa">Datëlindja</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus input-group-sm">
+                                        <input type="text" id="datelindja" class="form-control" #dp="bsDatepicker"
+                                            bsDatepicker [bsValue]="bsValue" name="dp-basic" [bsConfig]="bsConfig"
+                                            formControlName="datelindja">
+                                        <!-- <input class="form-control" id="datelindja" type="datelindja"
+                                            placeholder="Datëlindja" formControlName="datelindja" /> -->
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                *ngIf="editDatelindja"
+                                                (click)="saveField('Datelindja', userDataForm.controls['datelindja'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editDatelindja, 'fa-save' : editDatelindja}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="enableEdit('Datelindja')"
+                                                [title]="editDatelindja ? 'Cancel' : 'Ndrysho Datën e lindjes'">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editDatelindja, 'fa-window-close' : editDatelindja}"></em>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="userDataForm.controls['datelindja'].hasError('required')">
+                                        Datëlindja s'mund të lihet bosh.</div>
+                                </div>
+                            </div>
+                            <!-- End Datelindja TB  -->
                             <!-- Password TB -->
                             <div class="form-group row">
                                 <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                    for="emer">{{ editPassword ? "Fjalëkalimi Aktual" : "Fjalëkalimi"}}</label>
+                                    for="adresa">Fjalëkalimi</label>
                                 <div class="col-xl-10 col-md-9 col-8">
-                                    <div class="input-group with-focus">
+                                    <div class="input-group with-focus input-group-sm">
                                         <input class="form-control" id="password"
-                                            [attr.type]="showNewPass ? 'text' : 'password'"
-                                            placeholder="{{ editPassword ? 'Fjalëkalimi Aktual' : 'Fjalëkalimi'}}"
-                                            [ngModel]="user?.password" name="password" [disabled]="!editPassword" />
+                                            type="{{showOldPass ? 'text' : 'password' }}" placeholder="Fjalëkalimi Aktual"
+                                            formControlName="password" />
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0"
-                                                (click)="editPassword ? editPassword = false : editPassword = true">
+                                                (click)="showOldPass ? showOldPass = false : showOldPass = true"
+                                                *ngIf="editPassword">
                                                 <em
-                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editPassword, 'fa-check' : editPassword}"></em>
+                                                    [ngClass]="{'fa': true, 'fa-eye' : !showOldPass, 'fa-eye-slash' : showOldPass}"></em>
                                             </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                *ngIf="editPassword"
+                                                (click)="saveField('newPass', userDataForm.controls['newpass'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editPassword, 'fa-save' : editPassword}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="enableEdit('Password')"
+                                                [title]="editPassword ? 'Cancel' : 'Ndrysho Fjalëkalimin'">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editPassword, 'fa-window-close' : editPassword}"></em>
+                                            </a>
+
                                         </div>
                                     </div>
+                                    <div class="text-danger"
+                                        *ngIf="userDataForm.controls['password'].hasError('required')">
+                                        Fjalëkalimi Aktual s'mund të lihet bosh.</div>
                                 </div>
                             </div>
+                            <!-- End Password TB  -->
+                            <!-- NewPass TB -->
                             <div class="form-group row" *ngIf="editPassword">
                                 <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                    for="emer">Fjalëkalimi i ri</label>
+                                    for="adresa">Përsërite</label>
                                 <div class="col-xl-10 col-md-9 col-8">
-                                    <div class="input-group with-focus">
-                                        <input class="form-control" id="telefon"
-                                            [attr.type]="showNewPass ? 'text' : 'password'"
-                                            placeholder="Fjalëkalimi i ri" name="telefon" />
+                                    <div class="input-group with-focus input-group-sm">
+                                        <input class="form-control" id="newpass"
+                                            type="{{showNewPass ? 'text' : 'password' }}" placeholder="Fjalëkalimi i ri"
+                                            formControlName="newpass" />
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0"
                                                 (click)="showNewPass ? showNewPass = false : showNewPass = true">
                                                 <em
                                                     [ngClass]="{'fa': true, 'fa-eye' : !showNewPass, 'fa-eye-slash' : showNewPass}"></em>
-                                            </a>
-                                        </div>
+                                            </a></div>
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="userDataForm.controls['newpass'].hasError('required')">
+                                        Fjalëkalimi i ri s'mund të lihet bosh.</div>
+                                    <div class="text-danger"
+                                        *ngIf="userDataForm.controls['newpass'].hasError('minlength')">
+                                        Minimumi 6 Karaktere.
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Password TB  -->
+                            <!-- End NewPass TB  -->
                             <div class="form-group row">
                                 <div class="col-md-10">
-                                    <button class="btn btn-info" type="submit" disabled="">Update</button>
+                                    <button class="btn btn-danger" type="submit" disabled="">Fshi Llogarinë</button>
                                 </div>
                             </div>
                         </form>
