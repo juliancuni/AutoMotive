@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AmUser, AmUserApi } from 'src/app/shared/sdk';
+import { AmUser, AmUserApi, LoopBackAuth } from 'src/app/shared/sdk';
 import { ToastModel } from 'src/app/shared/msInterfaces/interfaces';
 import { MsToasterService } from 'src/app/shared/services/mstoaster.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { Subscription } from 'rxjs/Subscription';
+import { FileUploader } from 'ng2-file-upload';
 
+const URL = 'http://localhost:4000/api/files/upload';
 
 @Component({
     selector: 'app-profile',
@@ -19,20 +21,8 @@ export class ProfileComponent implements OnInit {
     private user: AmUser;
     private loading: boolean = false;
     private toast: ToastModel;
-    private emailError: boolean = false;
-    private passowrdError: boolean = false;
-    private usernameError: boolean = false;
-    private error: {};
 
-    private editEmer: boolean = false;
-    private editMbiemer: boolean = false;
-    private editUsername: boolean = false;
-    private editEmail: boolean = false;
-    private editAdresa: boolean = false;
-    private editTelefon: boolean = false;
-    private editDatelindja: boolean = false;
-    private editPassword: boolean = false;
-
+    public uploader = new FileUploader({ url: URL, allowedMimeType: ['image/png', 'image/gif', 'image/jpeg'] });
     private subscriptions: Subscription[] = new Array<Subscription>();
 
     bsValue = new Date();
@@ -46,9 +36,8 @@ export class ProfileComponent implements OnInit {
         private _amUser: AmUserApi,
         private _msToasterService: MsToasterService,
         private _fb: FormBuilder,
-    ) {
-
-    }
+        private _lbAuth: LoopBackAuth
+    ) { }
 
     submitForm($ev: any, user: AmUser): void {
         // $ev.preventDefault();
@@ -60,51 +49,86 @@ export class ProfileComponent implements OnInit {
 
     enableEdit(field: string): void {
         this["edit" + field] ? this["edit" + field] = false : this["edit" + field] = true;
-        this["edit" + field] ? this.userDataForm.get(field.toLowerCase()).enable() : this.userDataForm.get(field.toLowerCase()).disable();
-        this.userDataForm.get(field.toLowerCase()).reset(this.user[field.toLowerCase()]);
+        this["edit" + field] ? this.userDataForm.get(field).enable() : this.userDataForm.get(field).disable();
+        this.userDataForm.get(field).reset(this.user[field]);
     }
 
     saveField(field: string, value: string) {
-        let key = field.toLowerCase();
-
-        let minErr: boolean = this.userDataForm.controls[key].hasError('minlength');
-        let reqErr: boolean = this.userDataForm.controls[key].hasError('required');
-        console.log(key + " min: " + minErr, key + " req: " + reqErr)
-        if (minErr || reqErr) {
-            this.enableEdit(field);
+        // let minErr: boolean = this.userDataForm.controls[field].hasError('minlength');
+        let reqErr: boolean = this.userDataForm.controls[field].hasError('required');
+        let minErr: boolean = this.userDataForm.controls['newpass'].hasError('minlength');
+        let emailErr: boolean = this.userDataForm.controls[field].hasError('email');
+        if (minErr || reqErr || emailErr) {
+            // this.enableEdit(field);
+            this.loading = false;
         } else {
             this.loading = true
             //Clone Amuser Obj
             let updatedAmUser: AmUser = { ...this.user };
-            updatedAmUser[key] = value;
-            if (key === "newpassword") {
-
-                //Ketu kemi nje problem me fjalekalimet. Rregulloje
-
-                let oldPassword: string = this.userDataForm.get('password').value;
-                let newPassword: string = this.userDataForm.get('newpass').value;
-                this._amUser.changePassword(oldPassword, newPassword).subscribe((res) => {
-                    this.enableEdit(field);
-                    this.loading = false;
-                }, (err) => {
-                    this.enableEdit(field);
-                    this.loading = false;
-                })
-            } else if (this.user[key] === value) {
-                this.enableEdit(field);
+            updatedAmUser[field] = value;
+            if (this.user[field] === value) {
                 this.loading = false;
+                this.enableEdit(field);
             } else {
-                this._amUser.upsertPatch(updatedAmUser).subscribe((res: AmUser) => {
-                    this.user = res;
-                }, (err) => {
-                    this.enableEdit(field);
-                    this.loading = false;
-                }, () => {
-                    this.enableEdit(field);
-                    this.loading = false;
-                    localStorage.setItem("UserPersonalData", JSON.stringify(this.user));
-                })
+                if (field === "password") {
+                    //Ketu kemi nje problem me fjalekalimet. Rregulloje
+                    if (minErr) {
+                        this.loading = false;
+                    } else {
+                        let oldPassword: string = this.userDataForm.get('password').value;
+                        let newPassword: string = this.userDataForm.get('newpass').value;
+                        this._amUser.changePassword(oldPassword, newPassword).subscribe(() => {
+                            this.enableEdit(field);
+                            this.loading = false;
+                            this.toast = { type: "success", title: "Përditësim", body: field + " u përditësua" };
+                            this._msToasterService.toastData(this.toast);
+                        }, (err) => {
+                            // this.enableEdit(field);
+                            if (err.code === "INVALID_PASSWORD") {
+                                this.userDataForm.get(field).setErrors({ invalidPass: true })
+                            }
+                            if (err.statusCode == 500 || err == "Server error") {
+                                this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
+                                this._msToasterService.toastData(this.toast);
+                            }
+                            this.loading = false;
+                        }, () => {
+                        })
+                    }
+                } else {
+                    this._amUser.upsertPatch(updatedAmUser).subscribe((res: AmUser) => {
+                        this.user = res;
+                        this.toast = { type: "success", title: "Përditësim", body: field + " u përditësua" };
+                        this._msToasterService.toastData(this.toast);
+                        console.log("ok - " + field);
+
+                    }, (err) => {
+                        console.log("nok - " + field);
+
+                        if (typeof err.details.codes !== 'undefined' && err.details.codes.username[0] === "uniqueness") {
+                            this.userDataForm.get(field).setErrors({ userNotUnique: true })
+                        } else if (err.statusCode == 500 || err == "Server error") {
+                            this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
+                            this._msToasterService.toastData(this.toast);
+                        }
+                        // this.enableEdit(field);
+                        this.loading = false;
+                    }, () => {
+                        this.enableEdit(field);
+                        this.loading = false;
+                        localStorage.setItem("UserPersonalData", JSON.stringify(this.user));
+                    })
+                }
             }
+        }
+    }
+
+    ndryshoFoto(user: AmUser): void {
+        this.uploader.uploadAll();
+        this.uploader.onCompleteItem = (item, response: any, status, header) => {
+            console.log(response);
+            this.user.avatar = response;
+            this.uploader.clearQueue();
         }
     }
 
@@ -120,9 +144,11 @@ export class ProfileComponent implements OnInit {
             'password': [null, Validators.required],
             'newpass': [null, [Validators.required, Validators.minLength(6)]],
         });
+
         this.subscriptions.push(
             this._amUser.getCurrent().subscribe((res: AmUser) => {
                 this.user = res;
+
                 this.userDataForm.get('emer').disable();
                 this.userDataForm.get('mbiemer').disable();
                 this.userDataForm.get('username').disable();
@@ -139,7 +165,10 @@ export class ProfileComponent implements OnInit {
                 this.userDataForm.get('telefon').setValue(res.telefon)
                 this.userDataForm.get('datelindja').setValue(res.datelindja)
             }, (err) => {
-
+                if (err.statusCode == 500 || err == "Server error") {
+                    this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
+                }
+                this._msToasterService.toastData(this.toast);
             }, () => {
             })
         )

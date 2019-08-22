@@ -32,6 +32,7 @@ import { VectormapDirective } from './directives/vectormap/vectormap.directive';
 import { NowDirective } from './directives/now/now.directive';
 import { ScrollableDirective } from './directives/scrollable/scrollable.directive';
 import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
+import { FileUploadModule } from 'ng2-file-upload';
 
 // https://angular.io/styleguide#!#04-10
 @NgModule({
@@ -57,7 +58,8 @@ import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
         TooltipModule.forRoot(),
         PopoverModule.forRoot(),
         TypeaheadModule.forRoot(),
-        ToasterModule
+        ToasterModule,
+        FileUploadModule
     ],
     providers: [
         ColorsService
@@ -103,7 +105,8 @@ import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
         VectormapDirective,
         NowDirective,
         ScrollableDirective,
-        JqcloudDirective
+        JqcloudDirective,
+        FileUploadModule
     ]
 })
 
