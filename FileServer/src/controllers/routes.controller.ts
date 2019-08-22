@@ -3,6 +3,7 @@ import multer = require('multer');
 import crypto from 'crypto';
 import path from 'path';
 import { UserModel } from '../models/user.model';
+import { OrgModel } from '../models/org.model';
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -24,24 +25,36 @@ export function Routes(app: express.Express) {
         res.send("[Test]")
     })
 
-    app.get('/api/files/:fileName', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    app.get('/api/files/download/:fileName', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+
         var fileName = req.params.fileName;
         res.sendFile(process.env.PWD + "\\Files\\" + fileName);
     })
 
     app.post('/api/files/upload', upload.single('file'), async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        console.log(req.query.orgId);
+        console.log(req.query.userId);
+
         const file = req.file;
         if (!file) {
             const error: Error = new Error('Ju lutem upload nje file');
             res.send(error);
         }
         let fileName = file.filename;
-        let fileLink = "http://localhost:4000/api/files/" + fileName;
+        let fileLink = "http://localhost:4000/api/files/download/" + fileName;
         let userId = req.cookies.$LoopBackSDK$userId;
 
-        await UserModel.findOneAndUpdate(userId , { avatar: fileLink });
-    
-        
+        if (req.query.userId) {
+            await UserModel.findOneAndUpdate(userId, { avatar: fileLink });
+        }
+        if (req.query.orgId) {
+            try {
+                await OrgModel.findOneAndUpdate({}, { logo: fileLink })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
         res.send(fileLink);
     })
 

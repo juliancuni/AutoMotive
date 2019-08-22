@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
             this.fjaleKalimiResponseErr = false;
             this._amUser.login(kredencialet, "", value.remebmerMe).subscribe(() => {
             }, (err) => {
-                console.log(err);
+                // console.log(err);
                 this.loading = false;
                 this.loginForm.enable();
                 this.errorLoginTxt = null;
@@ -65,11 +65,13 @@ export class LoginComponent implements OnInit {
                     this.toast = { type: "warning", title: "Kujdes!", body: "PERDORUES_NUK_EGZISTON" };
                     this.perdoruesResponseErr = true;
                     this.fjaleKalimiResponseErr = false;
+                    document.getElementById("username").focus();
                 }
                 if (err.code == "FJALEKALIMI_GABIM") {
                     this.toast = { type: "warning", title: "Kujdes!", body: "FJALEKALIMI_GABIM" };
                     this.perdoruesResponseErr = false;
                     this.fjaleKalimiResponseErr = true;
+                    document.getElementById("password").focus();
                 }
                 if (err.code == "LLOGARI_INAKTIVE") {
                     this.errorLoginTxt = "Kjo Llogari është pezulluar!"
@@ -95,14 +97,14 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        let userlocalStorage = localStorage.getItem("OrgData");
-        if (userlocalStorage) {
-            this.org = JSON.parse(userlocalStorage);
+        let orglocalStorage = localStorage.getItem("OrgData");
+        if (orglocalStorage) {
+            this.org = JSON.parse(orglocalStorage);
         } else {
             this._org.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Org) => {
                 this.org = res;
             }, (err) => {
-                console.log(err);
+                // console.log(err);
             }, () => {
                 localStorage.setItem("OrgData", JSON.stringify(this.org))
             })

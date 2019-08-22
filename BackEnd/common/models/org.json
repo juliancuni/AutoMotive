@@ -15,6 +15,21 @@
     },
     "slogan": {
       "type": "string"
+    },
+    "logo": {
+      "type": "string"
+    },
+    "adresa": {
+      "type": "string"
+    },
+    "telefon": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "nius": {
+      "type": "string"
     }
   },
   "validations": [],

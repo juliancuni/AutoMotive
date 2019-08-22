@@ -18,8 +18,8 @@ import { RoutesModule } from './routes/routes.module';
 import { SDKBrowserModule } from './shared/sdk/index';
 import { AuthModule } from './auth/auth.module';
 import { MsToasterService } from './shared/services/mstoaster.service';
-// import { KyPerdoruesService } from './shared/services/kyPerdorues.service';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient) {
@@ -38,6 +38,7 @@ export function createTranslateLoader(http: HttpClient) {
         SharedModule.forRoot(),
         RoutesModule,
         AuthModule,
+        LoadingBarRouterModule,
         SDKBrowserModule.forRoot(),
         TranslateModule.forRoot({
             loader: {

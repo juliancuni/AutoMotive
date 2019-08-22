@@ -89,7 +89,7 @@ export class AmUser implements AmUserInterface {
         "avatar": {
           name: 'avatar',
           type: 'string',
-          default: 'assets/img/no-pic.png'
+          default: 'assets/img/usernopic.png'
         },
         "enabled": {
           name: 'enabled',

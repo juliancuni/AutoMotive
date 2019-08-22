@@ -39,7 +39,7 @@ $preloader-hg: 180px;
     height: $preloader-hg;
     margin: auto;
     overflow: auto;
-    background-image: url(../../../assets/img/preloader/LogoGGaugeVetemKuqOp30.svg);
+    // background-image: url(../../../assets/img/preloader/LogoGGaugeVetemKuqOp30.svg);
     background-size: $preloader-wd $preloader-hg;
 }
 
@@ -50,7 +50,7 @@ $preloader-hg: 180px;
     left: 0;
     bottom: 0;
     min-width: 10px;
-    background-image: url(../../../assets/img/preloader/LogoGGaugeVetemKuq.svg);
+    // background-image: url(../../../assets/img/preloader/looking.png);
     background-size: $preloader-wd $preloader-hg;
 }
 .preloader-hidden {

@@ -28,6 +28,8 @@
     "@fortawesome/fontawesome-free": "5.5.0",
     "@ngx-formly/bootstrap": "^5.4.0",
     "@ngx-formly/core": "^5.4.0",
+    "@ngx-loading-bar/core": "^4.2.0",
+    "@ngx-loading-bar/router": "^4.2.0",
     "@ngx-translate/core": "11.0.1",
     "@ngx-translate/http-loader": "4.0.0",
     "@swimlane/ngx-datatable": "15.0.0",
@@ -81,6 +83,7 @@
     "sweetalert": "2.1.2",
     "ts-helpers": "1.1.1",
     "tslib": "1.9.0",
+    "ubuntu-fontface": "^0.1.13",
     "weather-icons": "github:erikflowers/weather-icons",
     "web-animations-js": "2.2.1",
     "zone.js": "0.9.1"

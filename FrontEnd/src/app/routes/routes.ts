@@ -9,7 +9,8 @@ export const routes = [
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', loadChildren: './home/home.module#HomeModule', canActivate: [AuthGuard] },
-            { path: 'personal', loadChildren: './personal/personal.module#PersonalModule', canActivate: [AuthGuard] }
+            { path: 'personal', loadChildren: './personal/personal.module#PersonalModule', canActivate: [AuthGuard] },
+            { path: 'org', loadChildren: './org/org.module#OrgModule', canActivate: [AuthGuard] },
         ]
     },
 

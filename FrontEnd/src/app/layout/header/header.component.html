@@ -4,10 +4,10 @@
     <div class="navbar-header">
         <a class="navbar-brand" [routerLink]="'/home'">
             <div class="brand-logo">
-                <img class="img-fluid" src="assets/img/LogoGGaugeVetemKuq.svg" alt="App Logo" style="width: 40px; margin: 0%; padding: 0%"/> <span style="color: aliceblue"> {{org.orgname}}</span>
+                <img class="img-fluid" [src]="org?.logo || 'assets/img/looking.png'" alt="App Logo" style="width: 40px; margin: 0%; padding: 0%"/> <span style="color: aliceblue"> {{org.orgname}}</span>
             </div>
             <div class="brand-logo-collapsed">
-                <img class="img-fluid" src="assets/img/LogoGGaugeVetemKuq.svg" alt="App Logo" style="width: 50px" />
+                <img class="img-fluid" [src]="org?.logo || 'assets/img/looking.png'" alt="App Logo" style="width: 50px" />
             </div>
         </a>
     </div>

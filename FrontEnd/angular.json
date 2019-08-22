@@ -27,12 +27,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/app/core/preloader/preloader.scss",
               "src/styles.scss"
             ],
             "scripts": [
               "src/app/core/wrapper/wrapper.js",
-              "src/app/core/preloader/preloader.js"
             ]
           },
           "configurations": {
@@ -91,16 +89,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/app/core/preloader/preloader.scss",
               "src/styles.scss"
             ],
             "scripts": [
               "src/app/core/wrapper/wrapper.js",
-              "src/app/core/preloader/preloader.js"
-            ],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
             ]
           }
         },

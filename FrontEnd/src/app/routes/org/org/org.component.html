@@ -1,0 +1,259 @@
+<span *ngIf="!org"></span>
+<div class="row" *ngIf="org">
+	<div class="col">
+		<div class="card card-default">
+			<div class="card-body text-center">
+				<div class="py-4 container">
+					<img class="image img-fluid rounded-circle img-thumbnail thumb96 "
+						[src]="org?.logo || 'assets/img/looking.png'" alt="Contact" />
+					<button class="middle btn btn-xs file-upload">
+						<input type="file" ng2FileSelect [uploader]="uploader" (onFileSelected)="ndryshoLogo()"
+							accept="image/png,image/jpeg,image/svg+xml" />
+						<div class="text">
+							<em class="fa fa-camera"></em> Ndrysho Logo
+						</div>
+					</button>
+				</div>
+				<h3 class="m-0 text-bold">{{org?.orgname}}</h3>
+				<p>{{org?.slogan}}</p>
+			</div>
+		</div>
+		<form class="form-horizontal" [formGroup]="orgDataForm" name="orgDataForm">
+			<!-- orgname TB -->
+			<div class="form-group row">
+				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right" for="orgname">Emri i
+					Org</label>
+				<div class="col-xl-10 col-md-9 col-8">
+					<div class="input-group with-focus input-group-sm">
+						<input class="form-control" id="orgname" type="text" placeholder="Emri i Org"
+							formControlName="orgname" />
+						<div class="input-group-append">
+							<a class="input-group-text bg-transparent border-left-0" *ngIf="editorgname"
+								(click)="saveField('orgname', orgDataForm.controls['orgname'].value)"
+								title="Ruaj Ndryshimet">
+								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editorg, 'fa-save' : editorgname}"
+									*ngIf="!loading"></em>
+								<div class="ball-scale-ripple-multiple" *ngIf="loading">
+									<div></div>
+									<div></div>
+									<div></div>
+								</div>
+							</a>
+							<a class="input-group-text bg-transparent border-left-0" (click)="enableEdit('orgname')"
+								[title]="editorgname ? 'Cancel' : 'Ndrysho Emrin'">
+								<em
+									[ngClass]="{'fa': true, 'fa-pencil-alt' : !editorgname, 'fa-window-close' : editorgname}"></em>
+							</a>
+
+						</div>
+					</div>
+					<div class="text-danger" *ngIf="orgDataForm.controls['orgname'].hasError('required')">
+						Emri s'mund të lihet bosh.</div>
+				</div>
+			</div>
+			<!-- End orgname TB  -->
+			<!-- slogan TB -->
+			<div class="form-group row">
+				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right" for="slogan">Slogani</label>
+				<div class="col-xl-10 col-md-9 col-8">
+					<div class="input-group with-focus input-group-sm">
+						<input class="form-control" id="slogan" type="text" placeholder="Slogani"
+							formControlName="slogan" />
+						<div class="input-group-append">
+							<a class="input-group-text bg-transparent border-left-0" *ngIf="editslogan"
+								(click)="saveField('slogan', orgDataForm.controls['slogan'].value)"
+								title="Ruaj Ndryshimet">
+								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editorg, 'fa-save' : editslogan}"
+									*ngIf="!loading"></em>
+								<div class="ball-scale-ripple-multiple" *ngIf="loading">
+									<div></div>
+									<div></div>
+									<div></div>
+								</div>
+							</a>
+							<a class="input-group-text bg-transparent border-left-0" (click)="enableEdit('slogan')"
+								[title]="editslogan ? 'Cancel' : 'Ndrysho Emrin'">
+								<em
+									[ngClass]="{'fa': true, 'fa-pencil-alt' : !editslogan, 'fa-window-close' : editslogan}"></em>
+							</a>
+
+						</div>
+					</div>
+					<div class="text-danger" *ngIf="orgDataForm.controls['slogan'].hasError('required')">
+						Slogani s'mund të lihet bosh.</div>
+				</div>
+			</div>
+			<!-- End slogan TB  -->
+			<!-- domain TB -->
+			<div class="form-group row">
+				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right" for="domain">Domain</label>
+				<div class="col-xl-10 col-md-9 col-8">
+					<div class="input-group with-focus input-group-sm">
+						<input class="form-control" id="domain" type="text" placeholder="domaini"
+							formControlName="domain" />
+						<div class="input-group-append">
+							<a class="input-group-text bg-transparent border-left-0" *ngIf="editdomain"
+								(click)="saveField('domain', orgDataForm.controls['domain'].value)"
+								title="Ruaj Ndryshimet">
+								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editorg, 'fa-save' : editsdomain}"
+									*ngIf="!loading"></em>
+								<div class="ball-scale-ripple-multiple" *ngIf="loading">
+									<div></div>
+									<div></div>
+									<div></div>
+								</div>
+							</a>
+							<a class="input-group-text bg-transparent border-left-0" (click)="enableEdit('domain')"
+								[title]="editdomain ? 'Cancel' : 'Ndrysho Emrin'">
+								<em
+									[ngClass]="{'fa': true, 'fa-pencil-alt' : !editdomain, 'fa-window-close' : editdomain}"></em>
+							</a>
+
+						</div>
+					</div>
+					<div class="text-danger" *ngIf="orgDataForm.controls['domain'].hasError('required')">
+						Domain s'mund të lihet bosh.</div>
+				</div>
+			</div>
+			<!-- End domain TB  -->
+			<!-- adresa TB -->
+			<div class="form-group row">
+				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right" for="adresa">Adresa</label>
+				<div class="col-xl-10 col-md-9 col-8">
+					<div class="input-group with-focus input-group-sm">
+						<input class="form-control" id="adresa" type="text" placeholder="Adresa"
+							formControlName="adresa" />
+						<div class="input-group-append">
+							<a class="input-group-text bg-transparent border-left-0" *ngIf="editadresa"
+								(click)="saveField('adresa', orgDataForm.controls['adresa'].value)"
+								title="Ruaj Ndryshimet">
+								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editorg, 'fa-save' : editsadresa}"
+									*ngIf="!loading"></em>
+								<div class="ball-scale-ripple-multiple" *ngIf="loading">
+									<div></div>
+									<div></div>
+									<div></div>
+								</div>
+							</a>
+							<a class="input-group-text bg-transparent border-left-0" (click)="enableEdit('adresa')"
+								[title]="editadresa ? 'Cancel' : 'Ndrysho Emrin'">
+								<em
+									[ngClass]="{'fa': true, 'fa-pencil-alt' : !editadresa, 'fa-window-close' : editadresa}"></em>
+							</a>
+
+						</div>
+					</div>
+					<div class="text-danger" *ngIf="orgDataForm.controls['adresa'].hasError('required')">
+						Adresa s'mund të lihet bosh.</div>
+				</div>
+			</div>
+			<!-- End adresa TB  -->
+			<!-- telefon TB -->
+			<div class="form-group row">
+				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right" for="telefon">Telefon</label>
+				<div class="col-xl-10 col-md-9 col-8">
+					<div class="input-group with-focus input-group-sm">
+						<input class="form-control" id="telefon" type="text" placeholder="Telefon"
+							formControlName="telefon" />
+						<div class="input-group-append">
+							<a class="input-group-text bg-transparent border-left-0" *ngIf="edittelefon"
+								(click)="saveField('telefon', orgDataForm.controls['telefon'].value)"
+								title="Ruaj Ndryshimet">
+								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editorg, 'fa-save' : editstelefon}"
+									*ngIf="!loading"></em>
+								<div class="ball-scale-ripple-multiple" *ngIf="loading">
+									<div></div>
+									<div></div>
+									<div></div>
+								</div>
+							</a>
+							<a class="input-group-text bg-transparent border-left-0" (click)="enableEdit('telefon')"
+								[title]="edittelefon ? 'Cancel' : 'Ndrysho Emrin'">
+								<em
+									[ngClass]="{'fa': true, 'fa-pencil-alt' : !edittelefon, 'fa-window-close' : edittelefon}"></em>
+							</a>
+
+						</div>
+					</div>
+					<div class="text-danger" *ngIf="orgDataForm.controls['telefon'].hasError('required')">
+						telefon s'mund të lihet bosh.</div>
+				</div>
+			</div>
+			<!-- End telefon TB  -->
+			<!-- Email TB -->
+			<div class="form-group row">
+				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+					for="email">E-mail</label>
+				<div class="col-xl-10 col-md-9 col-8">
+					<div class="input-group with-focus input-group-sm">
+						<input class="form-control" id="email" type="email" placeholder="E-mail"
+							formControlName="email" />
+						<div class="input-group-append">
+							<a class="input-group-text bg-transparent border-left-0" *ngIf="editemail"
+								(click)="saveField('email', orgDataForm.controls['email'].value)"
+								title="Ruaj Ndryshimet">
+								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editemail, 'fa-save' : editemail}"
+									*ngIf="!loading"></em>
+								<div class="ball-scale-ripple-multiple" *ngIf="loading">
+									<div></div>
+									<div></div>
+									<div></div>
+								</div>
+							</a>
+							<a class="input-group-text bg-transparent border-left-0"
+								(click)="enableEdit('email')"
+								[title]="editemail ? 'Cancel' : 'Ndrysho E-mail'">
+								<em
+									[ngClass]="{'fa': true, 'fa-pencil-alt' : !editemail, 'fa-window-close' : editemail}"></em>
+							</a>
+
+						</div>
+					</div>
+					<div class="text-danger"
+						*ngIf="orgDataForm.controls['email'].hasError('required')">
+						E-mail s'mund të lihet bosh.</div>
+					<div class="text-danger" *ngIf="orgDataForm.controls['email'].hasError('email')">
+						E-mail format i gabuar.</div>
+				</div>
+			</div>
+			<!-- End Email TB  -->
+			<!-- nius TB -->
+			<div class="form-group row">
+				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+					for="nius">NIUS</label>
+				<div class="col-xl-10 col-md-9 col-8">
+					<div class="input-group with-focus input-group-sm">
+						<input class="form-control" id="nius" type="nius" placeholder="NIUS"
+							formControlName="nius" />
+						<div class="input-group-append">
+							<a class="input-group-text bg-transparent border-left-0" *ngIf="editnius"
+								(click)="saveField('nius', orgDataForm.controls['nius'].value)"
+								title="Ruaj Ndryshimet">
+								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editnius, 'fa-save' : editnius}"
+									*ngIf="!loading"></em>
+								<div class="ball-scale-ripple-multiple" *ngIf="loading">
+									<div></div>
+									<div></div>
+									<div></div>
+								</div>
+							</a>
+							<a class="input-group-text bg-transparent border-left-0"
+								(click)="enableEdit('nius')"
+								[title]="editnius ? 'Cancel' : 'Ndrysho NIUS'">
+								<em
+									[ngClass]="{'fa': true, 'fa-pencil-alt' : !editnius, 'fa-window-close' : editnius}"></em>
+							</a>
+
+						</div>
+					</div>
+					<div class="text-danger"
+						*ngIf="orgDataForm.controls['nius'].hasError('required')">
+						E-mail s'mund të lihet bosh.</div>
+					<div class="text-danger" *ngIf="orgDataForm.controls['nius'].hasError('nius')">
+						E-mail format i gabuar.</div>
+				</div>
+			</div>
+			<!-- End nius TB  -->
+		</form>
+	</div>
+</div>

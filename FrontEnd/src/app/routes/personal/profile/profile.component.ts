@@ -8,7 +8,7 @@ import { CustomValidators } from 'ng2-validation';
 import { Subscription } from 'rxjs/Subscription';
 import { FileUploader } from 'ng2-file-upload';
 
-const URL = 'http://localhost:4000/api/files/upload';
+const URL = 'http://localhost:4000/api/files/upload?userId=true';
 
 @Component({
     selector: 'app-profile',

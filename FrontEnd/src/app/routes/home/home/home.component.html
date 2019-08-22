@@ -3,15 +3,15 @@
         <div class="row">
             <div class="col-xl-3 col-lg-4">
                 <div class="text-center">
-                    <img alt="Angular" class="img-fluid home-logo" src="assets/img/LogoGGaugeVetemKuq.svg" />
+                    <img alt="Angular" class="img-fluid home-logo" [src]="org?.logo || 'assets/img/looking.png'" />
                 </div>
             </div>
             <div class="col-xl-9 col-lg-8 home-text">
-                <h1 class="home-text-big">AutoMotive</h1>
-                <p class="lead">Either two or four <strong>WHEELS</strong>
-                    <br> <small>Mind your ride</small>
+                <h1 class="home-text-big">{{org?.orgname || "OrgEmer"}}</h1>
+                <p class="lead">{{org?.slogan || "Slogani"}} <strong>.</strong>
+                    <br> <small>{{org?.domain || "domain.com"}}</small>
                 </p>
-                <p><a class="btn btn-primary btn-lg" href="#">Dashboard</a></p>
+                <p><a class="btn btn-primary btn-lg" href="#">... më shumë</a></p>
             </div>
         </div>
     </div>

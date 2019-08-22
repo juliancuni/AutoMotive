@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Org } from 'src/app/shared/sdk';
 
 
 @Component({
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+    private org: Org;
+
     constructor() { }
 
     ngOnInit() {
+        this.org = JSON.parse(localStorage.getItem("OrgData"));
     }
 
 }

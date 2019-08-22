@@ -4,7 +4,7 @@
       <div class="card card-flat">
           <div class="card-header text-center">
               <a [routerLink]="'/'">
-                  <img class="block-center rounded" src="assets/img/LogoGGaugeVetemKuq.svg" alt="Image" width="70" title="{{org?.slogan}}"/><span style="color: #4D4D4D"> {{org?.orgname}}</span>
+                  <img class="block-center rounded" [src]="org?.logo || 'assets/img/looking.png'" alt="Image" width="70" title="{{org?.slogan}}"/><span style="color: #4D4D4D"> {{org?.orgname}}</span>
               </a>
           </div>
           <div class="card-body">

@@ -30,7 +30,7 @@
     "avatar": {
       "type": "string",
       "required": true,
-      "default": "assets/img/no-pic.png"
+      "default": "assets/img/usernopic.png"
     },
     "enabled": {
       "type": "boolean",

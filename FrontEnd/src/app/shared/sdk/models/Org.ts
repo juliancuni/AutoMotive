@@ -5,6 +5,11 @@ export interface OrgInterface {
   "orgname"?: string;
   "domain"?: string;
   "slogan"?: string;
+  "logo"?: string;
+  "adresa"?: string;
+  "telefon"?: string;
+  "email"?: string;
+  "nius"?: string;
   "id"?: any;
 }
 
@@ -12,6 +17,11 @@ export class Org implements OrgInterface {
   "orgname": string;
   "domain": string;
   "slogan": string;
+  "logo": string;
+  "adresa": string;
+  "telefon": string;
+  "email": string;
+  "nius": string;
   "id": any;
   constructor(data?: OrgInterface) {
     Object.assign(this, data);
@@ -56,6 +66,26 @@ export class Org implements OrgInterface {
         },
         "slogan": {
           name: 'slogan',
+          type: 'string'
+        },
+        "logo": {
+          name: 'logo',
+          type: 'string'
+        },
+        "adresa": {
+          name: 'adresa',
+          type: 'string'
+        },
+        "telefon": {
+          name: 'telefon',
+          type: 'string'
+        },
+        "email": {
+          name: 'email',
+          type: 'string'
+        },
+        "nius": {
+          name: 'nius',
           type: 'string'
         },
         "id": {

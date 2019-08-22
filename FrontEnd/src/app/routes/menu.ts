@@ -5,6 +5,12 @@ const Home = {
     icon: 'icon-home'
 };
 
+const Org = {
+    text: 'Org',
+    link: '/org',
+    icon: 'far fa-building'
+};
+
 const headingMain = {
     text: 'Main Navigation',
     heading: true
@@ -12,5 +18,6 @@ const headingMain = {
 
 export const menu = [
     headingMain,
-    Home
+    Home,
+    Org
 ];
