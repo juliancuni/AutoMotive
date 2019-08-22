@@ -14,8 +14,9 @@ lerna-debug.log*
 datasources.json
 # Media Editing Folder
 media_edit
-# FileServer NESTJS
-FileServer
+# FileServer Express
+Files
+app.config.ts
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
