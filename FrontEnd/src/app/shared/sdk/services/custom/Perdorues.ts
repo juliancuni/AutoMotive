@@ -9,15 +9,15 @@ import { LoopBackFilter, SDKToken, AccessToken } from '../../models/BaseModels';
 import { ErrorHandler } from '../core/error.service';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AmUser } from '../../models/AmUser';
+import { Perdorues } from '../../models/Perdorues';
 import { SocketConnection } from '../../sockets/socket.connections';
 
 
 /**
- * Api services for the `AmUser` model.
+ * Api services for the `Perdorues` model.
  */
 @Injectable()
-export class AmUserApi extends BaseLoopBackApi {
+export class PerdoruesApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(HttpClient) protected http: HttpClient,
@@ -32,7 +32,7 @@ export class AmUserApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for accessTokens.
    *
-   * @param {any} id amUser id
+   * @param {any} id Perdorues id
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -42,13 +42,13 @@ export class AmUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `AmUser` object.)
+   * This usually means the response is a `Perdorues` object.)
    * </em>
    */
   public findByIdAccessTokens(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/:id/accessTokens/:fk";
+    "/Perdorues/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -62,7 +62,7 @@ export class AmUserApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for accessTokens.
    *
-   * @param {any} id amUser id
+   * @param {any} id Perdorues id
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -75,7 +75,7 @@ export class AmUserApi extends BaseLoopBackApi {
   public destroyByIdAccessTokens(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/:id/accessTokens/:fk";
+    "/Perdorues/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -89,7 +89,7 @@ export class AmUserApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for accessTokens.
    *
-   * @param {any} id amUser id
+   * @param {any} id Perdorues id
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -103,13 +103,13 @@ export class AmUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `AmUser` object.)
+   * This usually means the response is a `Perdorues` object.)
    * </em>
    */
   public updateByIdAccessTokens(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/:id/accessTokens/:fk";
+    "/Perdorues/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -123,9 +123,9 @@ export class AmUserApi extends BaseLoopBackApi {
   }
 
   /**
-   * Queries accessTokens of amUser.
+   * Queries accessTokens of Perdorues.
    *
-   * @param {any} id amUser id
+   * @param {any} id Perdorues id
    *
    * @param {object} filter 
    *
@@ -135,13 +135,13 @@ export class AmUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `AmUser` object.)
+   * This usually means the response is a `Perdorues` object.)
    * </em>
    */
   public getAccessTokens(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/:id/accessTokens";
+    "/Perdorues/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -155,7 +155,7 @@ export class AmUserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in accessTokens of this model.
    *
-   * @param {any} id amUser id
+   * @param {any} id Perdorues id
    *
    * @param {object} data Request data.
    *
@@ -167,13 +167,13 @@ export class AmUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `AmUser` object.)
+   * This usually means the response is a `Perdorues` object.)
    * </em>
    */
   public createAccessTokens(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/:id/accessTokens";
+    "/Perdorues/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -188,7 +188,7 @@ export class AmUserApi extends BaseLoopBackApi {
   /**
    * Deletes all accessTokens of this model.
    *
-   * @param {any} id amUser id
+   * @param {any} id Perdorues id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -199,7 +199,7 @@ export class AmUserApi extends BaseLoopBackApi {
   public deleteAccessTokens(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/:id/accessTokens";
+    "/Perdorues/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -210,9 +210,9 @@ export class AmUserApi extends BaseLoopBackApi {
   }
 
   /**
-   * Counts accessTokens of amUser.
+   * Counts accessTokens of Perdorues.
    *
-   * @param {any} id amUser id
+   * @param {any} id Perdorues id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -227,7 +227,7 @@ export class AmUserApi extends BaseLoopBackApi {
   public countAccessTokens(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/:id/accessTokens/count";
+    "/Perdorues/:id/accessTokens/count";
     let _routeParams: any = {
       id: id
     };
@@ -251,13 +251,13 @@ export class AmUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `AmUser` object.)
+   * This usually means the response is a `Perdorues` object.)
    * </em>
    */
   public patchOrCreate(data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers";
+    "/Perdorues";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -270,7 +270,7 @@ export class AmUserApi extends BaseLoopBackApi {
   /**
    * Patch attributes for a model instance and persist it into the data source.
    *
-   * @param {any} id amUser id
+   * @param {any} id Perdorues id
    *
    * @param {object} data Request data.
    *
@@ -282,13 +282,13 @@ export class AmUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `AmUser` object.)
+   * This usually means the response is a `Perdorues` object.)
    * </em>
    */
   public patchAttributes(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/:id";
+    "/Perdorues/:id";
     let _routeParams: any = {
       id: id
     };
@@ -328,7 +328,7 @@ export class AmUserApi extends BaseLoopBackApi {
   public login(credentials: any, include: any = 'user', rememberMe: boolean = true, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/login";
+    "/Perdorues/login";
     let _routeParams: any = {};
     let _postBody: any = {
       credentials: credentials
@@ -366,7 +366,7 @@ export class AmUserApi extends BaseLoopBackApi {
   public logout(customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/logout";
+    "/Perdorues/logout";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -379,7 +379,7 @@ export class AmUserApi extends BaseLoopBackApi {
   /**
    * Trigger user's identity verification with configured verifyOptions
    *
-   * @param {any} id amUser id
+   * @param {any} id Perdorues id
    *
    * @param {object} data Request data.
    *
@@ -394,7 +394,7 @@ export class AmUserApi extends BaseLoopBackApi {
   public verify(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/:id/verify";
+    "/Perdorues/:id/verify";
     let _routeParams: any = {
       id: id
     };
@@ -422,7 +422,7 @@ export class AmUserApi extends BaseLoopBackApi {
   public confirm(uid: any, token: any, redirect: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/confirm";
+    "/Perdorues/confirm";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -449,7 +449,7 @@ export class AmUserApi extends BaseLoopBackApi {
   public resetPassword(options: any, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/reset";
+    "/Perdorues/reset";
     let _routeParams: any = {};
     let _postBody: any = {
       options: options
@@ -477,7 +477,7 @@ export class AmUserApi extends BaseLoopBackApi {
   public changePassword(oldPassword: any, newPassword: any, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/change-password";
+    "/Perdorues/change-password";
     let _routeParams: any = {};
     let _postBody: any = {
       data: {
@@ -506,7 +506,7 @@ export class AmUserApi extends BaseLoopBackApi {
   public setPassword(newPassword: any, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/reset-password";
+    "/Perdorues/reset-password";
     let _routeParams: any = {};
     let _postBody: any = {
       data: {
@@ -521,7 +521,7 @@ export class AmUserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in accessTokens of this model.
    *
-   * @param {any} id amUser id
+   * @param {any} id Perdorues id
    *
    * @param {object} data Request data.
    *
@@ -533,13 +533,13 @@ export class AmUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `AmUser` object.)
+   * This usually means the response is a `Perdorues` object.)
    * </em>
    */
   public createManyAccessTokens(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/amUsers/:id/accessTokens";
+    "/Perdorues/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -552,8 +552,8 @@ export class AmUserApi extends BaseLoopBackApi {
   }
   /**
    * @ngdoc method
-   * @name sdk.AmUser#getCurrent
-   * @methodOf sdk.AmUser
+   * @name sdk.Perdorues#getCurrent
+   * @methodOf sdk.Perdorues
    *
    * @description
    *
@@ -566,7 +566,7 @@ export class AmUserApi extends BaseLoopBackApi {
    */
   public getCurrent(filter: LoopBackFilter = {}): Observable<any> {
     let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() + "/amUsers" + "/:id";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() + "/Perdorues" + "/:id";
     let id: any = this.auth.getCurrentUserId();
     if (id == null)
     id = '__anonymous__';
@@ -578,8 +578,8 @@ export class AmUserApi extends BaseLoopBackApi {
   }
   /**
    * Get data of the currently logged user that was returned by the last
-   * call to {@link sdk.AmUser#login} or
-   * {@link sdk.AmUser#getCurrent}. Return null when there
+   * call to {@link sdk.Perdorues#login} or
+   * {@link sdk.Perdorues#getCurrent}. Return null when there
    * is no user logged in or the data of the current user were not fetched
    * yet.
    *
@@ -590,7 +590,7 @@ export class AmUserApi extends BaseLoopBackApi {
   }
   /**
    * Get data of the currently logged access tokern that was returned by the last
-   * call to {@link sdk.AmUser#login}
+   * call to {@link sdk.Perdorues#login}
    *
    * @returns object An AccessToken instance.
    */
@@ -598,7 +598,7 @@ export class AmUserApi extends BaseLoopBackApi {
     return this.auth.getToken();
   }
   /**
-   * @name sdk.AmUser#isAuthenticated
+   * @name sdk.Perdorues#isAuthenticated
    *
    * @returns {boolean} True if the current user is authenticated (logged in).
    */
@@ -607,7 +607,7 @@ export class AmUserApi extends BaseLoopBackApi {
   }
 
   /**
-   * @name sdk.AmUser#getCurrentId
+   * @name sdk.Perdorues#getCurrentId
    *
    * @returns object Id of the currently logged-in user or null.
    */
@@ -617,9 +617,9 @@ export class AmUserApi extends BaseLoopBackApi {
 
   /**
    * The name of the model represented by this $resource,
-   * i.e. `AmUser`.
+   * i.e. `Perdorues`.
    */
   public getModelName() {
-    return "AmUser";
+    return "Perdorues";
   }
 }

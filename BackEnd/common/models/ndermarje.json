@@ -1,16 +1,29 @@
 {
-  "name": "Client",
+  "name": "Ndermarrje",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
-    "validateUpsert": true
+    "validateUpsert": true,
+    "strictObjectIDCoercion": true
   },
   "properties": {
     "emer": {
       "type": "string",
       "required": true
     },
-    "mbiemer": {
+    "domain": {
+      "type": "string",
+      "required": true
+    },
+    "slogan": {
+      "type": "string",
+      "required": true,
+      "default": "N/A"
+    },
+    "logo": {
+      "type": "string"
+    },
+    "adresa": {
       "type": "string"
     },
     "telefon": {
@@ -19,7 +32,7 @@
     "email": {
       "type": "string"
     },
-    "adresa": {
+    "nius": {
       "type": "string"
     }
   },

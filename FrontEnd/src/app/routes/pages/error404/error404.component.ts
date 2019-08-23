@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../../core/settings/settings.service';
-import { OrgApi, Org } from 'src/app/shared/sdk';
+import { NdermarrjeApi, Ndermarrje } from 'src/app/shared/sdk';
 
 @Component({
   selector: 'app-error404',
@@ -8,22 +8,22 @@ import { OrgApi, Org } from 'src/app/shared/sdk';
   styleUrls: ['./error404.component.scss']
 })
 export class Error404Component implements OnInit {
-  private org: Org;
+  private ndermarrje: Ndermarrje
   constructor(
     public settings: SettingsService,
-    private _org: OrgApi) { }
+    private _ndermarrje: NdermarrjeApi) { }
 
   ngOnInit() {
-    let userlocalStorage = localStorage.getItem("OrgData");
+    let userlocalStorage = localStorage.getItem("NdermarrjeData");
     if (userlocalStorage) {
-        this.org = JSON.parse(userlocalStorage);
+        this.ndermarrje = JSON.parse(userlocalStorage);
     } else {
-        this._org.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Org) => {
-            this.org = res;
+        this._ndermarrje.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Ndermarrje) => {
+            this.ndermarrje = res;
         }, (err) => {
             console.log(err);
         }, () => {
-            localStorage.setItem("OrgData", JSON.stringify(this.org))
+            localStorage.setItem("NdermarrjeData", JSON.stringify(this.ndermarrje))
         })
     }
   }

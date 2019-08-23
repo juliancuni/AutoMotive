@@ -5,9 +5,9 @@ const Home = {
     icon: 'icon-home'
 };
 
-const Org = {
-    text: 'Org',
-    link: '/org',
+const Ndermarrje = {
+    text: 'Ndërmarrja',
+    link: '/ndermarrja',
     icon: 'far fa-building'
 };
 
@@ -25,6 +25,6 @@ const headingMain = {
 export const menu = [
     headingMain,
     Home,
-    Org, 
+    Ndermarrje, 
     Github
 ];

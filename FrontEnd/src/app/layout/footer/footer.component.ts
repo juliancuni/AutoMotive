@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../core/settings/settings.service';
-import { Org } from 'src/app/shared/sdk';
+import { Ndermarrje } from 'src/app/shared/sdk';
 
 @Component({
     selector: '[app-footer]',
@@ -8,13 +8,13 @@ import { Org } from 'src/app/shared/sdk';
     styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-    private org: Org;
+    private ndermarrje: Ndermarrje;
     constructor(
         public settings: SettingsService,
     ) { }
 
     ngOnInit() {
-        this.org = JSON.parse(localStorage.getItem("OrgData"));
+        this.ndermarrje = JSON.parse(localStorage.getItem("NdermarrjeData"));
     }
 
 }

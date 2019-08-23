@@ -1,5 +1,5 @@
 {
-  "name": "amUser",
+  "name": "Perdorues",
   "base": "User",
   "idInjection": true,
   "options": {

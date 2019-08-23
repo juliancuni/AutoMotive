@@ -2,8 +2,8 @@ import express from 'express';
 import multer = require('multer');
 import crypto from 'crypto';
 import path from 'path';
-import { UserModel } from '../models/user.model';
-import { OrgModel } from '../models/org.model';
+import { PerdoruesModel } from '../models/perdorues.model';
+import { NdermarrjeModel } from '../models/ndermarrje.model';
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -32,8 +32,6 @@ export function Routes(app: express.Express) {
     })
 
     app.post('/api/files/upload', upload.single('file'), async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        console.log(req.query.orgId);
-        console.log(req.query.userId);
 
         const file = req.file;
         if (!file) {
@@ -45,11 +43,11 @@ export function Routes(app: express.Express) {
         let userId = req.cookies.$LoopBackSDK$userId;
 
         if (req.query.userId) {
-            await UserModel.findOneAndUpdate(userId, { avatar: fileLink });
+            await PerdoruesModel.findOneAndUpdate(userId, { avatar: fileLink });
         }
-        if (req.query.orgId) {
+        if (req.query.ndermarrjeId) {
             try {
-                await OrgModel.findOneAndUpdate({}, { logo: fileLink })
+                await NdermarrjeModel.findOneAndUpdate({}, { logo: fileLink })
             } catch (error) {
                 console.log(error);
             }

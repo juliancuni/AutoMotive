@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UserblockService } from './userblock.service';
-import { AmUser, AmUserApi } from 'src/app/shared/sdk';
+import { Perdorues, PerdoruesApi } from 'src/app/shared/sdk';
 import { Router } from '@angular/router';
 import { SettingsService } from 'src/app/core/settings/settings.service';
 
@@ -11,24 +11,24 @@ import { SettingsService } from 'src/app/core/settings/settings.service';
     styleUrls: ['./userblock.component.scss']
 })
 export class UserblockComponent implements OnInit {
-    user: AmUser;
+    user: Perdorues;
     constructor(
         public userblockService: UserblockService,
-        private _amUser: AmUserApi,
+        private _Perdorues: PerdoruesApi,
         private _router: Router,
         private settings: SettingsService
         ) {
     }
     ngOnInit() {
-        if (localStorage.getItem("UserPersonalData")) {
-            this.user = JSON.parse(localStorage.getItem("UserPersonalData"));
+        if (localStorage.getItem("PerdoruesData")) {
+            this.user = JSON.parse(localStorage.getItem("PerdoruesData"));
         } else {
-            this._amUser.getCurrent().subscribe((res: AmUser) => {
+            this._Perdorues.getCurrent().subscribe((res: Perdorues) => {
                 this.user = res;
             }, (err) => {
                 console.log(err);
             }, () => {
-                localStorage.setItem("UserPersonalData", JSON.stringify(this.user))
+                localStorage.setItem("PerdoruesData", JSON.stringify(this.user))
             })
         }
 
@@ -40,9 +40,9 @@ export class UserblockComponent implements OnInit {
         this.postLogOut();
     }
     postLogOut(): void {
-        localStorage.removeItem("OrgData");
-        localStorage.removeItem("UserPersonalData");
-        this._amUser.logout().subscribe();
+        localStorage.removeItem("NdermarrjeData");
+        localStorage.removeItem("PerdoruesData");
+        this._Perdorues.logout().subscribe();
         this._router.navigate(['/login']);
     }
 }

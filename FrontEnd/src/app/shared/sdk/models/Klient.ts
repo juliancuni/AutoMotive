@@ -1,46 +1,40 @@
 /* tslint:disable */
 
 declare var Object: any;
-export interface OrgInterface {
-  "orgname"?: string;
-  "domain"?: string;
-  "slogan"?: string;
-  "logo"?: string;
-  "adresa"?: string;
+export interface KlientInterface {
+  "emer": string;
+  "mbiemer"?: string;
   "telefon"?: string;
   "email"?: string;
-  "nius"?: string;
+  "adresa"?: string;
   "id"?: any;
 }
 
-export class Org implements OrgInterface {
-  "orgname": string;
-  "domain": string;
-  "slogan": string;
-  "logo": string;
-  "adresa": string;
+export class Klient implements KlientInterface {
+  "emer": string;
+  "mbiemer": string;
   "telefon": string;
   "email": string;
-  "nius": string;
+  "adresa": string;
   "id": any;
-  constructor(data?: OrgInterface) {
+  constructor(data?: KlientInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Org`.
+   * i.e. `Klient`.
    */
   public static getModelName() {
-    return "Org";
+    return "Klient";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of Org for dynamic purposes.
+  * This method creates an instance of Klient for dynamic purposes.
   **/
-  public static factory(data: OrgInterface): Org{
-    return new Org(data);
+  public static factory(data: KlientInterface): Klient{
+    return new Klient(data);
   }
   /**
   * @method getModelDefinition
@@ -51,29 +45,17 @@ export class Org implements OrgInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'Org',
-      plural: 'Orgs',
-      path: 'Orgs',
+      name: 'Klient',
+      plural: 'Klients',
+      path: 'Klients',
       idName: 'id',
       properties: {
-        "orgname": {
-          name: 'orgname',
+        "emer": {
+          name: 'emer',
           type: 'string'
         },
-        "domain": {
-          name: 'domain',
-          type: 'string'
-        },
-        "slogan": {
-          name: 'slogan',
-          type: 'string'
-        },
-        "logo": {
-          name: 'logo',
-          type: 'string'
-        },
-        "adresa": {
-          name: 'adresa',
+        "mbiemer": {
+          name: 'mbiemer',
           type: 'string'
         },
         "telefon": {
@@ -84,8 +66,8 @@ export class Org implements OrgInterface {
           name: 'email',
           type: 'string'
         },
-        "nius": {
-          name: 'nius',
+        "adresa": {
+          name: 'adresa',
           type: 'string'
         },
         "id": {

@@ -9,15 +9,15 @@ import { LoopBackFilter,  } from '../../models/BaseModels';
 import { ErrorHandler } from '../core/error.service';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Org } from '../../models/Org';
+import { Ndermarrje } from '../../models/Ndermarrje';
 import { SocketConnection } from '../../sockets/socket.connections';
 
 
 /**
- * Api services for the `Org` model.
+ * Api services for the `Ndermarrje` model.
  */
 @Injectable()
-export class OrgApi extends BaseLoopBackApi {
+export class NdermarrjeApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(HttpClient) protected http: HttpClient,
@@ -42,13 +42,13 @@ export class OrgApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Org` object.)
+   * This usually means the response is a `Ndermarrje` object.)
    * </em>
    */
   public patchOrCreate(data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/orgs";
+    "/Ndermarrjes";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -61,7 +61,7 @@ export class OrgApi extends BaseLoopBackApi {
   /**
    * Patch attributes for a model instance and persist it into the data source.
    *
-   * @param {any} id org id
+   * @param {any} id Ndermarrje id
    *
    * @param {object} data Request data.
    *
@@ -73,13 +73,13 @@ export class OrgApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Org` object.)
+   * This usually means the response is a `Ndermarrje` object.)
    * </em>
    */
   public patchAttributes(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/orgs/:id";
+    "/Ndermarrjes/:id";
     let _routeParams: any = {
       id: id
     };
@@ -93,9 +93,9 @@ export class OrgApi extends BaseLoopBackApi {
 
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Org`.
+   * i.e. `Ndermarrje`.
    */
   public getModelName() {
-    return "Org";
+    return "Ndermarrje";
   }
 }

@@ -20,7 +20,7 @@ export class SettingsService {
         // App Settings
         // -----------------------------------
         this.app = {
-            orgname: 'MicroServicesaaaaaaaa',
+            emer: 'MicroServices',
             slogan: 'Avoid Single Point of Failures',
             domain: 'microservices.al',
             logo: 'assets/img/ms-logo-vetem.svg',

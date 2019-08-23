@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AmUserApi } from '../../shared/sdk/services/custom';
+import { PerdoruesApi } from '../../shared/sdk/services/custom';
 
 
 @Injectable()
 export class UnauthGuard implements CanActivate {
-  constructor(private auth: AmUserApi, private router: Router) {}
+  constructor(private auth: PerdoruesApi, private router: Router) {}
 
   canActivate() {
     if(!this.auth.isAuthenticated()){

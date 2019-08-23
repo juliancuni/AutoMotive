@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../../core/settings/settings.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
-import { OrgApi, Org, AmUserApi } from 'src/app/shared/sdk';
+import { NdermarrjeApi, Ndermarrje, PerdoruesApi } from 'src/app/shared/sdk';
 import { Router } from '@angular/router';
 
 const swal = require('sweetalert');
@@ -13,7 +13,7 @@ const swal = require('sweetalert');
     styleUrls: ['./recover.component.scss']
 })
 export class RecoverComponent implements OnInit {
-    private org: Org;
+    private ndermarrje: Ndermarrje
     recoveryForm: FormGroup;
     loading: boolean = false;
     emailError: boolean = false;
@@ -21,8 +21,8 @@ export class RecoverComponent implements OnInit {
     constructor(
         public settings: SettingsService,
         fb: FormBuilder,
-        private _org: OrgApi,
-        private _amUser: AmUserApi,
+        private _ndermarrje: NdermarrjeApi,
+        private _Perdorues: PerdoruesApi,
         private _router: Router,
     ) {
         this.recoveryForm = fb.group({
@@ -38,7 +38,7 @@ export class RecoverComponent implements OnInit {
         }
         if (this.recoveryForm.valid) {
             this.loading = true;
-            this._amUser.resetPassword(value).subscribe((res: any) => {
+            this._Perdorues.resetPassword(value).subscribe((res: any) => {
                 this.loading = false;
             }, (err) => {
                 this.loading = false;
@@ -75,17 +75,17 @@ export class RecoverComponent implements OnInit {
 
     ngOnInit() {
 
-        let userlocalStorage = localStorage.getItem("OrgData");
+        let userlocalStorage = localStorage.getItem("NdermarrjeData");
         if (userlocalStorage) {
-            this.org = JSON.parse(userlocalStorage);
+            this.ndermarrje = JSON.parse(userlocalStorage);
         } else {
-            this._org.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Org) => {
-                this.org = res;
+            this._ndermarrje.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Ndermarrje) => {
+                this.ndermarrje = res;
             }, (err) => {
                 console.log(err);
                 this
             }, () => {
-                localStorage.setItem("OrgData", JSON.stringify(this.org))
+                localStorage.setItem("NdermarrjeData", JSON.stringify(this.ndermarrje))
             })
         }
     }

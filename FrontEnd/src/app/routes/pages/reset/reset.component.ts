@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Org, OrgApi, AmUserApi, AmUser, LoopBackAuth } from 'src/app/shared/sdk';
+import { Ndermarrje, NdermarrjeApi, PerdoruesApi, Perdorues, LoopBackAuth } from 'src/app/shared/sdk';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SettingsService } from 'src/app/core/settings/settings.service';
 import { MsToasterService } from 'src/app/shared/services/mstoaster.service';
@@ -13,7 +13,7 @@ const swal = require('sweetalert');
   styleUrls: ['./reset.component.scss']
 })
 export class ResetComponent implements OnInit {
-  private org: Org;
+  private ndermarrje: Ndermarrje
   private resetForm: FormGroup;
   private loading: boolean = false;
   private passwordError: boolean = false;
@@ -25,8 +25,8 @@ export class ResetComponent implements OnInit {
     private _fb: FormBuilder,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _org: OrgApi,
-    private _amUser: AmUserApi,
+    private _ndermarrje: NdermarrjeApi,
+    private _Perdorues: PerdoruesApi,
     private _auth: LoopBackAuth,
     private _msToasterService: MsToasterService,
 
@@ -36,7 +36,7 @@ export class ResetComponent implements OnInit {
     });
   }
 
-  submitForm($ev: any, user: Partial<AmUser>): void {
+  submitForm($ev: any, user: Partial<Perdorues>): void {
     this.loading = true;
     // this.passwordError = false;
     $ev.preventDefault();
@@ -44,7 +44,7 @@ export class ResetComponent implements OnInit {
       this.resetForm.controls[c].markAsTouched();
     }
     if (this.resetForm.valid) {
-      this._amUser.setPassword(user.password).subscribe(() => {
+      this._Perdorues.setPassword(user.password).subscribe(() => {
         this.loading = false;
       }, (err) => {
         // console.log(err)
@@ -55,7 +55,7 @@ export class ResetComponent implements OnInit {
         if (err.code == "INVALID_TOKEN" || err.code == "AUTHORIZATION_REQUIRED") {
           swal({
             title: 'Kujdes!',
-            text: 'Ky link që kërkoni ka skaduar.',
+            text: 'Ky link ka skaduar.\nKontrolloni e-mail përsëri',
             icon: 'error',
             buttons: {
               cancel: false,
@@ -80,7 +80,7 @@ export class ResetComponent implements OnInit {
         this.loading = false;
         this.resetForm.enable();
       }, () => {
-        this._amUser.logout().subscribe();
+        this._Perdorues.logout().subscribe();
         swal({
           title: 'Fjalëkalimi u reset-ua me sukses!',
           text: 'Tani mund të logoheni me fjalëkalimin e ri.',
@@ -123,16 +123,16 @@ export class ResetComponent implements OnInit {
         this._router.navigate(['/login']);
       }
     });
-    let userlocalStorage = localStorage.getItem("OrgData");
+    let userlocalStorage = localStorage.getItem("NdermarrjeData");
     if (userlocalStorage) {
-      this.org = JSON.parse(userlocalStorage);
+      this.ndermarrje = JSON.parse(userlocalStorage);
     } else {
-      this._org.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Org) => {
-        this.org = res;
+      this._ndermarrje.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Ndermarrje) => {
+        this.ndermarrje = res;
       }, (err) => {
         console.log(err);
       }, () => {
-        localStorage.setItem("OrgData", JSON.stringify(this.org))
+        localStorage.setItem("NdermarrjeData", JSON.stringify(this.ndermarrje))
       })
     }
   }

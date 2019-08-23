@@ -4,10 +4,10 @@
     <div class="navbar-header">
         <a class="navbar-brand" [routerLink]="'/home'">
             <div class="brand-logo">
-                <img class="img-fluid" [src]="org?.logo" (error)="img1.src=settings.getAppSetting('logo')" #img1 alt="Org Logo" style="width: 40px; margin: 0%; padding: 0%"/> <span style="color: aliceblue"> {{org?.orgname || settings.getAppSetting('orgname')}}</span>
+                <img class="img-fluid" [src]="ndermarrje?.logo" (error)="img1.src=settings.getAppSetting('logo')" #img1 alt="Ndermarrje Logo" style="width: 40px; margin: 0%; padding: 0%"/> <span style="color: aliceblue"> {{ndermarrje?.emer || settings.getAppSetting('emer')}}</span>
             </div>
             <div class="brand-logo-collapsed">
-                <img class="img-fluid" [src]="org?.logo" (error)="img2.src=settings.getAppSetting('logo')" #img2 alt="Org Logo" style="width: 50px" />
+                <img class="img-fluid" [src]="ndermarrje?.logo" (error)="img2.src=settings.getAppSetting('logo')" #img2 alt="Ndermarrje Logo" style="width: 50px" />
             </div>
         </a>
     </div>

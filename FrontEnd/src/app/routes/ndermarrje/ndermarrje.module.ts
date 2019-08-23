@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OrgComponent } from './org/org.component';
+import { NdermarrjeComponent } from './ndermarrje/ndermarrje.component';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
-    { path: '', component: OrgComponent }
+    { path: '', component: NdermarrjeComponent }
 ];
 
 @NgModule({
-    declarations: [OrgComponent],
+    declarations: [NdermarrjeComponent],
     imports: [
         CommonModule,
         SharedModule,
         RouterModule.forChild(routes),
     ]
 })
-export class OrgModule { }
+export class NdermarrjeModule { }

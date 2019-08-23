@@ -10,7 +10,7 @@ export const routes = [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', loadChildren: './home/home.module#HomeModule', canActivate: [AuthGuard] },
             { path: 'personal', loadChildren: './personal/personal.module#PersonalModule', canActivate: [AuthGuard] },
-            { path: 'org', loadChildren: './org/org.module#OrgModule', canActivate: [AuthGuard] },
+            { path: 'ndermarrja', loadChildren: './ndermarrje/ndermarrje.module#NdermarrjeModule', canActivate: [AuthGuard] },
             { path: 'github', loadChildren: './github/github.module#GithubModule', canActivate: [AuthGuard] },
         ]
     },

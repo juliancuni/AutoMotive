@@ -1,11 +1,11 @@
-<span *ngIf="!org"></span>
-<div class="row" *ngIf="org">
+<span *ngIf="!ndermarrje"></span>
+<div class="row" *ngIf="ndermarrje">
 	<div class="col">
 		<div class="card card-default">
 			<div class="card-body text-center">
 				<div class="py-4 container">
-					<img class="image img-fluid rounded-circle img-thumbnail thumb96 " [src]="org?.logo"
-						(error)="img.src=settings.getAppSetting('logo')" #img alt="Org Logo" />
+					<img class="image img-fluid rounded-circle img-thumbnail thumb96 " [src]="ndermarrje?.logo"
+						(error)="img.src=settings.getAppSetting('logo')" #img alt="Ndermarrje Logo" />
 					<button class="middle btn btn-xs file-upload" >
 						<input type="file" ng2FileSelect [uploader]="uploader" (onFileSelected)="ndryshoLogo()"
 							accept="image/png,image/jpeg,image/svg+xml" />
@@ -19,24 +19,24 @@
 						<div></div>
 					</div>
 				</div>
-				<h3 class="m-0 text-bold">{{org?.orgname || settings.getAppSetting('orgname')}}</h3>
-				<p>{{org?.slogan}}</p>
+				<h3 class="m-0 text-bold">{{ndermarrje?.emer || settings.getAppSetting('emer')}}</h3>
+				<p>{{ndermarrje?.slogan}}</p>
 			</div>
 		</div>
-		<form class="form-horizontal" [formGroup]="orgDataForm" name="orgDataForm">
-			<!-- orgname TB -->
+		<form class="form-horizontal" [formGroup]="ndermarrjeDataForm" name="ndermarrjeDataForm">
+			<!-- emer TB -->
 			<div class="form-group row">
-				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right" for="orgname">Emri i
-					Org</label>
+				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right" for="emer">Emri i
+					ndermarrje</label>
 				<div class="col-xl-10 col-md-9 col-8">
 					<div class="input-group with-focus input-group-sm">
-						<input class="form-control" id="orgname" type="text" placeholder="Emri i Org"
-							formControlName="orgname" />
+						<input class="form-control" id="emer" type="text" placeholder="Emri i ndermarrje"
+							formControlName="emer" />
 						<div class="input-group-append">
-							<a class="input-group-text bg-transparent border-left-0" *ngIf="editorgname"
-								(click)="saveField('orgname', orgDataForm.controls['orgname'].value)"
+							<a class="input-group-text bg-transparent border-left-0" *ngIf="editemer"
+								(click)="saveField('emer', ndermarrjeDataForm.controls['emer'].value)"
 								title="Ruaj Ndryshimet">
-								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editorg, 'fa-save' : editorgname}"
+								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editndermarrje, 'fa-save' : editemer}"
 									*ngIf="!loading"></em>
 								<div class="ball-scale-ripple-multiple" *ngIf="loading">
 									<div></div>
@@ -44,19 +44,19 @@
 									<div></div>
 								</div>
 							</a>
-							<a class="input-group-text bg-transparent border-left-0" (click)="enableEdit('orgname')"
-								[title]="editorgname ? 'Cancel' : 'Ndrysho Emrin'">
+							<a class="input-group-text bg-transparent border-left-0" (click)="enableEdit('emer')"
+								[title]="editemer ? 'Cancel' : 'Ndrysho Emrin'">
 								<em
-									[ngClass]="{'fa': true, 'fa-pencil-alt' : !editorgname, 'fa-window-close' : editorgname}"></em>
+									[ngClass]="{'fa': true, 'fa-pencil-alt' : !editemer, 'fa-window-close' : editemer}"></em>
 							</a>
 
 						</div>
 					</div>
-					<div class="text-danger" *ngIf="orgDataForm.controls['orgname'].hasError('required')">
+					<div class="text-danger" *ngIf="ndermarrjeDataForm.controls['emer'].hasError('required')">
 						Emri s'mund të lihet bosh.</div>
 				</div>
 			</div>
-			<!-- End orgname TB  -->
+			<!-- End emer TB  -->
 			<!-- slogan TB -->
 			<div class="form-group row">
 				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right" for="slogan">Slogani</label>
@@ -66,9 +66,9 @@
 							formControlName="slogan" />
 						<div class="input-group-append">
 							<a class="input-group-text bg-transparent border-left-0" *ngIf="editslogan"
-								(click)="saveField('slogan', orgDataForm.controls['slogan'].value)"
+								(click)="saveField('slogan', ndermarrjeDataForm.controls['slogan'].value)"
 								title="Ruaj Ndryshimet">
-								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editorg, 'fa-save' : editslogan}"
+								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editndermarrje, 'fa-save' : editslogan}"
 									*ngIf="!loading"></em>
 								<div class="ball-scale-ripple-multiple" *ngIf="loading">
 									<div></div>
@@ -84,7 +84,7 @@
 
 						</div>
 					</div>
-					<div class="text-danger" *ngIf="orgDataForm.controls['slogan'].hasError('required')">
+					<div class="text-danger" *ngIf="ndermarrjeDataForm.controls['slogan'].hasError('required')">
 						Slogani s'mund të lihet bosh.</div>
 				</div>
 			</div>
@@ -98,9 +98,9 @@
 							formControlName="domain" />
 						<div class="input-group-append">
 							<a class="input-group-text bg-transparent border-left-0" *ngIf="editdomain"
-								(click)="saveField('domain', orgDataForm.controls['domain'].value)"
+								(click)="saveField('domain', ndermarrjeDataForm.controls['domain'].value)"
 								title="Ruaj Ndryshimet">
-								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editorg, 'fa-save' : editsdomain}"
+								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editndermarrje, 'fa-save' : editsdomain}"
 									*ngIf="!loading"></em>
 								<div class="ball-scale-ripple-multiple" *ngIf="loading">
 									<div></div>
@@ -116,7 +116,7 @@
 
 						</div>
 					</div>
-					<div class="text-danger" *ngIf="orgDataForm.controls['domain'].hasError('required')">
+					<div class="text-danger" *ngIf="ndermarrjeDataForm.controls['domain'].hasError('required')">
 						Domain s'mund të lihet bosh.</div>
 				</div>
 			</div>
@@ -130,9 +130,9 @@
 							formControlName="adresa" />
 						<div class="input-group-append">
 							<a class="input-group-text bg-transparent border-left-0" *ngIf="editadresa"
-								(click)="saveField('adresa', orgDataForm.controls['adresa'].value)"
+								(click)="saveField('adresa', ndermarrjeDataForm.controls['adresa'].value)"
 								title="Ruaj Ndryshimet">
-								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editorg, 'fa-save' : editsadresa}"
+								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editndermarrje, 'fa-save' : editsadresa}"
 									*ngIf="!loading"></em>
 								<div class="ball-scale-ripple-multiple" *ngIf="loading">
 									<div></div>
@@ -148,7 +148,7 @@
 
 						</div>
 					</div>
-					<div class="text-danger" *ngIf="orgDataForm.controls['adresa'].hasError('required')">
+					<div class="text-danger" *ngIf="ndermarrjeDataForm.controls['adresa'].hasError('required')">
 						Adresa s'mund të lihet bosh.</div>
 				</div>
 			</div>
@@ -162,9 +162,9 @@
 							formControlName="telefon" />
 						<div class="input-group-append">
 							<a class="input-group-text bg-transparent border-left-0" *ngIf="edittelefon"
-								(click)="saveField('telefon', orgDataForm.controls['telefon'].value)"
+								(click)="saveField('telefon', ndermarrjeDataForm.controls['telefon'].value)"
 								title="Ruaj Ndryshimet">
-								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editorg, 'fa-save' : editstelefon}"
+								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editndermarrje, 'fa-save' : editstelefon}"
 									*ngIf="!loading"></em>
 								<div class="ball-scale-ripple-multiple" *ngIf="loading">
 									<div></div>
@@ -180,7 +180,7 @@
 
 						</div>
 					</div>
-					<div class="text-danger" *ngIf="orgDataForm.controls['telefon'].hasError('required')">
+					<div class="text-danger" *ngIf="ndermarrjeDataForm.controls['telefon'].hasError('required')">
 						telefon s'mund të lihet bosh.</div>
 				</div>
 			</div>
@@ -194,7 +194,7 @@
 							formControlName="email" />
 						<div class="input-group-append">
 							<a class="input-group-text bg-transparent border-left-0" *ngIf="editemail"
-								(click)="saveField('email', orgDataForm.controls['email'].value)"
+								(click)="saveField('email', ndermarrjeDataForm.controls['email'].value)"
 								title="Ruaj Ndryshimet">
 								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editemail, 'fa-save' : editemail}"
 									*ngIf="!loading"></em>
@@ -212,9 +212,9 @@
 
 						</div>
 					</div>
-					<div class="text-danger" *ngIf="orgDataForm.controls['email'].hasError('required')">
+					<div class="text-danger" *ngIf="ndermarrjeDataForm.controls['email'].hasError('required')">
 						E-mail s'mund të lihet bosh.</div>
-					<div class="text-danger" *ngIf="orgDataForm.controls['email'].hasError('email')">
+					<div class="text-danger" *ngIf="ndermarrjeDataForm.controls['email'].hasError('email')">
 						E-mail format i gabuar.</div>
 				</div>
 			</div>
@@ -227,7 +227,7 @@
 						<input class="form-control" id="nius" type="nius" placeholder="NIUS" formControlName="nius" />
 						<div class="input-group-append">
 							<a class="input-group-text bg-transparent border-left-0" *ngIf="editnius"
-								(click)="saveField('nius', orgDataForm.controls['nius'].value)" title="Ruaj Ndryshimet">
+								(click)="saveField('nius', ndermarrjeDataForm.controls['nius'].value)" title="Ruaj Ndryshimet">
 								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editnius, 'fa-save' : editnius}"
 									*ngIf="!loading"></em>
 								<div class="ball-scale-ripple-multiple" *ngIf="loading">
@@ -244,9 +244,9 @@
 
 						</div>
 					</div>
-					<div class="text-danger" *ngIf="orgDataForm.controls['nius'].hasError('required')">
+					<div class="text-danger" *ngIf="ndermarrjeDataForm.controls['nius'].hasError('required')">
 						E-mail s'mund të lihet bosh.</div>
-					<div class="text-danger" *ngIf="orgDataForm.controls['nius'].hasError('nius')">
+					<div class="text-danger" *ngIf="ndermarrjeDataForm.controls['nius'].hasError('nius')">
 						E-mail format i gabuar.</div>
 				</div>
 			</div>

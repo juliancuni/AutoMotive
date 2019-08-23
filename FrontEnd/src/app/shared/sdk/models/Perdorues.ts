@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 declare var Object: any;
-export interface AmUserInterface {
+export interface PerdoruesInterface {
   "emer": string;
   "mbiemer": string;
   "email": string;
@@ -18,7 +18,7 @@ export interface AmUserInterface {
   accessTokens?: any[];
 }
 
-export class AmUser implements AmUserInterface {
+export class Perdorues implements PerdoruesInterface {
   "emer": string;
   "mbiemer": string;
   "email": string;
@@ -33,24 +33,24 @@ export class AmUser implements AmUserInterface {
   "id": any;
   "password": string;
   accessTokens: any[];
-  constructor(data?: AmUserInterface) {
+  constructor(data?: PerdoruesInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `AmUser`.
+   * i.e. `Perdorues`.
    */
   public static getModelName() {
-    return "AmUser";
+    return "Perdorues";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of AmUser for dynamic purposes.
+  * This method creates an instance of Perdorues for dynamic purposes.
   **/
-  public static factory(data: AmUserInterface): AmUser{
-    return new AmUser(data);
+  public static factory(data: PerdoruesInterface): Perdorues{
+    return new Perdorues(data);
   }
   /**
   * @method getModelDefinition
@@ -61,9 +61,9 @@ export class AmUser implements AmUserInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'AmUser',
-      plural: 'AmUsers',
-      path: 'AmUsers',
+      name: 'Perdorues',
+      plural: 'Perdorues',
+      path: 'Perdorues',
       idName: 'id',
       properties: {
         "emer": {

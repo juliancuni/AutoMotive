@@ -5,20 +5,20 @@ import { MsToasterService } from 'src/app/shared/services/mstoaster.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { FileUploader } from 'ng2-file-upload';
-import { Org, OrgApi } from 'src/app/shared/sdk';
+import { Ndermarrje, NdermarrjeApi } from 'src/app/shared/sdk';
 import { SettingsService } from 'src/app/core/settings/settings.service';
 
-const URL = 'http://localhost:4000/api/files/upload?orgId=true';
+const URL = 'http://localhost:4000/api/files/upload?ndermarrjeId=true';
 
 @Component({
-    selector: 'app-org',
-    templateUrl: './org.component.html',
-    styleUrls: ['./org.component.scss']
+    selector: 'app-ndermarrje',
+    templateUrl: './ndermarrje.component.html',
+    styleUrls: ['./ndermarrje.component.scss']
 })
-export class OrgComponent implements OnInit {
+export class NdermarrjeComponent implements OnInit {
 
-    private orgDataForm: FormGroup;
-    private org: Org;
+    private ndermarrjeDataForm: FormGroup;
+    private ndermarrje: Ndermarrje
     private loading: boolean = false;
     private toast: ToastModel;
     public uploader = new FileUploader({ url: URL, allowedMimeType: ['image/png', 'image/svg+xml', 'image/jpeg'] });
@@ -27,7 +27,7 @@ export class OrgComponent implements OnInit {
     private editlogo: boolean = false;
 
     constructor(
-        private _org: OrgApi,
+        private _ndermarrje: NdermarrjeApi,
         private _msToasterService: MsToasterService,
         private _fb: FormBuilder,
         private settings: SettingsService
@@ -35,39 +35,42 @@ export class OrgComponent implements OnInit {
 
     enableEdit(field: string): void {
         this["edit" + field] ? this["edit" + field] = false : this["edit" + field] = true;
-        this["edit" + field] ? this.orgDataForm.get(field).enable() : this.orgDataForm.get(field).disable();
-        this.orgDataForm.get(field).reset(this.org[field]);
+        this["edit" + field] ? this.ndermarrjeDataForm.get(field).enable() : this.ndermarrjeDataForm.get(field).disable();
+        this.ndermarrjeDataForm.get(field).reset(this.ndermarrje[field]);
     }
 
     saveField(field: string, value: string) {
-        let reqErr: boolean = this.orgDataForm.controls[field].hasError('required');
+        let reqErr: boolean = this.ndermarrjeDataForm.controls[field].hasError('required');
         if (reqErr) {
             this.loading = false;
         } else {
             this.loading = true
-            //Clone Org Obj
-            let updatedOrg: Org = { ...this.org };
-            updatedOrg[field] = value;
-            if (this.org[field] === value) {
+            //Clone Ndermarrje Obj
+            let updatedndermarrje: Ndermarrje = { ...this.ndermarrje };
+            updatedndermarrje[field] = value;
+            if (this.ndermarrje[field] === value) {
                 this.loading = false;
                 this.enableEdit(field);
             } else {
-                this._org.upsertPatch(updatedOrg).subscribe((res: Org) => {
-                    this.org = res;
+                this._ndermarrje.upsertPatch(updatedndermarrje).subscribe((res: Ndermarrje) => {
+                    this.ndermarrje = res;
                     this.toast = { type: "success", title: "Përditësim", body: field + " u përditësua" };
                     this._msToasterService.toastData(this.toast);
                 }, (err) => {
-                    if (typeof err.details.codes !== 'undefined' && err.details.codes.orgname[0] === "uniqueness") {
-                        this.orgDataForm.get(field).setErrors({ orgNotUnique: true })
-                    } else if (err.statusCode == 500 || err == "Server error") {
-                        this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
-                        this._msToasterService.toastData(this.toast);
-                    }
+                    this.toast = { type: "error", title: "Error", body: err.message };
+                    this._msToasterService.toastData(this.toast);
+
+                    // if (err.statusCode == 500 || err == "Server error") {
+                    //     this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
+                    //     this._msToasterService.toastData(this.toast);
+                    // } else {
+
+                    // }
                     this.loading = false;
                 }, () => {
                     this.enableEdit(field);
                     this.loading = false;
-                    localStorage.setItem("OrgData", JSON.stringify(this.org));
+                    localStorage.setItem("NdermarrjeData", JSON.stringify(this.ndermarrje));
                 })
             }
         }
@@ -85,7 +88,7 @@ export class OrgComponent implements OnInit {
             } else {
                 this.loading = false;
                 this.editlogo = false;
-                this.org.logo = response;
+                this.ndermarrje.logo = response;
                 this.toast = { type: "success", title: "Upload Logo", body: "Logo u përditësua" };
             }
             this._msToasterService.toastData(this.toast);
@@ -93,8 +96,8 @@ export class OrgComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.orgDataForm = this._fb.group({
-            'orgname': [null, Validators.required],
+        this.ndermarrjeDataForm = this._fb.group({
+            'emer': [null, Validators.required],
             'slogan': [null, null],
             'domain': [null, Validators.required],
             'adresa': [null, null],
@@ -104,8 +107,8 @@ export class OrgComponent implements OnInit {
         });
 
         this.subscriptions.push(
-            this._org.findOne().subscribe((res: Org) => {
-                this.org = res;
+            this._ndermarrje.findOne().subscribe((res: Ndermarrje) => {
+                this.ndermarrje = res;
 
             }, (err) => {
 
@@ -114,20 +117,20 @@ export class OrgComponent implements OnInit {
                 }
                 this._msToasterService.toastData(this.toast);
             }, () => {
-                this.orgDataForm.get('orgname').disable();
-                this.orgDataForm.get('slogan').disable();
-                this.orgDataForm.get('domain').disable();
-                this.orgDataForm.get('adresa').disable();
-                this.orgDataForm.get('telefon').disable();
-                this.orgDataForm.get('email').disable();
-                this.orgDataForm.get('nius').disable();
-                this.orgDataForm.get('orgname').setValue(this.org.orgname);
-                this.orgDataForm.get('slogan').setValue(this.org.slogan)
-                this.orgDataForm.get('domain').setValue(this.org.domain)
-                this.orgDataForm.get('adresa').setValue(this.org.adresa)
-                this.orgDataForm.get('telefon').setValue(this.org.telefon)
-                this.orgDataForm.get('email').setValue(this.org.email)
-                this.orgDataForm.get('nius').setValue(this.org.nius)
+                this.ndermarrjeDataForm.get('emer').disable();
+                this.ndermarrjeDataForm.get('slogan').disable();
+                this.ndermarrjeDataForm.get('domain').disable();
+                this.ndermarrjeDataForm.get('adresa').disable();
+                this.ndermarrjeDataForm.get('telefon').disable();
+                this.ndermarrjeDataForm.get('email').disable();
+                this.ndermarrjeDataForm.get('nius').disable();
+                this.ndermarrjeDataForm.get('emer').setValue(this.ndermarrje.emer);
+                this.ndermarrjeDataForm.get('slogan').setValue(this.ndermarrje.slogan)
+                this.ndermarrjeDataForm.get('domain').setValue(this.ndermarrje.domain)
+                this.ndermarrjeDataForm.get('adresa').setValue(this.ndermarrje.adresa)
+                this.ndermarrjeDataForm.get('telefon').setValue(this.ndermarrje.telefon)
+                this.ndermarrjeDataForm.get('email').setValue(this.ndermarrje.email)
+                this.ndermarrjeDataForm.get('nius').setValue(this.ndermarrje.nius)
             })
         )
     }

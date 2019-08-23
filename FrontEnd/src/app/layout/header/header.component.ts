@@ -6,7 +6,7 @@ import { SettingsService } from '../../core/settings/settings.service';
 import { MenuService } from '../../core/menu/menu.service';
 
 import { Router } from '@angular/router';
-import { AmUserApi, AmUser, Org } from 'src/app/shared/sdk';
+import { PerdoruesApi, Perdorues, Ndermarrje } from 'src/app/shared/sdk';
 
 @Component({
     selector: 'app-header',
@@ -17,8 +17,8 @@ export class HeaderComponent implements OnInit {
 
     navCollapsed = true; // for horizontal layout
     menuItems = []; // for horizontal layout
-    // user: AmUser;
-    org: Org;
+    // user: Perdorues;
+    ndermarrje: Ndermarrje;
     isNavSearchVisible: boolean;
     @ViewChild('fsbutton', { static: true }) fsbutton;  // the fullscreen button
 
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
         public menu: MenuService, 
         public userblockService: UserblockService, 
         public settings: SettingsService,
-        private _amUser: AmUserApi,
+        private _Perdorues: PerdoruesApi,
         private _router: Router,
         ) {
 
@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.org = JSON.parse(localStorage.getItem("OrgData"));
+        this.ndermarrje = JSON.parse(localStorage.getItem("NdermarrjeData"));
         this.isNavSearchVisible = false;
 
         var ua = window.navigator.userAgent;
@@ -93,9 +93,9 @@ export class HeaderComponent implements OnInit {
         this.postLogOut();
     }
     postLogOut(): void {
-        localStorage.removeItem("UserPersonalData");
-        localStorage.removeItem("OrgData");
-        this._amUser.logout().subscribe();
+        localStorage.removeItem("PerdoruesData");
+        localStorage.removeItem("NdermarrjeData");
+        this._Perdorues.logout().subscribe();
         this._router.navigate(['/login']);
     }
 }

@@ -1,8 +1,8 @@
 /* tslint:disable */
 export * from './ACL';
-export * from './Role';
 export * from './Email';
-export * from './AmUser';
-export * from './Org';
+export * from './Perdorues';
+export * from './Ndermarrje';
+export * from './Klient';
 export * from './BaseModels';
 export * from './FireLoopRef';

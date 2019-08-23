@@ -1,11 +1,11 @@
 module.exports = function (app: any) {
-    let Org = app.models.Org;
-    let amUser = app.models.amUser;
-    let Role = app.models.Role;
+    let Ndermarrje = app.models.Ndermarrje;
+    let Perdorues = app.models.Perdorues;
+    let Privilegjet = app.models.Privilegjet;
     let RoleMapping = app.models.RoleMapping;
     let ACL = app.models.ACL;
 
-    Org.findOne((err: any, org: any) => {
+    Ndermarrje.findOne((err: any, org: any) => {
         if (err) console.log("err: " + err);
         if (!org) {
             console.log("\x1b[32m", "\n\nDuket se kjo eshte hera e pare qe ky program starton.\n")
@@ -41,10 +41,10 @@ module.exports = function (app: any) {
                                     console.log("\x1b[31m", "Fjalekalimi dhe konfirmimi nuk jane njelloj. Provoni serish");
                                     process.exit(0);
                                 } else {
-                                    Org.create({ orgname: orgName, domain: domain }, (err: any, org: any) => {
+                                    Ndermarrje.create({ orgname: orgName, domain: domain }, (err: any, org: any) => {
                                         if (err) console.log(err)
                                         console.log("Org u krijua")
-                                        amUser.create({
+                                        Perdorues.create({
                                             username: "root",
                                             emer: "Root",
                                             mbiemer: "User",
@@ -54,7 +54,7 @@ module.exports = function (app: any) {
                                         }, (err: any, user: any) => {
                                             if (err) console.log(err)
                                             console.log("Root user u krijua")
-                                            Role.create({
+                                            Privilegjet.create({
                                                 name: "root",
                                                 description: "Ma i madhi n'ven"
                                             }, (err: any, role: any) => {
@@ -89,25 +89,36 @@ module.exports = function (app: any) {
                                                                 console.log(`ACL model: ${model} : ALLOW root u krijua`)
                                                             })
                                                         })
-                                                        Role.create({
+                                                        ACL.create({
+                                                            principalType: ACL.ROLE,
+                                                            principalId: "$everyone",
+                                                            model: "Ndermarrje",
+                                                            property: "findOne",
+                                                            accessType: "READ",
+                                                            permission: ACL.ALLOW
+                                                        }, (err: any, acl: any) => {
+                                                            if (err) console.log(err)
+                                                            console.log(`ACL model: Ndermarrje : ALLOW $everyone findOne u krijua`)
+                                                        })
+                                                        Privilegjet.create({
                                                             name: "client",
                                                             description: "Client role. Nuk ka shume te drejta"
                                                         }, (err: any, role: any) => {
-                                                            if (err) console.log(err)
-                                                            console.log(`\n\nFinal: u krijua Role ${role.name}`)
+                                                            if (err) console.log(err);
+                                                            console.log(`\n\nFinal: u krijua Role ${role.name}`);
                                                             console.log("\x1b[32m", "\n\nProcedura u zbatua me sukses. Mund te vazhdoni te veproni nga web/mobile/desktop app.")
-                                                        })
+                                                        });
                                                     });
-                                                })
-                                            })
-                                        })
-                                    })
-                                } // callback hell
-                            })
-                        })
-                    })
-                })
+                                                });
+                                            });
+                                        });
+                                    });
+                                }; // callback hell
+                            });
+                        });
+                    });
+                });
             });
-        }
-    })
+        };
+    });
 };

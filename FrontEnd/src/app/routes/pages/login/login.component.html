@@ -4,8 +4,8 @@
         <div class="card card-flat">
             <div class="card-header text-center">
                 <a [routerLink]="'/'">
-                    <img class="block-center rounded" [src]="settings.getAppSetting('logo')" alt="Org Logo"
-                        width="70" title="{{org?.slogan}}" /><span style="color: #4D4D4D"> {{org?.orgname || settings.getAppSetting('orgname')}}</span>
+                    <img class="block-center rounded" [src]="ndermarrje?.logo" (error)="img.src=settings.getAppSetting('logo')" #img alt="Ndermarrje Logo"
+                        width="70" title="{{ndermarrje?.slogan}}" /><span style="color: #4D4D4D"> {{ndermarrje?.emer || settings.getAppSetting('emer')}}</span>
                 </a>
             </div>
             <div class="card-body">
@@ -72,9 +72,9 @@
             <span>&copy;</span>
             <span>{{ settings.getAppSetting('year') }}</span>
             <span class="mx-2">-</span>
-            <span>{{ org?.orgname || settings.getAppSetting('orgname') }}</span>
+            <span>{{ ndermarrje?.emer || settings.getAppSetting('emer') }}</span>
             <br />
-            <span>{{ org?.slogan || settings.getAppSetting('slogan') }}</span>
+            <span>{{ ndermarrje?.slogan || settings.getAppSetting('slogan') }}</span>
         </div>
     </div>
 </div>

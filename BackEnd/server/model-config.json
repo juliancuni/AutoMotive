@@ -37,20 +37,20 @@
   },
   "Role": {
     "dataSource": "MongoAtlas",
-    "public": true
+    "public": false
   },
   "Email": {
     "dataSource": "Email"
   },
-  "amUser": {
+  "Perdorues": {
     "dataSource": "MongoAtlas",
     "public": true
   },
-  "org": {
+  "Ndermarrje": {
     "dataSource": "MongoAtlas",
     "public": true
   },
-  "Client": {
+  "Klient": {
     "dataSource": "MongoAtlas",
     "public": true
   }

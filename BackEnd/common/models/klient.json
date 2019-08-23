@@ -1,29 +1,16 @@
 {
-  "name": "org",
+  "name": "Klient",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
-    "validateUpsert": true,
-    "strictObjectIDCoercion": true
+    "validateUpsert": true
   },
   "properties": {
-    "orgname": {
+    "emer": {
       "type": "string",
       "required": true
     },
-    "domain": {
-      "type": "string",
-      "required": true
-    },
-    "slogan": {
-      "type": "string",
-      "required": true,
-      "default": "N/A"
-    },
-    "logo": {
-      "type": "string"
-    },
-    "adresa": {
+    "mbiemer": {
       "type": "string"
     },
     "telefon": {
@@ -32,7 +19,7 @@
     "email": {
       "type": "string"
     },
-    "nius": {
+    "adresa": {
       "type": "string"
     }
   },

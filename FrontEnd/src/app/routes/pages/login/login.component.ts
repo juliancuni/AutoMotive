@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // import { CustomValidators } from 'ng2-validation';
 
 import { Router, ActivatedRoute } from '@angular/router';
-import { AmUserApi, OrgApi, Org } from '../../../shared/sdk';
+import { PerdoruesApi, NdermarrjeApi, Ndermarrje } from '../../../shared/sdk';
 import { MsToasterService } from '../../../shared/services/mstoaster.service';
 import { ToastModel } from '../../../shared/msInterfaces/interfaces';
 const swal = require('sweetalert');
@@ -21,15 +21,15 @@ export class LoginComponent implements OnInit {
     perdoruesResponseErr: boolean = false;
     fjaleKalimiResponseErr: boolean = false;
     loading: boolean = false;
-    org: Org;
+    ndermarrje: Ndermarrje
     private toast: ToastModel;
     constructor(
         public settings: SettingsService,
         fb: FormBuilder,
         private _router: Router,
-        private _amUser: AmUserApi,
+        private _Perdorues: PerdoruesApi,
         private _msToasterService: MsToasterService,
-        private _org: OrgApi,
+        private _ndermarrje: NdermarrjeApi,
         private _route: ActivatedRoute
     ) {
         this.loginForm = fb.group({
@@ -46,12 +46,12 @@ export class LoginComponent implements OnInit {
         }
         if (this.loginForm.valid) {
             this.loginForm.controls["username"].disabled;
-            let kredencialet = { realm: localStorage.getItem("org_token"), username: value.username, password: value.password, ttl: value.remebmerMe ? 31536000 : 1209600 };
+            let kredencialet = { realm: localStorage.getItem("ndermarrje_token"), username: value.username, password: value.password, ttl: value.remebmerMe ? 31536000 : 1209600 };
             this.loginForm.disable();
             this.errorLoginTxt = "";
             this.perdoruesResponseErr = false;
             this.fjaleKalimiResponseErr = false;
-            this._amUser.login(kredencialet, "", value.remebmerMe).subscribe(() => {
+            this._Perdorues.login(kredencialet, "", value.remebmerMe).subscribe(() => {
             }, (err) => {
                 // console.log(err);
                 this.loading = false;
@@ -97,17 +97,17 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        let orglocalStorage = localStorage.getItem("OrgData");
-        if (orglocalStorage) {
-            this.org = JSON.parse(orglocalStorage);
+        let ndermarrjelocalStorage = localStorage.getItem("NdermarrjeData");
+        if (ndermarrjelocalStorage) {
+            this.ndermarrje = JSON.parse(ndermarrjelocalStorage);
         } else {
-            this._org.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Org) => {
-                this.org = res;
+            this._ndermarrje.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Ndermarrje) => {
+                this.ndermarrje = res;
             }, (err) => {
                 // console.log(err);
-                this.org = new Org;
+                this.ndermarrje = new Ndermarrje
             }, () => {
-                localStorage.setItem("OrgData", JSON.stringify(this.org))
+                localStorage.setItem("NdermarrjeData", JSON.stringify(this.ndermarrje))
             })
         }
         this._route.queryParams.subscribe((params: any) => {

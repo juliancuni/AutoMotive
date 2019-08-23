@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AmUser, AmUserApi, LoopBackAuth } from 'src/app/shared/sdk';
+import { Perdorues, PerdoruesApi, LoopBackAuth } from 'src/app/shared/sdk';
 import { ToastModel } from 'src/app/shared/msInterfaces/interfaces';
 import { MsToasterService } from 'src/app/shared/services/mstoaster.service';
 
@@ -22,7 +22,7 @@ const URL = 'http://localhost:4000/api/files/upload?userId=true';
 export class ProfileComponent implements OnInit {
 
     private userDataForm: FormGroup;
-    private user: AmUser;
+    private user: Perdorues;
     private loading: boolean = false;
     private toast: ToastModel;
 
@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
     }
 
     constructor(
-        private _amUser: AmUserApi,
+        private _Perdorues: PerdoruesApi,
         private _msToasterService: MsToasterService,
         private _fb: FormBuilder,
         private _lbAuth: LoopBackAuth,
@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
         private settings: SettingsService
     ) { }
 
-    submitForm($ev: any, user: AmUser): void {
+    submitForm($ev: any, user: Perdorues): void {
         // $ev.preventDefault();
         // for (let c in this.userDataForm.controls) {
         //     this.userDataForm.controls[c].markAsTouched();
@@ -71,9 +71,9 @@ export class ProfileComponent implements OnInit {
             this.loading = false;
         } else {
             this.loading = true
-            //Clone Amuser Obj
-            let updatedAmUser: AmUser = { ...this.user };
-            updatedAmUser[field] = value;
+            //Clone Perdorues Obj
+            let updatedPerdorues: Perdorues = { ...this.user };
+            updatedPerdorues[field] = value;
             if (this.user[field] === value) {
                 this.loading = false;
                 this.enableEdit(field);
@@ -85,7 +85,7 @@ export class ProfileComponent implements OnInit {
                     } else {
                         let oldPassword: string = this.userDataForm.get('password').value;
                         let newPassword: string = this.userDataForm.get('newpass').value;
-                        this._amUser.changePassword(oldPassword, newPassword).subscribe(() => {
+                        this._Perdorues.changePassword(oldPassword, newPassword).subscribe(() => {
                             this.enableEdit(field);
                             this.loading = false;
                             this.toast = { type: "success", title: "Përditësim", body: field + " u përditësua" };
@@ -104,7 +104,7 @@ export class ProfileComponent implements OnInit {
                         })
                     }
                 } else {
-                    this._amUser.upsertPatch(updatedAmUser).subscribe((res: AmUser) => {
+                    this._Perdorues.upsertPatch(updatedPerdorues).subscribe((res: Perdorues) => {
                         this.user = res;
                         this.toast = { type: "success", title: "Përditësim", body: field + " u përditësua" };
                         this._msToasterService.toastData(this.toast);
@@ -124,7 +124,7 @@ export class ProfileComponent implements OnInit {
                     }, () => {
                         this.enableEdit(field);
                         this.loading = false;
-                        localStorage.setItem("UserPersonalData", JSON.stringify(this.user));
+                        localStorage.setItem("PerdoruesData", JSON.stringify(this.user));
                     })
                 }
             }
@@ -164,7 +164,7 @@ export class ProfileComponent implements OnInit {
         });
 
         this.subscriptions.push(
-            this._amUser.getCurrent().subscribe((res: AmUser) => {
+            this._Perdorues.getCurrent().subscribe((res: Perdorues) => {
                 this.user = res;
 
                 this.userDataForm.get('emer').disable();
