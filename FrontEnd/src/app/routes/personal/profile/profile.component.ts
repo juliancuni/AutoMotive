@@ -7,6 +7,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { Subscription } from 'rxjs/Subscription';
 import { FileUploader } from 'ng2-file-upload';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import 'rxjs/add/operator/catch';
+import { SettingsService } from 'src/app/core/settings/settings.service';
 
 const URL = 'http://localhost:4000/api/files/upload?userId=true';
 
@@ -25,6 +29,8 @@ export class ProfileComponent implements OnInit {
     public uploader = new FileUploader({ url: URL, allowedMimeType: ['image/png', 'image/gif', 'image/jpeg'] });
     private subscriptions: Subscription[] = new Array<Subscription>();
 
+    private editavatar: boolean = false;
+
     bsValue = new Date();
     bsConfig = {
         containerClass: 'theme-blue',
@@ -36,7 +42,9 @@ export class ProfileComponent implements OnInit {
         private _amUser: AmUserApi,
         private _msToasterService: MsToasterService,
         private _fb: FormBuilder,
-        private _lbAuth: LoopBackAuth
+        private _lbAuth: LoopBackAuth,
+        private _http: HttpClient,
+        private settings: SettingsService
     ) { }
 
     submitForm($ev: any, user: AmUser): void {
@@ -123,12 +131,22 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    ndryshoFoto(user: AmUser): void {
+    ndryshoFoto(): void {
+        this.loading = true;
+        this.editavatar = true;
         this.uploader.uploadAll();
         this.uploader.onCompleteItem = (item, response: any, status, header) => {
-            console.log(response);
-            this.user.avatar = response;
-            this.uploader.clearQueue();
+            if (status === 0) {
+                this.loading = false;
+                this.editavatar = false;
+                this.toast = { type: "error", title: "Upload Deshtoi", body: "Nuk mund të bëj dot upload në server" };
+            } else {
+                this.loading = false;
+                this.editavatar = false;
+                this.user.avatar = response;
+                this.toast = { type: "success", title: "Upload Avatar", body: "Avatar u përditësua" };
+            }
+            this._msToasterService.toastData(this.toast);
         }
     }
 

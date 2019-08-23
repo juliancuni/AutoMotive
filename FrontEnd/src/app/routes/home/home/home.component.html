@@ -3,13 +3,13 @@
         <div class="row">
             <div class="col-xl-3 col-lg-4">
                 <div class="text-center">
-                    <img alt="Angular" class="img-fluid home-logo" [src]="org?.logo || 'assets/img/looking.png'" />
+                    <img alt="Org Logo" class="img-fluid home-logo" [src]="org?.logo" (error)="img.src=settings.getAppSetting('logo')" #img/>
                 </div>
             </div>
             <div class="col-xl-9 col-lg-8 home-text">
-                <h1 class="home-text-big">{{org?.orgname || "OrgEmer"}}</h1>
-                <p class="lead">{{org?.slogan || "Slogani"}} <strong>.</strong>
-                    <br> <small>{{org?.domain || "domain.com"}}</small>
+                <h1 class="home-text-big">{{org?.orgname || settings.getAppSetting('orgname')}}</h1>
+                <p class="lead">{{org?.slogan || settings.getAppSetting('slogan')}} <strong>.</strong>
+                    <br> <small>{{org?.domain || settings.getAppSetting('domain')}}</small>
                 </p>
                 <p><a class="btn btn-primary btn-lg" href="#">... më shumë</a></p>
             </div>

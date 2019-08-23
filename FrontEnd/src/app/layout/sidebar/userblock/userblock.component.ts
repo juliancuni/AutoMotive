@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserblockService } from './userblock.service';
 import { AmUser, AmUserApi } from 'src/app/shared/sdk';
 import { Router } from '@angular/router';
+import { SettingsService } from 'src/app/core/settings/settings.service';
 
 @Component({
     selector: 'app-userblock',
@@ -14,8 +15,9 @@ export class UserblockComponent implements OnInit {
     constructor(
         public userblockService: UserblockService,
         private _amUser: AmUserApi,
-        private _router: Router
-    ) {
+        private _router: Router,
+        private settings: SettingsService
+        ) {
     }
     ngOnInit() {
         if (localStorage.getItem("UserPersonalData")) {

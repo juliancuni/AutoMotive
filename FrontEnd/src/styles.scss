@@ -19,3 +19,6 @@
 @import "./app/shared/styles/app.scss";
 //datepicker 
 @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
+//ag-grid
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";

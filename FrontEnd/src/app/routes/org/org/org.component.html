@@ -4,17 +4,22 @@
 		<div class="card card-default">
 			<div class="card-body text-center">
 				<div class="py-4 container">
-					<img class="image img-fluid rounded-circle img-thumbnail thumb96 "
-						[src]="org?.logo || 'assets/img/looking.png'" alt="Contact" />
-					<button class="middle btn btn-xs file-upload">
+					<img class="image img-fluid rounded-circle img-thumbnail thumb96 " [src]="org?.logo"
+						(error)="img.src=settings.getAppSetting('logo')" #img alt="Org Logo" />
+					<button class="middle btn btn-xs file-upload" >
 						<input type="file" ng2FileSelect [uploader]="uploader" (onFileSelected)="ndryshoLogo()"
 							accept="image/png,image/jpeg,image/svg+xml" />
 						<div class="text">
 							<em class="fa fa-camera"></em> Ndrysho Logo
 						</div>
 					</button>
+					<div class="middleLoading ball-scale-ripple-multiple" *ngIf="loading && editlogo">
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
 				</div>
-				<h3 class="m-0 text-bold">{{org?.orgname}}</h3>
+				<h3 class="m-0 text-bold">{{org?.orgname || settings.getAppSetting('orgname')}}</h3>
 				<p>{{org?.slogan}}</p>
 			</div>
 		</div>
@@ -182,8 +187,7 @@
 			<!-- End telefon TB  -->
 			<!-- Email TB -->
 			<div class="form-group row">
-				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-					for="email">E-mail</label>
+				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right" for="email">E-mail</label>
 				<div class="col-xl-10 col-md-9 col-8">
 					<div class="input-group with-focus input-group-sm">
 						<input class="form-control" id="email" type="email" placeholder="E-mail"
@@ -200,8 +204,7 @@
 									<div></div>
 								</div>
 							</a>
-							<a class="input-group-text bg-transparent border-left-0"
-								(click)="enableEdit('email')"
+							<a class="input-group-text bg-transparent border-left-0" (click)="enableEdit('email')"
 								[title]="editemail ? 'Cancel' : 'Ndrysho E-mail'">
 								<em
 									[ngClass]="{'fa': true, 'fa-pencil-alt' : !editemail, 'fa-window-close' : editemail}"></em>
@@ -209,8 +212,7 @@
 
 						</div>
 					</div>
-					<div class="text-danger"
-						*ngIf="orgDataForm.controls['email'].hasError('required')">
+					<div class="text-danger" *ngIf="orgDataForm.controls['email'].hasError('required')">
 						E-mail s'mund të lihet bosh.</div>
 					<div class="text-danger" *ngIf="orgDataForm.controls['email'].hasError('email')">
 						E-mail format i gabuar.</div>
@@ -219,16 +221,13 @@
 			<!-- End Email TB  -->
 			<!-- nius TB -->
 			<div class="form-group row">
-				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-					for="nius">NIUS</label>
+				<label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right" for="nius">NIUS</label>
 				<div class="col-xl-10 col-md-9 col-8">
 					<div class="input-group with-focus input-group-sm">
-						<input class="form-control" id="nius" type="nius" placeholder="NIUS"
-							formControlName="nius" />
+						<input class="form-control" id="nius" type="nius" placeholder="NIUS" formControlName="nius" />
 						<div class="input-group-append">
 							<a class="input-group-text bg-transparent border-left-0" *ngIf="editnius"
-								(click)="saveField('nius', orgDataForm.controls['nius'].value)"
-								title="Ruaj Ndryshimet">
+								(click)="saveField('nius', orgDataForm.controls['nius'].value)" title="Ruaj Ndryshimet">
 								<em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editnius, 'fa-save' : editnius}"
 									*ngIf="!loading"></em>
 								<div class="ball-scale-ripple-multiple" *ngIf="loading">
@@ -237,8 +236,7 @@
 									<div></div>
 								</div>
 							</a>
-							<a class="input-group-text bg-transparent border-left-0"
-								(click)="enableEdit('nius')"
+							<a class="input-group-text bg-transparent border-left-0" (click)="enableEdit('nius')"
 								[title]="editnius ? 'Cancel' : 'Ndrysho NIUS'">
 								<em
 									[ngClass]="{'fa': true, 'fa-pencil-alt' : !editnius, 'fa-window-close' : editnius}"></em>
@@ -246,8 +244,7 @@
 
 						</div>
 					</div>
-					<div class="text-danger"
-						*ngIf="orgDataForm.controls['nius'].hasError('required')">
+					<div class="text-danger" *ngIf="orgDataForm.controls['nius'].hasError('required')">
 						E-mail s'mund të lihet bosh.</div>
 					<div class="text-danger" *ngIf="orgDataForm.controls['nius'].hasError('nius')">
 						E-mail format i gabuar.</div>

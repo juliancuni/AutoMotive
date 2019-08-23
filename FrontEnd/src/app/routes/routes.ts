@@ -11,6 +11,7 @@ export const routes = [
             { path: 'home', loadChildren: './home/home.module#HomeModule', canActivate: [AuthGuard] },
             { path: 'personal', loadChildren: './personal/personal.module#PersonalModule', canActivate: [AuthGuard] },
             { path: 'org', loadChildren: './org/org.module#OrgModule', canActivate: [AuthGuard] },
+            { path: 'github', loadChildren: './github/github.module#GithubModule', canActivate: [AuthGuard] },
         ]
     },
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Org } from 'src/app/shared/sdk';
+import { SettingsService } from '../../../core/settings/settings.service';
 
 
 @Component({
@@ -11,7 +12,9 @@ export class HomeComponent implements OnInit {
 
     private org: Org;
 
-    constructor() { }
+    constructor(
+        public settings: SettingsService,
+    ) { }
 
     ngOnInit() {
         this.org = JSON.parse(localStorage.getItem("OrgData"));

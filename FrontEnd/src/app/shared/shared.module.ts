@@ -34,6 +34,9 @@ import { ScrollableDirective } from './directives/scrollable/scrollable.directiv
 import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
 import { FileUploadModule } from 'ng2-file-upload';
 
+import { AgGridModule } from 'ag-grid-angular';
+
+
 // https://angular.io/styleguide#!#04-10
 @NgModule({
     imports: [
@@ -59,7 +62,8 @@ import { FileUploadModule } from 'ng2-file-upload';
         PopoverModule.forRoot(),
         TypeaheadModule.forRoot(),
         ToasterModule,
-        FileUploadModule
+        FileUploadModule,
+        AgGridModule.withComponents([])
     ],
     providers: [
         ColorsService
@@ -106,7 +110,8 @@ import { FileUploadModule } from 'ng2-file-upload';
         NowDirective,
         ScrollableDirective,
         JqcloudDirective,
-        FileUploadModule
+        FileUploadModule,
+        AgGridModule
     ]
 })
 

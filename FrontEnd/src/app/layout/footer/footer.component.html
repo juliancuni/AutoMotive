@@ -1,1 +1,2 @@
-<span>&copy; {{settings.getAppSetting('year')}} - {{ org.orgname }}</span>
+<span>&copy; {{settings.getAppSetting('year')}} - {{ org?.orgname || settings.getAppSetting('orgname') }} :
+    V{{settings.getAppSetting('version')}}</span>

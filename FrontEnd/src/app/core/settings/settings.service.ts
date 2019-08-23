@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+const { version: appVersion } = require('../../../../package.json');
+
 @Injectable()
 export class SettingsService {
 
@@ -12,17 +14,18 @@ export class SettingsService {
         // User Settings
         // -----------------------------------
         this.user = {
-            name: 'John',
-            job: 'ng-developer',
-            picture: 'assets/img/user/02.jpg'
+            avatar: '/assets/img/usernopic.png'
         };
 
         // App Settings
         // -----------------------------------
         this.app = {
-            name: 'AutoMotive',
-            description: 'Either two or four WHEELS',
-            year: ((new Date()).getFullYear())
+            orgname: 'MicroServicesaaaaaaaa',
+            slogan: 'Avoid Single Point of Failures',
+            domain: 'microservices.al',
+            logo: 'assets/img/ms-logo-vetem.svg',
+            year: ((new Date()).getFullYear()),
+            version: appVersion
         };
 
         // Layout Settings

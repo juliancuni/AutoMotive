@@ -105,6 +105,7 @@ export class LoginComponent implements OnInit {
                 this.org = res;
             }, (err) => {
                 // console.log(err);
+                this.org = new Org;
             }, () => {
                 localStorage.setItem("OrgData", JSON.stringify(this.org))
             })

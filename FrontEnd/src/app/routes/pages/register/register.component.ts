@@ -127,7 +127,7 @@ export class RegisterComponent implements OnInit {
             this._org.findOne({ where: { domain: { like: window.location.hostname } } }).subscribe((res: Org) => {
                 this.org = res;
             }, (err) => {
-                console.log(err);
+                // console.log(err);
             }, () => {
                 localStorage.setItem("OrgData", JSON.stringify(this.org))
             })

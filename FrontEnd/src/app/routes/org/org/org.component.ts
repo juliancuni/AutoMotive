@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { FileUploader } from 'ng2-file-upload';
 import { Org, OrgApi } from 'src/app/shared/sdk';
+import { SettingsService } from 'src/app/core/settings/settings.service';
 
 const URL = 'http://localhost:4000/api/files/upload?orgId=true';
 
@@ -23,18 +24,13 @@ export class OrgComponent implements OnInit {
     public uploader = new FileUploader({ url: URL, allowedMimeType: ['image/png', 'image/svg+xml', 'image/jpeg'] });
     private subscriptions: Subscription[] = new Array<Subscription>();
 
-    private editorgname: boolean = false;
-    private editslogan: boolean = false;
-    private editdomain: boolean = false;
-    private editadresa: boolean = false;
-    private edittelefon: boolean = false;
-    private editemail: boolean = false;
-    private editnius: boolean = false;
+    private editlogo: boolean = false;
 
     constructor(
         private _org: OrgApi,
         private _msToasterService: MsToasterService,
         private _fb: FormBuilder,
+        private settings: SettingsService
     ) { }
 
     enableEdit(field: string): void {
@@ -52,7 +48,7 @@ export class OrgComponent implements OnInit {
             //Clone Org Obj
             let updatedOrg: Org = { ...this.org };
             updatedOrg[field] = value;
-            if (this.org[field] === value || this.org[field] === "") {
+            if (this.org[field] === value) {
                 this.loading = false;
                 this.enableEdit(field);
             } else {
@@ -78,10 +74,21 @@ export class OrgComponent implements OnInit {
     }
 
     ndryshoLogo(): void {
+        this.editlogo = true;
+        this.loading = true;
         this.uploader.uploadAll();
         this.uploader.onCompleteItem = (item, response: any, status, header) => {
-            this.org.logo = response;
-            this.uploader.clearQueue();
+            if (status === 0) {
+                this.loading = false;
+                this.editlogo = false;
+                this.toast = { type: "error", title: "Upload Deshtoi", body: "Nuk mund të bëj dot upload në server" };
+            } else {
+                this.loading = false;
+                this.editlogo = false;
+                this.org.logo = response;
+                this.toast = { type: "success", title: "Upload Logo", body: "Logo u përditësua" };
+            }
+            this._msToasterService.toastData(this.toast);
         }
     }
 
@@ -99,6 +106,14 @@ export class OrgComponent implements OnInit {
         this.subscriptions.push(
             this._org.findOne().subscribe((res: Org) => {
                 this.org = res;
+
+            }, (err) => {
+
+                if (err.statusCode == 500 || err == "Server error") {
+                    this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
+                }
+                this._msToasterService.toastData(this.toast);
+            }, () => {
                 this.orgDataForm.get('orgname').disable();
                 this.orgDataForm.get('slogan').disable();
                 this.orgDataForm.get('domain').disable();
@@ -106,19 +121,13 @@ export class OrgComponent implements OnInit {
                 this.orgDataForm.get('telefon').disable();
                 this.orgDataForm.get('email').disable();
                 this.orgDataForm.get('nius').disable();
-                this.orgDataForm.get('orgname').setValue(res.orgname);
-                this.orgDataForm.get('slogan').setValue(res.slogan)
-                this.orgDataForm.get('domain').setValue(res.domain)
-                this.orgDataForm.get('adresa').setValue(res.adresa)
-                this.orgDataForm.get('telefon').setValue(res.telefon)
-                this.orgDataForm.get('email').setValue(res.email)
-                this.orgDataForm.get('nius').setValue(res.nius)
-            }, (err) => {
-                if (err.statusCode == 500 || err == "Server error") {
-                    this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
-                }
-                this._msToasterService.toastData(this.toast);
-            }, () => {
+                this.orgDataForm.get('orgname').setValue(this.org.orgname);
+                this.orgDataForm.get('slogan').setValue(this.org.slogan)
+                this.orgDataForm.get('domain').setValue(this.org.domain)
+                this.orgDataForm.get('adresa').setValue(this.org.adresa)
+                this.orgDataForm.get('telefon').setValue(this.org.telefon)
+                this.orgDataForm.get('email').setValue(this.org.email)
+                this.orgDataForm.get('nius').setValue(this.org.nius)
             })
         )
     }

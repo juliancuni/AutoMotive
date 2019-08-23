@@ -4,15 +4,20 @@
         <div class="card card-default">
             <div class="card-body text-center">
                 <div class="py-4 container">
-                    <img class="image img-fluid rounded-circle img-thumbnail thumb96 "
-                        [src]="user?.avatar || 'assets/img/looking.png'" alt="Contact" />
+                    <img class="image img-fluid rounded-circle img-thumbnail thumb96 " [src]="user?.avatar"
+                        (error)="img.src=settings.getUserSetting('avatar')" name="Avatar" #img />
                     <button class="middle btn btn-xs file-upload">
-                        <input type="file" ng2FileSelect [uploader]="uploader" (onFileSelected)="ndryshoFoto(user)"
+                        <input type="file" ng2FileSelect [uploader]="uploader" (onFileSelected)="ndryshoFoto()"
                             accept="image/png,image/gif,image/jpeg" />
                         <div class="text">
                             <em class="fa fa-camera"></em> Ndrysho Foto
                         </div>
                     </button>
+                    <div class="middleLoading ball-scale-ripple-multiple" *ngIf="loading && editavatar">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
                 </div>
                 <h3 class="m-0 text-bold">{{user?.emer}} {{ user?.mbiemer}}</h3>
             </div>

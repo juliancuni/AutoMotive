@@ -8,13 +8,17 @@
   },
   "properties": {
     "orgname": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "domain": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "slogan": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "default": "N/A"
     },
     "logo": {
       "type": "string"

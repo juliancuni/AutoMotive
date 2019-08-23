@@ -4,9 +4,8 @@
         <div class="card card-flat">
             <div class="card-header text-center">
                 <a [routerLink]="'/'">
-                    <img class="block-center rounded" [src]="org?.logo || 'assets/img/looking.png'"
-                        alt="Image" width="70" title="{{org?.slogan}}" /><span style="color: #4D4D4D">
-                        {{org?.orgname}}</span> </a>
+                    <img class="block-center rounded" [src]="org?.logo" (error)="img.src=settings.getAppSetting('logo')" #img alt="Org Logo" width="70" /><span style="color: #4D4D4D">
+                        {{org?.orgname || settings.getAppSetting('orgname')}}</span> </a>
             </div>
             <div class="card-body">
                 <p class="text-center py-2">RESET Fjalëkalimin.</p>
@@ -45,9 +44,9 @@
             <span>&copy;</span>
             <span>{{ settings.getAppSetting('year') }}</span>
             <span class="mx-2">-</span>
-            <span>{{ org?.orgname }}</span>
-            <br />
-            <span>{{ org?.slogan }}</span>
+            <span>{{ org?.orgname || settings.getAppSetting('orgname') }}</span>
+        <br/>
+        <span>{{ org?.slogan || settings.getAppSetting('slogan') }}</span>
         </div>
     </div>
 </div>

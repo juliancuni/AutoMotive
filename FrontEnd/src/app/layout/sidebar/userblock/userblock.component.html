@@ -2,7 +2,7 @@
     <!-- User picture-->
     <div class="user-block-picture">
         <div class="user-block-status">
-            <img class="img-thumbnail rounded-circle" [src]="user?.avatar || 'assets/img/looking.png'" alt="Avatar" />
+            <img class="img-thumbnail rounded-circle" [src]="user?.avatar" (error)="img.src=settings.getUserSetting('avatar')" name="Avatar" #img />
             <div class="circle bg-success circle-lg"></div>
         </div>
     </div>

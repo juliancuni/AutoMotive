@@ -11,6 +11,12 @@ const Org = {
     icon: 'far fa-building'
 };
 
+const Github = {
+    text: 'Github',
+    link: '/github',
+    icon: 'icon-social-github'
+};
+
 const headingMain = {
     text: 'Main Navigation',
     heading: true
@@ -19,5 +25,6 @@ const headingMain = {
 export const menu = [
     headingMain,
     Home,
-    Org
+    Org, 
+    Github
 ];

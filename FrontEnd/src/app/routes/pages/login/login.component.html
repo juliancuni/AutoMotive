@@ -1,78 +1,80 @@
 <div class="wrapper">
-  <div class="block-center mt-4 wd-xl">
-      <!-- START card-->
-      <div class="card card-flat">
-          <div class="card-header text-center">
-              <a [routerLink]="'/'">
-                  <img class="block-center rounded" [src]="org?.logo || 'assets/img/looking.png'" alt="Image" width="70" title="{{org?.slogan}}"/><span style="color: #4D4D4D"> {{org?.orgname}}</span>
-              </a>
-          </div>
-          <div class="card-body">
-            <p class="text-center py-2" *ngIf="!errorLoginTxt">KREDENCIALET</p>
-            <p class="text-center py-2 text-danger" *ngIf="errorLoginTxt">{{errorLoginTxt}}</p>
-            <form [formGroup]="loginForm" class="form-validate mb-3" role="form" name="loginForm" novalidate=""
-                (submit)="submitForm($event, loginForm.value)">
-                <div class="form-group">
-                    <div class="input-group with-focus">
-                        <input class="form-control border-right-0" id="username" type="username" name="username"
-                            placeholder="Përdoruesi" autocomplete="off" formControlName="username" required="" />
-                        <div class="input-group-append">
-                            <span class="input-group-text text-muted bg-transparent border-left-0">
-                                <em class="fa fa-envelope"></em>
-                            </span>
+    <div class="block-center mt-4 wd-xl">
+        <!-- START card-->
+        <div class="card card-flat">
+            <div class="card-header text-center">
+                <a [routerLink]="'/'">
+                    <img class="block-center rounded" [src]="settings.getAppSetting('logo')" alt="Org Logo"
+                        width="70" title="{{org?.slogan}}" /><span style="color: #4D4D4D"> {{org?.orgname || settings.getAppSetting('orgname')}}</span>
+                </a>
+            </div>
+            <div class="card-body">
+                <p class="text-center py-2" *ngIf="!errorLoginTxt">KREDENCIALET</p>
+                <p class="text-center py-2 text-danger" *ngIf="errorLoginTxt">{{errorLoginTxt}}</p>
+                <form [formGroup]="loginForm" class="form-validate mb-3" role="form" name="loginForm" novalidate=""
+                    (submit)="submitForm($event, loginForm.value)">
+                    <div class="form-group">
+                        <div class="input-group with-focus">
+                            <input class="form-control border-right-0" id="username" type="username" name="username"
+                                placeholder="Përdoruesi" autocomplete="off" formControlName="username" required="" />
+                            <div class="input-group-append">
+                                <span class="input-group-text text-muted bg-transparent border-left-0">
+                                    <em class="fa fa-envelope"></em>
+                                </span>
+                            </div>
                         </div>
+                        <div class="text-danger"
+                            *ngIf="loginForm.controls['username'].hasError('required') && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)">
+                            Përdoruesi s'mund të lihet bosh!</div>
+                        <div class="text-danger" *ngIf="perdoruesResponseErr">Përdoruesi nuk egziston</div>
                     </div>
-                    <div class="text-danger"
-                        *ngIf="loginForm.controls['username'].hasError('required') && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)">
-                        Përdoruesi s'mund të lihet bosh!</div>
-                    <div class="text-danger" *ngIf="perdoruesResponseErr">Përdoruesi nuk egziston</div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group with-focus">
-                        <input class="form-control border-right-0" id="password" type="password" name="password"
-                            placeholder="Fjalëkalimi" formControlName="password" required="" />
-                        <div class="input-group-append">
-                            <span class="input-group-text text-muted bg-transparent border-left-0">
-                                <em class="fa fa-lock"></em>
-                            </span>
+                    <div class="form-group">
+                        <div class="input-group with-focus">
+                            <input class="form-control border-right-0" id="password" type="password" name="password"
+                                placeholder="Fjalëkalimi" formControlName="password" required="" />
+                            <div class="input-group-append">
+                                <span class="input-group-text text-muted bg-transparent border-left-0">
+                                    <em class="fa fa-lock"></em>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="text-danger"
-                        *ngIf="loginForm.controls['password'].hasError('required') && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
-                        Fjalëkalimi s'mund të lihet bosh</div>
-                    <div class="text-danger" *ngIf="fjaleKalimiResponseErr">Fjalëkalimi gabim</div>
+                        <div class="text-danger"
+                            *ngIf="loginForm.controls['password'].hasError('required') && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+                            Fjalëkalimi s'mund të lihet bosh</div>
+                        <div class="text-danger" *ngIf="fjaleKalimiResponseErr">Fjalëkalimi gabim</div>
 
-                </div>
-                <div class="clearfix">
-                    <div class="checkbox c-checkbox float-left mt0">
-                        <!-- <label>
+                    </div>
+                    <div class="clearfix">
+                        <div class="checkbox c-checkbox float-left mt0">
+                            <!-- <label>
                             <input type="checkbox" value="" name="account_remember" formControlName="remebmerMe" />
                             <span class="fa fa-check"></span>Më ruaj</label> -->
+                        </div>
+                        <div class="float-right">
+                            <a class="text-muted" [routerLink]="'/recover'"
+                                [ngStyle]="{'pointer-events' : loading ? 'none' : ''}">Keni harruar të dhënat?</a>
+                        </div>
                     </div>
-                    <div class="float-right">
-                        <a class="text-muted" [routerLink]="'/recover'"
-                            [ngStyle]="{'pointer-events' : loading ? 'none' : ''}">Keni harruar të dhënat?</a>
-                    </div>
-                </div>
-                <button class="btn btn-block btn-primary mt-3" type="submit" [disabled]="loading || !loginForm.valid">
-                    <i class="fa fa-sign-in" *ngIf="!loading" style="display:inline-block;"></i>
-                    <span style="display:inline-block;">{{loading ? "Prisni" : "Login"}}</span>
-                </button>
-            </form>
-            <!-- <div class="alert alert-danger text-center" ></div> -->
-            <p class="pt-3 text-center">Duhet të regjistroheni?</p>
-            <a class="btn btn-block btn-secondary" [routerLink]="'/register'"
-                [ngStyle]="{'pointer-events' : loading ? 'none' : ''}">Regjistrohu Tani</a>
+                    <button class="btn btn-block btn-primary mt-3" type="submit"
+                        [disabled]="loading || !loginForm.valid">
+                        <i class="fa fa-sign-in" *ngIf="!loading" style="display:inline-block;"></i>
+                        <span style="display:inline-block;">{{loading ? "Prisni" : "Login"}}</span>
+                    </button>
+                </form>
+                <!-- <div class="alert alert-danger text-center" ></div> -->
+                <p class="pt-3 text-center">Duhet të regjistroheni?</p>
+                <a class="btn btn-block btn-secondary" [routerLink]="'/register'"
+                    [ngStyle]="{'pointer-events' : loading ? 'none' : ''}">Regjistrohu Tani</a>
+            </div>
         </div>
-      </div>
-      <!-- END card-->
-      <div class="p-3 text-center">
-          <span>&copy;</span>
-          <span>{{ settings.getAppSetting('year') }}</span>
-          <span class="mx-2">-</span>
-          <span>{{ org?.orgname }}</span>
-          <br/>
-          <span>{{ org?.slogan }}</span>
-      </div>
-  </div>
+        <!-- END card-->
+        <div class="p-3 text-center">
+            <span>&copy;</span>
+            <span>{{ settings.getAppSetting('year') }}</span>
+            <span class="mx-2">-</span>
+            <span>{{ org?.orgname || settings.getAppSetting('orgname') }}</span>
+            <br />
+            <span>{{ org?.slogan || settings.getAppSetting('slogan') }}</span>
+        </div>
+    </div>
 </div>
