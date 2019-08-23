@@ -178,6 +178,43 @@
                                 </div>
                             </div>
                             <!-- End Email TB  -->
+                            <!-- telefon TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="telefon">Telefon</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus input-group-sm">
+                                        <input class="form-control" id="telefon" type="text" placeholder="Telefon"
+                                            formControlName="telefon" />
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0" *ngIf="edittelefon"
+                                                (click)="saveField('telefon', userDataForm.controls['telefon'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !edittelefon, 'fa-save' : edittelefon}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="enableEdit('telefon')"
+                                                [title]="edittelefon ? 'Cancel' : 'Ndrysho Telefon'">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !edittelefon, 'fa-window-close' : edittelefon}"></em>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="userDataForm.controls['telefon'].hasError('required')">
+                                        Telefon s'mund të lihet bosh.</div>
+                                    <div class="text-danger" *ngIf="userDataForm.controls['telefon'].hasError('telefon')">
+                                        Telefon format i gabuar.</div>
+                                </div>
+                            </div>
+                            <!-- End telefon TB  -->
                             <!-- Adresa TB -->
                             <div class="form-group row">
                                 <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"

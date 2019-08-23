@@ -49,5 +49,9 @@
   "org": {
     "dataSource": "MongoAtlas",
     "public": true
+  },
+  "Client": {
+    "dataSource": "MongoAtlas",
+    "public": true
   }
 }

@@ -1,0 +1,30 @@
+{
+  "name": "Client",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "emer": {
+      "type": "string",
+      "required": true
+    },
+    "mbiemer": {
+      "type": "string"
+    },
+    "telefon": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "adresa": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
