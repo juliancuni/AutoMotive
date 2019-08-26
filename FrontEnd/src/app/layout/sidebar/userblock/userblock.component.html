@@ -2,13 +2,13 @@
     <!-- User picture-->
     <div class="user-block-picture">
         <div class="user-block-status">
-            <img class="img-thumbnail rounded-circle" [src]="user?.avatar" (error)="img.src=settings.getUserSetting('avatar')" name="Avatar" #img />
+            <img class="img-thumbnail rounded-circle" [src]="perdorues?.avatar" (error)="imgUserBlock.src=settings.getUserSetting('avatar')" name="Avatar" #imgUserBlock />
             <div class="circle bg-success circle-lg"></div>
         </div>
     </div>
     <!-- Name and Job-->
     <div class="user-block-info">
-        <span class="user-block-name">{{ 'sidebar.WELCOME' | translate }} {{user?.emer}} {{user?.mbiemer}}</span>
+        <span class="user-block-name">{{ 'sidebar.WELCOME' | translate }} {{perdorues?.emer}} {{perdorues?.mbiemer}}</span>
         <!-- <span class="user-block-role">
             <a [routerLink]="'/personal/profile'">Profile</a>
         </span> -->

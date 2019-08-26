@@ -23,12 +23,6 @@ const Ndermarrje = {
     icon: 'far fa-building',
 };
 
-const Github = {
-    text: 'Github',
-    link: '/github',
-    icon: 'icon-social-github'
-};
-
 const headingMain = {
     text: 'Main Navigation',
     heading: true
@@ -38,6 +32,5 @@ export const menu = [
     headingMain,
     Home,
     Autorizime,
-    Ndermarrje, 
-    Github
+    Ndermarrje
 ];

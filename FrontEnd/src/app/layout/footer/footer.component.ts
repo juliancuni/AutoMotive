@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SettingsService } from '../../core/settings/settings.service';
 import { Ndermarrje } from 'src/app/shared/sdk';
 
@@ -8,7 +8,7 @@ import { Ndermarrje } from 'src/app/shared/sdk';
     styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-    private ndermarrje: Ndermarrje;
+    @Input() private ndermarrje: Ndermarrje;
     constructor(
         public settings: SettingsService,
     ) { }

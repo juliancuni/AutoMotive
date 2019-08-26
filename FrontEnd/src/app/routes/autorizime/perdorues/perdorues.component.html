@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let perdorues of perdoruesit; let i = index">
+                <tr *ngFor="let perdorues of perdoruesit; let i = index" [ngClass]="{ 'table-danger strikeout': !perdorues?.enabled }">
                     <!-- <td>
                         <div class="media">
                             <img class="img-fluid circle" [src]="perdorues?.avatar" />
@@ -25,7 +25,9 @@
                     <td>{{perdorues?.telefon}}</td>
                     <td>{{perdorues?.email}}</td>
                     <td>
-                        <a class="btn btn btn-square btn-primary mb-1 btn-xs" title="Kartela e përdoruesit '{{perdorues?.username}}'" [routerLink]="['/autorizime/perdorues', perdorues.id]">
+                        <a class="btn btn btn-square btn-primary mb-1 btn-xs"
+                            title="Kartela e përdoruesit '{{perdorues?.username}}'"
+                            [routerLink]="['/autorizime/perdorues', perdorues.id]">
                             <i class="fa fa-pencil-alt"></i>
                         </a>
                     </td>

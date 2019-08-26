@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { SettingsService } from '../../../core/settings/settings.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // import { CustomValidators } from 'ng2-validation';
@@ -14,8 +14,8 @@ const swal = require('sweetalert');
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-
+export class LoginComponent implements OnInit, AfterViewInit {
+    @ViewChild('usernameRef', {static: false}) usernameRef: ElementRef;
     loginForm: FormGroup;
     errorLoginTxt: string;
     perdoruesResponseErr: boolean = false;
@@ -65,13 +65,13 @@ export class LoginComponent implements OnInit {
                     this.toast = { type: "warning", title: "Kujdes!", body: "PERDORUES_NUK_EGZISTON" };
                     this.perdoruesResponseErr = true;
                     this.fjaleKalimiResponseErr = false;
-                    document.getElementById("username").focus();
+                    this.usernameRef.nativeElement.focus();
                 }
                 if (err.code == "FJALEKALIMI_GABIM") {
                     this.toast = { type: "warning", title: "Kujdes!", body: "FJALEKALIMI_GABIM" };
                     this.perdoruesResponseErr = false;
                     this.fjaleKalimiResponseErr = true;
-                    document.getElementById("password").focus();
+                    this.usernameRef.nativeElement.focus();
                 }
                 if (err.code == "LLOGARI_INAKTIVE") {
                     this.errorLoginTxt = "Kjo Llogari është pezulluar!"
@@ -118,5 +118,9 @@ export class LoginComponent implements OnInit {
                 swal("Linku ka skaduar!", "Kjo llogari është verifikuar më parë. \nProvoni të logoheni me të dhënat personale", "warning");
             }
         });
+    }
+
+    ngAfterViewInit() {
+        // this.usernameRef.nativeElement.focus();
     }
 }

@@ -4,6 +4,8 @@ declare var $: any;
 
 import { MenuService } from '../../core/menu/menu.service';
 import { SettingsService } from '../../core/settings/settings.service';
+import { Perdorues } from 'src/app/shared/sdk';
+import { NotificationsService } from 'src/app/shared/services/notifications.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -17,7 +19,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
     sbclickEvent = 'click.sidebar-toggle';
     $doc: any = null;
 
-    constructor(public menu: MenuService, public settings: SettingsService, public injector: Injector) {
+    public perdorues: Perdorues;
+
+    constructor(
+        public menu: MenuService, 
+        public settings: SettingsService, 
+        public injector: Injector,
+        private _notificationService: NotificationsService) {
 
         this.menuItems = menu.getMenu();
 
@@ -38,6 +46,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
         // enable sidebar autoclose from extenal clicks
         this.anyClickClose();
+
+        this._notificationService.castPerdorues.subscribe((perdorues: Perdorues) => {
+            this.perdorues = perdorues;
+        })
 
     }
 

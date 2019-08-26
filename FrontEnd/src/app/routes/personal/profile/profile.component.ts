@@ -11,6 +11,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import { SettingsService } from 'src/app/core/settings/settings.service';
+import { NotificationsService } from 'src/app/shared/services/notifications.service';
 
 const URL = 'http://localhost:4000/api/files/upload?perdoruesId=true';
 
@@ -44,7 +45,8 @@ export class ProfileComponent implements OnInit {
         private _fb: FormBuilder,
         private _lbAuth: LoopBackAuth,
         private _http: HttpClient,
-        private settings: SettingsService
+        private settings: SettingsService,
+        private _notificationService: NotificationsService,
     ) { }
 
     enableEdit(field: string): void {
@@ -96,6 +98,7 @@ export class ProfileComponent implements OnInit {
                         this.perdorues = res;
                         this.toast = { type: "success", title: "Përditësim", body: field + " u përditësua" };
                         this._msToasterService.toastData(this.toast);
+                        this._notificationService.perdoruesDataChanged(this.perdorues);
                     }, (err) => {
                         if (typeof err.details.codes !== 'undefined' && err.details.codes.username[0] === "uniqueness") {
                             this.perdoruesDataForm.get(field).setErrors({ perdoruesNotUnique: true })
@@ -127,6 +130,7 @@ export class ProfileComponent implements OnInit {
                 this.loading = false;
                 this.editavatar = false;
                 this.perdorues.avatar = response;
+                this._notificationService.perdoruesDataChanged(this.perdorues);
                 this.toast = { type: "success", title: "Upload Avatar", body: "Avatar u përditësua" };
             }
             this._msToasterService.toastData(this.toast);

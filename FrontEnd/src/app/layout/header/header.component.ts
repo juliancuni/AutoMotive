@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 const screenfull = require('screenfull');
 
 import { UserblockService } from '../sidebar/userblock/userblock.service';
@@ -6,7 +6,7 @@ import { SettingsService } from '../../core/settings/settings.service';
 import { MenuService } from '../../core/menu/menu.service';
 
 import { Router } from '@angular/router';
-import { PerdoruesApi, Perdorues, Ndermarrje } from 'src/app/shared/sdk';
+import { PerdoruesApi, Ndermarrje } from 'src/app/shared/sdk';
 
 @Component({
     selector: 'app-header',
@@ -17,9 +17,9 @@ export class HeaderComponent implements OnInit {
 
     navCollapsed = true; // for horizontal layout
     menuItems = []; // for horizontal layout
-    // user: Perdorues;
-    ndermarrje: Ndermarrje;
     isNavSearchVisible: boolean;
+
+    @Input() ndermarrje: Ndermarrje;
     @ViewChild('fsbutton', { static: true }) fsbutton;  // the fullscreen button
 
     constructor(

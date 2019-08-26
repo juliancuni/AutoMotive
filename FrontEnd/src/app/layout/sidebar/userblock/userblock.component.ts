@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { UserblockService } from './userblock.service';
 import { Perdorues, PerdoruesApi } from 'src/app/shared/sdk';
@@ -11,7 +11,7 @@ import { SettingsService } from 'src/app/core/settings/settings.service';
     styleUrls: ['./userblock.component.scss']
 })
 export class UserblockComponent implements OnInit {
-    user: Perdorues;
+    @Input() perdorues: Perdorues;
     constructor(
         public userblockService: UserblockService,
         private _perdorues: PerdoruesApi,
@@ -21,14 +21,14 @@ export class UserblockComponent implements OnInit {
     }
     ngOnInit() {
         if (localStorage.getItem("PerdoruesData")) {
-            this.user = JSON.parse(localStorage.getItem("PerdoruesData"));
+            this.perdorues = JSON.parse(localStorage.getItem("PerdoruesData"));
         } else {
             this._perdorues.getCurrent().subscribe((res: Perdorues) => {
-                this.user = res;
+                this.perdorues = res;
             }, (err) => {
                 console.log(err);
             }, () => {
-                localStorage.setItem("PerdoruesData", JSON.stringify(this.user))
+                localStorage.setItem("PerdoruesData", JSON.stringify(this.perdorues))
             })
         }
 

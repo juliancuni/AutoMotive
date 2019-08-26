@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationsService } from '../shared/services/notifications.service';
+import { Ndermarrje, Perdorues } from '../shared/sdk';
 
 @Component({
     selector: 'app-layout',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-
-    constructor() { }
+    private ndermarrje: Ndermarrje;
+    constructor(
+        private _notificationService: NotificationsService,
+    ) { }
 
     ngOnInit() {
+        this._notificationService.castNdermarrje.subscribe((ndermarrje: Ndermarrje) => {
+            this.ndermarrje = ndermarrje;
+        });
     }
 
 }

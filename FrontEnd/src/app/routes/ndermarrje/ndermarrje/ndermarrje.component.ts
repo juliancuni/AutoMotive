@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { FileUploader } from 'ng2-file-upload';
 import { Ndermarrje, NdermarrjeApi } from 'src/app/shared/sdk';
 import { SettingsService } from 'src/app/core/settings/settings.service';
+import { NotificationsService } from 'src/app/shared/services/notifications.service';
 
 const URL = 'http://localhost:4000/api/files/upload?ndermarrjeId=true';
 
@@ -29,6 +30,7 @@ export class NdermarrjeComponent implements OnInit {
     constructor(
         private _ndermarrje: NdermarrjeApi,
         private _msToasterService: MsToasterService,
+        private _notificationService: NotificationsService,
         private _fb: FormBuilder,
         private settings: SettingsService
     ) { }
@@ -56,16 +58,10 @@ export class NdermarrjeComponent implements OnInit {
                     this.ndermarrje = res;
                     this.toast = { type: "success", title: "Përditësim", body: field + " u përditësua" };
                     this._msToasterService.toastData(this.toast);
+                    this._notificationService.ndermarrjeDataChanged(this.ndermarrje);
                 }, (err) => {
                     this.toast = { type: "error", title: "Error", body: err.message };
                     this._msToasterService.toastData(this.toast);
-
-                    // if (err.statusCode == 500 || err == "Server error") {
-                    //     this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
-                    //     this._msToasterService.toastData(this.toast);
-                    // } else {
-
-                    // }
                     this.loading = false;
                 }, () => {
                     this.enableEdit(field);
@@ -89,6 +85,7 @@ export class NdermarrjeComponent implements OnInit {
                 this.loading = false;
                 this.editlogo = false;
                 this.ndermarrje.logo = response;
+                this._notificationService.ndermarrjeDataChanged(this.ndermarrje);
                 this.toast = { type: "success", title: "Upload Logo", body: "Logo u përditësua" };
             }
             this._msToasterService.toastData(this.toast);

@@ -40,10 +40,10 @@ export function Routes(app: express.Express) {
         }
         let fileName = file.filename;
         let fileLink = "http://localhost:4000/api/files/download/" + fileName;
-        let userId = req.cookies.$LoopBackSDK$userId;
+        let perdoruesId = req.cookies.$LoopBackSDK$userId;
 
-        if (req.query.userId) {
-            await PerdoruesModel.findOneAndUpdate(userId, { avatar: fileLink });
+        if (req.query.perdoruesId) {
+            await PerdoruesModel.findOneAndUpdate(perdoruesId, { avatar: fileLink });
         }
         if (req.query.ndermarrjeId) {
             try {
