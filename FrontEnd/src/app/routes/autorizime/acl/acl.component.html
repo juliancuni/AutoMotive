@@ -1,0 +1,51 @@
+<table class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <td><small>#</small></td>
+      <td *ngFor="let appModel of appModels">{{appModel}}</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let role of rolet">
+      <td>{{role.name}}</td>
+      <td *ngFor="let appModel of appModels">
+
+        <div class="d-flex">
+          <label class="switch switch-sm m-0">
+            <input type="checkbox" checked="checked" />
+            <span></span>
+          </label>
+          <div>READ</div>
+        </div>
+        <div class="d-flex ">
+          <label class="switch switch-sm m-0">
+            <input type="checkbox" checked="checked" />
+            <span></span>
+          </label>
+          <div>WRITE</div>
+        </div>
+        <div class="d-flex ">
+          <label class="switch switch-sm m-0">
+            <input type="checkbox" checked="checked" />
+            <span></span>
+          </label>
+          <div>EXECUTE</div>
+        </div>
+        <!-- <label class="switch switch-sm m-0"> READ
+          <input type="checkbox" />
+          <span></span>
+        </label>
+        <label class="switch switch-sm m-0"> WRITE
+          <input type="checkbox" />
+          <span></span>
+        </label>
+        <label class="switch switch-sm m-0"> EXECUTE
+          <input type="checkbox" />
+          <span></span>
+        </label> -->
+      </td>
+    </tr>
+  </tbody>
+</table>
+{{appModels|json}}
+<pre>{{rolet |json}}</pre>

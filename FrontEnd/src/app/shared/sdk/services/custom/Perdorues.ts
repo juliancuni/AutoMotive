@@ -519,7 +519,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Gjej Privilegjet per Perdoruesin me perdoruesId
+   * Gjej Rolet per Perdoruesin me perdoruesId
    *
    * @param {string} perdoruesId 
    *
@@ -529,12 +529,12 @@ export class PerdoruesApi extends BaseLoopBackApi {
    *
    * Data properties:
    *
-   *  - `Privilegjet` – `{any}` - 
+   *  - `Rolet` – `{any}` - 
    */
-  public gjejPrivilegjet(perdoruesId: any = {}, customHeaders?: Function): Observable<any> {
+  public gjejRolet(perdoruesId: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/privilegjet";
+    "/Perdoruesit/rolet";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};

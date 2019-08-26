@@ -13,6 +13,10 @@ const Autorizime = {
         {
             text: 'Përdorues',
             link: '/autorizime/perdorues',
+        },
+        {
+            text: 'ACL',
+            link: '/autorizime/acl',
         }
     ]
 };

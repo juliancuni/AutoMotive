@@ -53,9 +53,5 @@
   "Klient": {
     "dataSource": "MongoAtlas",
     "public": true
-  },
-  "Privilegjet": {
-    "dataSource": "MongoAtlas",
-    "public": true
   }
 }

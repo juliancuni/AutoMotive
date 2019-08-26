@@ -78,8 +78,8 @@ module.exports = function (Perdorues) {
             //Pasi te krijohet user i ri (nga admin, root, ose veteRegjistrim) shiko nese i eshte percaktuar ndonje role
             //Nese jo caktoi automatikisht rolin client. 
             if (!user.role) {
-                const Privilegjet = app.models.Privilegjet;
-                Privilegjet.findOne({ where: { name: "client" } }, function (err, role) {
+                const Role = app.models.Role;
+                Role.findOne({ where: { name: "client" } }, function (err, role) {
                     if (err) next(err);
                     role.principals.create({
                         principalType: app.models.RoleMapping.USER,
@@ -152,42 +152,32 @@ module.exports = function (Perdorues) {
             console.log(err);
         })
     })
-    //Gjej Privilegjet Remote Method
-    Perdorues.gjejPrivilegjet = async (perdoruesId) => {
+    //Gjej Rolet Remote Method
+    Perdorues.gjejRolet = async (perdoruesId) => {
         const RoleMapping = app.models.RoleMapping;
-        const Privilegjet = app.models.Privilegjet;
-        let privilegjet = [];
+        const Role = app.models.Role;
+        let rolet = [];
         try {
             let mappings = await RoleMapping.find({ where: { principalId: perdoruesId } });
-            // let mappings = await RoleMapping.find();
-            // mappings.forEach((mapping) => {
-            //     (mapping.principalId === perdoruesId) ? mapping.eKa = true: mapping.eKa = false;
-            // })
-            // console.log(mappings);
+            
             let mappsIdArr = [];
             mappings.forEach(mapp => {
                 mappsIdArr.push(mapp.roleId);
             });
-            privilegjet = await Privilegjet.find({where: {id: {inq: mappsIdArr}}});
-            // privilegjet = await Privilegjet.find();
-            // privilegjet.forEach((privilegj) => {
-            //     mappings.forEach((mapp) => {
-            //         (mapp.roleId.toString() === privilegj.id.toString()) ? privilegj.eKa = true : privilegj.eKa = false;
-            //     });
-            // })
-            // console.log(privilegjet)
+        rolet = await Role.find({where: {id: {inq: mappsIdArr}}});
+           
         } catch (error) {
             err = new Error()
             mapps = [error.message];
         }
-        return privilegjet;
+        return rolet;
     };
-    //Gjej Privilegjet Definitions
-    Perdorues.remoteMethod('gjejPrivilegjet', {
-        description: "Gjej Privilegjet per Perdoruesin me perdoruesId",
+    //Gjej Rolet Definitions
+    Perdorues.remoteMethod('gjejRolet', {
+        description: "Gjej Rolet per Perdoruesin me perdoruesId",
         accepts: [{ arg: 'perdoruesId', type: 'string' }],
-        returns: [{ arg: 'Privilegjet', type: 'array' }],
-        http: [{ verb: "get", path: "/privilegjet" }],
+        returns: [{ arg: 'Rolet', type: 'array' }],
+        http: [{ verb: "get", path: "/rolet" }],
     });
     //Gjejndermarrje. 
     function gjejNdermarrje() {

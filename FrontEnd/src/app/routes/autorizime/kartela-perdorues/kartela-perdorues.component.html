@@ -307,15 +307,15 @@
     </div>
     <div class="col-xl-6 col-md-4 col-sm-12">
         <div class="card card-default">
-            <div class="card-header">Privilegjet</div>
+            <div class="card-header">Rolet</div>
             <div class="card-body" *ngIf="perdorues?.enabled">
                 <div class="d-flex align-items-center mb-3"
-                    *ngFor="let privilegje of privilegjetTabele; let i = index;">
-                    <div><label for="privilegje{{i}}">{{privilegje?.name}}</label></div>
+                    *ngFor="let role of roletTabele; let i = index;">
+                    <div><label for="role{{i}}">{{role?.name}}</label></div>
                     <div class="ml-auto">
                         <label class="switch m-0">
-                            <input id="privilegje{{i}}" type="checkbox" [checked]="privilegje.eka"
-                                [(ngModel)]="privilegje.eka" (ngModelChange)="onPrivilegjeChange($event, privilegje)" />
+                            <input id="role{{i}}" type="checkbox" [checked]="role.eka"
+                                [(ngModel)]="role.eka" (ngModelChange)="onRoleChange($event, role)" />
                             <span></span>
                         </label>
                     </div>

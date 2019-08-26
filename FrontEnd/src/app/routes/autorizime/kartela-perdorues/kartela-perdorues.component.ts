@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Perdorues, PerdoruesApi, Privilegjet, PrivilegjetApi, RoleMappingApi } from 'src/app/shared/sdk';
+import { Perdorues, PerdoruesApi, Role, RoleApi, RoleMappingApi } from 'src/app/shared/sdk';
 import { ToastModel } from 'src/app/shared/msInterfaces/interfaces';
 import { MsToasterService } from 'src/app/shared/services/mstoaster.service';
 
@@ -20,10 +20,10 @@ export class KartelaPerdoruesComponent implements OnInit {
 
     private perdoruesDataForm: FormGroup;
     private perdorues: Perdorues;
-    private privilegjetOrigj: Privilegjet[];
-    private privilegjetTabele: Privilegjet[];
-    private privilegjetQeKa: Privilegjet[];
-    // private privilegjetQeKaEmer = [];
+    private roletOrigj: Role[];
+    private roletTabele: Role[];
+    private roletQeKa: Role[];
+
     private loading: boolean = false;
     private toast: ToastModel;
 
@@ -43,7 +43,7 @@ export class KartelaPerdoruesComponent implements OnInit {
         private _roleMapping: RoleMappingApi,
         private settings: SettingsService,
         private _route: ActivatedRoute,
-        private _privilegjet: PrivilegjetApi,
+        private _rolet: RoleApi,
     ) { }
 
     enableEdit(field: string): void {
@@ -239,23 +239,23 @@ export class KartelaPerdoruesComponent implements OnInit {
         });
     }
 
-    onPrivilegjeChange($event, privilegje) {
+    onRoleChange($event, role) {
         if ($event) {
             this._roleMapping.create({
                 principalType: "USER",
                 principalId: this.perdorues.id,
-                roleId: privilegje.id
+                roleId: role.id
             }).subscribe((res) => {
-                this.toast = { type: "success", title: "Përditësim", body: "Privilegji u Shtua" };
+                this.toast = { type: "success", title: "Përditësim", body: "Roli u Shtua" };
                 this._msToasterService.toastData(this.toast);
             }, (err) => {
                 this.toast = { type: "error", title: "API ERR", body: err.message };
                 this._msToasterService.toastData(this.toast);
             })
         } else {
-            this._roleMapping.findOne({ where: { and: [{ principalId: this.perdorues.id }, { roleId: privilegje.id }] } }).subscribe((res) => {
+            this._roleMapping.findOne({ where: { and: [{ principalId: this.perdorues.id }, { roleId: role.id }] } }).subscribe((res) => {
                 this._roleMapping.deleteById(res["id"]).subscribe((res) => {
-                    this.toast = { type: "success", title: "Përditësim", body: "Privilegji u Hoq" };
+                    this.toast = { type: "success", title: "Përditësim", body: "Roli u Hoq" };
                     this._msToasterService.toastData(this.toast);
                 }, (err) => {
                     this.toast = { type: "error", title: "API ERR", body: err.message };
@@ -283,21 +283,21 @@ export class KartelaPerdoruesComponent implements OnInit {
 
         this.subscriptions.push(
             this._route.params.subscribe((params) => {
-                this._perdorues.gjejPrivilegjet(params.id).subscribe((res: Privilegjet[]) => {
-                    this.privilegjetQeKa = res["Privilegjet"];
-                    this._privilegjet.find().subscribe((res: Privilegjet[]) => {
-                        this.privilegjetOrigj = res;
-                        let privilegjetOrigj = [...this.privilegjetOrigj];
-                        let privilegjetQeKa = [...this.privilegjetQeKa];
-                        privilegjetOrigj.forEach((privilegjOrigj) => {
-                            privilegjOrigj["eka"] = false;
-                            privilegjetQeKa.forEach((privilegjQeKa) => {
-                                if (privilegjQeKa.id === privilegjOrigj.id) {
-                                    privilegjOrigj["eka"] = true;
+                this._perdorues.gjejRolet(params.id).subscribe((res: Role[]) => {
+                    this.roletQeKa = res["Rolet"];
+                    this._rolet.find().subscribe((res: Role[]) => {
+                        this.roletOrigj = res;
+                        let roletOrigj = [...this.roletOrigj];
+                        let roletQeKa = [...this.roletQeKa];
+                        roletOrigj.forEach((roleOrigj) => {
+                            roleOrigj["eka"] = false;
+                            roletQeKa.forEach((roleQeKa) => {
+                                if (roleQeKa.id === roleOrigj.id) {
+                                    roleOrigj["eka"] = true;
                                 }
                             })
                         })
-                        this.privilegjetTabele = privilegjetOrigj;
+                        this.roletTabele = roletOrigj;
                     })
                 })
                 this._perdorues.findOne({ where: { id: params.id } }).subscribe((res: Perdorues) => {

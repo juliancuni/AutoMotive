@@ -6,6 +6,5 @@ export * from './Email';
 export * from './Perdorues';
 export * from './Ndermarrje';
 export * from './Klient';
-export * from './Privilegjet';
 export * from './SDKModels';
 export * from './logger.service';

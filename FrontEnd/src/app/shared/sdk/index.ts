@@ -55,7 +55,6 @@ import { EmailApi } from './services/custom/Email';
 import { PerdoruesApi } from './services/custom/Perdorues';
 import { NdermarrjeApi } from './services/custom/Ndermarrje';
 import { KlientApi } from './services/custom/Klient';
-import { PrivilegjetApi } from './services/custom/Privilegjet';
 /**
 * @module SDKBrowserModule
 * @description
@@ -93,7 +92,6 @@ export class SDKBrowserModule {
         PerdoruesApi,
         NdermarrjeApi,
         KlientApi,
-        PrivilegjetApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

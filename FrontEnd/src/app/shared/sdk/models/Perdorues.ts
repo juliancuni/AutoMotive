@@ -7,7 +7,7 @@ export interface PerdoruesInterface {
   "email": string;
   "telefon"?: string;
   "datelindja"?: Date;
-  "avatar": string;
+  "avatar"?: string;
   "enabled": boolean;
   "adresa"?: string;
   "realm"?: string;
@@ -88,8 +88,7 @@ export class Perdorues implements PerdoruesInterface {
         },
         "avatar": {
           name: 'avatar',
-          type: 'string',
-          default: 'assets/img/usernopic.png'
+          type: 'string'
         },
         "enabled": {
           name: 'enabled',

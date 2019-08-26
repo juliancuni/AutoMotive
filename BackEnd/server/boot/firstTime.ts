@@ -1,7 +1,7 @@
 module.exports = function (app: any) {
     let Ndermarrje = app.models.Ndermarrje;
     let Perdorues = app.models.Perdorues;
-    let Privilegjet = app.models.Privilegjet;
+    let Role = app.models.Role;
     let RoleMapping = app.models.RoleMapping;
     let ACL = app.models.ACL;
     
@@ -43,18 +43,18 @@ module.exports = function (app: any) {
                                     }, (err: any, user: any) => {
                                         if (err) console.log(err)
                                         console.log("Root user u krijua")
-                                        Privilegjet.create({
+                                        Role.create({
                                             name: "root",
                                             description: "Ma i madhi n'ven"
-                                        }, (err: any, privilegj: any) => {
+                                        }, (err: any, role: any) => {
                                             if (err) console.log(err)
-                                            console.log("Root privilegj u krijua")
-                                            privilegj.principals.create({
+                                            console.log("Root role u krijua")
+                                            role.principals.create({
                                                 principalType: RoleMapping.USER,
                                                 principalId: user.id
                                             }, (err: any, pricipal: any) => {
                                                 if (err) console.log(err)
-                                                console.log("privilegj principal root u krijua")
+                                                console.log("roli principal root u krijua")
                                                 ACL.create({
                                                     principalType: ACL.ROLE,
                                                     principalId: '$everyone',
@@ -68,7 +68,7 @@ module.exports = function (app: any) {
                                                     modelNames.forEach((model: string) => {
                                                         ACL.create({
                                                             principalType: ACL.ROLE,
-                                                            principalId: privilegj.name,
+                                                            principalId: role.name,
                                                             model: model,
                                                             property: ACL.ALL,
                                                             accessType: ACL.ALL,
@@ -89,12 +89,12 @@ module.exports = function (app: any) {
                                                         if (err) console.log(err)
                                                         console.log(`ACL model: Ndermarrje : ALLOW $everyone findOne u krijua`)
                                                     })
-                                                    Privilegjet.create({
+                                                    Role.create({
                                                         name: "client",
-                                                        description: "Client privilegj. Nuk ka shume te drejta"
-                                                    }, (err: any, privilegj: any) => {
+                                                        description: "Client role. Nuk ka shume te drejta"
+                                                    }, (err: any, role: any) => {
                                                         if (err) console.log(err);
-                                                        console.log(`\n\nFinal: u krijua privilegj ${privilegj.name}`);
+                                                        console.log(`\n\nFinal: u krijua role ${role.name}`);
                                                         console.log("\x1b[32m", "\n\nProcedura u zbatua me sukses. Mund te vazhdoni te veproni nga web/mobile/desktop app.")
                                                     });
                                                 });
