@@ -48,7 +48,7 @@ export class KlientApi extends BaseLoopBackApi {
   public patchOrCreate(data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Klients";
+    "/Klientet";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -79,7 +79,7 @@ export class KlientApi extends BaseLoopBackApi {
   public patchAttributes(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Klients/:id";
+    "/Klientet/:id";
     let _routeParams: any = {
       id: id
     };

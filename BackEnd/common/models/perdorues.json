@@ -1,5 +1,6 @@
 {
   "name": "Perdorues",
+  "plural": "Perdoruesit",
   "base": "User",
   "idInjection": true,
   "options": {
@@ -28,9 +29,7 @@
       "type": "date"
     },
     "avatar": {
-      "type": "string",
-      "required": true,
-      "default": "assets/img/usernopic.png"
+      "type": "string"
     },
     "enabled": {
       "type": "boolean",

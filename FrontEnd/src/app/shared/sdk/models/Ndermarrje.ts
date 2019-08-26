@@ -52,8 +52,8 @@ export class Ndermarrje implements NdermarrjeInterface {
   public static getModelDefinition() {
     return {
       name: 'Ndermarrje',
-      plural: 'Ndermarrjes',
-      path: 'Ndermarrjes',
+      plural: 'Ndermarrja',
+      path: 'Ndermarrja',
       idName: 'id',
       properties: {
         "emer": {

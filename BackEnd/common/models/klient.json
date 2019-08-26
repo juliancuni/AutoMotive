@@ -1,5 +1,6 @@
 {
   "name": "Klient",
+  "plural": "Klientet",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {

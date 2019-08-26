@@ -5,9 +5,9 @@ module.exports = function (Perdorues) {
     const app = require('../../server/server');
     const loopback = require("loopback");
     var path = require('path');
-    const config = require('../../server/config.json');
+
     //Disa validation me mesazhe te percaktuara.
-    //<TODO> duhen rishikuar. Nuk jane standard.
+    //<TODO> duhen rishikuar. Erroret nuk jane standard.
     Perdorues.beforeRemote('create', function (context, empty, next) {
         if (context.args.data.password.length < 6) {
             let error = new Error("Fjalëkalimi i shkurtër. Duhet 6 karaktere")
@@ -29,12 +29,11 @@ module.exports = function (Perdorues) {
                 next();
             } else {
                 let res = context.res;
-                const Nderrmarjet = app.models.Nderrmarje;
-                Nderrmarjet.findOne({}, function (err, ndermarrje) {
-                    if (err) console.log(err)
+                gjejNdermarrje().then((ndermarrje) => {
                     res.redirect((process.env.NODE_ENV == "production") ? 'https://' + ndermarrje.domain + '/login?expired=true' : 'http://localhost:4200/login?expired=true');
+                }).catch((err) => {
+                    console.log(err)
                 })
-
             }
         })
     })
@@ -52,10 +51,9 @@ module.exports = function (Perdorues) {
     })
     //Pasi user eshte regjistruar dergo email per konfirmim
     Perdorues.afterRemote('create', function (context, user, next) {
-        const Nderrmarjet = app.models.Ndermarrje;
         gjejNdermarrje().then(function (ndermarrje) {
             const ndermarrjeDomain = ndermarrje.domain.split(":")[0];
-            
+
             var options = {
                 type: 'email',
                 to: user.email,
@@ -63,7 +61,6 @@ module.exports = function (Perdorues) {
                 subject: 'Verifikim ' + ndermarrje.emer,
                 headers: { 'Mime-Version': '1.0' },
                 template: './templates/verify.ejs',
-                //TODO verification link
                 redirect: (process.env.NODE_ENV == "production") ? ndermarrje.domain + "/login/?uid=" + user.id : "http://localhost:4200/login/?uid=" + user.id,
                 user: user,
                 ndermarrje: ndermarrje,
@@ -73,7 +70,6 @@ module.exports = function (Perdorues) {
             };
 
             user.verify(options, function (err, response) {
-                // console.log(user.verificationToken);
                 if (err) {
                     User.deleteById(user.id);
                     return next(err);
@@ -82,8 +78,8 @@ module.exports = function (Perdorues) {
             //Pasi te krijohet user i ri (nga admin, root, ose veteRegjistrim) shiko nese i eshte percaktuar ndonje role
             //Nese jo caktoi automatikisht rolin client. 
             if (!user.role) {
-                const Roles = app.models.Role;
-                Roles.findOne({ where: { name: "client" } }, function (err, role) {
+                const Privilegjet = app.models.Privilegjet;
+                Privilegjet.findOne({ where: { name: "client" } }, function (err, role) {
                     if (err) next(err);
                     role.principals.create({
                         principalType: app.models.RoleMapping.USER,
@@ -156,7 +152,44 @@ module.exports = function (Perdorues) {
             console.log(err);
         })
     })
-    //Gjejndermarrje synchronously. 
+    //Gjej Privilegjet Remote Method
+    Perdorues.gjejPrivilegjet = async (perdoruesId) => {
+        const RoleMapping = app.models.RoleMapping;
+        const Privilegjet = app.models.Privilegjet;
+        let privilegjet = [];
+        try {
+            let mappings = await RoleMapping.find({ where: { principalId: perdoruesId } });
+            // let mappings = await RoleMapping.find();
+            // mappings.forEach((mapping) => {
+            //     (mapping.principalId === perdoruesId) ? mapping.eKa = true: mapping.eKa = false;
+            // })
+            // console.log(mappings);
+            let mappsIdArr = [];
+            mappings.forEach(mapp => {
+                mappsIdArr.push(mapp.roleId);
+            });
+            privilegjet = await Privilegjet.find({where: {id: {inq: mappsIdArr}}});
+            // privilegjet = await Privilegjet.find();
+            // privilegjet.forEach((privilegj) => {
+            //     mappings.forEach((mapp) => {
+            //         (mapp.roleId.toString() === privilegj.id.toString()) ? privilegj.eKa = true : privilegj.eKa = false;
+            //     });
+            // })
+            // console.log(privilegjet)
+        } catch (error) {
+            err = new Error()
+            mapps = [error.message];
+        }
+        return privilegjet;
+    };
+    //Gjej Privilegjet Definitions
+    Perdorues.remoteMethod('gjejPrivilegjet', {
+        description: "Gjej Privilegjet per Perdoruesin me perdoruesId",
+        accepts: [{ arg: 'perdoruesId', type: 'string' }],
+        returns: [{ arg: 'Privilegjet', type: 'array' }],
+        http: [{ verb: "get", path: "/privilegjet" }],
+    });
+    //Gjejndermarrje. 
     function gjejNdermarrje() {
         return new Promise(function (resolve, reject) {
             const Nderrmarjet = app.models.Ndermarrje;
@@ -167,4 +200,5 @@ module.exports = function (Perdorues) {
 
         })
     }
+    //Gjej
 };

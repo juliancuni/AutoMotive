@@ -1,0 +1,326 @@
+<span *ngIf="!perdorues">
+    <div class="middleLoading ball-scale-ripple-multiple">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</span>
+<!-- <div class="row col-xl-2 col-lg-3 col-sm-6"> -->
+<div class="" *ngIf="perdorues">
+    <div class="card card-default">
+        <div class="card-body">
+            <div class="container text-center">
+                <img class="image img-fluid rounded-circle img-thumbnail thumb96 " [src]="perdorues?.avatar"
+                    (error)="img.src=settings.getUserSetting('avatar')" name="Avatar" #img />
+                <button class="middle btn btn-xs file-upload" (click)="fshiFoto()" *ngIf="perdorues?.avatar"
+                    title="fshi Avatarin">
+                    <div class="text">
+                        <em class="fa fa-window-close"></em>
+                    </div>
+                </button>
+                <div class="middleLoading ball-scale-ripple-multiple" *ngIf="loading && editavatar">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <h3 class="m-0 text-bold">{{perdorues?.emer}} {{ perdorues?.mbiemer}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="perdorues">
+    <div class="col-xl-6 col-md-8 col-sm-12">
+        <div class="card card-default">
+            <div class="card-header" [ngStyle]="!perdorues?.enabled && {'color': 'red' }">
+                {{ perdorues?.enabled ? "Të dhënat personale" : "Ky përdorues është i pezulluar" }}</div>
+            <div class="card-body">
+                <form class="form-horizontal" [formGroup]="perdoruesDataForm" name="perdoruesDataForm">
+                    <!-- Emer TB -->
+                    <div class="form-group row">
+                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                            for="emer">Emër</label>
+                        <div class="col-xl-10 col-md-9 col-8">
+                            <div class="input-group with-focus input-group-sm">
+                                <input class="form-control" id="emer" type="text" placeholder="Emri juaj"
+                                    formControlName="emer" />
+                                <div class="input-group-append" *ngIf="perdorues?.enabled">
+                                    <a class="input-group-text bg-transparent border-left-0" *ngIf="editemer"
+                                        (click)="saveField('emer', perdoruesDataForm.controls['emer'].value)"
+                                        title="Ruaj Ndryshimet">
+                                        <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editemer, 'fa-save' : editemer}"
+                                            *ngIf="!loading"></em>
+                                        <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </a>
+                                    <a class="input-group-text bg-transparent border-left-0"
+                                        (click)="enableEdit('emer')" [title]="editemer ? 'Cancel' : 'Ndrysho Emrin'">
+                                        <em
+                                            [ngClass]="{'fa': true, 'fa-pencil-alt' : !editemer, 'fa-window-close' : editemer}"></em>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="text-danger" *ngIf="perdoruesDataForm.controls['emer'].hasError('required')">
+                                Emri s'mund të lihet bosh.</div>
+                        </div>
+                    </div>
+                    <!-- End Emer TB  -->
+                    <!-- Mbiemer TB -->
+                    <div class="form-group row">
+                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                            for="mbiemer">Mbiemër</label>
+                        <div class="col-xl-10 col-md-9 col-8">
+                            <div class="input-group with-focus input-group-sm">
+                                <input class="form-control" id="mbiemer" type="text" placeholder="Mbiemri juaj"
+                                    formControlName="mbiemer" />
+                                <div class="input-group-append" *ngIf="perdorues?.enabled">
+                                    <a class="input-group-text bg-transparent border-left-0" *ngIf="editmbiemer"
+                                        (click)="saveField('mbiemer', perdoruesDataForm.controls['mbiemer'].value)"
+                                        title="Ruaj Ndryshimet">
+                                        <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editmbiemer, 'fa-save' : editmbiemer}"
+                                            *ngIf="!loading"></em>
+                                        <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </a>
+                                    <a class="input-group-text bg-transparent border-left-0"
+                                        (click)="enableEdit('mbiemer')"
+                                        [title]="editmbiemer ? 'Cancel' : 'Ndrysho Mbiemrin'">
+                                        <em
+                                            [ngClass]="{'fa': true, 'fa-pencil-alt' : !editmbiemer, 'fa-window-close' : editmbiemer}"></em>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="text-danger" *ngIf="perdoruesDataForm.controls['mbiemer'].hasError('required')">
+                                Mbiemri s'mund të lihet bosh.</div>
+                        </div>
+                    </div>
+                    <!-- End Mbiemer TB  -->
+                    <!-- username TB -->
+                    <div class="form-group row">
+                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                            for="username">Përdoruesi</label>
+                        <div class="col-xl-10 col-md-9 col-8">
+                            <div class="input-group with-focus input-group-sm">
+                                <input class="form-control" id="username" type="text" placeholder="Përdoruesi"
+                                    formControlName="username" />
+                                <div class="input-group-append" *ngIf="perdorues?.enabled">
+                                    <a class="input-group-text bg-transparent border-left-0" *ngIf="editusername"
+                                        (click)="saveField('username', perdoruesDataForm.controls['username'].value)"
+                                        title="Ruaj Ndryshimet">
+                                        <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editusername, 'fa-save' : editusername}"
+                                            *ngIf="!loading"></em>
+                                        <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </a>
+                                    <a class="input-group-text bg-transparent border-left-0"
+                                        (click)="enableEdit('username')"
+                                        [title]="editusername ? 'Cancel' : 'Ndrysho Emrin e Përdoruesit'">
+                                        <em
+                                            [ngClass]="{'fa': true, 'fa-pencil-alt' : !editusername, 'fa-window-close' : editusername}"></em>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="perdoruesDataForm.controls['username'].hasError('required')">
+                                Përdoruesi s'mund të lihet bosh.</div>
+                            <div class="text-danger"
+                                *ngIf="perdoruesDataForm.controls['username'].hasError('perdoruesNotUnique')">
+                                Ky përdorues egziston.</div>
+
+                        </div>
+                    </div>
+                    <!-- End username TB  -->
+                    <!-- Email TB -->
+                    <div class="form-group row">
+                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                            for="email">E-mail</label>
+                        <div class="col-xl-10 col-md-9 col-8">
+                            <div class="input-group with-focus input-group-sm">
+                                <input class="form-control" id="email" type="email" placeholder="E-mail"
+                                    formControlName="email" />
+                                <div class="input-group-append" *ngIf="perdorues?.enabled">
+                                    <a class="input-group-text bg-transparent border-left-0" *ngIf="editemail"
+                                        (click)="saveField('email', perdoruesDataForm.controls['email'].value)"
+                                        title="Ruaj Ndryshimet">
+                                        <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editemail, 'fa-save' : editemail}"
+                                            *ngIf="!loading"></em>
+                                        <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </a>
+                                    <a class="input-group-text bg-transparent border-left-0"
+                                        (click)="enableEdit('email')" [title]="editemail ? 'Cancel' : 'Ndrysho E-mail'">
+                                        <em
+                                            [ngClass]="{'fa': true, 'fa-pencil-alt' : !editemail, 'fa-window-close' : editemail}"></em>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="text-danger" *ngIf="perdoruesDataForm.controls['email'].hasError('required')">
+                                E-mail s'mund të lihet bosh.</div>
+                            <div class="text-danger" *ngIf="perdoruesDataForm.controls['email'].hasError('email')">
+                                E-mail format i gabuar.</div>
+                        </div>
+                    </div>
+                    <!-- End Email TB  -->
+                    <!-- telefon TB -->
+                    <div class="form-group row">
+                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                            for="telefon">Telefon</label>
+                        <div class="col-xl-10 col-md-9 col-8">
+                            <div class="input-group with-focus input-group-sm">
+                                <input class="form-control" id="telefon" type="text" placeholder="Telefon"
+                                    formControlName="telefon" />
+                                <div class="input-group-append" *ngIf="perdorues?.enabled">
+                                    <a class="input-group-text bg-transparent border-left-0" *ngIf="edittelefon"
+                                        (click)="saveField('telefon', perdoruesDataForm.controls['telefon'].value)"
+                                        title="Ruaj Ndryshimet">
+                                        <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !edittelefon, 'fa-save' : edittelefon}"
+                                            *ngIf="!loading"></em>
+                                        <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </a>
+                                    <a class="input-group-text bg-transparent border-left-0"
+                                        (click)="enableEdit('telefon')"
+                                        [title]="edittelefon ? 'Cancel' : 'Ndrysho Telefon'">
+                                        <em
+                                            [ngClass]="{'fa': true, 'fa-pencil-alt' : !edittelefon, 'fa-window-close' : edittelefon}"></em>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="text-danger" *ngIf="perdoruesDataForm.controls['telefon'].hasError('required')">
+                                Telefon s'mund të lihet bosh.</div>
+                            <div class="text-danger" *ngIf="perdoruesDataForm.controls['telefon'].hasError('telefon')">
+                                Telefon format i gabuar.</div>
+                        </div>
+                    </div>
+                    <!-- End telefon TB  -->
+                    <!-- Adresa TB -->
+                    <div class="form-group row">
+                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                            for="adresa">Adresa</label>
+                        <div class="col-xl-10 col-md-9 col-8">
+                            <div class="input-group with-focus input-group-sm">
+                                <input class="form-control" id="adresa" type="adresa" placeholder="Adresa"
+                                    formControlName="adresa" />
+                                <div class="input-group-append" *ngIf="perdorues?.enabled">
+                                    <a class="input-group-text bg-transparent border-left-0" *ngIf="editadresa"
+                                        (click)="saveField('adresa', perdoruesDataForm.controls['adresa'].value)"
+                                        title="Ruaj Ndryshimet">
+                                        <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editadresa, 'fa-save' : editadresa}"
+                                            *ngIf="!loading"></em>
+                                        <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </a>
+                                    <a class="input-group-text bg-transparent border-left-0"
+                                        (click)="enableEdit('adresa')"
+                                        [title]="editadresa ? 'Cancel' : 'Ndrysho Adresen'">
+                                        <em
+                                            [ngClass]="{'fa': true, 'fa-pencil-alt' : !editadresa, 'fa-window-close' : editadresa}"></em>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="text-danger" *ngIf="perdoruesDataForm.controls['adresa'].hasError('required')">
+                                Adresa s'mund të lihet bosh.</div>
+                        </div>
+                    </div>
+                    <!-- End Adresa TB  -->
+                    <!-- Datelindja TB -->
+                    <div class="form-group row">
+                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                            for="datelindja">Datëlindja</label>
+                        <div class="col-xl-10 col-md-9 col-8">
+                            <div class="input-group with-focus input-group-sm">
+                                <input type="text" id="datelindja" class="form-control" #dp="bsDatepicker" bsDatepicker
+                                    [bsValue]="bsValue" name="dp-basic" [bsConfig]="bsConfig"
+                                    formControlName="datelindja" autocomplete="off">
+                                <div class="input-group-append" *ngIf="perdorues?.enabled">
+                                    <a class="input-group-text bg-transparent border-left-0" *ngIf="editdatelindja"
+                                        (click)="saveField('datelindja', perdoruesDataForm.controls['datelindja'].value)"
+                                        title="Ruaj Ndryshimet">
+                                        <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editdatelindja, 'fa-save' : editdatelindja}"
+                                            *ngIf="!loading"></em>
+                                        <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </a>
+                                    <a class="input-group-text bg-transparent border-left-0"
+                                        (click)="enableEdit('datelindja')"
+                                        [title]="editdatelindja ? 'Cancel' : 'Ndrysho Datën e lindjes'">
+                                        <em
+                                            [ngClass]="{'fa': true, 'fa-pencil-alt' : !editdatelindja, 'fa-window-close' : editdatelindja}"></em>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="perdoruesDataForm.controls['datelindja'].hasError('required')">
+                                Datëlindja s'mund të lihet bosh.</div>
+                        </div>
+                    </div>
+                    <!-- End Datelindja TB  -->
+                    <!-- Password TB -->
+                    <div class="form-group row">
+                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"></label>
+                        <div class="col-xl-10 col-md-9 col-8">
+                            <div class="input-group with-focus input-group-sm">
+                                <button class="btn form-control" (click)="resetPass()"
+                                    [disabled]="!perdorues?.enabled">Reset Fjalëlimin</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Password TB  -->
+                    <div class="form-group row">
+                        <div class="col-md-10">
+                            <!-- <button class="mb-1 mr-1 btn btn-xs btn-danger" (click)="fshiLlogarine()" disabled>Fshi Llogarinë</button> -->
+                            <button class="mb-1 mr-1 btn btn-xs btn-warning" (click)="pezullo()"
+                                *ngIf="perdorues?.enabled">Pezulloje</button>
+                            <button class="mb-1 mr-1 btn btn-xs btn-primary" (click)="riaktivizo()"
+                                *ngIf="!perdorues?.enabled">Riaktivizoje</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-md-4 col-sm-12">
+        <div class="card card-default">
+            <div class="card-header">Privilegjet</div>
+            <div class="card-body" *ngIf="perdorues?.enabled">
+                <div class="d-flex align-items-center mb-3"
+                    *ngFor="let privilegje of privilegjetTabele; let i = index;">
+                    <div><label for="privilegje{{i}}">{{privilegje?.name}}</label></div>
+                    <div class="ml-auto">
+                        <label class="switch m-0">
+                            <input id="privilegje{{i}}" type="checkbox" [checked]="privilegje.eka"
+                                [(ngModel)]="privilegje.eka" (ngModelChange)="onPrivilegjeChange($event, privilegje)" />
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

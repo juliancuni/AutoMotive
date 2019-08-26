@@ -26,7 +26,7 @@ export class ResetComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _ndermarrje: NdermarrjeApi,
-    private _Perdorues: PerdoruesApi,
+    private _perdorues: PerdoruesApi,
     private _auth: LoopBackAuth,
     private _msToasterService: MsToasterService,
 
@@ -44,7 +44,7 @@ export class ResetComponent implements OnInit {
       this.resetForm.controls[c].markAsTouched();
     }
     if (this.resetForm.valid) {
-      this._Perdorues.setPassword(user.password).subscribe(() => {
+      this._perdorues.setPassword(user.password).subscribe(() => {
         this.loading = false;
       }, (err) => {
         // console.log(err)
@@ -80,7 +80,7 @@ export class ResetComponent implements OnInit {
         this.loading = false;
         this.resetForm.enable();
       }, () => {
-        this._Perdorues.logout().subscribe();
+        this._perdorues.logout().subscribe();
         swal({
           title: 'Fjalëkalimi u reset-ua me sukses!',
           text: 'Tani mund të logoheni me fjalëkalimin e ri.',

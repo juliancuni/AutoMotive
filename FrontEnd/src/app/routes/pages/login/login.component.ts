@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
         public settings: SettingsService,
         fb: FormBuilder,
         private _router: Router,
-        private _Perdorues: PerdoruesApi,
+        private _perdorues: PerdoruesApi,
         private _msToasterService: MsToasterService,
         private _ndermarrje: NdermarrjeApi,
         private _route: ActivatedRoute
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
             this.errorLoginTxt = "";
             this.perdoruesResponseErr = false;
             this.fjaleKalimiResponseErr = false;
-            this._Perdorues.login(kredencialet, "", value.remebmerMe).subscribe(() => {
+            this._perdorues.login(kredencialet, "", value.remebmerMe).subscribe(() => {
             }, (err) => {
                 // console.log(err);
                 this.loading = false;

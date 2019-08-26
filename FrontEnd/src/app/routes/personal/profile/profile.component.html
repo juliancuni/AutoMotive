@@ -1,10 +1,10 @@
-<span *ngIf="!user"></span>
-<div class="row" *ngIf="user">
+<span *ngIf="!perdorues"></span>
+<div class="row" *ngIf="perdorues">
     <div class="col">
         <div class="card card-default">
             <div class="card-body text-center">
                 <div class="py-4 container">
-                    <img class="image img-fluid rounded-circle img-thumbnail thumb96 " [src]="user?.avatar"
+                    <img class="image img-fluid rounded-circle img-thumbnail thumb96 " [src]="perdorues?.avatar"
                         (error)="img.src=settings.getUserSetting('avatar')" name="Avatar" #img />
                     <button class="middle btn btn-xs file-upload">
                         <input type="file" ng2FileSelect [uploader]="uploader" (onFileSelected)="ndryshoFoto()"
@@ -19,7 +19,7 @@
                         <div></div>
                     </div>
                 </div>
-                <h3 class="m-0 text-bold">{{user?.emer}} {{ user?.mbiemer}}</h3>
+                <h3 class="m-0 text-bold">{{perdorues?.emer}} {{ perdorues?.mbiemer}}</h3>
             </div>
         </div>
         <div class="card card-default">
@@ -31,7 +31,7 @@
             <div class="card-body">
                 <div class="row py-4 justify-content-center">
                     <div class="col-12 col-sm-10">
-                        <form class="form-horizontal" [formGroup]="userDataForm" name="userDataForm">
+                        <form class="form-horizontal" [formGroup]="perdoruesDataForm" name="perdoruesDataForm">
                             <!-- Emer TB -->
                             <div class="form-group row">
                                 <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
@@ -42,7 +42,7 @@
                                             formControlName="emer" />
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0" *ngIf="editemer"
-                                                (click)="saveField('emer', userDataForm.controls['emer'].value)"
+                                                (click)="saveField('emer', perdoruesDataForm.controls['emer'].value)"
                                                 title="Ruaj Ndryshimet">
                                                 <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editemer, 'fa-save' : editemer}"
                                                     *ngIf="!loading"></em>
@@ -61,7 +61,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="text-danger" *ngIf="userDataForm.controls['emer'].hasError('required')">
+                                    <div class="text-danger" *ngIf="perdoruesDataForm.controls['emer'].hasError('required')">
                                         Emri s'mund të lihet bosh.</div>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                             formControlName="mbiemer" />
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0" *ngIf="editmbiemer"
-                                                (click)="saveField('mbiemer', userDataForm.controls['mbiemer'].value)"
+                                                (click)="saveField('mbiemer', perdoruesDataForm.controls['mbiemer'].value)"
                                                 title="Ruaj Ndryshimet">
                                                 <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editmbiemer, 'fa-save' : editmbiemer}"
                                                     *ngIf="!loading"></em>
@@ -96,12 +96,12 @@
                                         </div>
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="userDataForm.controls['mbiemer'].hasError('required')">
+                                        *ngIf="perdoruesDataForm.controls['mbiemer'].hasError('required')">
                                         Mbiemri s'mund të lihet bosh.</div>
                                 </div>
                             </div>
                             <!-- End Mbiemer TB  -->
-                            <!-- Username TB -->
+                            <!-- username TB -->
                             <div class="form-group row">
                                 <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
                                     for="username">Përdoruesi</label>
@@ -112,7 +112,7 @@
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0"
                                                 *ngIf="editusername"
-                                                (click)="saveField('username', userDataForm.controls['username'].value)"
+                                                (click)="saveField('username', perdoruesDataForm.controls['username'].value)"
                                                 title="Ruaj Ndryshimet">
                                                 <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editusername, 'fa-save' : editusername}"
                                                     *ngIf="!loading"></em>
@@ -132,15 +132,15 @@
                                         </div>
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="userDataForm.controls['username'].hasError('required')">
+                                        *ngIf="perdoruesDataForm.controls['username'].hasError('required')">
                                         Përdoruesi s'mund të lihet bosh.</div>
                                     <div class="text-danger"
-                                        *ngIf="userDataForm.controls['username'].hasError('userNotUnique')">
+                                        *ngIf="perdoruesDataForm.controls['username'].hasError('perdoruesNotUnique')">
                                         Ky përdorues egziston.</div>
 
                                 </div>
                             </div>
-                            <!-- End Username TB  -->
+                            <!-- End username TB  -->
                             <!-- Email TB -->
                             <div class="form-group row">
                                 <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
@@ -151,7 +151,7 @@
                                             formControlName="email" />
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0" *ngIf="editemail"
-                                                (click)="saveField('email', userDataForm.controls['email'].value)"
+                                                (click)="saveField('email', perdoruesDataForm.controls['email'].value)"
                                                 title="Ruaj Ndryshimet">
                                                 <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editemail, 'fa-save' : editemail}"
                                                     *ngIf="!loading"></em>
@@ -171,9 +171,9 @@
                                         </div>
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="userDataForm.controls['email'].hasError('required')">
+                                        *ngIf="perdoruesDataForm.controls['email'].hasError('required')">
                                         E-mail s'mund të lihet bosh.</div>
-                                    <div class="text-danger" *ngIf="userDataForm.controls['email'].hasError('email')">
+                                    <div class="text-danger" *ngIf="perdoruesDataForm.controls['email'].hasError('email')">
                                         E-mail format i gabuar.</div>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@
                                             formControlName="telefon" />
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0" *ngIf="edittelefon"
-                                                (click)="saveField('telefon', userDataForm.controls['telefon'].value)"
+                                                (click)="saveField('telefon', perdoruesDataForm.controls['telefon'].value)"
                                                 title="Ruaj Ndryshimet">
                                                 <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !edittelefon, 'fa-save' : edittelefon}"
                                                     *ngIf="!loading"></em>
@@ -208,9 +208,9 @@
                                         </div>
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="userDataForm.controls['telefon'].hasError('required')">
+                                        *ngIf="perdoruesDataForm.controls['telefon'].hasError('required')">
                                         Telefon s'mund të lihet bosh.</div>
-                                    <div class="text-danger" *ngIf="userDataForm.controls['telefon'].hasError('telefon')">
+                                    <div class="text-danger" *ngIf="perdoruesDataForm.controls['telefon'].hasError('telefon')">
                                         Telefon format i gabuar.</div>
                                 </div>
                             </div>
@@ -225,7 +225,7 @@
                                             formControlName="adresa" />
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0" *ngIf="editadresa"
-                                                (click)="saveField('adresa', userDataForm.controls['adresa'].value)"
+                                                (click)="saveField('adresa', perdoruesDataForm.controls['adresa'].value)"
                                                 title="Ruaj Ndryshimet">
                                                 <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editadresa, 'fa-save' : editadresa}"
                                                     *ngIf="!loading"></em>
@@ -245,7 +245,7 @@
                                         </div>
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="userDataForm.controls['adresa'].hasError('required')">
+                                        *ngIf="perdoruesDataForm.controls['adresa'].hasError('required')">
                                         Adresa s'mund të lihet bosh.</div>
                                 </div>
                             </div>
@@ -262,7 +262,7 @@
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0"
                                                 *ngIf="editdatelindja"
-                                                (click)="saveField('datelindja', userDataForm.controls['datelindja'].value)"
+                                                (click)="saveField('datelindja', perdoruesDataForm.controls['datelindja'].value)"
                                                 title="Ruaj Ndryshimet">
                                                 <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editdatelindja, 'fa-save' : editdatelindja}"
                                                     *ngIf="!loading"></em>
@@ -282,7 +282,7 @@
                                         </div>
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="userDataForm.controls['datelindja'].hasError('required')">
+                                        *ngIf="perdoruesDataForm.controls['datelindja'].hasError('required')">
                                         Datëlindja s'mund të lihet bosh.</div>
                                 </div>
                             </div>
@@ -305,7 +305,7 @@
                                             </a>
                                             <a class="input-group-text bg-transparent border-left-0"
                                                 *ngIf="editpassword"
-                                                (click)="saveField('password', userDataForm.controls['newpass'].value)"
+                                                (click)="saveField('password', perdoruesDataForm.controls['newpass'].value)"
                                                 title="Ruaj Ndryshimet">
                                                 <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editpassword, 'fa-save' : editpassword}"
                                                     *ngIf="!loading"></em>
@@ -325,10 +325,10 @@
                                         </div>
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="userDataForm.controls['password'].hasError('required')">
+                                        *ngIf="perdoruesDataForm.controls['password'].hasError('required')">
                                         Fjalëkalimi Aktual s'mund të lihet bosh.</div>
                                     <div class="text-danger"
-                                        *ngIf="userDataForm.controls['password'].hasError('invalidPass')">
+                                        *ngIf="perdoruesDataForm.controls['password'].hasError('invalidPass')">
                                         Fjalëkalimi gabim.</div>
                                 </div>
                             </div>
@@ -350,10 +350,10 @@
                                             </a></div>
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="userDataForm.controls['newpass'].hasError('required')">
+                                        *ngIf="perdoruesDataForm.controls['newpass'].hasError('required')">
                                         Fjalëkalimi i ri s'mund të lihet bosh.</div>
                                     <div class="text-danger"
-                                        *ngIf="userDataForm.controls['newpass'].hasError('minlength')">
+                                        *ngIf="perdoruesDataForm.controls['newpass'].hasError('minlength')">
                                         Minimumi 6 Karaktere.
                                     </div>
                                 </div>

@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
     constructor(
         public settings: SettingsService,
         fb: FormBuilder,
-        private _Perdorues: PerdoruesApi,
+        private _perdorues: PerdoruesApi,
         private _router: Router,
         private _msToasterService: MsToasterService,
         private _ndermarrje: NdermarrjeApi
@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
         if (this.registerForm.valid) {
             this.loading = true;
             this.registerForm.disable();
-            this._Perdorues.create(user).subscribe((res: Perdorues) => {
+            this._perdorues.create(user).subscribe((res: Perdorues) => {
             }, (err) => {
                 if (typeof err.details !== 'undefined' && typeof err.details.codes !== 'undefined' && typeof err.details.codes.email !== 'undefined') {
                     this.passowrdError = false;

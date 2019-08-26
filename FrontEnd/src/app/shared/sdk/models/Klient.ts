@@ -46,8 +46,8 @@ export class Klient implements KlientInterface {
   public static getModelDefinition() {
     return {
       name: 'Klient',
-      plural: 'Klients',
-      path: 'Klients',
+      plural: 'Klientet',
+      path: 'Klientet',
       idName: 'id',
       properties: {
         "emer": {

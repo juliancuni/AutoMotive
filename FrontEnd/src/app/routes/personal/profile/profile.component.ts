@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import { SettingsService } from 'src/app/core/settings/settings.service';
 
-const URL = 'http://localhost:4000/api/files/upload?userId=true';
+const URL = 'http://localhost:4000/api/files/upload?perdoruesId=true';
 
 @Component({
     selector: 'app-profile',
@@ -21,8 +21,8 @@ const URL = 'http://localhost:4000/api/files/upload?userId=true';
 })
 export class ProfileComponent implements OnInit {
 
-    private userDataForm: FormGroup;
-    private user: Perdorues;
+    private perdoruesDataForm: FormGroup;
+    private perdorues: Perdorues;
     private loading: boolean = false;
     private toast: ToastModel;
 
@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
     }
 
     constructor(
-        private _Perdorues: PerdoruesApi,
+        private _perdorues: PerdoruesApi,
         private _msToasterService: MsToasterService,
         private _fb: FormBuilder,
         private _lbAuth: LoopBackAuth,
@@ -47,53 +47,41 @@ export class ProfileComponent implements OnInit {
         private settings: SettingsService
     ) { }
 
-    submitForm($ev: any, user: Perdorues): void {
-        // $ev.preventDefault();
-        // for (let c in this.userDataForm.controls) {
-        //     this.userDataForm.controls[c].markAsTouched();
-        // }
-        // if (this.userDataForm.valid) { }
-    }
-
     enableEdit(field: string): void {
         this["edit" + field] ? this["edit" + field] = false : this["edit" + field] = true;
-        this["edit" + field] ? this.userDataForm.get(field).enable() : this.userDataForm.get(field).disable();
-        this.userDataForm.get(field).reset(this.user[field]);
+        this["edit" + field] ? this.perdoruesDataForm.get(field).enable() : this.perdoruesDataForm.get(field).disable();
+        this.perdoruesDataForm.get(field).reset(this.perdorues[field]);
     }
 
     saveField(field: string, value: string) {
-        // let minErr: boolean = this.userDataForm.controls[field].hasError('minlength');
-        let reqErr: boolean = this.userDataForm.controls[field].hasError('required');
-        let minErr: boolean = this.userDataForm.controls['newpass'].hasError('minlength');
-        let emailErr: boolean = this.userDataForm.controls[field].hasError('email');
+        let reqErr: boolean = this.perdoruesDataForm.controls[field].hasError('required');
+        let minErr: boolean = this.perdoruesDataForm.controls['newpass'].hasError('minlength');
+        let emailErr: boolean = this.perdoruesDataForm.controls[field].hasError('email');
         if (minErr || reqErr || emailErr) {
-            // this.enableEdit(field);
             this.loading = false;
         } else {
             this.loading = true
             //Clone Perdorues Obj
-            let updatedPerdorues: Perdorues = { ...this.user };
+            let updatedPerdorues: Perdorues = { ...this.perdorues };
             updatedPerdorues[field] = value;
-            if (this.user[field] === value) {
+            if (this.perdorues[field] === value) {
                 this.loading = false;
                 this.enableEdit(field);
             } else {
                 if (field === "password") {
-                    //Ketu kemi nje problem me fjalekalimet. Rregulloje
                     if (minErr) {
                         this.loading = false;
                     } else {
-                        let oldPassword: string = this.userDataForm.get('password').value;
-                        let newPassword: string = this.userDataForm.get('newpass').value;
-                        this._Perdorues.changePassword(oldPassword, newPassword).subscribe(() => {
+                        let oldPassword: string = this.perdoruesDataForm.get('password').value;
+                        let newPassword: string = this.perdoruesDataForm.get('newpass').value;
+                        this._perdorues.changePassword(oldPassword, newPassword).subscribe(() => {
                             this.enableEdit(field);
                             this.loading = false;
                             this.toast = { type: "success", title: "Përditësim", body: field + " u përditësua" };
                             this._msToasterService.toastData(this.toast);
                         }, (err) => {
-                            // this.enableEdit(field);
                             if (err.code === "INVALID_PASSWORD") {
-                                this.userDataForm.get(field).setErrors({ invalidPass: true })
+                                this.perdoruesDataForm.get(field).setErrors({ invalidPass: true })
                             }
                             if (err.statusCode == 500 || err == "Server error") {
                                 this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
@@ -104,27 +92,22 @@ export class ProfileComponent implements OnInit {
                         })
                     }
                 } else {
-                    this._Perdorues.upsertPatch(updatedPerdorues).subscribe((res: Perdorues) => {
-                        this.user = res;
+                    this._perdorues.upsertPatch(updatedPerdorues).subscribe((res: Perdorues) => {
+                        this.perdorues = res;
                         this.toast = { type: "success", title: "Përditësim", body: field + " u përditësua" };
                         this._msToasterService.toastData(this.toast);
-                        console.log("ok - " + field);
-
                     }, (err) => {
-                        console.log("nok - " + field);
-
                         if (typeof err.details.codes !== 'undefined' && err.details.codes.username[0] === "uniqueness") {
-                            this.userDataForm.get(field).setErrors({ userNotUnique: true })
+                            this.perdoruesDataForm.get(field).setErrors({ perdoruesNotUnique: true })
                         } else if (err.statusCode == 500 || err == "Server error") {
                             this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
                             this._msToasterService.toastData(this.toast);
                         }
-                        // this.enableEdit(field);
                         this.loading = false;
                     }, () => {
                         this.enableEdit(field);
                         this.loading = false;
-                        localStorage.setItem("PerdoruesData", JSON.stringify(this.user));
+                        localStorage.setItem("PerdoruesData", JSON.stringify(this.perdorues));
                     })
                 }
             }
@@ -143,7 +126,7 @@ export class ProfileComponent implements OnInit {
             } else {
                 this.loading = false;
                 this.editavatar = false;
-                this.user.avatar = response;
+                this.perdorues.avatar = response;
                 this.toast = { type: "success", title: "Upload Avatar", body: "Avatar u përditësua" };
             }
             this._msToasterService.toastData(this.toast);
@@ -151,7 +134,7 @@ export class ProfileComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.userDataForm = this._fb.group({
+        this.perdoruesDataForm = this._fb.group({
             'emer': [null, Validators.required],
             'mbiemer': [null, Validators.required],
             'username': [null, Validators.required],
@@ -164,24 +147,12 @@ export class ProfileComponent implements OnInit {
         });
 
         this.subscriptions.push(
-            this._Perdorues.getCurrent().subscribe((res: Perdorues) => {
-                this.user = res;
-
-                this.userDataForm.get('emer').disable();
-                this.userDataForm.get('mbiemer').disable();
-                this.userDataForm.get('username').disable();
-                this.userDataForm.get('email').disable();
-                this.userDataForm.get('adresa').disable();
-                this.userDataForm.get('telefon').disable();
-                this.userDataForm.get('datelindja').disable();
-                this.userDataForm.get('password').disable();
-                this.userDataForm.get('emer').setValue(res.emer);
-                this.userDataForm.get('mbiemer').setValue(res.mbiemer)
-                this.userDataForm.get('username').setValue(res.username)
-                this.userDataForm.get('email').setValue(res.email)
-                this.userDataForm.get('adresa').setValue(res.adresa)
-                this.userDataForm.get('telefon').setValue(res.telefon)
-                this.userDataForm.get('datelindja').setValue(res.datelindja)
+            this._perdorues.getCurrent().subscribe((res: Perdorues) => {
+                this.perdorues = res;
+                Object.keys(this.perdoruesDataForm.controls).forEach(key => {
+                    this.perdoruesDataForm.controls[key].disable();
+                    this.perdoruesDataForm.controls[key].setValue(res[key]);
+                });
             }, (err) => {
                 if (err.statusCode == 500 || err == "Server error") {
                     this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };

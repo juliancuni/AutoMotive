@@ -14,7 +14,7 @@ export class UserblockComponent implements OnInit {
     user: Perdorues;
     constructor(
         public userblockService: UserblockService,
-        private _Perdorues: PerdoruesApi,
+        private _perdorues: PerdoruesApi,
         private _router: Router,
         private settings: SettingsService
         ) {
@@ -23,7 +23,7 @@ export class UserblockComponent implements OnInit {
         if (localStorage.getItem("PerdoruesData")) {
             this.user = JSON.parse(localStorage.getItem("PerdoruesData"));
         } else {
-            this._Perdorues.getCurrent().subscribe((res: Perdorues) => {
+            this._perdorues.getCurrent().subscribe((res: Perdorues) => {
                 this.user = res;
             }, (err) => {
                 console.log(err);
@@ -42,7 +42,7 @@ export class UserblockComponent implements OnInit {
     postLogOut(): void {
         localStorage.removeItem("NdermarrjeData");
         localStorage.removeItem("PerdoruesData");
-        this._Perdorues.logout().subscribe();
+        this._perdorues.logout().subscribe();
         this._router.navigate(['/login']);
     }
 }

@@ -2,7 +2,7 @@
     <div class="block-center mt-4 wd-xl">
         <!-- START card-->
         <div class="card card-flat">
-            <div class="card-header text-center">
+            <div class="card-header text-center" *ngIf="ndermarrje">
                 <a [routerLink]="'/'">
                     <img class="block-center rounded" [src]="ndermarrje?.logo" (error)="img.src=settings.getAppSetting('logo')" #img alt="Ndermarrje Logo"
                         width="70" title="{{ndermarrje?.slogan}}" /><span style="color: #4D4D4D"> {{ndermarrje?.emer || settings.getAppSetting('emer')}}</span>

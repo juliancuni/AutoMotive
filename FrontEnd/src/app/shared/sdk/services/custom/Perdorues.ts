@@ -48,7 +48,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public findByIdAccessTokens(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/:id/accessTokens/:fk";
+    "/Perdoruesit/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -75,7 +75,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public destroyByIdAccessTokens(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/:id/accessTokens/:fk";
+    "/Perdoruesit/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -109,7 +109,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public updateByIdAccessTokens(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/:id/accessTokens/:fk";
+    "/Perdoruesit/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -141,7 +141,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public getAccessTokens(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/:id/accessTokens";
+    "/Perdoruesit/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -173,7 +173,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public createAccessTokens(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/:id/accessTokens";
+    "/Perdoruesit/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -199,7 +199,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public deleteAccessTokens(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/:id/accessTokens";
+    "/Perdoruesit/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -227,7 +227,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public countAccessTokens(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/:id/accessTokens/count";
+    "/Perdoruesit/:id/accessTokens/count";
     let _routeParams: any = {
       id: id
     };
@@ -257,7 +257,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public patchOrCreate(data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues";
+    "/Perdoruesit";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -288,7 +288,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public patchAttributes(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/:id";
+    "/Perdoruesit/:id";
     let _routeParams: any = {
       id: id
     };
@@ -328,7 +328,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public login(credentials: any, include: any = 'user', rememberMe: boolean = true, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/login";
+    "/Perdoruesit/login";
     let _routeParams: any = {};
     let _postBody: any = {
       credentials: credentials
@@ -366,7 +366,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public logout(customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/logout";
+    "/Perdoruesit/logout";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -394,7 +394,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public verify(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/:id/verify";
+    "/Perdoruesit/:id/verify";
     let _routeParams: any = {
       id: id
     };
@@ -422,7 +422,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public confirm(uid: any, token: any, redirect: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/confirm";
+    "/Perdoruesit/confirm";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -449,7 +449,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public resetPassword(options: any, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/reset";
+    "/Perdoruesit/reset";
     let _routeParams: any = {};
     let _postBody: any = {
       options: options
@@ -477,7 +477,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public changePassword(oldPassword: any, newPassword: any, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/change-password";
+    "/Perdoruesit/change-password";
     let _routeParams: any = {};
     let _postBody: any = {
       data: {
@@ -506,7 +506,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public setPassword(newPassword: any, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/reset-password";
+    "/Perdoruesit/reset-password";
     let _routeParams: any = {};
     let _postBody: any = {
       data: {
@@ -514,6 +514,31 @@ export class PerdoruesApi extends BaseLoopBackApi {
       }
     };
     let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Gjej Privilegjet per Perdoruesin me perdoruesId
+   *
+   * @param {string} perdoruesId 
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * Data properties:
+   *
+   *  - `Privilegjet` – `{any}` - 
+   */
+  public gjejPrivilegjet(perdoruesId: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/privilegjet";
+    let _routeParams: any = {};
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof perdoruesId !== 'undefined' && perdoruesId !== null) _urlParams.perdoruesId = perdoruesId;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
@@ -539,7 +564,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   public createManyAccessTokens(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdorues/:id/accessTokens";
+    "/Perdoruesit/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -566,7 +591,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
    */
   public getCurrent(filter: LoopBackFilter = {}): Observable<any> {
     let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() + "/Perdorues" + "/:id";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() + "/Perdoruesit" + "/:id";
     let id: any = this.auth.getCurrentUserId();
     if (id == null)
     id = '__anonymous__';

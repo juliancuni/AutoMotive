@@ -62,8 +62,8 @@ export class Perdorues implements PerdoruesInterface {
   public static getModelDefinition() {
     return {
       name: 'Perdorues',
-      plural: 'Perdorues',
-      path: 'Perdorues',
+      plural: 'Perdoruesit',
+      path: 'Perdoruesit',
       idName: 'id',
       properties: {
         "emer": {

@@ -22,7 +22,7 @@ export class RecoverComponent implements OnInit {
         public settings: SettingsService,
         fb: FormBuilder,
         private _ndermarrje: NdermarrjeApi,
-        private _Perdorues: PerdoruesApi,
+        private _perdorues: PerdoruesApi,
         private _router: Router,
     ) {
         this.recoveryForm = fb.group({
@@ -38,7 +38,7 @@ export class RecoverComponent implements OnInit {
         }
         if (this.recoveryForm.valid) {
             this.loading = true;
-            this._Perdorues.resetPassword(value).subscribe((res: any) => {
+            this._perdorues.resetPassword(value).subscribe((res: any) => {
                 this.loading = false;
             }, (err) => {
                 this.loading = false;

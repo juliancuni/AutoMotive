@@ -1,0 +1,69 @@
+<div class="card card-default">
+    <div class="card-header">Përdorues total {{perdoruesit?.length}}</div>
+    <div class="table-responsive">
+        <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <!-- <th scope="col">Avatar</th> -->
+                    <th scope="col">Emer Mbiemer</th>
+                    <th scope="col">UName</th>
+                    <th scope="col">Telefon</th>
+                    <th scope="col">Email</th>
+                    <!-- <th scope="col"></th>
+                    <th scope="col"></th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let perdorues of perdoruesit; let i = index">
+                    <!-- <td>
+                        <div class="media">
+                            <img class="img-fluid circle" [src]="perdorues?.avatar" />
+                        </div>
+                    </td> -->
+                    <td>{{ perdorues?.emer + " " + perdorues?.mbiemer }}</td>
+                    <td>{{perdorues?.username}}</td>
+                    <td>{{perdorues?.telefon}}</td>
+                    <td>{{perdorues?.email}}</td>
+                    <td>
+                        <a class="btn btn btn-square btn-primary mb-1 btn-xs" title="Kartela e përdoruesit '{{perdorues?.username}}'" [routerLink]="['/autorizime/perdorues', perdorues.id]">
+                            <i class="fa fa-pencil-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Pezullo Perdorues -->
+<div class="modal fade" bsModal #pezulloPerdorues="bs-modal" tabindex="-1" role="dialog"
+    aria-labelledby="pezulloPerdorues" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Pezullo: {{perdorues?.emer}} {{perdorues?.mbiemer}}</h4>
+                <button type="button" class="close" aria-label="Close" (click)="pezulloPerdorues.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Jeni të sigurtë që doni të pezulloni
+                <strong> {{perdorues?.emer}} {{perdorues?.mbiemer}} </strong>?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-labeled btn-warning" (click)="pezullo(perdorues)">
+                    <span class="btn-label">
+                        <i class="fa fa-warning"></i>
+                    </span>Po Pezulloje!
+                </button>
+                <button class="btn btn-labeled btn-default" (click)="pezulloPerdorues.hide()">
+                    <span class="btn-label">
+                        <i class="fa fa-times"></i>
+                    </span>Jo Dil.
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Pezullo Perdorues -->
+
+<!-- <pre> {{perdoruesit | json}}</pre> -->

@@ -1,5 +1,6 @@
 {
   "name": "Ndermarrje",
+  "plural": "Ndermarrja",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {

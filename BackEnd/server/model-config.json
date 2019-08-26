@@ -30,14 +30,14 @@
   },
   "RoleMapping": {
     "dataSource": "MongoAtlas",
-    "public": false,
+    "public": true,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
     "dataSource": "MongoAtlas",
-    "public": false
+    "public": true
   },
   "Email": {
     "dataSource": "Email"
@@ -51,6 +51,10 @@
     "public": true
   },
   "Klient": {
+    "dataSource": "MongoAtlas",
+    "public": true
+  },
+  "Privilegjet": {
     "dataSource": "MongoAtlas",
     "public": true
   }

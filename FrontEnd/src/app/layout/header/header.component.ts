@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
         public menu: MenuService, 
         public userblockService: UserblockService, 
         public settings: SettingsService,
-        private _Perdorues: PerdoruesApi,
+        private _perdorues: PerdoruesApi,
         private _router: Router,
         ) {
 
@@ -95,7 +95,7 @@ export class HeaderComponent implements OnInit {
     postLogOut(): void {
         localStorage.removeItem("PerdoruesData");
         localStorage.removeItem("NdermarrjeData");
-        this._Perdorues.logout().subscribe();
+        this._perdorues.logout().subscribe();
         this._router.navigate(['/login']);
     }
 }

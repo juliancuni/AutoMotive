@@ -5,10 +5,22 @@ const Home = {
     icon: 'icon-home'
 };
 
+const Autorizime = {
+    text: 'Autorizime',
+    link: '/autorizime',
+    icon: 'fas fa-user-check',
+    submenu: [
+        {
+            text: 'Përdorues',
+            link: '/autorizime/perdorues',
+        }
+    ]
+};
+
 const Ndermarrje = {
     text: 'Ndërmarrja',
     link: '/ndermarrja',
-    icon: 'far fa-building'
+    icon: 'far fa-building',
 };
 
 const Github = {
@@ -25,6 +37,7 @@ const headingMain = {
 export const menu = [
     headingMain,
     Home,
+    Autorizime,
     Ndermarrje, 
     Github
 ];
