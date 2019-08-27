@@ -1,51 +1,94 @@
-<table class="table table-hover table-condensed">
-  <thead>
-    <tr>
-      <td><small>#</small></td>
-      <td *ngFor="let appModel of appModels">{{appModel}}</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let role of rolet">
-      <td>{{role.name}}</td>
-      <td *ngFor="let appModel of appModels">
+<div class="card">
+    <div class="card-header">
+        ACCESS CONTROL LIST
+        <div class="mr-auto">
+            <div class="btn-group" dropdown>
+                <button class="btn btn-link" dropdownToggle>
+                    <em class="fa fa-ellipsis-v fa-lg"></em>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu dropdown-menu-right-forced animated fadeIn" role="menu">
+                    <a class="dropdown-item" href="">
+                        <em class="fa-fw fa fa-plus mr-2"></em>
+                        <span>New contact</span>
+                    </a>
+                    <a class="dropdown-item" href="">
+                        <em class="fa-fw fas fa-share mr-2"></em>
+                        <span>Import contact</span>
+                    </a>
+                    <a class="dropdown-item" href="">
+                        <em class="fa-fw fas fa-reply mr-2"></em>
+                        <span>Export contacts</span>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-        <div class="d-flex">
-          <label class="switch switch-sm m-0">
-            <input type="checkbox" checked="checked" />
-            <span></span>
-          </label>
-          <div>READ</div>
-        </div>
-        <div class="d-flex ">
-          <label class="switch switch-sm m-0">
-            <input type="checkbox" checked="checked" />
-            <span></span>
-          </label>
-          <div>WRITE</div>
-        </div>
-        <div class="d-flex ">
-          <label class="switch switch-sm m-0">
-            <input type="checkbox" checked="checked" />
-            <span></span>
-          </label>
-          <div>EXECUTE</div>
-        </div>
-        <!-- <label class="switch switch-sm m-0"> READ
-          <input type="checkbox" />
-          <span></span>
-        </label>
-        <label class="switch switch-sm m-0"> WRITE
-          <input type="checkbox" />
-          <span></span>
-        </label>
-        <label class="switch switch-sm m-0"> EXECUTE
-          <input type="checkbox" />
-          <span></span>
-        </label> -->
-      </td>
-    </tr>
-  </tbody>
-</table>
-{{appModels|json}}
-<pre>{{rolet |json}}</pre>
+    <div class="card-body">
+
+        <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <td>
+                        <div class="middleLoading ball-scale-ripple-multiple" *ngIf="loading">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <small>#</small>
+                    </td>
+                    <td *ngFor="let appModel of appModels">{{appModel}}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let role of roletTabele; let i = index;">
+                    <td>{{role?.name}}</td>
+                    <td *ngFor="let appModel of appModels">
+                        <div *ngFor="let acl of role.acls; let j = index">
+                            <div *ngIf="appModel === acl.model && role.name === acl.principalId">
+                                <div class="form-check">
+                                    <input type="checkbox" id="read"
+                                        [checked]="acl.permission === 'ALLOW' && (acl.accessType === 'READ' || acl.accessType === '*')"
+                                        (change)="onRoleChange($event, 'READ', acl)"
+                                        [disabled]="role.name === 'root' || loading" />
+                                    <label class="form-check-label" for="read">
+                                        <small> READ</small>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="write"
+                                        [checked]="acl.permission === 'ALLOW' && (acl.accessType === 'WRITE' || acl.accessType === '*')"
+                                        (change)="onRoleChange($event, 'WRITE', acl)"
+                                        [disabled]="role.name === 'root' || loading" />
+                                    <label class="form-check-label" for="write">
+                                        <small> WRITE</small>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="execute"
+                                        [checked]="acl.permission === 'ALLOW' && (acl.accessType === 'EXECUTE' || acl.accessType === '*')"
+                                        (change)="onRoleChange($event, 'EXECUTE', acl)"
+                                        [disabled]="role.name === 'root' || loading" />
+                                    <label class="form-check-label" for="execute">
+                                        <small> EXECUTE</small>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="all"
+                                        [checked]="acl.permission === 'ALLOW' && acl.accessType === '*'"
+                                        (change)="onRoleChange($event, '*', acl)"
+                                        [disabled]="role.name === 'root' || loading" />
+                                    <label class="form-check-label" for="all">
+                                        <small> ALL</small>
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- <pre>{{roletTabele|json}}</pre> -->

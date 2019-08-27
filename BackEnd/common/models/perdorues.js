@@ -20,7 +20,7 @@ module.exports = function (Perdorues) {
         next();
     })
     //Para se te konfirmoje useri, kontrollo nese ka bere konfirmim me pare duke kerkuar verificationToken ne user object.
-    //Nese ska bere konfirmim vazhdo, nese jo redirect to client app tokenExpired. 
+    //Nese ska bere konfirmim vazhdo, nese jo redirect to klient app tokenExpired. 
     Perdorues.beforeRemote('confirm', function (context, empty, next) {
         const token = context.args.token;
         Perdorues.findOne({ where: { verificationToken: token } }, function (err, user) {
@@ -76,10 +76,10 @@ module.exports = function (Perdorues) {
                 }
             });
             //Pasi te krijohet user i ri (nga admin, root, ose veteRegjistrim) shiko nese i eshte percaktuar ndonje role
-            //Nese jo caktoi automatikisht rolin client. 
+            //Nese jo caktoi automatikisht rolin klient. 
             if (!user.role) {
                 const Role = app.models.Role;
-                Role.findOne({ where: { name: "client" } }, function (err, role) {
+                Role.findOne({ where: { name: "klient" } }, function (err, role) {
                     if (err) next(err);
                     role.principals.create({
                         principalType: app.models.RoleMapping.USER,

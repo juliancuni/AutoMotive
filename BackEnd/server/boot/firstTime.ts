@@ -90,8 +90,8 @@ module.exports = function (app: any) {
                                                         console.log(`ACL model: Ndermarrje : ALLOW $everyone findOne u krijua`)
                                                     })
                                                     Role.create({
-                                                        name: "client",
-                                                        description: "Client role. Nuk ka shume te drejta"
+                                                        name: "klient",
+                                                        description: "klient role. Nuk ka shume te drejta"
                                                     }, (err: any, role: any) => {
                                                         if (err) console.log(err);
                                                         console.log(`\n\nFinal: u krijua role ${role.name}`);
