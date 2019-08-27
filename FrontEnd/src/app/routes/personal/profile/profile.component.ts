@@ -22,9 +22,9 @@ const URL = 'http://localhost:4000/api/files/upload?perdoruesId=true';
 })
 export class ProfileComponent implements OnInit {
 
-    private perdoruesDataForm: FormGroup;
-    private perdorues: Perdorues;
-    private loading: boolean = false;
+    public perdoruesDataForm: FormGroup;
+    public perdorues: Perdorues;
+    public loading: boolean = false;
     private toast: ToastModel;
 
     public uploader = new FileUploader({ url: URL, allowedMimeType: ['image/png', 'image/gif', 'image/jpeg'] });

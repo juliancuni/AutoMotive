@@ -8,7 +8,7 @@ import { NdermarrjeApi, Ndermarrje } from 'src/app/shared/sdk';
   styleUrls: ['./error404.component.scss']
 })
 export class Error404Component implements OnInit {
-  private ndermarrje: Ndermarrje
+  public ndermarrje: Ndermarrje
   constructor(
     public settings: SettingsService,
     private _ndermarrje: NdermarrjeApi) { }

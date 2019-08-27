@@ -8,7 +8,7 @@ import { Ndermarrje, Perdorues } from '../shared/sdk';
     styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-    private ndermarrje: Ndermarrje;
+    public ndermarrje: Ndermarrje;
     constructor(
         private _notificationService: NotificationsService,
     ) { }

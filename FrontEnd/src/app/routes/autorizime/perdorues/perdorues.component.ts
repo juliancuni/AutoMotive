@@ -14,11 +14,11 @@ export class PerdoruesComponent implements OnInit {
     @ViewChild('pezulloPerdorues', {static: false}) public pezulloPerdorues: ModalDirective;
     @ViewChild('editPerdorues', {static: false}) public editPerdorues: ModalDirective;
 
-    private perdorues: Perdorues;
-    private perdoruesit: Perdorues[];
-    private tableColumnDefs: any[];
-    private tableRowData: any[];
-    private loading: boolean = false;
+    public perdorues: Perdorues;
+    public perdoruesit: Perdorues[];
+    public tableColumnDefs: any[];
+    public tableRowData: any[];
+    public loading: boolean = false;
     private toast: ToastModel;
     constructor(
         private _perdorues: PerdoruesApi,

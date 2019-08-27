@@ -13,23 +13,23 @@ const swal = require('sweetalert');
 })
 export class AclComponent implements OnInit {
 
-    private appModels = [];
+    public appModels = [];
     private rolet: Role[];
-    private acls: ACL[];
-    private aclNewEdit: ACL;
+    public acls: ACL[];
+    public aclNewEdit: ACL;
     private roleMapping: RoleMapping[];
-    private perdoruesit: Perdorues[];
-    private roletTabele = [];
+    public perdoruesit: Perdorues[];
+    public roletTabele = [];
 
-    private loading: boolean = false;
-    private showPerdorues: boolean = false;
-    private showRole: boolean = false;
+    public loading: boolean = false;
+    public showPerdorues: boolean = false;
+    public showRole: boolean = false;
     // private editACL: boolean = false;
     private aclsPerUpload: ACL[] = [];
     private toast: ToastModel;
 
-    private roletDataForm: FormGroup;
-    private aclSpecifikeDataForm: FormGroup;
+    public roletDataForm: FormGroup;
+    public aclSpecifikeDataForm: FormGroup;
 
     constructor(
         private _appModels: SDKModels,

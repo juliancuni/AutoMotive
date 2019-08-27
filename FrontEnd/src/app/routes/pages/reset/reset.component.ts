@@ -13,10 +13,10 @@ const swal = require('sweetalert');
   styleUrls: ['./reset.component.scss']
 })
 export class ResetComponent implements OnInit {
-  private ndermarrje: Ndermarrje
-  private resetForm: FormGroup;
-  private loading: boolean = false;
-  private passwordError: boolean = false;
+  public ndermarrje: Ndermarrje
+  public resetForm: FormGroup;
+  public loading: boolean = false;
+  public passwordError: boolean = false;
   private toast: ToastModel;
   private error: any;
 

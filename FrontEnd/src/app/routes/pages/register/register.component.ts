@@ -17,14 +17,14 @@ const swal = require('sweetalert');
 })
 export class RegisterComponent implements OnInit {
 
-    private registerForm: FormGroup;
-    private loading: boolean = false;
+    public registerForm: FormGroup;
+    public loading: boolean = false;
     private toast: ToastModel;
-    private emailError: boolean = false;
-    private passowrdError: boolean = false;
-    private usernameError: boolean = false;
+    public emailError: boolean = false;
+    public passowrdError: boolean = false;
+    public usernameError: boolean = false;
     private error: {};
-    private ndermarrje: Ndermarrje
+    public ndermarrje: Ndermarrje
     constructor(
         public settings: SettingsService,
         fb: FormBuilder,

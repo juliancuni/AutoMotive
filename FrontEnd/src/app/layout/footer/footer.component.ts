@@ -8,7 +8,7 @@ import { Ndermarrje } from 'src/app/shared/sdk';
     styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-    @Input() private ndermarrje: Ndermarrje;
+    @Input() public ndermarrje: Ndermarrje;
     constructor(
         public settings: SettingsService,
     ) { }

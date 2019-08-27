@@ -9,11 +9,11 @@ import { GitHubCommits, IGitHubCommit } from 'src/app/shared/services/github.mod
 })
 export class ActivityComponent implements OnInit {
 
-    private tableColumnDefs: any[];
-    private tableRowData: any[];
+    public tableColumnDefs: any[];
+    public tableRowData: any[];
 
 
-    private commits: GitHubCommits[];
+    public commits: GitHubCommits[];
     private httpErrors: any;
     constructor(
         private _gitService: GithubService

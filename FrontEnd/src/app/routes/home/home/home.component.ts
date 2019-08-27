@@ -10,7 +10,7 @@ import { SettingsService } from '../../../core/settings/settings.service';
 })
 export class HomeComponent implements OnInit {
 
-    private ndermarrje: Ndermarrje
+    public ndermarrje: Ndermarrje
 
     constructor(
         public settings: SettingsService,

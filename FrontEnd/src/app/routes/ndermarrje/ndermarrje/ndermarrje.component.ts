@@ -18,9 +18,9 @@ const URL = 'http://localhost:4000/api/files/upload?ndermarrjeId=true';
 })
 export class NdermarrjeComponent implements OnInit {
 
-    private ndermarrjeDataForm: FormGroup;
-    private ndermarrje: Ndermarrje
-    private loading: boolean = false;
+    public ndermarrjeDataForm: FormGroup;
+    public ndermarrje: Ndermarrje
+    public loading: boolean = false;
     private toast: ToastModel;
     public uploader = new FileUploader({ url: URL, allowedMimeType: ['image/png', 'image/svg+xml', 'image/jpeg'] });
     private subscriptions: Subscription[] = new Array<Subscription>();

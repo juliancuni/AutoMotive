@@ -18,13 +18,13 @@ const swal = require('sweetalert');
 })
 export class KartelaPerdoruesComponent implements OnInit {
 
-    private perdoruesDataForm: FormGroup;
-    private perdorues: Perdorues;
+    public perdoruesDataForm: FormGroup;
+    public perdorues: Perdorues;
     private roletOrigj: Role[];
-    private roletTabele: Role[];
+    public roletTabele: Role[];
     private roletQeKa: Role[];
 
-    private loading: boolean = false;
+    public loading: boolean = false;
     private toast: ToastModel;
 
     private subscriptions: Subscription[] = new Array<Subscription>();

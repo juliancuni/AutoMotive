@@ -13,7 +13,7 @@ const swal = require('sweetalert');
     styleUrls: ['./recover.component.scss']
 })
 export class RecoverComponent implements OnInit {
-    private ndermarrje: Ndermarrje
+    public ndermarrje: Ndermarrje
     recoveryForm: FormGroup;
     loading: boolean = false;
     emailError: boolean = false;

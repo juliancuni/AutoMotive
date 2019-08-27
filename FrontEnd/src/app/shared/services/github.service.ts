@@ -11,7 +11,7 @@ const URL = "https://api.github.com/repos/juliancuni/AutoMotive/commits";
     providedIn: 'root'
 })
 export class GithubService {
-    private commits: GitHubCommits[];
+    public commits: GitHubCommits[];
     constructor(
         private _http: HttpClient
     ) {

@@ -6,8 +6,8 @@ import { Ndermarrje, Perdorues } from '../sdk';
   providedIn: 'root'
 })
 export class NotificationsService {
-  private ndermarrjeData = new Subject<Ndermarrje>();
-  private perdoruesData = new Subject<Perdorues>();
+  public ndermarrjeData = new Subject<Ndermarrje>();
+  public perdoruesData = new Subject<Perdorues>();
 
   public castNdermarrje = this.ndermarrjeData.asObservable();
   public castPerdorues = this.perdoruesData.asObservable();
