@@ -8,7 +8,7 @@ const Home = {
 const Autorizime = {
     text: 'Autorizime',
     link: '/autorizime',
-    icon: 'fas fa-user-check',
+    icon: 'fa fa-ban',
     submenu: [
         {
             text: 'Përdorues',

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PerdoruesApi, Perdorues } from 'src/app/shared/sdk';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { MsToasterService } from 'src/app/shared/services/mstoaster.service';
+import { ToastModel } from 'src/app/shared/msInterfaces/interfaces';
 
 @Component({
     selector: 'app-perdorues',
@@ -16,9 +18,11 @@ export class PerdoruesComponent implements OnInit {
     private perdoruesit: Perdorues[];
     private tableColumnDefs: any[];
     private tableRowData: any[];
-
+    private loading: boolean = false;
+    private toast: ToastModel;
     constructor(
-        private _perdorues: PerdoruesApi
+        private _perdorues: PerdoruesApi,
+        private _msToasterService: MsToasterService,
     ) { }
 
     edit(perdorues: Perdorues) {
@@ -37,6 +41,10 @@ export class PerdoruesComponent implements OnInit {
     ngOnInit() {
         this._perdorues.find().subscribe((res: Perdorues[]) => {
             this.perdoruesit = res;
+        }, (err) => {
+            this.loading = false;
+            this.toast = { type: "error", title: "API ERR", body: err.message };
+            this._msToasterService.toastData(this.toast);
         })
     }
 }

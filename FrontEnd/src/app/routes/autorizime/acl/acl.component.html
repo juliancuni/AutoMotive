@@ -1,94 +1,258 @@
-<div class="card">
-    <div class="card-header">
-        ACCESS CONTROL LIST
-        <div class="mr-auto">
-            <div class="btn-group" dropdown>
-                <button class="btn btn-link" dropdownToggle>
-                    <em class="fa fa-ellipsis-v fa-lg"></em>
+<accordion [closeOthers]="true" [isAnimated]="true">
+    <accordion-group heading="MATRICA ACL (autorizime të përgjithshme)">
+        <div class="card">
+            <!-- <div class="card-header">
+            MATRICA ACL (autorizime të përgjithshme)
+            <div class="mr-auto float-right" *ngIf="!showRolet">
+                <div class="btn-group" dropdown>
+                    <button class="btn btn-link" dropdownToggle>
+                        <em class="fa fa-ellipsis-v fa-lg"></em>
+                    </button>
+                    <ul *dropdownMenu class="dropdown-menu dropdown-menu-right-forced animated fadeIn" role="menu">
+                        <button class="dropdown-item" (click)="roletModal.show()">
+                            <em class="fa-fw fa fa-ban mr-2"></em>
+                            <span>Rolet</span>
+                        </button>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+            <div class="card-body">
+                <table class="table table-hover table-condensed table-responsive">
+                    <thead>
+                        <tr>
+                            <td>
+                                <div class="middleLoading ball-scale-ripple-multiple" *ngIf="loading">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                                <small>#</small>
+                            </td>
+                            <td *ngFor="let appModel of appModels">{{appModel}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let role of roletTabele; let i = index;">
+                            <td>{{role?.name}}</td>
+                            <td *ngFor="let appModel of appModels">
+                                <div *ngFor="let acl of role.acls; let j = index">
+                                    <div *ngIf="appModel === acl.model && role.name === acl.principalId">
+                                        <div class="form-check">
+                                            <input type="checkbox" id="read"
+                                                [checked]="acl.permission === 'ALLOW' && (acl.accessType === 'READ' || acl.accessType === '*')"
+                                                (change)="onRoleChange($event, 'READ', acl)"
+                                                [disabled]="role.name === 'root' || loading" />
+                                            <label class="form-check-label" for="read">
+                                                <small> READ</small>
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="write"
+                                                [checked]="acl.permission === 'ALLOW' && (acl.accessType === 'WRITE' || acl.accessType === '*')"
+                                                (change)="onRoleChange($event, 'WRITE', acl)"
+                                                [disabled]="role.name === 'root' || loading" />
+                                            <label class="form-check-label" for="write">
+                                                <small> WRITE</small>
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="execute"
+                                                [checked]="acl.permission === 'ALLOW' && (acl.accessType === 'EXECUTE' || acl.accessType === '*')"
+                                                (change)="onRoleChange($event, 'EXECUTE', acl)"
+                                                [disabled]="role.name === 'root' || loading" />
+                                            <label class="form-check-label" for="execute">
+                                                <small> EXECUTE</small>
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="all"
+                                                [checked]="acl.permission === 'ALLOW' && acl.accessType === '*'"
+                                                (change)="onRoleChange($event, '*', acl)"
+                                                [disabled]="role.name === 'root' || loading" />
+                                            <label class="form-check-label" for="all">
+                                                <small> ALL</small>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </accordion-group>
+    <accordion-group heading="ACL Specifike (autorizime bazuar mbi përdorues/role dhe/ose metoda të veçanta)">
+        <div class="card">
+            <!-- <div class="card-header">
+            ACL Specifike (autorizime bazuar mbi përdorues/role dhe/ose metoda të veçanta)
+        </div> -->
+            <div class="card-body">
+                <form class="form-group row" [formGroup]="aclSpecifikeDataForm" name="aclSpecifikeDataForm"
+                    (submit)="upsertACL($event, aclSpecifikeDataForm.value)">
+                    <div class="col-12">
+                        <label class="c-radio mr-2">
+                            <input id="perdouruesRadio" type="radio" name="i-radio" value="perdouruesRadio"
+                                (change)="ndryshoBasuarNe($event)" [checked]="showPerdorues" />
+                            <span class="fa fa-circle"></span>Përd</label>
+                        <label class="c-radio mr-2">
+                            <input id="roleRadio" type="radio" name="i-radio" value="roleRadio"
+                                (change)="ndryshoBasuarNe($event)" [checked]="showRole" />
+                            <span class="fa fa-circle"></span>Role</label>
+                        <select class="custom-select custom-select-sm col-2 mr-2" *ngIf="showPerdorues"
+                            style="width: 150px" formControlName="principalId">
+                            <option [selected]="true">Perdoruesi</option>
+                            <option *ngFor="let perdorues of perdoruesit"
+                                [selected]="perdorues?.id === aclNewEdit?.principalId">{{perdorues.username}}</option>
+                        </select>
+                        <select class="custom-select custom-select-sm col-2 mr-2" *ngIf="showRole" style="width: 150px"
+                            formControlName="principalId">
+                            <option [selected]="true">Role</option>
+                            <option *ngFor="let role of rolet" [selected]="role?.name === aclNewEdit?.principalId">
+                                {{role.name}}</option>
+                        </select>
+                        <select class="custom-select custom-select-sm col-2 mr-2" style="width: 150px"
+                            formControlName="model">
+                            <option [selected]="true">Modeli</option>
+                            <option [selected]="aclNewEdit?.model === '*'">ALL</option>
+                            <option *ngFor="let model of appModels"
+                                [selected]="model === aclNewEdit?.model && aclNewEdit?.model !== '*'">{{model}}
+                            </option>
+                        </select>
+                        <select class="custom-select custom-select-sm col-2 mr-2" style="width: 150px"
+                            formControlName="accessType">
+                            <option [selected]="true">Veprimi</option>
+                            <option [selected]="aclNewEdit?.accessType === '*'">ALL</option>
+                            <option [selected]="aclNewEdit?.accessType === 'READ'">READ</option>
+                            <option [selected]="aclNewEdit?.accessType === 'WRITE'">WRITE</option>
+                            <option [selected]="aclNewEdit?.accessType === 'EXECUTE'">EXECUTE</option>
+                        </select>
+                        <select class="custom-select custom-select-sm col-2 mr-2" style="width: 150px"
+                            formControlName="property">
+                            <option [selected]="true">Metoda</option>
+                            <option [selected]="aclNewEdit?.property === '*'">ALL</option>
+                            <option [selected]="aclNewEdit?.property === 'find'">Gjej</option>
+                            <option [selected]="aclNewEdit?.property === 'findById'">Gjej Nga ID</option>
+                            <option [selected]="aclNewEdit?.property === 'findOne'">Gjej Një</option>
+                            <option [selected]="aclNewEdit?.property === 'exists'">Ekziston</option>
+                            <option [selected]="aclNewEdit?.property === 'upsert'">Upsert</option>
+                            <option [selected]="aclNewEdit?.property === 'create'">Krijo</option>
+                            <option [selected]="aclNewEdit?.property === 'updateAttributes'">Update Attrib</option>
+                            <option [selected]="aclNewEdit?.property === 'deleteById'">Fshi Nga ID</option>
+                            <option [selected]="aclNewEdit?.property === 'replaceById'">Zëvendëso Nga ID</option>
+                        </select>
+                        <select class="custom-select custom-select-sm col-2 mr-2" style="width: 150px"
+                            formControlName="permission">
+                            <option [selected]="true">Access</option>
+                            <option [selected]="aclNewEdit?.permission === 'ALLOW'">ALLOW</option>
+                            <option [selected]="aclNewEdit?.permission === 'DENY'">DENY</option>
+                        </select>
+                        <button class="btn btn-primary btn-sm mr-1" type="submit"
+                            [disabled]="!aclSpecifikeDataForm.valid">{{ aclNewEdit?.id ? "Edit ACL" : "Shto ACL"}}</button>
+                        <button class="btn btn-secondary btn-sm" (click)="clearACLUpserForm()"
+                            *ngIf="aclNewEdit?.id">Clear</button>
+                    </div>
+                </form>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Principali</th>
+                            <th>Roli/Përdoruesi</th>
+                            <th>Modeli</th>
+                            <th>Veprimi</th>
+                            <th>Metoda</th>
+                            <th>Access</th>
+                            <th>Fshi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let acl of acls" class="cursor_pointer">
+                            <td (click)="zgjidhACLNgaLista(acl)">
+                                {{acl?.principalType}}
+                            </td>
+                            <td (click)="zgjidhACLNgaLista(acl)">
+                                {{acl?.principalId}}
+                            </td>
+                            <td (click)="zgjidhACLNgaLista(acl)">
+                                {{acl?.model === "*" ? "ALL" : acl?.model}}
+                            </td>
+                            <td (click)="zgjidhACLNgaLista(acl)">
+                                {{acl?.accessType  === "*" ? "ALL" : acl?.accessType}}
+                            </td>
+                            <td (click)="zgjidhACLNgaLista(acl)">
+                                {{acl?.property === "*" ? "ALL" : acl?.property}}
+                            </td>
+                            <td (click)="zgjidhACLNgaLista(acl)"
+                                [ngClass]="{'text-danger' : acl.permission === 'DENY', 'text-success' : acl.permission === 'ALLOW'}">
+                                <i class="far"
+                                    [ngClass]="{' fa-window-close' : acl.permission === 'DENY', ' fa-check-square' : acl.permission === 'ALLOW'}"></i>
+                                {{acl?.permission}}
+                            </td>
+                            <td>
+                                <button class="btn btn-xs" title="fshi ACL" (click)="fshiACL(acl)">
+                                    <i class="far fa-window-close"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </accordion-group>
+</accordion>
+
+<div bsModal #roletModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Rolet</h4>
+                <button type="button" class="close" aria-label="Close" (click)="roletModal.hide()">
+                    <span aria-hidden="true">&times;</span>
                 </button>
-                <ul *dropdownMenu class="dropdown-menu dropdown-menu-right-forced animated fadeIn" role="menu">
-                    <a class="dropdown-item" href="">
-                        <em class="fa-fw fa fa-plus mr-2"></em>
-                        <span>New contact</span>
-                    </a>
-                    <a class="dropdown-item" href="">
-                        <em class="fa-fw fas fa-share mr-2"></em>
-                        <span>Import contact</span>
-                    </a>
-                    <a class="dropdown-item" href="">
-                        <em class="fa-fw fas fa-reply mr-2"></em>
-                        <span>Export contacts</span>
-                    </a>
-                </ul>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover table-condensed table-responsive">
+                    <thead>
+                        <tr>
+                            <td colspan="3">
+                                <form class="form-inline" [formGroup]="roletDataForm" name="roletDataForm"
+                                    (submit)="newRole($event, roletDataForm.value)">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-sm mr-2" placeholder="Emër"
+                                            formControlName="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-sm mr-2"
+                                            placeholder="Përshkrim" formControlName="description">
+                                    </div>
+                                    <button type="submit" class="btn btn-sm btn-primary"
+                                        [disabled]="!roletDataForm.valid">Ruaj</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let role of roletTabele">
+                            <td>{{role?.name}}</td>
+                            <td>{{role?.description}}</td>
+                            <td>
+                                <button class="btn btn-danger btn-xs" title="fshiRole" (click)="fshiRole(role)">
+                                    <i class="far fa-window-close"></i>
+                                </button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="roletModal.hide()">Mbyll</button>
             </div>
         </div>
     </div>
-
-    <div class="card-body">
-
-        <table class="table table-hover table-condensed">
-            <thead>
-                <tr>
-                    <td>
-                        <div class="middleLoading ball-scale-ripple-multiple" *ngIf="loading">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                        <small>#</small>
-                    </td>
-                    <td *ngFor="let appModel of appModels">{{appModel}}</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let role of roletTabele; let i = index;">
-                    <td>{{role?.name}}</td>
-                    <td *ngFor="let appModel of appModels">
-                        <div *ngFor="let acl of role.acls; let j = index">
-                            <div *ngIf="appModel === acl.model && role.name === acl.principalId">
-                                <div class="form-check">
-                                    <input type="checkbox" id="read"
-                                        [checked]="acl.permission === 'ALLOW' && (acl.accessType === 'READ' || acl.accessType === '*')"
-                                        (change)="onRoleChange($event, 'READ', acl)"
-                                        [disabled]="role.name === 'root' || loading" />
-                                    <label class="form-check-label" for="read">
-                                        <small> READ</small>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" id="write"
-                                        [checked]="acl.permission === 'ALLOW' && (acl.accessType === 'WRITE' || acl.accessType === '*')"
-                                        (change)="onRoleChange($event, 'WRITE', acl)"
-                                        [disabled]="role.name === 'root' || loading" />
-                                    <label class="form-check-label" for="write">
-                                        <small> WRITE</small>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" id="execute"
-                                        [checked]="acl.permission === 'ALLOW' && (acl.accessType === 'EXECUTE' || acl.accessType === '*')"
-                                        (change)="onRoleChange($event, 'EXECUTE', acl)"
-                                        [disabled]="role.name === 'root' || loading" />
-                                    <label class="form-check-label" for="execute">
-                                        <small> EXECUTE</small>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" id="all"
-                                        [checked]="acl.permission === 'ALLOW' && acl.accessType === '*'"
-                                        (change)="onRoleChange($event, '*', acl)"
-                                        [disabled]="role.name === 'root' || loading" />
-                                    <label class="form-check-label" for="all">
-                                        <small> ALL</small>
-                                    </label>
-                                </div>
-
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
 </div>
+
 <!-- <pre>{{roletTabele|json}}</pre> -->
