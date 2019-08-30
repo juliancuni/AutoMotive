@@ -1,22 +1,7 @@
 <accordion [closeOthers]="true" [isAnimated]="true">
-    <accordion-group heading="MATRICA ACL (autorizime të përgjithshme)">
+    <accordion-group heading="MATRICA ACL (autorizime të përgjithshme)" [isOpen]="true">
         <div class="card">
-            <!-- <div class="card-header">
-            MATRICA ACL (autorizime të përgjithshme)
-            <div class="mr-auto float-right" *ngIf="!showRolet">
-                <div class="btn-group" dropdown>
-                    <button class="btn btn-link" dropdownToggle>
-                        <em class="fa fa-ellipsis-v fa-lg"></em>
-                    </button>
-                    <ul *dropdownMenu class="dropdown-menu dropdown-menu-right-forced animated fadeIn" role="menu">
-                        <button class="dropdown-item" (click)="roletModal.show()">
-                            <em class="fa-fw fa fa-ban mr-2"></em>
-                            <span>Rolet</span>
-                        </button>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
+
             <div class="card-body">
                 <table class="table table-hover table-condensed table-responsive">
                     <thead>
@@ -86,119 +71,124 @@
     </accordion-group>
     <accordion-group heading="ACL Specifike (autorizime bazuar mbi përdorues/role dhe/ose metoda të veçanta)">
         <div class="card">
-            <!-- <div class="card-header">
-            ACL Specifike (autorizime bazuar mbi përdorues/role dhe/ose metoda të veçanta)
-        </div> -->
-            <div class="card-body">
-                <form class="form-group row" [formGroup]="aclSpecifikeDataForm" name="aclSpecifikeDataForm"
-                    (submit)="upsertACL($event, aclSpecifikeDataForm.value)">
-                    <div class="col-12">
-                        <label class="c-radio mr-2">
-                            <input id="perdouruesRadio" type="radio" name="i-radio" value="perdouruesRadio"
-                                (change)="ndryshoBasuarNe($event)" [checked]="showPerdorues" />
-                            <span class="fa fa-circle"></span>Përd</label>
-                        <label class="c-radio mr-2">
-                            <input id="roleRadio" type="radio" name="i-radio" value="roleRadio"
-                                (change)="ndryshoBasuarNe($event)" [checked]="showRole" />
-                            <span class="fa fa-circle"></span>Role</label>
-                        <select class="custom-select custom-select-sm col-2 mr-2" *ngIf="showPerdorues"
-                            style="width: 150px" formControlName="principalId">
-                            <option [selected]="true">Perdoruesi</option>
-                            <option *ngFor="let perdorues of perdoruesit"
-                                [selected]="perdorues?.id === aclNewEdit?.principalId">{{perdorues.username}}</option>
-                        </select>
-                        <select class="custom-select custom-select-sm col-2 mr-2" *ngIf="showRole" style="width: 150px"
-                            formControlName="principalId">
-                            <option [selected]="true">Role</option>
-                            <option *ngFor="let role of rolet" [selected]="role?.name === aclNewEdit?.principalId">
-                                {{role.name}}</option>
-                        </select>
-                        <select class="custom-select custom-select-sm col-2 mr-2" style="width: 150px"
-                            formControlName="model">
-                            <option [selected]="true">Modeli</option>
-                            <option [selected]="aclNewEdit?.model === '*'">ALL</option>
-                            <option *ngFor="let model of appModels"
-                                [selected]="model === aclNewEdit?.model && aclNewEdit?.model !== '*'">{{model}}
-                            </option>
-                        </select>
-                        <select class="custom-select custom-select-sm col-2 mr-2" style="width: 150px"
-                            formControlName="accessType">
-                            <option [selected]="true">Veprimi</option>
-                            <option [selected]="aclNewEdit?.accessType === '*'">ALL</option>
-                            <option [selected]="aclNewEdit?.accessType === 'READ'">READ</option>
-                            <option [selected]="aclNewEdit?.accessType === 'WRITE'">WRITE</option>
-                            <option [selected]="aclNewEdit?.accessType === 'EXECUTE'">EXECUTE</option>
-                        </select>
-                        <select class="custom-select custom-select-sm col-2 mr-2" style="width: 150px"
-                            formControlName="property">
-                            <option [selected]="true">Metoda</option>
-                            <option [selected]="aclNewEdit?.property === '*'">ALL</option>
-                            <option [selected]="aclNewEdit?.property === 'find'">Gjej</option>
-                            <option [selected]="aclNewEdit?.property === 'findById'">Gjej Nga ID</option>
-                            <option [selected]="aclNewEdit?.property === 'findOne'">Gjej Një</option>
-                            <option [selected]="aclNewEdit?.property === 'exists'">Ekziston</option>
-                            <option [selected]="aclNewEdit?.property === 'upsert'">Upsert</option>
-                            <option [selected]="aclNewEdit?.property === 'create'">Krijo</option>
-                            <option [selected]="aclNewEdit?.property === 'updateAttributes'">Update Attrib</option>
-                            <option [selected]="aclNewEdit?.property === 'deleteById'">Fshi Nga ID</option>
-                            <option [selected]="aclNewEdit?.property === 'replaceById'">Zëvendëso Nga ID</option>
-                        </select>
-                        <select class="custom-select custom-select-sm col-2 mr-2" style="width: 150px"
-                            formControlName="permission">
-                            <option [selected]="true">Access</option>
-                            <option [selected]="aclNewEdit?.permission === 'ALLOW'">ALLOW</option>
-                            <option [selected]="aclNewEdit?.permission === 'DENY'">DENY</option>
-                        </select>
-                        <button class="btn btn-primary btn-sm mr-1" type="submit"
-                            [disabled]="!aclSpecifikeDataForm.valid">{{ aclNewEdit?.id ? "Edit ACL" : "Shto ACL"}}</button>
-                        <button class="btn btn-secondary btn-sm" (click)="clearACLUpserForm()"
-                            *ngIf="aclNewEdit?.id">Clear</button>
-                    </div>
-                </form>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Principali</th>
-                            <th>Roli/Përdoruesi</th>
-                            <th>Modeli</th>
-                            <th>Veprimi</th>
-                            <th>Metoda</th>
-                            <th>Access</th>
-                            <th>Fshi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let acl of acls" class="cursor_pointer">
-                            <td (click)="zgjidhACLNgaLista(acl)">
-                                {{acl?.principalType}}
-                            </td>
-                            <td (click)="zgjidhACLNgaLista(acl)">
-                                {{acl?.principalId}}
-                            </td>
-                            <td (click)="zgjidhACLNgaLista(acl)">
-                                {{acl?.model === "*" ? "ALL" : acl?.model}}
-                            </td>
-                            <td (click)="zgjidhACLNgaLista(acl)">
-                                {{acl?.accessType  === "*" ? "ALL" : acl?.accessType}}
-                            </td>
-                            <td (click)="zgjidhACLNgaLista(acl)">
-                                {{acl?.property === "*" ? "ALL" : acl?.property}}
-                            </td>
-                            <td (click)="zgjidhACLNgaLista(acl)"
-                                [ngClass]="{'text-danger' : acl.permission === 'DENY', 'text-success' : acl.permission === 'ALLOW'}">
-                                <i class="far"
-                                    [ngClass]="{' fa-window-close' : acl.permission === 'DENY', ' fa-check-square' : acl.permission === 'ALLOW'}"></i>
-                                {{acl?.permission}}
-                            </td>
-                            <td>
-                                <button class="btn btn-xs" title="fshi ACL" (click)="fshiACL(acl)">
-                                    <i class="far fa-window-close"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        </div>
+        <div class="card-body">
+            <form class="form-group row" [formGroup]="aclSpecifikeDataForm" name="aclSpecifikeDataForm"
+                (submit)="upsertACL($event, aclSpecifikeDataForm.value)">
+                <div class="col-12">
+                    <label class="c-radio mr-2">
+                        <input id="perdoruesRadio" type="radio" name="i-radio" value="perdoruesRadio"
+                            (change)="ndryshoBasuarNe($event)" [checked]="showPerdorues" />
+                        <span class="fa fa-circle"></span>Përd</label>
+                    <label class="c-radio mr-2">
+                        <input id="roleRadio" type="radio" name="i-radio" value="roleRadio"
+                            (change)="ndryshoBasuarNe($event)" [checked]="showRole" />
+                        <span class="fa fa-circle"></span>Role</label>
+                    <select class="custom-select custom-select-sm col-2 mr-2" *ngIf="showPerdorues" style="width: 150px"
+                        formControlName="principalId">
+                        <option [selected]="true">Perdoruesi</option>
+                        <option *ngFor="let perdorues of perdoruesit"
+                            [selected]="perdorues?.id === aclNewEdit?.principalId" [value]="perdorues.id">
+                            {{perdorues.username}}</option>
+                    </select>
+                    <select class="custom-select custom-select-sm col-2 mr-2" *ngIf="showRole" style="width: 150px"
+                        formControlName="principalId">
+                        <option [selected]="true">Role</option>
+                        <option *ngFor="let role of rolet" [selected]="role?.name === aclNewEdit?.principalId">
+                            {{role.name}}</option>
+                    </select>
+                    <select class="custom-select custom-select-sm col-2 mr-2" style="width: 150px"
+                        formControlName="model">
+                        <option [selected]="true">Modeli</option>
+                        <option [selected]="aclNewEdit?.model === '*'">ALL</option>
+                        <option *ngFor="let model of appModels"
+                            [selected]="model === aclNewEdit?.model && aclNewEdit?.model !== '*'">{{model}}
+                        </option>
+                    </select>
+                    <select class="custom-select custom-select-sm col-2 mr-2" style="width: 150px"
+                        formControlName="accessType">
+                        <option [selected]="true">Veprimi</option>
+                        <option [selected]="aclNewEdit?.accessType === '*'">ALL</option>
+                        <option [selected]="aclNewEdit?.accessType === 'READ'">READ</option>
+                        <option [selected]="aclNewEdit?.accessType === 'WRITE'">WRITE</option>
+                        <option [selected]="aclNewEdit?.accessType === 'EXECUTE'">EXECUTE</option>
+                    </select>
+                    <select class="custom-select custom-select-sm col-2 mr-2" style="width: 150px"
+                        formControlName="property">
+                        <option [selected]="true">Metoda</option>
+                        <option [selected]="aclNewEdit?.property === '*'" [value]="'*'">ALL</option>
+                        <option [selected]="aclNewEdit?.property === 'find'" [value]="'find'">Gjej</option>
+                        <option [selected]="aclNewEdit?.property === 'findById'" [value]="'findById'">Gjej Nga ID
+                        </option>
+                        <option [selected]="aclNewEdit?.property === 'findOne'" [value]="'findOne'">Gjej Një
+                        </option>
+                        <option [selected]="aclNewEdit?.property === 'exists'" [value]="'exists'">Ekziston</option>
+                        <option [selected]="aclNewEdit?.property === 'upsert'" [value]="'upsert'">Upsert</option>
+                        <option [selected]="aclNewEdit?.property === 'create'" [value]="'create'">Krijo</option>
+                        <option [selected]="aclNewEdit?.property === 'updateAttributes'" [value]="'updateAttributes'">
+                            Update Attrib</option>
+                        <option [selected]="aclNewEdit?.property === 'deleteById'" [value]="'deleteById'">Fshi Nga
+                            ID</option>
+                        <option [selected]="aclNewEdit?.property === 'replaceById'" [value]="'replaceById'">
+                            Zëvendëso Nga ID</option>
+                    </select>
+                    <select class="custom-select custom-select-sm col-2 mr-2" style="width: 150px"
+                        formControlName="permission">
+                        <option [selected]="true">Access</option>
+                        <option [selected]="aclNewEdit?.permission === 'ALLOW'">ALLOW</option>
+                        <option [selected]="aclNewEdit?.permission === 'DENY'">DENY</option>
+                    </select>
+                    <button class="btn btn-primary btn-sm mr-1"
+                        type="submit">{{ aclNewEdit?.id ? "Edit ACL" : "Shto ACL"}}</button>
+                    <button class="btn btn-secondary btn-sm" (click)="clearACLUpserForm()"
+                        *ngIf="aclNewEdit?.id">Clear</button>
+                </div>
+            </form>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Principali</th>
+                        <th>Roli/Përdoruesi</th>
+                        <th>Modeli</th>
+                        <th>Veprimi</th>
+                        <th>Metoda</th>
+                        <th>Access</th>
+                        <th>Fshi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let acl of acls" class="cursor_pointer">
+                        <td (click)="zgjidhACLNgaLista(acl)">
+                            {{acl?.principalType}}
+                        </td>
+                        <td (click)="zgjidhACLNgaLista(acl)">
+                            <span *ngFor="let perdorues of perdoruesit">
+                                {{(perdorues.id === acl?.principalId) ? perdorues.username : acl?.principalId}}
+                            </span>
+                        </td>
+                        <td (click)="zgjidhACLNgaLista(acl)">
+                            {{acl?.model === "*" ? "ALL" : acl?.model}}
+                        </td>
+                        <td (click)="zgjidhACLNgaLista(acl)">
+                            {{acl?.accessType  === "*" ? "ALL" : acl?.accessType}}
+                        </td>
+                        <td (click)="zgjidhACLNgaLista(acl)">
+                            {{acl?.property === "*" ? "ALL" : acl?.property}}
+                        </td>
+                        <td (click)="zgjidhACLNgaLista(acl)"
+                            [ngClass]="{'text-danger' : acl.permission === 'DENY', 'text-success' : acl.permission === 'ALLOW'}">
+                            <i class="far"
+                                [ngClass]="{' fa-window-close' : acl.permission === 'DENY', ' fa-check-square' : acl.permission === 'ALLOW'}"></i>
+                            {{acl?.permission}}
+                        </td>
+                        <td>
+                            <button class="btn btn-xs" title="fshi ACL" (click)="fshiACL(acl)">
+                                <i class="far fa-window-close"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </accordion-group>
 </accordion>
@@ -254,5 +244,3 @@
         </div>
     </div>
 </div>
-
-<!-- <pre>{{roletTabele|json}}</pre> -->

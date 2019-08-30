@@ -17,6 +17,8 @@ media_edit
 # Angular Dist Folder
 dist
 # FileServer Express
+# Test Module
+vetempertest
 Files
 app.config.ts
 # Diagnostic reports (https://nodejs.org/api/report.html)

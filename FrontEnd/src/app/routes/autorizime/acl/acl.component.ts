@@ -48,9 +48,9 @@ export class AclComponent implements OnInit {
             acl.permission = 'ALLOW'
             acl.accessType = accessType;
             acl.permission = "ALLOW";
-            if (acl.id) {
-                delete acl.id;
-            }
+            // if (acl.id) {
+            //     delete acl.id;
+            // }
             this._acls.upsert(acl).subscribe((res: ACL) => {
                 this.mbushMatricen();
             })
@@ -167,11 +167,13 @@ export class AclComponent implements OnInit {
             // this.acls = res;
             this.showRole = true
             this.showPerdorues = false
+            this.aclSpecifikeDataForm.controls.principalType.setValue("ROLE");
             // })
         }
-        if (value.target.value === "perdouruesRadio") {
+        if (value.target.value === "perdoruesRadio") {
             // this._acls.find({ where: { principalType: "USER" } }).subscribe((res: ACL[]) => {
             // this.acls = res;
+            this.aclSpecifikeDataForm.controls.principalType.setValue("USER");
             this.showRole = false
             this.showPerdorues = true
             // })
@@ -185,6 +187,7 @@ export class AclComponent implements OnInit {
     }
 
     zgjidhACLNgaLista(acl) {
+        console.log(acl);
         if (this.aclNewEdit !== acl) {
             if (acl.principalType === "ROLE") {
                 this.showPerdorues = false;
@@ -206,13 +209,15 @@ export class AclComponent implements OnInit {
         }
     }
 
-    upsertACL($ev, formValue) {
+    upsertACL($ev, formValue: ACL) {
         $ev.preventDefault();
         for (let c in this.aclSpecifikeDataForm.controls) {
             this.aclSpecifikeDataForm.controls[c].markAsTouched();
         }
         if (this.aclSpecifikeDataForm.valid) {
-            this._acls.upsertPatch(formValue).subscribe((res) => {
+            formValue.id = this.aclNewEdit.id;
+            // this._acls.upsert
+            this._acls.upsert(formValue).subscribe((res: ACL) => {
                 console.log(res);
             }, (err) => {
                 console.log(err);
@@ -220,6 +225,8 @@ export class AclComponent implements OnInit {
                 this.aclSpecifikeDataForm.reset();
                 this.mbushMatricen();
             })
+        } else{
+            console.log(formValue);
         }
     }
 

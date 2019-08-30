@@ -13,6 +13,7 @@ export const routes = [
             { path: 'ndermarrja', loadChildren: './ndermarrje/ndermarrje.module#NdermarrjeModule', canActivate: [AuthGuard] },
             { path: 'github', loadChildren: './github/github.module#GithubModule', canActivate: [AuthGuard] },
             { path: 'autorizime', loadChildren: './autorizime/autorizime.module#AutorizimeModule', canActivate: [AuthGuard] },
+            { path: 'test', loadChildren: './vetempertest/vetempertest.module#VetempertestModule', canActivate: [AuthGuard] },
         ]
     },
 
