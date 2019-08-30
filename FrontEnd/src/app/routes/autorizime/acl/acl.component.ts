@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SDKModels, RoleApi, Role, ACL, ACLApi, RoleMappingApi, RoleMapping, PerdoruesApi, Perdorues } from 'src/app/shared/sdk';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MsToasterService } from 'src/app/shared/services/mstoaster.service';
-import { ToastModel } from 'src/app/shared/msInterfaces/interfaces';
 
 const swal = require('sweetalert');
 
@@ -26,7 +24,6 @@ export class AclComponent implements OnInit {
     public showRole: boolean = false;
     // private editACL: boolean = false;
     private aclsPerUpload: ACL[] = [];
-    private toast: ToastModel;
 
     public roletDataForm: FormGroup;
     public aclSpecifikeDataForm: FormGroup;
@@ -38,7 +35,6 @@ export class AclComponent implements OnInit {
         private _roleMappings: RoleMappingApi,
         private _perdorues: PerdoruesApi,
         private _fb: FormBuilder,
-        private _msToasterService: MsToasterService,
     ) { }
 
     onRoleChange($event, accessType, acl: ACL) {
@@ -100,48 +96,19 @@ export class AclComponent implements OnInit {
             if (isConfirm) {
                 this._acls.find({ where: { principalId: role.name } }).subscribe((res: ACL[]) => {
                     res.forEach((acl) => {
-                        this._acls.deleteById(acl.id).subscribe((res) => {
-
-                        }, (err) => {
-                            this.toast = { type: "error", title: "API ERR", body: err.message };
-                            this._msToasterService.toastData(this.toast);
-                        })
+                        this._acls.deleteById(acl.id).subscribe((res) => { })
                     })
-                }, (err) => {
-                    this.toast = { type: "error", title: "API ERR", body: err.message };
-                    this._msToasterService.toastData(this.toast);
                 }, () => {
                     this._roleMappings.findOne({ where: { roleId: role.id } }).subscribe((res: RoleMapping) => {
-                        this._roleMappings.deleteById(res.id).subscribe((res) => {
-
-                        }, (err) => {
-                            console.log(err)
-                            this.toast = { type: "error", title: "API ERR", body: err.message };
-                            this._msToasterService.toastData(this.toast);
-                        })
+                        this._roleMappings.deleteById(res.id).subscribe((res) => { })
                     })
-                    this._rolet.deleteById(role.id).subscribe((res: Role) => {
-
-                    }, (err) => {
-                        this.toast = { type: "error", title: "API ERR", body: err.message };
-                        this._msToasterService.toastData(this.toast);
-                        swal('Error', 'Kerkesa nuk u zbatua.', 'error');
-                    }, () => {
-                        this.mbushMatricen();
-                        swal('Ok!', 'Roli dhe të gjitha të drejtat u fshinë.', 'success');
-                    })
+                    this._rolet.deleteById(role.id).subscribe((res: Role) => { })
                 })
             }
         })
     }
 
     ngOnInit() {
-        this._perdorues.find({ where: { username: { neq: 'root' } } }).subscribe((res: Perdorues[]) => {
-            this.perdoruesit = res;
-        }, (err) => {
-            this.toast = { type: "error", title: "API ERR", body: err.message };
-            this._msToasterService.toastData(this.toast);
-        })
         this.mbushMatricen();
         this.roletDataForm = this._fb.group({
             "name": [null, Validators.required],
@@ -225,7 +192,7 @@ export class AclComponent implements OnInit {
                 this.aclSpecifikeDataForm.reset();
                 this.mbushMatricen();
             })
-        } else{
+        } else {
             console.log(formValue);
         }
     }
@@ -245,60 +212,59 @@ export class AclComponent implements OnInit {
         let appModels = [];
         this._appModels.getModelNames().forEach((model) => {
             (model !== "RoleMapping" && model !== "Email") ? appModels.push(model) : null;
-        }, (err) => {
-            this.loading = false;
-            this.toast = { type: "error", title: "API ERR", body: err.message };
-            this._msToasterService.toastData(this.toast);
         })
         this.appModels = appModels;
-        this._rolet.find({ where: { name: { neq: "root" } } }).subscribe((res: any[]) => {
-            let everyOne = { name: "$everyone" };
-            let authenticated = { name: "$authenticated" };
-            let unAuthenticated = { name: "$unauthenticated" };
-            let owner = { name: "$owner" };
-            res.push(everyOne, authenticated, unAuthenticated, owner)
-            this.rolet = res;
-            this.roletTabele = [...res];
-            this.roletTabele.forEach((role) => {
-                role["acls"] = []
-                this.appModels.forEach((appModel) => {
-                    role["acls"].push({
-                        model: appModel,
-                        property: '*',
-                        accessType: '*',
-                        permission: 'DENY',
-                        principalType: 'ROLE',
-                        principalId: role.name
-                    })
-                })
-
-            })
+        this._perdorues.find({ where: { username: { neq: 'root' } } }).subscribe((res: Perdorues[]) => {
+            this.perdoruesit = res;
         }, (err) => {
-            this.loading = false;
-            this.toast = { type: "error", title: "API ERR", body: err.message };
-            this._msToasterService.toastData(this.toast);
+            this.loading= false;
         }, () => {
-            this._acls.find({ where: { principalId: { neq: "root" } } }).subscribe((res: ACL[]) => {
-                this.acls = res;
+            this._rolet.find({ where: { name: { neq: "root" } } }).subscribe((res: any[]) => {
+                let everyOne = { name: "$everyone" };
+                let authenticated = { name: "$authenticated" };
+                let unAuthenticated = { name: "$unauthenticated" };
+                let owner = { name: "$owner" };
+                res.push(everyOne, authenticated, unAuthenticated, owner)
+                this.rolet = res;
+                this.roletTabele = [...res];
                 this.roletTabele.forEach((role) => {
-                    this.acls.forEach((acl) => {
-                        role.acls.forEach((roleAcl) => {
-                            if (role.name === acl.principalId && acl.model === roleAcl.model) {
-                                roleAcl.id = acl.id;
-                                roleAcl.accessType = acl.accessType;
-                                roleAcl.permission = acl.permission;
-                                roleAcl.principalType = acl.principalType;
-                            }
+                    role["acls"] = []
+                    this.appModels.forEach((appModel) => {
+                        role["acls"].push({
+                            model: appModel,
+                            property: '*',
+                            accessType: '*',
+                            permission: 'DENY',
+                            principalType: 'ROLE',
+                            principalId: role.name
                         })
                     })
+    
                 })
             }, (err) => {
                 this.loading = false;
-                this.toast = { type: "error", title: "API ERR", body: err.message };
-                this._msToasterService.toastData(this.toast);
             }, () => {
-                this.loading = false;
+                this._acls.find({ where: { principalId: { neq: "root" } } }).subscribe((res: ACL[]) => {
+                    this.acls = res;
+                    this.roletTabele.forEach((role) => {
+                        this.acls.forEach((acl) => {
+                            role.acls.forEach((roleAcl) => {
+                                if (role.name === acl.principalId && acl.model === roleAcl.model) {
+                                    roleAcl.id = acl.id;
+                                    roleAcl.accessType = acl.accessType;
+                                    roleAcl.permission = acl.permission;
+                                    roleAcl.principalType = acl.principalType;
+                                }
+                            })
+                        })
+                    })
+                }, (err) => {
+                    this.loading = false;
+                }, () => {
+                    this.loading = false;
+                });
             });
-        });
+        })
+        
     }
 }

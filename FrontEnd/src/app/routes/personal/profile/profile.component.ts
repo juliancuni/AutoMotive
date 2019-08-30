@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Perdorues, PerdoruesApi, LoopBackAuth } from 'src/app/shared/sdk';
-import { ToastModel } from 'src/app/shared/msInterfaces/interfaces';
-import { MsToasterService } from 'src/app/shared/services/mstoaster.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
@@ -25,7 +23,6 @@ export class ProfileComponent implements OnInit {
     public perdoruesDataForm: FormGroup;
     public perdorues: Perdorues;
     public loading: boolean = false;
-    private toast: ToastModel;
 
     public uploader = new FileUploader({ url: URL, allowedMimeType: ['image/png', 'image/gif', 'image/jpeg'] });
     private subscriptions: Subscription[] = new Array<Subscription>();
@@ -41,7 +38,6 @@ export class ProfileComponent implements OnInit {
 
     constructor(
         private _perdorues: PerdoruesApi,
-        private _msToasterService: MsToasterService,
         private _fb: FormBuilder,
         private _lbAuth: LoopBackAuth,
         private _http: HttpClient,
@@ -79,15 +75,9 @@ export class ProfileComponent implements OnInit {
                         this._perdorues.changePassword(oldPassword, newPassword).subscribe(() => {
                             this.enableEdit(field);
                             this.loading = false;
-                            this.toast = { type: "success", title: "Përditësim", body: field + " u përditësua" };
-                            this._msToasterService.toastData(this.toast);
                         }, (err) => {
                             if (err.code === "INVALID_PASSWORD") {
                                 this.perdoruesDataForm.get(field).setErrors({ invalidPass: true })
-                            }
-                            if (err.statusCode == 500 || err == "Server error") {
-                                this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
-                                this._msToasterService.toastData(this.toast);
                             }
                             this.loading = false;
                         }, () => {
@@ -96,16 +86,11 @@ export class ProfileComponent implements OnInit {
                 } else {
                     this._perdorues.upsertPatch(updatedPerdorues).subscribe((res: Perdorues) => {
                         this.perdorues = res;
-                        this.toast = { type: "success", title: "Përditësim", body: field + " u përditësua" };
-                        this._msToasterService.toastData(this.toast);
                         this._notificationService.perdoruesDataChanged(this.perdorues);
                     }, (err) => {
                         if (typeof err.details.codes !== 'undefined' && err.details.codes.username[0] === "uniqueness") {
                             this.perdoruesDataForm.get(field).setErrors({ perdoruesNotUnique: true })
-                        } else if (err.statusCode == 500 || err == "Server error") {
-                            this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
-                            this._msToasterService.toastData(this.toast);
-                        }
+                        } 
                         this.loading = false;
                     }, () => {
                         this.enableEdit(field);
@@ -125,15 +110,12 @@ export class ProfileComponent implements OnInit {
             if (status === 0) {
                 this.loading = false;
                 this.editavatar = false;
-                this.toast = { type: "error", title: "Upload Deshtoi", body: "Nuk mund të bëj dot upload në server" };
             } else {
                 this.loading = false;
                 this.editavatar = false;
                 this.perdorues.avatar = response;
                 this._notificationService.perdoruesDataChanged(this.perdorues);
-                this.toast = { type: "success", title: "Upload Avatar", body: "Avatar u përditësua" };
             }
-            this._msToasterService.toastData(this.toast);
         }
     }
 
@@ -158,10 +140,7 @@ export class ProfileComponent implements OnInit {
                     this.perdoruesDataForm.controls[key].setValue(res[key]);
                 });
             }, (err) => {
-                if (err.statusCode == 500 || err == "Server error") {
-                    this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
-                }
-                this._msToasterService.toastData(this.toast);
+                
             }, () => {
             })
         )

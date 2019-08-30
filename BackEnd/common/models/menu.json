@@ -1,0 +1,43 @@
+{
+  "name": "Menu",
+  "plural": "Menu",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "heading": {
+      "type": "boolean"
+    },
+    "link": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "type": "string"
+    },
+    "elink": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "alert": {
+      "type": "string"
+    },
+    "submenu": {
+      "type": [
+        "object"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

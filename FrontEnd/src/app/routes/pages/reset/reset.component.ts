@@ -3,8 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Ndermarrje, NdermarrjeApi, PerdoruesApi, Perdorues, LoopBackAuth } from 'src/app/shared/sdk';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SettingsService } from 'src/app/core/settings/settings.service';
-import { MsToasterService } from 'src/app/shared/services/mstoaster.service';
-import { ToastModel } from 'src/app/shared/msInterfaces/interfaces';
 const swal = require('sweetalert');
 
 @Component({
@@ -17,7 +15,6 @@ export class ResetComponent implements OnInit {
   public resetForm: FormGroup;
   public loading: boolean = false;
   public passwordError: boolean = false;
-  private toast: ToastModel;
   private error: any;
 
   constructor(
@@ -28,7 +25,6 @@ export class ResetComponent implements OnInit {
     private _ndermarrje: NdermarrjeApi,
     private _perdorues: PerdoruesApi,
     private _auth: LoopBackAuth,
-    private _msToasterService: MsToasterService,
 
   ) {
     this.resetForm = _fb.group({
@@ -73,8 +69,6 @@ export class ResetComponent implements OnInit {
         }
         if (err.statusCode == 500 || err == "Server error") {
           this.passwordError = false;
-          this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
-          this._msToasterService.toastData(this.toast);
         }
         // this.passwordError = false;
         this.loading = false;

@@ -53,5 +53,9 @@
   "Klient": {
     "dataSource": "MongoAtlas",
     "public": true
+  },
+  "Menu": {
+    "dataSource": "MongoAtlas",
+    "public": true
   }
 }

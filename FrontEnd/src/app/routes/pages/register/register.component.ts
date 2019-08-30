@@ -5,9 +5,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { PerdoruesApi, Perdorues, NdermarrjeApi, Ndermarrje } from '../../../shared/sdk';
 
-import { MsToasterService } from '../../../shared/services/mstoaster.service';
-import { ToastModel } from '../../../shared/msInterfaces/interfaces';
-
 const swal = require('sweetalert');
 
 @Component({
@@ -19,7 +16,6 @@ export class RegisterComponent implements OnInit {
 
     public registerForm: FormGroup;
     public loading: boolean = false;
-    private toast: ToastModel;
     public emailError: boolean = false;
     public passowrdError: boolean = false;
     public usernameError: boolean = false;
@@ -30,7 +26,6 @@ export class RegisterComponent implements OnInit {
         fb: FormBuilder,
         private _perdorues: PerdoruesApi,
         private _router: Router,
-        private _msToasterService: MsToasterService,
         private _ndermarrje: NdermarrjeApi
     ) {
         this.registerForm = fb.group({
@@ -76,8 +71,6 @@ export class RegisterComponent implements OnInit {
                     this.passowrdError = false;
                     this.emailError = false;
                     this.usernameError = false;
-                    this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down"};
-                    this._msToasterService.toastData(this.toast);
 
                 }
                 this.loading = false;

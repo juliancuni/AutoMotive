@@ -7,6 +7,7 @@ import { Email } from '../../models/Email';
 import { Perdorues } from '../../models/Perdorues';
 import { Ndermarrje } from '../../models/Ndermarrje';
 import { Klient } from '../../models/Klient';
+import { Menu } from '../../models/Menu';
 
 export interface Models { [name: string]: any }
 
@@ -21,6 +22,7 @@ export class SDKModels {
     Perdorues: Perdorues,
     Ndermarrje: Ndermarrje,
     Klient: Klient,
+    Menu: Menu,
     
   };
 

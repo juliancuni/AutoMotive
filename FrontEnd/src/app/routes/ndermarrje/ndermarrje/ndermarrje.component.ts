@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastModel } from 'src/app/shared/msInterfaces/interfaces';
-import { MsToasterService } from 'src/app/shared/services/mstoaster.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
@@ -21,7 +19,6 @@ export class NdermarrjeComponent implements OnInit {
     public ndermarrjeDataForm: FormGroup;
     public ndermarrje: Ndermarrje
     public loading: boolean = false;
-    private toast: ToastModel;
     public uploader = new FileUploader({ url: URL, allowedMimeType: ['image/png', 'image/svg+xml', 'image/jpeg'] });
     private subscriptions: Subscription[] = new Array<Subscription>();
 
@@ -29,7 +26,6 @@ export class NdermarrjeComponent implements OnInit {
 
     constructor(
         private _ndermarrje: NdermarrjeApi,
-        private _msToasterService: MsToasterService,
         private _notificationService: NotificationsService,
         private _fb: FormBuilder,
         private settings: SettingsService
@@ -56,12 +52,8 @@ export class NdermarrjeComponent implements OnInit {
             } else {
                 this._ndermarrje.upsertPatch(updatedndermarrje).subscribe((res: Ndermarrje) => {
                     this.ndermarrje = res;
-                    this.toast = { type: "success", title: "Përditësim", body: field + " u përditësua" };
-                    this._msToasterService.toastData(this.toast);
                     this._notificationService.ndermarrjeDataChanged(this.ndermarrje);
                 }, (err) => {
-                    this.toast = { type: "error", title: "Error", body: err.message };
-                    this._msToasterService.toastData(this.toast);
                     this.loading = false;
                 }, () => {
                     this.enableEdit(field);
@@ -80,15 +72,12 @@ export class NdermarrjeComponent implements OnInit {
             if (status === 0) {
                 this.loading = false;
                 this.editlogo = false;
-                this.toast = { type: "error", title: "Upload Deshtoi", body: "Nuk mund të bëj dot upload në server" };
             } else {
                 this.loading = false;
                 this.editlogo = false;
                 this.ndermarrje.logo = response;
                 this._notificationService.ndermarrjeDataChanged(this.ndermarrje);
-                this.toast = { type: "success", title: "Upload Logo", body: "Logo u përditësua" };
             }
-            this._msToasterService.toastData(this.toast);
         }
     }
 
@@ -110,9 +99,7 @@ export class NdermarrjeComponent implements OnInit {
             }, (err) => {
 
                 if (err.statusCode == 500 || err == "Server error") {
-                    this.toast = { type: "error", title: "API ERR", body: err.message ? err.message : "Server Down" };
                 }
-                this._msToasterService.toastData(this.toast);
             }, () => {
                 this.ndermarrjeDataForm.get('emer').disable();
                 this.ndermarrjeDataForm.get('slogan').disable();

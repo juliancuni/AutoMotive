@@ -27,6 +27,12 @@ const Ndermarrje = {
     icon: 'far fa-building',
 };
 
+const Menu = {
+    text: 'Menu',
+    link: '/menu',
+    icon: '',
+};
+
 const headingMain = {
     text: 'Main Navigation',
     heading: true
@@ -36,5 +42,5 @@ export const menu = [
     headingMain,
     Home,
     Autorizime,
-    Ndermarrje
+    Ndermarrje,
 ];

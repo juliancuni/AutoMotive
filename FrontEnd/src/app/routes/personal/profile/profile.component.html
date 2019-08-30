@@ -38,7 +38,7 @@
                                     for="emer">Emër</label>
                                 <div class="col-xl-10 col-md-9 col-8">
                                     <div class="input-group with-focus input-group-sm">
-                                        <input class="form-control" id="emer" type="text" placeholder="Emri juaj"
+                                        <input class="form-control" id="emer" type="text" autocomplete="off" placeholder="Emri juaj"
                                             formControlName="emer" />
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0" *ngIf="editemer"
@@ -72,7 +72,7 @@
                                     for="mbiemer">Mbiemër</label>
                                 <div class="col-xl-10 col-md-9 col-8">
                                     <div class="input-group with-focus input-group-sm">
-                                        <input class="form-control" id="mbiemer" type="text" placeholder="Mbiemri juaj"
+                                        <input class="form-control" id="mbiemer" type="text" autocomplete="off" placeholder="Mbiemri juaj"
                                             formControlName="mbiemer" />
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0" *ngIf="editmbiemer"
@@ -107,7 +107,7 @@
                                     for="username">Përdoruesi</label>
                                 <div class="col-xl-10 col-md-9 col-8">
                                     <div class="input-group with-focus input-group-sm">
-                                        <input class="form-control" id="username" type="text" placeholder="Përdoruesi"
+                                        <input class="form-control" id="username" type="text" autocomplete="off" placeholder="Përdoruesi"
                                             formControlName="username" />
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0"
@@ -147,7 +147,7 @@
                                     for="email">E-mail</label>
                                 <div class="col-xl-10 col-md-9 col-8">
                                     <div class="input-group with-focus input-group-sm">
-                                        <input class="form-control" id="email" type="email" placeholder="E-mail"
+                                        <input class="form-control" id="email" type="email" autocomplete="off" placeholder="E-mail"
                                             formControlName="email" />
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0" *ngIf="editemail"
@@ -184,7 +184,7 @@
                                     for="telefon">Telefon</label>
                                 <div class="col-xl-10 col-md-9 col-8">
                                     <div class="input-group with-focus input-group-sm">
-                                        <input class="form-control" id="telefon" type="text" placeholder="Telefon"
+                                        <input class="form-control" id="telefon" type="text" autocomplete="off" placeholder="Telefon"
                                             formControlName="telefon" />
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0" *ngIf="edittelefon"
@@ -256,7 +256,7 @@
                                     for="datelindja">Datëlindja</label>
                                 <div class="col-xl-10 col-md-9 col-8">
                                     <div class="input-group with-focus input-group-sm">
-                                        <input type="text" id="datelindja" class="form-control" #dp="bsDatepicker"
+                                        <input type="text" autocomplete="off" id="datelindja" class="form-control" #dp="bsDatepicker"
                                             bsDatepicker [bsValue]="bsValue" name="dp-basic" [bsConfig]="bsConfig"
                                             formControlName="datelindja" autocomplete="off">
                                         <div class="input-group-append">
@@ -295,7 +295,7 @@
                                     <div class="input-group with-focus input-group-sm">
                                         <input class="form-control" id="password"
                                             type="{{showOldPass ? 'text' : 'password' }}"
-                                            placeholder="Fjalëkalimi Aktual" formControlName="password" />
+                                            placeholder="Fjalëkalimi Aktual" formControlName="password"  autocomplete="off"/>
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0"
                                                 (click)="showOldPass ? showOldPass = false : showOldPass = true"
@@ -341,7 +341,7 @@
                                     <div class="input-group with-focus input-group-sm">
                                         <input class="form-control" id="newpass"
                                             type="{{showNewPass ? 'text' : 'password' }}"
-                                            placeholder="Fjalëkalimi i ri (min. 6)" formControlName="newpass" />
+                                            placeholder="Fjalëkalimi i ri (min. 6)" formControlName="newpass" autocomplete="off"/>
                                         <div class="input-group-append">
                                             <a class="input-group-text bg-transparent border-left-0"
                                                 (click)="showNewPass ? showNewPass = false : showNewPass = true">

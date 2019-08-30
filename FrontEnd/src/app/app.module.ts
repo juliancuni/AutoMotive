@@ -4,7 +4,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeAl from '@angular/common/locales/sq';
 registerLocaleData(localeAl, 'al');
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -20,6 +20,8 @@ import { AuthModule } from './auth/auth.module';
 import { MsToasterService } from './shared/services/mstoaster.service';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { ErrHanlderService } from './shared/services/httpInterceptor/err-hanlder.service';
+import { HttpInterceptorService } from './shared/services/httpInterceptor/http-interceptor.service';
 
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient) {
@@ -51,7 +53,13 @@ export function createTranslateLoader(http: HttpClient) {
     providers: [
         ToasterService,
         MsToasterService,
-        { provide: LOCALE_ID, useValue: 'al'}
+        { provide: LOCALE_ID, useValue: 'al' },
+        ErrHanlderService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpInterceptorService,
+            multi: true,
+        }
     ],
     bootstrap: [AppComponent]
 })
