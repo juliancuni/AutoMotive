@@ -1,0 +1,27 @@
+{
+  "name": "Diagnoza",
+  "plural": "Diagnozat",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "shenime": {
+      "type": "string"
+    },
+    "sasia": {
+      "type": "number"
+    },
+    "gjendjaDifektit": {
+      "type": "number"
+    },
+    "kilometrazhi": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,27 @@
+{
+  "name": "PjeseKembimi",
+  "plural": "PjeseKembimi",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "brand": {
+      "type": "string"
+    },
+    "partNo": {
+      "type": "string"
+    },
+    "sasia": {
+      "type": "number"
+    },
+    "cmimi": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

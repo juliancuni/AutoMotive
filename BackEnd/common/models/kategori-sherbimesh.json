@@ -1,0 +1,27 @@
+{
+  "name": "KategoriSherbimesh",
+  "plural": "KategoriSherbimesh",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "emer": {
+      "type": "string"
+    },
+    "pershkrim": {
+      "type": "string"
+    },
+    "orePune": {
+      "type": "number"
+    },
+    "cmimiPerOre": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

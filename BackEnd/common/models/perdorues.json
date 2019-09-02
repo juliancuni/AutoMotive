@@ -47,6 +47,16 @@
       "model": "Role",
       "foreignKey": "principalId",
       "through": "RoleMapping"
+    },
+    "urdheraTeLeshuar": {
+      "type": "hasMany",
+      "model": "UrdherDiagnoze",
+      "foreignKey": "leshoiPerdoruesId"
+    },
+    "urdheraTeMarre": {
+      "type": "hasMany",
+      "model": "UrdherDiagnoze",
+      "foreignKey": "destinuarPerdoruesId"
     }
   },
   "acls": [],

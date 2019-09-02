@@ -1,0 +1,27 @@
+{
+  "name": "UrdherPune",
+  "plural": "UrdheraPune",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "sasia": {
+      "type": "number"
+    },
+    "shenim": {
+      "type": "string"
+    },
+    "prioriteti": {
+      "type": "number"
+    },
+    "statusi": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

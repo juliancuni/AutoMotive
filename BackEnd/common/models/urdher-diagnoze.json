@@ -1,0 +1,40 @@
+{
+  "name": "UrdherDiagnoze",
+  "plural": "UrdheraDiagnoze",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "pershkrim": {
+      "type": "string"
+    },
+    "prioriteti": {
+      "type": "number"
+    },
+    "statusi": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "mjeti": {
+      "type": "belongsTo",
+      "model": "Mjeti",
+      "foreignKey": "mejtiId"
+    },
+    "leshuarNga": {
+      "type": "belongsTo",
+      "model": "Perdorues",
+      "foreignKey": "leshuarPerdoruesId"
+    },
+    "destinuarPer": {
+      "type": "belongsTo",
+      "model": "Perdorues",
+      "foreignKey": "destinuarPerdoruesId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

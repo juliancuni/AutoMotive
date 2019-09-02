@@ -73,5 +73,25 @@
   "KlientPerfaqesuesMapper": {
     "dataSource": "MongoLocal",
     "public": false
+  },
+  "UrdherDiagnoze": {
+    "dataSource": "MongoLocal",
+    "public": true
+  },
+  "KategoriSherbimesh": {
+    "dataSource": "MongoLocal",
+    "public": true
+  },
+  "Diagnoza": {
+    "dataSource": "MongoLocal",
+    "public": true
+  },
+  "PjeseKembimi": {
+    "dataSource": "MongoLocal",
+    "public": true
+  },
+  "UrdherPune": {
+    "dataSource": "MongoLocal",
+    "public": true
   }
 }

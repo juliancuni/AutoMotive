@@ -30,6 +30,9 @@
     "neOficine": {
       "type": "boolean",
       "defaut": false
+    },
+    "kilometrazhi": {
+      "type": "number"
     }
   },
   "validations": [],
@@ -41,6 +44,11 @@
     "klient": {
       "type": "belongsTo",
       "model": "Klient",
+      "foreignKey": ""
+    },
+    "urdheraDiagnoze": {
+      "type": "hasMany",
+      "model": "UrdherDiagnoze",
       "foreignKey": ""
     }
   },
