@@ -1,0 +1,49 @@
+{
+  "name": "Mjeti",
+  "plural": "Mjetet",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "brand": {
+      "type": "string",
+      "default": "model"
+    },
+    "model": {
+      "type": "string"
+    },
+    "viti": {
+      "type": "number"
+    },
+    "nrShasise": {
+      "type": "string"
+    },
+    "targa": {
+      "type": "string"
+    },
+    "nePark": {
+      "type": "boolean",
+      "defaut": true
+    },
+    "neOficine": {
+      "type": "boolean",
+      "defaut": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "kategori": {
+      "type": "belongsTo",
+      "model": "KategoriMjetesh"
+    },
+    "klient": {
+      "type": "belongsTo",
+      "model": "Klient",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

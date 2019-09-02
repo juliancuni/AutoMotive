@@ -4,12 +4,14 @@ declare var Object: any;
 export interface MenuInterface {
   "text": string;
   "heading"?: boolean;
-  "link": string;
+  "link"?: string;
   "icon"?: string;
   "elink"?: string;
   "target"?: string;
   "alert"?: string;
-  "submenu"?: Array<any>;
+  "kategoria"?: string;
+  "protected": boolean;
+  "index"?: number;
   "id"?: any;
 }
 
@@ -21,7 +23,9 @@ export class Menu implements MenuInterface {
   "elink": string;
   "target": string;
   "alert": string;
-  "submenu": Array<any>;
+  "kategoria": string;
+  "protected": boolean;
+  "index": number;
   "id": any;
   constructor(data?: MenuInterface) {
     Object.assign(this, data);
@@ -84,9 +88,18 @@ export class Menu implements MenuInterface {
           name: 'alert',
           type: 'string'
         },
-        "submenu": {
-          name: 'submenu',
-          type: 'Array&lt;any&gt;'
+        "kategoria": {
+          name: 'kategoria',
+          type: 'string'
+        },
+        "protected": {
+          name: 'protected',
+          type: 'boolean',
+          default: true
+        },
+        "index": {
+          name: 'index',
+          type: 'number'
         },
         "id": {
           name: 'id',

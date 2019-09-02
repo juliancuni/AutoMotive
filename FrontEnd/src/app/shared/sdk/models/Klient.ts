@@ -1,22 +1,31 @@
 /* tslint:disable */
+import {
+  Mjeti
+} from '../index';
 
 declare var Object: any;
 export interface KlientInterface {
   "emer": string;
   "mbiemer"?: string;
   "telefon"?: string;
+  "person": string;
+  "nius"?: string;
   "email"?: string;
   "adresa"?: string;
   "id"?: any;
+  mjetet?: Mjeti[];
 }
 
 export class Klient implements KlientInterface {
   "emer": string;
   "mbiemer": string;
   "telefon": string;
+  "person": string;
+  "nius": string;
   "email": string;
   "adresa": string;
   "id": any;
+  mjetet: Mjeti[];
   constructor(data?: KlientInterface) {
     Object.assign(this, data);
   }
@@ -62,6 +71,14 @@ export class Klient implements KlientInterface {
           name: 'telefon',
           type: 'string'
         },
+        "person": {
+          name: 'person',
+          type: 'string'
+        },
+        "nius": {
+          name: 'nius',
+          type: 'string'
+        },
         "email": {
           name: 'email',
           type: 'string'
@@ -76,6 +93,14 @@ export class Klient implements KlientInterface {
         },
       },
       relations: {
+        mjetet: {
+          name: 'mjetet',
+          type: 'Mjeti[]',
+          model: 'Mjeti',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'klientId'
+        },
       }
     }
   }

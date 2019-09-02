@@ -30,7 +30,7 @@
   },
   "RoleMapping": {
     "dataSource": "MongoLocal",
-    "public": true,
+    "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
@@ -57,5 +57,21 @@
   "Menu": {
     "dataSource": "MongoLocal",
     "public": true
+  },
+  "KategoriMjetesh": {
+    "dataSource": "MongoLocal",
+    "public": true
+  },
+  "Mjeti": {
+    "dataSource": "MongoLocal",
+    "public": true
+  },
+  "Perfaqesues": {
+    "dataSource": "MongoLocal",
+    "public": true
+  },
+  "KlientPerfaqesuesMapper": {
+    "dataSource": "MongoLocal",
+    "public": false
   }
 }

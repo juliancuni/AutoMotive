@@ -1,0 +1,27 @@
+{
+  "name": "KategoriMjetesh",
+  "plural": "KategoriMjetesh",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "emer": {
+      "type": "string",
+      "required": true
+    },
+    "pershkrim": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "mjetet": {
+      "type": "hasMany",
+      "model": "Mjeti"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

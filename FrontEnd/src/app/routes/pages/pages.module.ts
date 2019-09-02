@@ -9,7 +9,7 @@ import { ResetComponent } from './reset/reset.component';
 import { TermsComponent } from './terms/terms.component';
 import { SharedModule } from '../../shared/shared.module';
 
-import { UnauthGuard } from '../../auth/guards/unauth.guard';
+import { UnauthGuard } from '../../shared/services/auth/guards/unauth.guard';
 
 
 const routes: Routes = [

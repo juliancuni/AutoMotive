@@ -8,6 +8,8 @@ import { Perdorues } from '../../models/Perdorues';
 import { Ndermarrje } from '../../models/Ndermarrje';
 import { Klient } from '../../models/Klient';
 import { Menu } from '../../models/Menu';
+import { KategoriMjetesh } from '../../models/KategoriMjetesh';
+import { Mjeti } from '../../models/Mjeti';
 
 export interface Models { [name: string]: any }
 
@@ -23,6 +25,8 @@ export class SDKModels {
     Ndermarrje: Ndermarrje,
     Klient: Klient,
     Menu: Menu,
+    KategoriMjetesh: KategoriMjetesh,
+    Mjeti: Mjeti,
     
   };
 

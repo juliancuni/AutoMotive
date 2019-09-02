@@ -56,6 +56,8 @@ import { PerdoruesApi } from './services/custom/Perdorues';
 import { NdermarrjeApi } from './services/custom/Ndermarrje';
 import { KlientApi } from './services/custom/Klient';
 import { MenuApi } from './services/custom/Menu';
+import { KategoriMjeteshApi } from './services/custom/KategoriMjetesh';
+import { MjetiApi } from './services/custom/Mjeti';
 /**
 * @module SDKBrowserModule
 * @description
@@ -94,6 +96,8 @@ export class SDKBrowserModule {
         NdermarrjeApi,
         KlientApi,
         MenuApi,
+        KategoriMjeteshApi,
+        MjetiApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

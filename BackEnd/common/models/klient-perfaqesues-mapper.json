@@ -1,0 +1,24 @@
+{
+  "name": "KlientPerfaqesuesMapper",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "klient": {
+      "type": "belongsTo",
+      "model": "Klient",
+      "foreignKey": "klientId"
+    },
+    "perfaqesues": {
+      "type": "belongsTo",
+      "model": "Perfaqesues",
+      "foreignKey": "perfaqesuesId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

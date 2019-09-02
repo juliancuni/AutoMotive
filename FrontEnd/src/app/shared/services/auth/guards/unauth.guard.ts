@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { PerdoruesApi } from '../../shared/sdk/services/custom';
+import { PerdoruesApi } from '../../../sdk/services/custom';
 
 
 @Injectable()

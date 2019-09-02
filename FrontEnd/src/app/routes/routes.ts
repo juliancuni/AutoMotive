@@ -1,5 +1,5 @@
 import { LayoutComponent } from '../layout/layout.component';
-import { AuthGuard } from '../auth/guards/auth.guard';
+import { AuthGuard } from '../shared/services/auth/guards/auth.guard';
 
 export const routes = [
 
@@ -15,6 +15,7 @@ export const routes = [
             { path: 'autorizime', loadChildren: './autorizime/autorizime.module#AutorizimeModule', canActivate: [AuthGuard] },
             { path: 'menu', loadChildren: './menu/menu.module#MenuModule', canActivate: [AuthGuard] },
             { path: 'test', loadChildren: './vetempertest/vetempertest.module#VetempertestModule', canActivate: [AuthGuard] },
+            { path: 'klientet', loadChildren: './klient/klient.module#KlientModule', canActivate: [AuthGuard] },
         ]
     },
 

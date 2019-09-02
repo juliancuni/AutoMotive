@@ -1,0 +1,124 @@
+<div class="card card-default">
+    <div class="card-header">Klientet total {{klientet?.length}}
+        <div class="mr-auto float-right">
+            <div class="btn-group" dropdown>
+                <button class="btn btn-link" dropdownToggle>
+                    <em class="fa fa-ellipsis-v fa-lg"></em>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu dropdown-menu-right-forced animated fadeIn" role="menu">
+                    <button class="dropdown-item" (click)="newClient.show()">
+                        <em class="far fa-address-card mr-2"></em>
+                        <span>Klient i ri</span>
+                    </button>
+                    <button class="dropdown-item" (click)="importClient.show()">
+                        <em class="fas fa-download mr-2"></em>
+                        <span>Import Klient nga Financa</span>
+                    </button>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Emer</th>
+                    <th>Mbiemer</th>
+                    <th>Telefon</th>
+                    <th>Email</th>
+                    <th>Person</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let klient of klientet">
+                    <td>{{klient?.emer}}</td>
+                    <td>{{klient?.mbiemer}}</td>
+                    <td>{{klient?.telefon}}</td>
+                    <td>{{klient?.email}}</td>
+                    <td>{{klient?.person}}</td>
+                    <td>
+                        <a class="btn btn btn-square btn-primary mb-1 btn-xs"
+                            title="Kartela e klientit '{{klient?.emer}} {{klient?.mbiemer}}'"
+                            [routerLink]="['/klientet/', klient.id]">
+                            <i class="fa fa-pencil-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<div bsModal #newClient="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Klient i ri</h4>
+                <button type="button" class="close" aria-label="Close" (click)="newClient.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="newKlientForm" id="newKlientForm"
+                    (submit)="regNewKlient($event, newKlientForm.value)">
+                    <div class="form-group">
+                        <select class="form-control" formControlName="person">
+                            <option [selected]="true" [disabled]="true" [value]="null">Person</option>
+                            <option value="privat">Privat</option>
+                            <option value="fizik">Fizik</option>
+                            <option value="juridik">Juridik</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+
+                        <input class="form-control" type="text" placeholder="Emer" formControlName="emer" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Mbiemer" formControlName="mbiemer" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Telefon" formControlName="telefon" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="email" placeholder="NIUS" formControlName="nius" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="email" placeholder="email" formControlName="email" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="adresa" formControlName="adresa" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-primary" form="newKlientForm" type="submit" [disabled]="!newKlientForm.valid">Ruaj</button>
+                <button class="btn btn-sm btn-secondary" type="submit" (click)="newClient.hide()">Mbyll</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #importClient="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Import Klient Nga Financa5</h4>
+                <button type="button" class="close" aria-label="Close" (click)="importClient.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                [NE_NDERTIM]
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="importClient.hide()">Mbyll</button>
+            </div>
+        </div>
+    </div>
+</div>

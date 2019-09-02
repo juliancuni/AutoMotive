@@ -16,7 +16,7 @@ import { SharedModule } from './shared/shared.module';
 import { RoutesModule } from './routes/routes.module';
 
 import { SDKBrowserModule } from './shared/sdk/index';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './shared/services/auth/auth.module';
 import { MsToasterService } from './shared/services/mstoaster.service';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';

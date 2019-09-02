@@ -1,6 +1,6 @@
 {
-  "name": "Klient",
-  "plural": "Klientet",
+  "name": "Perfaqesues",
+  "plural": "Perfaqesuesit",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -17,13 +17,6 @@
     "telefon": {
       "type": "string"
     },
-    "person": {
-      "type": "string",
-      "required": true
-    },
-    "nius": {
-      "type": "string"
-    },
     "email": {
       "type": "string"
     },
@@ -33,15 +26,10 @@
   },
   "validations": [],
   "relations": {
-    "mjetet": {
+    "klientet": {
       "type": "hasMany",
-      "model": "Mjeti",
-      "foreignKey": ""
-    },
-    "perfaqesues": {
-      "type": "hasMany",
-      "model": "Perfaqesues",
-      "foreignKey": "klientId",
+      "model": "Klient",
+      "foreignKey": "perfaqesuesId",
       "through": "KlientPerfaqesuesMapper"
     }
   },

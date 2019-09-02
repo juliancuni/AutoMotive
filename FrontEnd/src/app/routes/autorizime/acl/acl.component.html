@@ -3,6 +3,19 @@
         <div class="card">
 
             <div class="card-body">
+                <div class="mr-auto float-right">
+                    <div class="btn-group" dropdown>
+                        <button class="btn btn-link" dropdownToggle>
+                            <em class="fa fa-ellipsis-v fa-lg"></em>
+                        </button>
+                        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right-forced animated fadeIn" role="menu">
+                            <button class="dropdown-item" (click)="roletModal.show()">
+                                <em class="fa-fw fa fa-ban mr-2"></em>
+                                <span>Rolet</span>
+                            </button>
+                        </ul>
+                    </div>
+                </div>
                 <table class="table table-hover table-condensed table-responsive">
                     <thead>
                         <tr>
