@@ -41,7 +41,14 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "rolet": {
+      "type": "hasMany",
+      "model": "Role",
+      "foreignKey": "principalId",
+      "through": "RoleMapping"
+    }
+  },
   "acls": [],
   "methods": {}
 }

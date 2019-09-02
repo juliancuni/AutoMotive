@@ -231,7 +231,7 @@ export class KartelaPerdoruesComponent implements OnInit {
 
         this.subscriptions.push(
             this._route.params.subscribe((params) => {
-                this._perdorues.gjejRolet(params.id).subscribe((res: Role[]) => {
+                this._perdorues.getRolet(params.id).subscribe((res: Role[]) => {
                     this.roletQeKa = res["Rolet"];
                     this._rolet.find().subscribe((res: Role[]) => {
                         this.roletOrigj = res;

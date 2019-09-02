@@ -17,45 +17,45 @@
     ]
   },
   "User": {
-    "dataSource": "MongoAtlas",
+    "dataSource": "MongoLocal",
     "public": false
   },
   "AccessToken": {
-    "dataSource": "MongoAtlas",
+    "dataSource": "MongoLocal",
     "public": false
   },
   "ACL": {
-    "dataSource": "MongoAtlas",
+    "dataSource": "MongoLocal",
     "public": true
   },
   "RoleMapping": {
-    "dataSource": "MongoAtlas",
+    "dataSource": "MongoLocal",
     "public": true,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "MongoAtlas",
+    "dataSource": "MongoLocal",
     "public": true
   },
   "Email": {
     "dataSource": "Email"
   },
   "Perdorues": {
-    "dataSource": "MongoAtlas",
+    "dataSource": "MongoLocal",
     "public": true
   },
   "Ndermarrje": {
-    "dataSource": "MongoAtlas",
+    "dataSource": "MongoLocal",
     "public": true
   },
   "Klient": {
-    "dataSource": "MongoAtlas",
+    "dataSource": "MongoLocal",
     "public": true
   },
   "Menu": {
-    "dataSource": "MongoAtlas",
+    "dataSource": "MongoLocal",
     "public": true
   }
 }

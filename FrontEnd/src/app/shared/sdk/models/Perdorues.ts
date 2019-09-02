@@ -1,4 +1,7 @@
 /* tslint:disable */
+import {
+  Role
+} from '../index';
 
 declare var Object: any;
 export interface PerdoruesInterface {
@@ -16,6 +19,7 @@ export interface PerdoruesInterface {
   "id"?: any;
   "password"?: string;
   accessTokens?: any[];
+  rolet?: Role[];
 }
 
 export class Perdorues implements PerdoruesInterface {
@@ -33,6 +37,7 @@ export class Perdorues implements PerdoruesInterface {
   "id": any;
   "password": string;
   accessTokens: any[];
+  rolet: Role[];
   constructor(data?: PerdoruesInterface) {
     Object.assign(this, data);
   }
@@ -128,6 +133,16 @@ export class Perdorues implements PerdoruesInterface {
           relationType: 'hasMany',
                   keyFrom: 'id',
           keyTo: 'userId'
+        },
+        rolet: {
+          name: 'rolet',
+          type: 'Role[]',
+          model: 'Role',
+          relationType: 'hasMany',
+          modelThrough: 'RoleMapping',
+          keyThrough: 'roleId',
+          keyFrom: 'id',
+          keyTo: 'principalId'
         },
       }
     }

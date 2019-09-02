@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslatorService } from '../core/translator/translator.service';
-import { MenuService } from '../core/menu/menu.service';
 import { SharedModule } from '../shared/shared.module';
 import { PagesModule } from './pages/pages.module';
 import { AuthGuard } from '../auth/guards/auth.guard';
@@ -22,7 +21,5 @@ import { routes } from './routes';
 })
 
 export class RoutesModule {
-    constructor(public menuService: MenuService, tr: TranslatorService) {
-        menuService.addMenu(menu);
-    }
+    constructor(tr: TranslatorService) {}
 }

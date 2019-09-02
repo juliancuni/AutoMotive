@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         private _router: Router,
         private _perdorues: PerdoruesApi,
         private _ndermarrje: NdermarrjeApi,
-        private _route: ActivatedRoute
+        private _route: ActivatedRoute,
     ) {
         this.loginForm = fb.group({
             'username': [null, [Validators.required]],

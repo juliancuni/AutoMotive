@@ -15,7 +15,7 @@ const appCfg = new AppConfig;
 
 app.use(helmet());
 
-app.use(cors({origin: 'http://localhost:4200', credentials: true}));
+app.use(cors({ origin: 'http://localhost:4200', credentials: true }));
 app.use(bodyparser.json());
 app.use(LoggerMiddleWare);
 app.use(cookieParser());
@@ -26,9 +26,14 @@ const server: http.Server = app.listen(appCfg.APP_PORT);
 
 server.on("listening", async () => {
     console.info(`Server Gati! http://localhost:${appCfg.APP_PORT}`);
-    mongoose.connect(appCfg.MONGO_URI, appCfg.MONGO_OPTIONS)
-    mongoose.connection.on('open', () => { console.log("MongoDBConnected!") });
-    mongoose.connection.on('error', (err) => { console.log(err) });
+    try {
+        mongoose.connect(appCfg.MONGO_URI, appCfg.MONGO_OPTIONS)
+        mongoose.connection.on('open', () => { console.log("MongoDBConnected!") });
+        mongoose.connection.on('error', (err) => { console.log(err) });
+    } catch (error) {
+        console.log(error)
+    }
+
 })
 
 export { server }

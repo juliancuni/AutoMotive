@@ -154,7 +154,7 @@ export class AclComponent implements OnInit {
     }
 
     zgjidhACLNgaLista(acl) {
-        console.log(acl);
+        // console.log(acl);
         if (this.aclNewEdit !== acl) {
             if (acl.principalType === "ROLE") {
                 this.showPerdorues = false;
@@ -182,10 +182,11 @@ export class AclComponent implements OnInit {
             this.aclSpecifikeDataForm.controls[c].markAsTouched();
         }
         if (this.aclSpecifikeDataForm.valid) {
-            formValue.id = this.aclNewEdit.id;
+            // console.log(typeof this.aclNewEdit.id !== "undefined");
+            (this.aclNewEdit && typeof this.aclNewEdit.id !== "undefined") ? formValue.id = this.aclNewEdit.id : null;
             // this._acls.upsert
             this._acls.upsert(formValue).subscribe((res: ACL) => {
-                console.log(res);
+                // console.log(res);
             }, (err) => {
                 console.log(err);
             }, () => {
@@ -193,13 +194,13 @@ export class AclComponent implements OnInit {
                 this.mbushMatricen();
             })
         } else {
-            console.log(formValue);
+            // console.log(formValue);
         }
     }
 
     fshiACL(acl) {
         this._acls.deleteById(acl.id).subscribe((res) => {
-            console.log(res)
+            // console.log(res)
         }, (err) => {
             console.log(err);
         }, () => {

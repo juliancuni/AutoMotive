@@ -1,6 +1,6 @@
 module.exports = function (app: any) {
     let Ndermarrje = app.models.Ndermarrje;
-    let Perdorues = app.models.Perdorues;
+    let perdorues = app.models.Perdorues;
     let Role = app.models.Role;
     let RoleMapping = app.models.RoleMapping;
     let ACL = app.models.ACL;
@@ -33,7 +33,7 @@ module.exports = function (app: any) {
                                 Ndermarrje.create({ emer: ndermarrjaemer, domain: domain }, (err: any, ndermarrje: any) => {
                                     if (err) console.log(err)
                                     console.log("ndermarrja u krijua")
-                                    Perdorues.create({
+                                    perdorues.create({
                                         username: "root",
                                         emer: "Root",
                                         mbiemer: "User",

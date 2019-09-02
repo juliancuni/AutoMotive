@@ -3,10 +3,16 @@ const screenfull = require('screenfull');
 
 import { UserblockService } from '../sidebar/userblock/userblock.service';
 import { SettingsService } from '../../core/settings/settings.service';
-import { MenuService } from '../../core/menu/menu.service';
 
 import { Router } from '@angular/router';
-import { PerdoruesApi, Ndermarrje } from 'src/app/shared/sdk';
+import {
+    PerdoruesApi,
+    // MenuApi,
+    Ndermarrje,
+    // Menu
+} from 'src/app/shared/sdk';
+
+// import { MenuService } from 'src/app/shared/services/menu-service.service';
 
 @Component({
     selector: 'app-header',
@@ -23,15 +29,18 @@ export class HeaderComponent implements OnInit {
     @ViewChild('fsbutton', { static: true }) fsbutton;  // the fullscreen button
 
     constructor(
-        public menu: MenuService, 
-        public userblockService: UserblockService, 
+        // public _menuService: MenuService,
+        // public _menu: MenuApi,
+        public userblockService: UserblockService,
         public settings: SettingsService,
         private _perdorues: PerdoruesApi,
         private _router: Router,
-        ) {
-
-        // show only a few items on demo
-        this.menuItems = menu.getMenu().slice(0, 4); // for horizontal layout
+    ) {
+        // this._menuService.rreshtoMenu();
+        // this._menuService.cast.subscribe((menu: Menu[]) => {
+        //     this.menuItems = menu;
+        // })
+        // this.menuItems = this.menuItems.slice(0, 4); // for horizontal layout
     }
 
     ngOnInit() {
@@ -88,7 +97,7 @@ export class HeaderComponent implements OnInit {
             screenfull.toggle();
         }
     }
-    
+
     logOut() {
         this.postLogOut();
     }

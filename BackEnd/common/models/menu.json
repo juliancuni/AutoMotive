@@ -15,8 +15,7 @@
       "type": "boolean"
     },
     "link": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "icon": {
       "type": "string"
@@ -30,10 +29,16 @@
     "alert": {
       "type": "string"
     },
-    "submenu": {
-      "type": [
-        "object"
-      ]
+    "kategoria": {
+      "type": "string"
+    },
+    "protected": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "index": {
+      "type": "number"
     }
   },
   "validations": [],

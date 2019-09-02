@@ -147,38 +147,40 @@ module.exports = function (Perdorues) {
                 subject: ndermarrje.emer + " - Reset Fjalëkalimin",
                 html: html,
                 user: info.user
+            }, function(err, mail) {
+                if(err) console.log(err);
             })
         }).catch(function (err) {
             console.log(err);
         })
     })
-    //Gjej Rolet Remote Method
-    Perdorues.gjejRolet = async (perdoruesId) => {
-        const RoleMapping = app.models.RoleMapping;
-        const Role = app.models.Role;
-        let rolet = [];
-        try {
-            let mappings = await RoleMapping.find({ where: { principalId: perdoruesId } });
+    // //Gjej Rolet Remote Method
+    // Perdorues.gjejRolet = async (perdoruesId) => {
+    //     const RoleMapping = app.models.RoleMapping;
+    //     const Role = app.models.Role;
+    //     let rolet = [];
+    //     try {
+    //         let mappings = await RoleMapping.find({ where: { principalId: perdoruesId } });
             
-            let mappsIdArr = [];
-            mappings.forEach(mapp => {
-                mappsIdArr.push(mapp.roleId);
-            });
-        rolet = await Role.find({where: {id: {inq: mappsIdArr}}});
+    //         let mappsIdArr = [];
+    //         mappings.forEach(mapp => {
+    //             mappsIdArr.push(mapp.roleId);
+    //         });
+    //     rolet = await Role.find({where: {id: {inq: mappsIdArr}}});
            
-        } catch (error) {
-            err = new Error()
-            mapps = [error.message];
-        }
-        return rolet;
-    };
-    //Gjej Rolet Definitions
-    Perdorues.remoteMethod('gjejRolet', {
-        description: "Gjej Rolet per Perdoruesin me perdoruesId",
-        accepts: [{ arg: 'perdoruesId', type: 'string' }],
-        returns: [{ arg: 'Rolet', type: 'array' }],
-        http: [{ verb: "get", path: "/rolet" }],
-    });
+    //     } catch (error) {
+    //         err = new Error()
+    //         mapps = [error.message];
+    //     }
+    //     return rolet;
+    // };
+    // //Gjej Rolet Definitions
+    // Perdorues.remoteMethod('gjejRolet', {
+    //     description: "Gjej Rolet per Perdoruesin me perdoruesId",
+    //     accepts: [{ arg: 'perdoruesId', type: 'string' }],
+    //     returns: [{ arg: 'Rolet', type: 'array' }],
+    //     http: [{ verb: "get", path: "/rolet" }],
+    // });
     //Gjejndermarrje. 
     function gjejNdermarrje() {
         return new Promise(function (resolve, reject) {

@@ -2,10 +2,10 @@ import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 declare var $: any;
 
-import { MenuService } from '../../core/menu/menu.service';
 import { SettingsService } from '../../core/settings/settings.service';
-import { Perdorues } from 'src/app/shared/sdk';
+import { Perdorues, Menu } from 'src/app/shared/sdk';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
+import { MenuService } from 'src/app/shared/services/menu-service.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -22,13 +22,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
     public perdorues: Perdorues;
 
     constructor(
-        public menu: MenuService, 
-        public settings: SettingsService, 
+        public settings: SettingsService,
         public injector: Injector,
-        private _notificationService: NotificationsService) {
-
-        this.menuItems = menu.getMenu();
-
+        private _notificationService: NotificationsService,
+        private _menuService: MenuService
+    ) {
+        this._menuService.rreshtoMenu();
+        this._menuService.cast.subscribe((menu: Menu[]) => {
+            this.menuItems = menu;
+        })
     }
 
     ngOnInit() {
@@ -163,12 +165,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
                 .css({
                     position: this.settings.getLayoutSetting('isFixed') ? 'fixed' : 'absolute',
                     top: menuTop,
-                    bottom: (floatingNav.outerHeight(true) + menuTop > vwHeight) ? (displacement+'px') : 'auto'
+                    bottom: (floatingNav.outerHeight(true) + menuTop > vwHeight) ? (displacement + 'px') : 'auto'
                 });
 
             floatingNav
                 .on('mouseleave', () => { floatingNav.remove(); })
-                .find('a').on('click', function(e) {
+                .find('a').on('click', function (e) {
                     e.preventDefault(); // prevents page reload on click
                     // get the exact route path to navigate
                     let routeTo = $(this).attr('route');
