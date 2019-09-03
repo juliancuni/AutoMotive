@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { KlientetComponent } from './klientet/klientet.component';
 import { KlientiComponent } from './klienti/klienti.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+// import { NgxSelectModule } from 'ngx-select-ex'
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
+    // NgxSelectModule,
   ]
 })
 export class KlientModule { }

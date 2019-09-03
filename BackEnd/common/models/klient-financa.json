@@ -1,0 +1,179 @@
+{
+  "name": "KlientFinanca",
+  "plural": "KlientetFinanca",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "idInjection": false,
+    "mssql": {
+      "schema": "dbo",
+      "table": "KLIENT"
+    }
+  },
+  "properties": {
+    "id": {
+      "type": "Number",
+      "id": true,
+      "required": false,
+      "length": 64,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "NRRENDOR",
+        "dataType": "int",
+        "dataLength": 64,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO"
+      }
+    },
+    "kodi": {
+      "type": "String",
+      "length": 25,
+      "mssql": {
+        "columnName": "KOD",
+        "dataType": "varchar",
+        "dataLength": 25
+      }
+    },
+    "pershkrimi": {
+      "type": "String",
+      "length": 50,
+      "mssql": {
+        "columnName": "PERSHKRIM",
+        "dataType": "varchar",
+        "dataLength": 50
+      }
+    },
+    "nipt": {
+      "type": "String",
+      "length": 20,
+      "mssql": {
+        "columnName": "NIPT",
+        "dataType": "varchar",
+        "dataLength": 20
+      }
+    },
+    "nrLicence": {
+      "type": "String",
+      "length": 10,
+      "mssql": {
+        "columnName": "NRLICENCE",
+        "dataType": "varchar",
+        "dataLength": 10
+      }
+    },
+    "perfaqesues": {
+      "type": "String",
+      "length": 30,
+      "mssql": {
+        "columnName": "PERFAQESUES",
+        "dataType": "varchar",
+        "dataLength": 30
+      }
+    },
+    "adresa1": {
+      "type": "String",
+      "length": 30,
+      "mssql": {
+        "columnName": "ADRESA1",
+        "dataType": "varchar",
+        "dataLength": 30
+      }
+    },
+    "adresa2": {
+      "type": "String",
+      "length": 30,
+      "mssql": {
+        "columnName": "ADRESA2",
+        "dataType": "varchar",
+        "dataLength": 30
+      }
+    },
+    "adresa3": {
+      "type": "String",
+      "length": 30,
+      "mssql": {
+        "columnName": "ADRESA3",
+        "dataType": "varchar",
+        "dataLength": 30
+      }
+    },
+    "emertimi": {
+      "type": "String",
+      "length": 50,
+      "mssql": {
+        "columnName": "EMERTIMLB",
+        "dataType": "varchar",
+        "dataLength": 50
+      }
+    },
+    "telefon1": {
+      "type": "String",
+      "length": 25,
+      "mssql": {
+        "columnName": "TELEFON1",
+        "dataType": "varchar",
+        "dataLength": 25
+      }
+    },
+    "telefon2": {
+      "type": "String",
+      "length": 25,
+      "mssql": {
+        "columnName": "TELEFON2",
+        "dataType": "varchar",
+        "dataLength": 25
+      }
+    },
+    "fax": {
+      "type": "String",
+      "length": 25,
+      "mssql": {
+        "columnName": "FAX",
+        "dataType": "varchar",
+        "dataLength": 25
+      }
+    },
+    "llogariBanke": {
+      "type": "String",
+      "length": 30,
+      "mssql": {
+        "columnName": "LLOGARIBANKE",
+        "dataType": "varchar",
+        "dataLength": 30
+      }
+    },
+    "email": {
+      "type": "String",
+      "length": 50,
+      "mssql": {
+        "columnName": "EMAIL",
+        "dataType": "varchar",
+        "dataLength": 50
+      }
+    },
+    "internet": {
+      "type": "String",
+      "length": 255,
+      "mssql": {
+        "columnName": "INTERNET",
+        "dataType": "varchar",
+        "dataLength": 255
+      }
+    },
+    "qellim": {
+      "type": "String",
+      "length": 50,
+      "mssql": {
+        "columnName": "QELLIM",
+        "dataType": "varchar",
+        "dataLength": 50
+      }
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -17,7 +17,7 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
+// import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { DatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -34,7 +34,7 @@ import { ScrollableDirective } from './directives/scrollable/scrollable.directiv
 import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
 import { FileUploadModule } from 'ng2-file-upload';
 
-import { AgGridModule } from 'ag-grid-angular';
+// import { AgGridModule } from 'ag-grid-angular';
 
 
 // https://angular.io/styleguide#!#04-10
@@ -58,12 +58,13 @@ import { AgGridModule } from 'ag-grid-angular';
         RatingModule.forRoot(),
         TabsModule.forRoot(),
         TimepickerModule.forRoot(),
-        TooltipModule.forRoot(),
+        // TooltipModule.forRoot(),
         PopoverModule.forRoot(),
         TypeaheadModule.forRoot(),
         ToasterModule,
         FileUploadModule,
-        AgGridModule.withComponents([])
+
+        // AgGridModule.withComponents([])
     ],
     providers: [
         ColorsService
@@ -98,7 +99,7 @@ import { AgGridModule } from 'ag-grid-angular';
         RatingModule,
         TabsModule,
         TimepickerModule,
-        TooltipModule,
+        // TooltipModule,
         PopoverModule,
         TypeaheadModule,
         ToasterModule,
@@ -111,7 +112,8 @@ import { AgGridModule } from 'ag-grid-angular';
         ScrollableDirective,
         JqcloudDirective,
         FileUploadModule,
-        AgGridModule
+
+        // AgGridModule
     ]
 })
 

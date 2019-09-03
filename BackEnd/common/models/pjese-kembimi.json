@@ -28,60 +28,36 @@
     },
     "kodi": {
       "type": "String",
-      "required": false,
       "length": 25,
-      "precision": null,
-      "scale": null,
       "mssql": {
         "columnName": "KOD",
         "dataType": "varchar",
-        "dataLength": 25,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "NO"
+        "dataLength": 25
       }
     },
     "pershkrimi": {
       "type": "String",
-      "required": false,
       "length": 100,
-      "precision": null,
-      "scale": null,
       "mssql": {
         "columnName": "PERSHKRIM",
         "dataType": "varchar",
-        "dataLength": 100,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "NO"
+        "dataLength": 100
       }
     },
     "pozicioni": {
       "type": "String",
-      "required": false,
       "length": 8,
-      "precision": null,
-      "scale": null,
       "mssql": {
         "columnName": "POZIC",
         "dataType": "varchar",
-        "dataLength": 8,
-        "dataPrecision": null,
-        "dataScale": null
+        "dataLength": 8
       }
     },
     "cmimShitje": {
       "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": null,
-      "scale": null,
       "mssql": {
         "columnName": "CMSH",
-        "dataType": "float",
-        "dataLength": null,
-        "dataPrecision": null,
-        "dataScale": null
+        "dataType": "float"
       }
     }
   },

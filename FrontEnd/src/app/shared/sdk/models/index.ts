@@ -17,5 +17,6 @@ export * from './PjeseKembimi';
 export * from './UrdherPune';
 export * from './Preventiv';
 export * from './LiberMjeti';
+export * from './KlientFinanca';
 export * from './BaseModels';
 export * from './FireLoopRef';

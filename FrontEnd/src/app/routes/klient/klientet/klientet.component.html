@@ -1,3 +1,7 @@
+<!-- <ngx-select [allowClear]="true" [items]="klientet" [disabled]="disabled" (data)="refreshValue($event)"
+    (selected)="selected($event)" (removed)="removed($event)" (typed)="kerko($event)" placeholder="No city selected">
+</ngx-select> -->
+
 <div class="card card-default">
     <div class="card-header">Klientet total {{klientet?.length}}
         <div class="mr-auto float-right">
@@ -6,7 +10,7 @@
                     <em class="fa fa-ellipsis-v fa-lg"></em>
                 </button>
                 <ul *dropdownMenu class="dropdown-menu dropdown-menu-right-forced animated fadeIn" role="menu">
-                    <button class="dropdown-item" (click)="newClient.show()">
+                    <button class="dropdown-item" (click)="showNewKlient()">
                         <em class="far fa-address-card mr-2"></em>
                         <span>Klient i ri</span>
                     </button>
@@ -23,7 +27,6 @@
             <thead>
                 <tr>
                     <th>Emer</th>
-                    <th>Mbiemer</th>
                     <th>Telefon</th>
                     <th>Email</th>
                     <th>Person</th>
@@ -33,7 +36,6 @@
             <tbody>
                 <tr *ngFor="let klient of klientet">
                     <td>{{klient?.emer}}</td>
-                    <td>{{klient?.mbiemer}}</td>
                     <td>{{klient?.telefon}}</td>
                     <td>{{klient?.email}}</td>
                     <td>{{klient?.person}}</td>
@@ -44,6 +46,12 @@
                             <i class="fa fa-pencil-alt"></i>
                         </a>
                     </td>
+                    <!-- <td>
+                        <button class="btn btn btn-square btn-danger mb-1 btn-xs"
+                            title="Fshi klientin '{{klient?.emer}} {{klient?.mbiemer}}'">
+                            <i class="fa fa-window-close"></i>
+                        </button>
+                    </td> -->
                 </tr>
             </tbody>
         </table>
@@ -54,7 +62,7 @@
 
 <div bsModal #newClient="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Klient i ri</h4>
@@ -63,40 +71,76 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="newKlientForm" id="newKlientForm"
-                    (submit)="regNewKlient($event, newKlientForm.value)">
-                    <div class="form-group">
-                        <select class="form-control" formControlName="person">
-                            <option [selected]="true" [disabled]="true" [value]="null">Person</option>
-                            <option value="privat">Privat</option>
-                            <option value="fizik">Fizik</option>
-                            <option value="juridik">Juridik</option>
-                        </select>
-                    </div>
+                <div class="row">
+                    <div class="col-6" >
+                        <form [formGroup]="newKlientForm" id="newKlientForm"
+                            (submit)="regNewKlient($event, newKlientForm.value)">
+                            <div class="form-group">
+                                <select class="form-control" formControlName="person">
+                                    <option [selected]="true" [disabled]="true" [value]="null">Person</option>
+                                    <option value="privat">Privat</option>
+                                    <option value="fizik">Fizik</option>
+                                    <option value="juridik">Juridik</option>
+                                </select>
+                            </div>
 
-                    <div class="form-group">
+                            <div class="form-group">
 
-                        <input class="form-control" type="text" placeholder="Emer" formControlName="emer" />
+                                <input class="form-control" type="text" placeholder="Emer Mbiemer ose Ndermarrja shpk" formControlName="emer" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Telefon"
+                                    formControlName="telefon" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="email" placeholder="NIUS" formControlName="nius" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="email" placeholder="email" formControlName="email" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="adresa" formControlName="adresa" />
+                            </div>
+                            <!-- <button (click)="regKlientPastajPerfaqesues($event, newKlientForm.value)">REG_Përfaqësues</button> -->
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Mbiemer" formControlName="mbiemer" />
+                    <div class="col-6" *ngIf="klientetFinanca">
+                        <div *ngIf="!klientIzgjedhurNgaFinanca">
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Kerko nga Financa5"
+                                    [(ngModel)]="kerko" (ngModelChange)="test($event)" />
+                            </div>
+                            <span *ngIf="kerko?.length <= 2">{{klientetFinanca?.length}} kliente nga Financa</span>
+                            <span *ngIf="kerko?.length > 2">{{klientetFinancaFiltruar?.length}} Rezultate</span>
+                            <!-- <table class="table-bordered table-hover">
+                                <tr *ngFor="let klientetFiltruar of klientetFinancaFiltruar"
+                                    (click)="zgjidhKlientNgaFinanca(klientetFiltruar)">
+                                    <td>{{klientetFiltruar?.id}}</td>
+                                    <td>{{klientetFiltruar?.kodi}}</td>
+                                    <td>{{klientetFiltruar?.pershkrimi}}</td>
+                                </tr>
+                            </table> -->
+                            <p *ngFor="let klientetFiltruar of klientetFinancaFiltruar">
+                                <button class="btn btn-xs btn-secondary btn-block"
+                                    (click)="zgjidhKlientNgaFinanca(klientetFiltruar)">{{klientetFiltruar?.pershkrimi}}</button>
+                            </p>
+                        </div>
+                        <div *ngIf="klientIzgjedhurNgaFinanca">
+                            <table class="table table-bordered table-hover table-sm">
+                                <tr *ngFor="let klient of klientZgjedhurNgaFinanca | keyvalue">
+                                    <td>{{ klient.key }}</td>
+                                    <td>{{ klient.value }}</td>
+                                </tr>
+                            </table>
+                            <button class="btn btn-xs btn-secondary" (click)="pastroKlientinEZgjedhur()" type="button">Pastro</button>
+                            <!-- <pre>{{klientZgjedhurNgaFinanca | json}}</pre> -->
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Telefon" formControlName="telefon" />
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" type="email" placeholder="NIUS" formControlName="nius" />
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" type="email" placeholder="email" formControlName="email" />
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" type="text" placeholder="adresa" formControlName="adresa" />
-                    </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-sm btn-primary" form="newKlientForm" type="submit" [disabled]="!newKlientForm.valid">Ruaj</button>
+                <button class="btn btn-sm btn-primary" form="newKlientForm" type="submit"
+                    [disabled]="!newKlientForm.valid">Ruaj</button>
                 <button class="btn btn-sm btn-secondary" type="submit" (click)="newClient.hide()">Mbyll</button>
             </div>
         </div>

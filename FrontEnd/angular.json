@@ -30,7 +30,7 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/app/core/wrapper/wrapper.js",
+              "src/app/core/wrapper/wrapper.js"
             ]
           },
           "configurations": {
@@ -92,7 +92,7 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/app/core/wrapper/wrapper.js",
+              "src/app/core/wrapper/wrapper.js"
             ]
           }
         },

@@ -101,5 +101,9 @@
   "LiberMjeti": {
     "dataSource": "MongoLocal",
     "public": true
+  },
+  "KlientFinanca": {
+    "dataSource": "MsSql",
+    "public": true
   }
 }
