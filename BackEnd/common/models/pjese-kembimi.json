@@ -2,22 +2,87 @@
   "name": "PjeseKembimi",
   "plural": "PjeseKembimi",
   "base": "PersistedModel",
-  "idInjection": true,
   "options": {
-    "validateUpsert": true
+    "idInjection": false,
+    "mssql": {
+      "schema": "dbo",
+      "table": "ARTIKUJ"
+    }
   },
   "properties": {
-    "brand": {
-      "type": "string"
+    "id": {
+      "type": "Number",
+      "id": true,
+      "required": false,
+      "length": 64,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "NRRENDOR",
+        "dataType": "int",
+        "dataLength": 64,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO"
+      }
     },
-    "partNo": {
-      "type": "string"
+    "kodi": {
+      "type": "String",
+      "required": false,
+      "length": 25,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "KOD",
+        "dataType": "varchar",
+        "dataLength": 25,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO"
+      }
     },
-    "sasia": {
-      "type": "number"
+    "pershkrimi": {
+      "type": "String",
+      "required": false,
+      "length": 100,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "PERSHKRIM",
+        "dataType": "varchar",
+        "dataLength": 100,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO"
+      }
     },
-    "cmimi": {
-      "type": "number"
+    "pozicioni": {
+      "type": "String",
+      "required": false,
+      "length": 8,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "POZIC",
+        "dataType": "varchar",
+        "dataLength": 8,
+        "dataPrecision": null,
+        "dataScale": null
+      }
+    },
+    "cmimShitje": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mssql": {
+        "columnName": "CMSH",
+        "dataType": "float",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null
+      }
     }
   },
   "validations": [],

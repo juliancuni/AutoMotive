@@ -1,45 +1,46 @@
 /* tslint:disable */
 import {
-  Mjeti,
   Diagnoza,
   UrdherPune
 } from '../index';
 
 declare var Object: any;
-export interface KategoriMjeteshInterface {
-  "emer": string;
+export interface KategoriSherbimeshInterface {
+  "emer"?: string;
   "pershkrim"?: string;
+  "orePune"?: number;
+  "cmimiPerOre"?: number;
   "id"?: any;
-  mjetet?: Mjeti[];
   diagnozat?: Diagnoza[];
   urdheraPune?: UrdherPune[];
 }
 
-export class KategoriMjetesh implements KategoriMjeteshInterface {
+export class KategoriSherbimesh implements KategoriSherbimeshInterface {
   "emer": string;
   "pershkrim": string;
+  "orePune": number;
+  "cmimiPerOre": number;
   "id": any;
-  mjetet: Mjeti[];
   diagnozat: Diagnoza[];
   urdheraPune: UrdherPune[];
-  constructor(data?: KategoriMjeteshInterface) {
+  constructor(data?: KategoriSherbimeshInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `KategoriMjetesh`.
+   * i.e. `KategoriSherbimesh`.
    */
   public static getModelName() {
-    return "KategoriMjetesh";
+    return "KategoriSherbimesh";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of KategoriMjetesh for dynamic purposes.
+  * This method creates an instance of KategoriSherbimesh for dynamic purposes.
   **/
-  public static factory(data: KategoriMjeteshInterface): KategoriMjetesh{
-    return new KategoriMjetesh(data);
+  public static factory(data: KategoriSherbimeshInterface): KategoriSherbimesh{
+    return new KategoriSherbimesh(data);
   }
   /**
   * @method getModelDefinition
@@ -50,9 +51,9 @@ export class KategoriMjetesh implements KategoriMjeteshInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'KategoriMjetesh',
-      plural: 'KategoriMjetesh',
-      path: 'KategoriMjetesh',
+      name: 'KategoriSherbimesh',
+      plural: 'KategoriSherbimesh',
+      path: 'KategoriSherbimesh',
       idName: 'id',
       properties: {
         "emer": {
@@ -63,27 +64,27 @@ export class KategoriMjetesh implements KategoriMjeteshInterface {
           name: 'pershkrim',
           type: 'string'
         },
+        "orePune": {
+          name: 'orePune',
+          type: 'number'
+        },
+        "cmimiPerOre": {
+          name: 'cmimiPerOre',
+          type: 'number'
+        },
         "id": {
           name: 'id',
           type: 'any'
         },
       },
       relations: {
-        mjetet: {
-          name: 'mjetet',
-          type: 'Mjeti[]',
-          model: 'Mjeti',
-          relationType: 'hasMany',
-                  keyFrom: 'id',
-          keyTo: 'kategoriMjeteshId'
-        },
         diagnozat: {
           name: 'diagnozat',
           type: 'Diagnoza[]',
           model: 'Diagnoza',
           relationType: 'hasMany',
                   keyFrom: 'id',
-          keyTo: 'kategoriMjeteshId'
+          keyTo: 'kategoriSherbimeshId'
         },
         urdheraPune: {
           name: 'urdheraPune',
@@ -91,7 +92,7 @@ export class KategoriMjetesh implements KategoriMjeteshInterface {
           model: 'UrdherPune',
           relationType: 'hasMany',
                   keyFrom: 'id',
-          keyTo: 'kategoriMjeteshId'
+          keyTo: 'kategoriSherbimeshId'
         },
       }
     }

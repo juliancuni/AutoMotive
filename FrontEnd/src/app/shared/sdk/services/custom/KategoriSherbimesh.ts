@@ -9,18 +9,17 @@ import { LoopBackFilter,  } from '../../models/BaseModels';
 import { ErrorHandler } from '../core/error.service';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { KategoriMjetesh } from '../../models/KategoriMjetesh';
+import { KategoriSherbimesh } from '../../models/KategoriSherbimesh';
 import { SocketConnection } from '../../sockets/socket.connections';
-import { Mjeti } from '../../models/Mjeti';
 import { Diagnoza } from '../../models/Diagnoza';
 import { UrdherPune } from '../../models/UrdherPune';
 
 
 /**
- * Api services for the `KategoriMjetesh` model.
+ * Api services for the `KategoriSherbimesh` model.
  */
 @Injectable()
-export class KategoriMjeteshApi extends BaseLoopBackApi {
+export class KategoriSherbimeshApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(HttpClient) protected http: HttpClient,
@@ -33,102 +32,9 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   }
 
   /**
-   * Find a related item by id for mjetet.
-   *
-   * @param {any} id KategoriMjetesh id
-   *
-   * @param {any} fk Foreign key for mjetet
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
-   * </em>
-   */
-  public findByIdMjetet(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/mjetet/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Delete a related item by id for mjetet.
-   *
-   * @param {any} id KategoriMjetesh id
-   *
-   * @param {any} fk Foreign key for mjetet
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public destroyByIdMjetet(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/mjetet/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Update a related item by id for mjetet.
-   *
-   * @param {any} id KategoriMjetesh id
-   *
-   * @param {any} fk Foreign key for mjetet
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
-   * </em>
-   */
-  public updateByIdMjetet(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "PUT";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/mjetet/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
    * Find a related item by id for diagnozat.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {any} fk Foreign key for diagnozat
    *
@@ -138,13 +44,13 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
+   * This usually means the response is a `KategoriSherbimesh` object.)
    * </em>
    */
   public findByIdDiagnozat(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/diagnozat/:fk";
+    "/KategoriSherbimesh/:id/diagnozat/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -158,7 +64,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for diagnozat.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {any} fk Foreign key for diagnozat
    *
@@ -171,7 +77,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   public destroyByIdDiagnozat(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/diagnozat/:fk";
+    "/KategoriSherbimesh/:id/diagnozat/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -185,7 +91,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for diagnozat.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {any} fk Foreign key for diagnozat
    *
@@ -199,13 +105,13 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
+   * This usually means the response is a `KategoriSherbimesh` object.)
    * </em>
    */
   public updateByIdDiagnozat(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/diagnozat/:fk";
+    "/KategoriSherbimesh/:id/diagnozat/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -221,7 +127,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for urdheraPune.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {any} fk Foreign key for urdheraPune
    *
@@ -231,13 +137,13 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
+   * This usually means the response is a `KategoriSherbimesh` object.)
    * </em>
    */
   public findByIdUrdheraPune(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/urdheraPune/:fk";
+    "/KategoriSherbimesh/:id/urdheraPune/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -251,7 +157,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for urdheraPune.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {any} fk Foreign key for urdheraPune
    *
@@ -264,7 +170,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   public destroyByIdUrdheraPune(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/urdheraPune/:fk";
+    "/KategoriSherbimesh/:id/urdheraPune/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -278,7 +184,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for urdheraPune.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {any} fk Foreign key for urdheraPune
    *
@@ -292,13 +198,13 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
+   * This usually means the response is a `KategoriSherbimesh` object.)
    * </em>
    */
   public updateByIdUrdheraPune(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/urdheraPune/:fk";
+    "/KategoriSherbimesh/:id/urdheraPune/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -312,125 +218,9 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   }
 
   /**
-   * Queries mjetet of KategoriMjetesh.
+   * Queries diagnozat of KategoriSherbimesh.
    *
-   * @param {any} id KategoriMjetesh id
-   *
-   * @param {object} filter 
-   *
-   * @returns {object[]} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
-   * </em>
-   */
-  public getMjetet(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/mjetet";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in mjetet of this model.
-   *
-   * @param {any} id KategoriMjetesh id
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
-   * </em>
-   */
-  public createMjetet(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/mjetet";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Deletes all mjetet of this model.
-   *
-   * @param {any} id KategoriMjetesh id
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public deleteMjetet(id: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/mjetet";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Counts mjetet of KategoriMjetesh.
-   *
-   * @param {any} id KategoriMjetesh id
-   *
-   * @param {object} where Criteria to match model instances
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * Data properties:
-   *
-   *  - `count` – `{number}` - 
-   */
-  public countMjetet(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/mjetet/count";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Queries diagnozat of KategoriMjetesh.
-   *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {object} filter 
    *
@@ -440,13 +230,13 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
+   * This usually means the response is a `KategoriSherbimesh` object.)
    * </em>
    */
   public getDiagnozat(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/diagnozat";
+    "/KategoriSherbimesh/:id/diagnozat";
     let _routeParams: any = {
       id: id
     };
@@ -460,7 +250,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in diagnozat of this model.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {object} data Request data.
    *
@@ -472,13 +262,13 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
+   * This usually means the response is a `KategoriSherbimesh` object.)
    * </em>
    */
   public createDiagnozat(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/diagnozat";
+    "/KategoriSherbimesh/:id/diagnozat";
     let _routeParams: any = {
       id: id
     };
@@ -493,7 +283,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   /**
    * Deletes all diagnozat of this model.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -504,7 +294,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   public deleteDiagnozat(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/diagnozat";
+    "/KategoriSherbimesh/:id/diagnozat";
     let _routeParams: any = {
       id: id
     };
@@ -515,9 +305,9 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   }
 
   /**
-   * Counts diagnozat of KategoriMjetesh.
+   * Counts diagnozat of KategoriSherbimesh.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -532,7 +322,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   public countDiagnozat(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/diagnozat/count";
+    "/KategoriSherbimesh/:id/diagnozat/count";
     let _routeParams: any = {
       id: id
     };
@@ -544,9 +334,9 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   }
 
   /**
-   * Queries urdheraPune of KategoriMjetesh.
+   * Queries urdheraPune of KategoriSherbimesh.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {object} filter 
    *
@@ -556,13 +346,13 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
+   * This usually means the response is a `KategoriSherbimesh` object.)
    * </em>
    */
   public getUrdheraPune(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/urdheraPune";
+    "/KategoriSherbimesh/:id/urdheraPune";
     let _routeParams: any = {
       id: id
     };
@@ -576,7 +366,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in urdheraPune of this model.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {object} data Request data.
    *
@@ -588,13 +378,13 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
+   * This usually means the response is a `KategoriSherbimesh` object.)
    * </em>
    */
   public createUrdheraPune(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/urdheraPune";
+    "/KategoriSherbimesh/:id/urdheraPune";
     let _routeParams: any = {
       id: id
     };
@@ -609,7 +399,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   /**
    * Deletes all urdheraPune of this model.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -620,7 +410,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   public deleteUrdheraPune(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/urdheraPune";
+    "/KategoriSherbimesh/:id/urdheraPune";
     let _routeParams: any = {
       id: id
     };
@@ -631,9 +421,9 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   }
 
   /**
-   * Counts urdheraPune of KategoriMjetesh.
+   * Counts urdheraPune of KategoriSherbimesh.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -648,7 +438,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   public countUrdheraPune(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/urdheraPune/count";
+    "/KategoriSherbimesh/:id/urdheraPune/count";
     let _routeParams: any = {
       id: id
     };
@@ -672,13 +462,13 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
+   * This usually means the response is a `KategoriSherbimesh` object.)
    * </em>
    */
   public patchOrCreate(data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh";
+    "/KategoriSherbimesh";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -691,7 +481,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   /**
    * Patch attributes for a model instance and persist it into the data source.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {object} data Request data.
    *
@@ -703,46 +493,13 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
+   * This usually means the response is a `KategoriSherbimesh` object.)
    * </em>
    */
   public patchAttributes(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in mjetet of this model.
-   *
-   * @param {any} id KategoriMjetesh id
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object[]} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
-   * </em>
-   */
-  public createManyMjetet(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/mjetet";
+    "/KategoriSherbimesh/:id";
     let _routeParams: any = {
       id: id
     };
@@ -757,7 +514,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in diagnozat of this model.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {object} data Request data.
    *
@@ -769,13 +526,13 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
+   * This usually means the response is a `KategoriSherbimesh` object.)
    * </em>
    */
   public createManyDiagnozat(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/diagnozat";
+    "/KategoriSherbimesh/:id/diagnozat";
     let _routeParams: any = {
       id: id
     };
@@ -790,7 +547,7 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in urdheraPune of this model.
    *
-   * @param {any} id KategoriMjetesh id
+   * @param {any} id KategoriSherbimesh id
    *
    * @param {object} data Request data.
    *
@@ -802,13 +559,13 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `KategoriMjetesh` object.)
+   * This usually means the response is a `KategoriSherbimesh` object.)
    * </em>
    */
   public createManyUrdheraPune(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/KategoriMjetesh/:id/urdheraPune";
+    "/KategoriSherbimesh/:id/urdheraPune";
     let _routeParams: any = {
       id: id
     };
@@ -822,9 +579,9 @@ export class KategoriMjeteshApi extends BaseLoopBackApi {
 
   /**
    * The name of the model represented by this $resource,
-   * i.e. `KategoriMjetesh`.
+   * i.e. `KategoriSherbimesh`.
    */
   public getModelName() {
-    return "KategoriMjetesh";
+    return "KategoriSherbimesh";
   }
 }

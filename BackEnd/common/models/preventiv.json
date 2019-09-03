@@ -1,30 +1,39 @@
 {
-  "name": "Diagnoza",
-  "plural": "Diagnozat",
+  "name": "Preventiv",
+  "plural": "Preventivet",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "shenime": {
+    "klienti": {
+      "type": "string"
+    },
+    "perfaqesuesi": {
+      "type": "string"
+    },
+    "sherbimi": {
       "type": "string"
     },
     "sasia": {
-      "type": "number"
+      "type": "string"
     },
-    "gjendjaDifektit": {
-      "type": "number"
+    "parashikimDorezimi": {
+      "type": "date"
     },
-    "kilometrazhi": {
-      "type": "number"
+    "cmimi": {
+      "type": "string"
+    },
+    "vlera": {
+      "type": "string"
     }
   },
   "validations": [],
   "relations": {
-    "urdherDiagnoze": {
+    "klient": {
       "type": "belongsTo",
-      "model": "UrdherDiagnoze",
+      "model": "Klient",
       "foreignKey": ""
     },
     "mjeti": {
@@ -32,9 +41,9 @@
       "model": "Mjeti",
       "foreignKey": ""
     },
-    "kategoriSherbimesh": {
-      "type": "belongsTo",
-      "model": "KategoriSherbimesh",
+    "diagnozat": {
+      "type": "hasMany",
+      "model": "Diagnoza",
       "foreignKey": ""
     }
   },

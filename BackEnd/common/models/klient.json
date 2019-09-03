@@ -43,6 +43,21 @@
       "model": "Perfaqesues",
       "foreignKey": "klientId",
       "through": "KlientPerfaqesuesMapper"
+    },
+    "preventiva": {
+      "type": "hasMany",
+      "model": "Preventiv",
+      "foreignKey": ""
+    },
+    "urdheraPune": {
+      "type": "hasMany",
+      "model": "UrdherPune",
+      "foreignKey": ""
+    },
+    "liberMjeti": {
+      "type": "hasMany",
+      "model": "LiberMjeti",
+      "foreignKey": ""
     }
   },
   "acls": [],

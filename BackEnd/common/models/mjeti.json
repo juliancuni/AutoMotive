@@ -50,6 +50,26 @@
       "type": "hasMany",
       "model": "UrdherDiagnoze",
       "foreignKey": ""
+    },
+    "urdheraPune": {
+      "type": "hasMany",
+      "model": "UrdherPune",
+      "foreignKey": ""
+    },
+    "preventivet": {
+      "type": "hasMany",
+      "model": "Preventiv",
+      "foreignKey": ""
+    },
+    "diagnozat": {
+      "type": "hasMany",
+      "model": "Diagnoza",
+      "foreignKey": ""
+    },
+    "liberMjeti": {
+      "type": "hasMany",
+      "model": "LiberMjeti",
+      "foreignKey": ""
     }
   },
   "acls": [],

@@ -1,40 +1,28 @@
 {
-  "name": "Diagnoza",
-  "plural": "Diagnozat",
+  "name": "LiberMjeti",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
+    "data": {
+      "type": "date"
+    },
     "shenime": {
       "type": "string"
-    },
-    "sasia": {
-      "type": "number"
-    },
-    "gjendjaDifektit": {
-      "type": "number"
-    },
-    "kilometrazhi": {
-      "type": "number"
     }
   },
   "validations": [],
   "relations": {
-    "urdherDiagnoze": {
+    "klient": {
       "type": "belongsTo",
-      "model": "UrdherDiagnoze",
+      "model": "Klient",
       "foreignKey": ""
     },
     "mjeti": {
       "type": "belongsTo",
       "model": "Mjeti",
-      "foreignKey": ""
-    },
-    "kategoriSherbimesh": {
-      "type": "belongsTo",
-      "model": "KategoriSherbimesh",
       "foreignKey": ""
     }
   },

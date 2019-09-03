@@ -20,6 +20,16 @@
     "mjetet": {
       "type": "hasMany",
       "model": "Mjeti"
+    },
+    "diagnozat": {
+      "type": "hasMany",
+      "model": "Diagnoza",
+      "foreignKey": ""
+    },
+    "urdheraPune": {
+      "type": "hasMany",
+      "model": "UrdherPune",
+      "foreignKey": ""
     }
   },
   "acls": [],

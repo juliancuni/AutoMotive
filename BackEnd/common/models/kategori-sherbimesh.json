@@ -21,7 +21,18 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "diagnozat": {
+      "type": "hasMany",
+      "model": "Diagnoza",
+      "foreignKey": ""
+    },
+    "urdheraPune": {
+      "type": "hasMany",
+      "model": "UrdherPune",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

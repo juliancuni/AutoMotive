@@ -1,6 +1,10 @@
 /* tslint:disable */
 import {
-  Mjeti
+  Mjeti,
+  Perfaqesues,
+  UrdherPune,
+  Preventiv,
+  LiberMjeti
 } from '../index';
 
 declare var Object: any;
@@ -14,6 +18,10 @@ export interface KlientInterface {
   "adresa"?: string;
   "id"?: any;
   mjetet?: Mjeti[];
+  perfaqesues?: Perfaqesues[];
+  urdheraPune?: UrdherPune[];
+  preventiva?: Preventiv[];
+  liberMjeti?: LiberMjeti[];
 }
 
 export class Klient implements KlientInterface {
@@ -26,6 +34,10 @@ export class Klient implements KlientInterface {
   "adresa": string;
   "id": any;
   mjetet: Mjeti[];
+  perfaqesues: Perfaqesues[];
+  urdheraPune: UrdherPune[];
+  preventiva: Preventiv[];
+  liberMjeti: LiberMjeti[];
   constructor(data?: KlientInterface) {
     Object.assign(this, data);
   }
@@ -97,6 +109,40 @@ export class Klient implements KlientInterface {
           name: 'mjetet',
           type: 'Mjeti[]',
           model: 'Mjeti',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'klientId'
+        },
+        perfaqesues: {
+          name: 'perfaqesues',
+          type: 'Perfaqesues[]',
+          model: 'Perfaqesues',
+          relationType: 'hasMany',
+          modelThrough: 'KlientPerfaqesuesMapper',
+          keyThrough: 'perfaqesuesId',
+          keyFrom: 'id',
+          keyTo: 'klientId'
+        },
+        urdheraPune: {
+          name: 'urdheraPune',
+          type: 'UrdherPune[]',
+          model: 'UrdherPune',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'klientId'
+        },
+        preventiva: {
+          name: 'preventiva',
+          type: 'Preventiv[]',
+          model: 'Preventiv',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'klientId'
+        },
+        liberMjeti: {
+          name: 'liberMjeti',
+          type: 'LiberMjeti[]',
+          model: 'LiberMjeti',
           relationType: 'hasMany',
                   keyFrom: 'id',
           keyTo: 'klientId'

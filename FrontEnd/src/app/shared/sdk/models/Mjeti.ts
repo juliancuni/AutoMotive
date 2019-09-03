@@ -1,7 +1,12 @@
 /* tslint:disable */
 import {
   KategoriMjetesh,
-  Klient
+  Klient,
+  UrdherDiagnoze,
+  Diagnoza,
+  UrdherPune,
+  Preventiv,
+  LiberMjeti
 } from '../index';
 
 declare var Object: any;
@@ -13,12 +18,18 @@ export interface MjetiInterface {
   "targa"?: string;
   "nePark"?: boolean;
   "neOficine"?: boolean;
+  "kilometrazhi"?: number;
   "id"?: any;
   "kategoriId"?: any;
   "klientId"?: any;
   "kategoriMjeteshId"?: any;
   kategori?: KategoriMjetesh;
   klient?: Klient;
+  urdheraDiagnoze?: UrdherDiagnoze[];
+  diagnozat?: Diagnoza[];
+  urdheraPune?: UrdherPune[];
+  preventivet?: Preventiv[];
+  liberMjeti?: LiberMjeti[];
 }
 
 export class Mjeti implements MjetiInterface {
@@ -29,12 +40,18 @@ export class Mjeti implements MjetiInterface {
   "targa": string;
   "nePark": boolean;
   "neOficine": boolean;
+  "kilometrazhi": number;
   "id": any;
   "kategoriId": any;
   "klientId": any;
   "kategoriMjeteshId": any;
   kategori: KategoriMjetesh;
   klient: Klient;
+  urdheraDiagnoze: UrdherDiagnoze[];
+  diagnozat: Diagnoza[];
+  urdheraPune: UrdherPune[];
+  preventivet: Preventiv[];
+  liberMjeti: LiberMjeti[];
   constructor(data?: MjetiInterface) {
     Object.assign(this, data);
   }
@@ -97,6 +114,10 @@ export class Mjeti implements MjetiInterface {
           name: 'neOficine',
           type: 'boolean'
         },
+        "kilometrazhi": {
+          name: 'kilometrazhi',
+          type: 'number'
+        },
         "id": {
           name: 'id',
           type: 'any'
@@ -130,6 +151,46 @@ export class Mjeti implements MjetiInterface {
           relationType: 'belongsTo',
                   keyFrom: 'klientId',
           keyTo: 'id'
+        },
+        urdheraDiagnoze: {
+          name: 'urdheraDiagnoze',
+          type: 'UrdherDiagnoze[]',
+          model: 'UrdherDiagnoze',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'mjetiId'
+        },
+        diagnozat: {
+          name: 'diagnozat',
+          type: 'Diagnoza[]',
+          model: 'Diagnoza',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'mjetiId'
+        },
+        urdheraPune: {
+          name: 'urdheraPune',
+          type: 'UrdherPune[]',
+          model: 'UrdherPune',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'mjetiId'
+        },
+        preventivet: {
+          name: 'preventivet',
+          type: 'Preventiv[]',
+          model: 'Preventiv',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'mjetiId'
+        },
+        liberMjeti: {
+          name: 'liberMjeti',
+          type: 'LiberMjeti[]',
+          model: 'LiberMjeti',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'mjetiId'
         },
       }
     }

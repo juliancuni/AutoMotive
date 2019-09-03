@@ -1,6 +1,7 @@
 /* tslint:disable */
 import {
-  Role
+  Role,
+  UrdherDiagnoze
 } from '../index';
 
 declare var Object: any;
@@ -20,6 +21,8 @@ export interface PerdoruesInterface {
   "password"?: string;
   accessTokens?: any[];
   rolet?: Role[];
+  urdheraTeLeshuar?: UrdherDiagnoze[];
+  urdheraTeMarre?: UrdherDiagnoze[];
 }
 
 export class Perdorues implements PerdoruesInterface {
@@ -38,6 +41,8 @@ export class Perdorues implements PerdoruesInterface {
   "password": string;
   accessTokens: any[];
   rolet: Role[];
+  urdheraTeLeshuar: UrdherDiagnoze[];
+  urdheraTeMarre: UrdherDiagnoze[];
   constructor(data?: PerdoruesInterface) {
     Object.assign(this, data);
   }
@@ -143,6 +148,22 @@ export class Perdorues implements PerdoruesInterface {
           keyThrough: 'roleId',
           keyFrom: 'id',
           keyTo: 'principalId'
+        },
+        urdheraTeLeshuar: {
+          name: 'urdheraTeLeshuar',
+          type: 'UrdherDiagnoze[]',
+          model: 'UrdherDiagnoze',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'leshoiPerdoruesId'
+        },
+        urdheraTeMarre: {
+          name: 'urdheraTeMarre',
+          type: 'UrdherDiagnoze[]',
+          model: 'UrdherDiagnoze',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'destinuarPerdoruesId'
         },
       }
     }

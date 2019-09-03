@@ -10,6 +10,14 @@ import { Klient } from '../../models/Klient';
 import { Menu } from '../../models/Menu';
 import { KategoriMjetesh } from '../../models/KategoriMjetesh';
 import { Mjeti } from '../../models/Mjeti';
+import { Perfaqesues } from '../../models/Perfaqesues';
+import { UrdherDiagnoze } from '../../models/UrdherDiagnoze';
+import { KategoriSherbimesh } from '../../models/KategoriSherbimesh';
+import { Diagnoza } from '../../models/Diagnoza';
+import { PjeseKembimi } from '../../models/PjeseKembimi';
+import { UrdherPune } from '../../models/UrdherPune';
+import { Preventiv } from '../../models/Preventiv';
+import { LiberMjeti } from '../../models/LiberMjeti';
 
 export interface Models { [name: string]: any }
 
@@ -27,6 +35,14 @@ export class SDKModels {
     Menu: Menu,
     KategoriMjetesh: KategoriMjetesh,
     Mjeti: Mjeti,
+    Perfaqesues: Perfaqesues,
+    UrdherDiagnoze: UrdherDiagnoze,
+    KategoriSherbimesh: KategoriSherbimesh,
+    Diagnoza: Diagnoza,
+    PjeseKembimi: PjeseKembimi,
+    UrdherPune: UrdherPune,
+    Preventiv: Preventiv,
+    LiberMjeti: LiberMjeti,
     
   };
 

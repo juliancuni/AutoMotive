@@ -30,7 +30,7 @@
   },
   "RoleMapping": {
     "dataSource": "MongoLocal",
-    "public": false,
+    "public": true,
     "options": {
       "strictObjectIDCoercion": true
     }
@@ -87,10 +87,18 @@
     "public": true
   },
   "PjeseKembimi": {
-    "dataSource": "MongoLocal",
+    "dataSource": "MsSql",
     "public": true
   },
   "UrdherPune": {
+    "dataSource": "MongoLocal",
+    "public": true
+  },
+  "Preventiv": {
+    "dataSource": "MongoLocal",
+    "public": true
+  },
+  "LiberMjeti": {
     "dataSource": "MongoLocal",
     "public": true
   }
