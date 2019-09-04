@@ -215,12 +215,14 @@ export class AclComponent implements OnInit {
             (model !== "RoleMapping" && model !== "Email") ? appModels.push(model) : null;
         })
         this.appModels = appModels;
-        this._perdorues.find({ where: { username: { neq: 'root' } } }).subscribe((res: Perdorues[]) => {
+        // this._perdorues.find({ where: { username: { neq: "root" } } }).subscribe((res: Perdorues[]) => {
+        this._perdorues.find().subscribe((res: Perdorues[]) => {
             this.perdoruesit = res;
         }, (err) => {
-            this.loading= false;
+            this.loading = false;
         }, () => {
-            this._rolet.find({ where: { name: { neq: "root" } } }).subscribe((res: any[]) => {
+            // this._rolet.find({ where: { name: { neq: "root" } } }).subscribe((res: any[]) => {
+            this._rolet.find().subscribe((res: any[]) => {
                 let everyOne = { name: "$everyone" };
                 let authenticated = { name: "$authenticated" };
                 let unAuthenticated = { name: "$unauthenticated" };
@@ -240,12 +242,13 @@ export class AclComponent implements OnInit {
                             principalId: role.name
                         })
                     })
-    
+
                 })
             }, (err) => {
                 this.loading = false;
             }, () => {
-                this._acls.find({ where: { principalId: { neq: "root" } } }).subscribe((res: ACL[]) => {
+                // this._acls.find({ where: { principalId: { neq: "root" } } }).subscribe((res: ACL[]) => {
+                this._acls.find().subscribe((res: ACL[]) => {
                     this.acls = res;
                     this.roletTabele.forEach((role) => {
                         this.acls.forEach((acl) => {
@@ -266,6 +269,6 @@ export class AclComponent implements OnInit {
                 });
             });
         })
-        
+
     }
 }

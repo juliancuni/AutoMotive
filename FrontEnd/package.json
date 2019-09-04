@@ -1,6 +1,6 @@
 {
   "name": "webapp",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Webapp - AutoMotive",
   "author": "@themicon_co",
   "license": "https://wrapbootstrap.com/help/licenses",
@@ -26,6 +26,7 @@
     "@angular/platform-browser-dynamic": "8.0.0",
     "@angular/router": "8.0.0",
     "@fortawesome/fontawesome-free": "5.5.0",
+    "@ng-bootstrap/ng-bootstrap": "^5.1.1",
     "@ngx-formly/bootstrap": "^5.4.0",
     "@ngx-formly/core": "^5.4.0",
     "@ngx-loading-bar/core": "^4.2.0",

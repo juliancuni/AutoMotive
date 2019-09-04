@@ -1,3 +1,453 @@
-<p>
-  klienti works!
-</p>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <div class="panel b">
+                <div class="panel-heading bg-gray-lighter text-bold">Kartela e Klientit</div>
+                <div class="list-group">
+                    <button class="list-group-item" (click)="settingActive=1"
+                        [ngClass]="{'active': (settingActive == 1)}">Profili
+                    </button>
+                    <button href="#" class="list-group-item" (click)="settingActive=2"
+                        [ngClass]="{'active': (settingActive == 2)}">Perfaqesuesit
+                        <span class="badge badge-danger float-right">{{klient?.perfaqesues?.length}}</span>
+                    </button>
+                    <button href="#" class="list-group-item" (click)="settingActive=3"
+                        [ngClass]="{'active': (settingActive == 3)}">Mjetet
+                        <span class="badge badge-danger float-right">{{klient?.mjetet?.length}}</span>
+                    </button>
+                    <button href="#" class="list-group-item" (click)="settingActive=4"
+                        [ngClass]="{'active': (settingActive == 4)}">Historia
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-9">
+            <div *ngIf="settingActive == 1">
+                <div class="card b">
+                    <div class="card-header bg-gray-lighter text-bold">Profili</div>
+                    <div class="card-body">
+                        <form class="form-horizontal" [formGroup]="klientDataForm" name="klientDataForm">
+                            <!-- Emer TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="emer">Klienti</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus input-group-sm">
+                                        <input class="form-control" id="emer" type="text"
+                                            placeholder="Emri i klientit/Ndermarrjes" formControlName="emer" />
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0" *ngIf="editemer"
+                                                (click)="saveField('emer', klientDataForm.controls['emer'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editemer, 'fa-save' : editemer}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="enableEdit('emer')"
+                                                [title]="editemer ? 'Cancel' : 'Ndrysho Emrin'">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editemer, 'fa-window-close' : editemer}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="klientDataForm.controls['emer'].hasError('required')">
+                                        Emri s'mund të lihet bosh.</div>
+                                </div>
+                            </div>
+                            <!-- End Emer TB  -->
+                            <!-- Person TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="person">Person</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus input-group-sm">
+                                        <select class="form-control" formControlName="person">
+                                            <option [selected]="true" [disabled]="true" [value]="null">Person</option>
+                                            <option value="privat">Privat</option>
+                                            <option value="fizik">Fizik</option>
+                                            <option value="juridik">Juridik</option>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0" *ngIf="editperson"
+                                                (click)="saveField('person', klientDataForm.controls['person'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editperson, 'fa-save' : editperson}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="enableEdit('person')"
+                                                [title]="editperson ? 'Cancel' : 'Ndrysho Personin'">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editperson, 'fa-window-close' : editperson}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="klientDataForm.controls['person'].hasError('required')">
+                                        Person s'mund të lihet bosh.</div>
+                                </div>
+                            </div>
+                            <!-- End Person TB  -->
+                            <!-- Telefon TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="telefon">Telefon</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus input-group-sm">
+                                        <input class="form-control" id="telefon" type="text" placeholder="Telefon"
+                                            formControlName="telefon" />
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0" *ngIf="edittelefon"
+                                                (click)="saveField('telefon', klientDataForm.controls['telefon'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !edittelefon, 'fa-save' : edittelefon}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="enableEdit('telefon')"
+                                                [title]="edittelefon ? 'Cancel' : 'Ndrysho Telefonin'">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !edittelefon, 'fa-window-close' : edittelefon}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="klientDataForm.controls['telefon'].hasError('required')">
+                                        Telefoni s'mund të lihet bosh.</div>
+                                </div>
+                            </div>
+                            <!-- End Telefon TB  -->
+                            <!-- Email TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="email">Email</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus input-group-sm">
+                                        <input class="form-control" id="email" type="text" placeholder="Email"
+                                            formControlName="email" />
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0" *ngIf="editemail"
+                                                (click)="saveField('email', klientDataForm.controls['email'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editemail, 'fa-save' : editemail}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="enableEdit('email')"
+                                                [title]="editemail ? 'Cancel' : 'Ndrysho Emailin'">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editemail, 'fa-window-close' : editemail}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="klientDataForm.controls['email'].hasError('required')">
+                                        Emaili s'mund të lihet bosh.</div>
+                                </div>
+                            </div>
+                            <!-- End Email TB  -->
+                            <!-- Nius TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="nius">Nius</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus input-group-sm">
+                                        <input class="form-control" id="nius" type="text" placeholder="Nius"
+                                            formControlName="nius" />
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0" *ngIf="editnius"
+                                                (click)="saveField('nius', klientDataForm.controls['nius'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editnius, 'fa-save' : editnius}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                *ngIf="klientDataForm.controls['person'].value === 'privat'"><em
+                                                    class="fa fa-ban ng-star-inserted"></em></a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="enableEdit('nius')"
+                                                [title]="editnius ? 'Cancel' : 'Ndrysho Nius'"
+                                                *ngIf="klientDataForm.controls['person'].value !== 'privat'">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editnius, 'fa-window-close' : editnius}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="klientDataForm.controls['nius'].hasError('required')">
+                                        Nius s'mund të lihet bosh.</div>
+                                </div>
+                            </div>
+                            <!-- End Nius TB  -->
+                            <!-- Adresa TB -->
+                            <div class="form-group row">
+                                <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                    for="adresa">Adresa</label>
+                                <div class="col-xl-10 col-md-9 col-8">
+                                    <div class="input-group with-focus input-group-sm">
+                                        <input class="form-control" id="adresa" type="text" placeholder="Adresa"
+                                            formControlName="adresa" />
+                                        <div class="input-group-append">
+                                            <a class="input-group-text bg-transparent border-left-0" *ngIf="editadresa"
+                                                (click)="saveField('adresa', klientDataForm.controls['adresa'].value)"
+                                                title="Ruaj Ndryshimet">
+                                                <em [ngClass]="{'fa': true, 'fa-pencil-alt' : !editadresa, 'fa-save' : editadresa}"
+                                                    *ngIf="!loading"></em>
+                                                <div class="ball-scale-ripple-multiple" *ngIf="loading">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </a>
+                                            <a class="input-group-text bg-transparent border-left-0"
+                                                (click)="enableEdit('adresa')"
+                                                [title]="editadresa ? 'Cancel' : 'Ndrysho Adresa'">
+                                                <em
+                                                    [ngClass]="{'fa': true, 'fa-pencil-alt' : !editadresa, 'fa-window-close' : editadresa}"></em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="klientDataForm.controls['adresa'].hasError('required')">
+                                        Adresa s'mund të lihet bosh.</div>
+                                </div>
+                            </div>
+                            <!-- End Adresa TB  -->
+                            <!-- <p>
+                                <small class="text-muted">* Integer fermentum accumsan metus, id sagittis ipsum molestie
+                                    vitae</small>
+                            </p> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="settingActive == 2">
+                <div class="card b">
+                    <div class="card-header bg-gray-lighter text-bold">Perfaqesuesit
+                        <button class="btn btn-xs btn-secondary float-right"
+                            (click)="regPerfaqesuesModal.show()">Reg_Perfaqesues</button>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <th>Emer</th>
+                                <th>Telefon</th>
+                                <th>Email</th>
+                                <th>Adresa</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let perfaqesues of klient.perfaqesues">
+                                    <td>{{perfaqesues?.emer}}</td>
+                                    <td>{{perfaqesues?.telefon || "N/A"}}</td>
+                                    <td>{{perfaqesues?.email || "N/A"}}</td>
+                                    <td>{{perfaqesues?.adresa || "N/A"}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="settingActive == 3">
+                <div class="card b">
+                    <div class="card-header bg-gray-lighter text-bold">Mjetet
+                        <button class="btn btn-xs btn-secondary float-right" (click)="showNewMjet()">Reg_Mjete</button>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <th>Targa</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Viti</th>
+                                <th>NrShasise</th>
+                                <th>Km</th>
+                            </thead>
+                            <tr *ngFor="let mjeti of klient.mjetet">
+                                <td>{{mjeti?.targa}}</td>
+                                <td>{{mjeti?.brand}}</td>
+                                <td>{{mjeti?.model}}</td>
+                                <td>{{mjeti?.viti}}</td>
+                                <td>{{mjeti?.nrShasise}}</td>
+                                <td>{{mjeti?.kilometrazhi}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="settingActive == 4">
+                <form action="">
+                    <div class="card b">
+                        <div class="card-header bg-gray-lighter text-bold">Historia</div>
+                        <div class="card-body">
+                            [NE_NDERTIM]
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RegPerfaqesues Modal -->
+<div bsModal #regPerfaqesuesModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Regjistro Përfaqesues për {{klient?.emer}}</h4>
+                <button type="button" class="close" aria-label="Close" (click)="regPerfaqesuesModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="perfaqesuesDataForm" id="perfaqesuesDataForm"
+                    (submit)="regNewPerfaqesues($event, perfaqesuesDataForm.value)">
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Emer Mbiemer" formControlName="emer" />
+                        <div class="text-danger" *ngIf="perfaqesuesDataForm.controls['emer'].hasError('required')">
+                            Emri s'mund të lihet bosh.</div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Telefon" formControlName="telefon" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="email" placeholder="email" formControlName="email" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="adresa" formControlName="adresa" />
+                    </div>
+                    <!-- <button (click)="regKlientPastajPerfaqesues($event, perfaqesuesDataForm.value)">REG_Përfaqësues</button> -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-primary" form="perfaqesuesDataForm" type="submit"
+                    [disabled]="!perfaqesuesDataForm.valid">Ruaj</button>
+                <button type="button" class="btn btn-secondary" (click)="regPerfaqesuesModal.hide()">Mbyll</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End RegPerfaqesues Modal -->
+<!-- RegMjetet Modal -->
+<div bsModal #regMjetModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Regjistro Mjet për {{klient?.emer}}</h4>
+                <button type="button" class="close" aria-label="Close" (click)="regMjetModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <form [formGroup]="mjeteDataForm" id="mjeteDataForm"
+                            (submit)="regNewMjet($event, mjeteDataForm.value)">
+                            <div class="form-group">
+                                <ng-template #rt let-r="result" let-t="term">
+                                    <ngb-highlight [result]="r.emer" [term]="t"></ngb-highlight>
+                                </ng-template>
+                                <input id="typeahead-template" type="text" class="form-control" [ngbTypeahead]="search"
+                                    (focus)="focus$.next($event.target.value)"
+                                    (click)="click$.next($event.target.value)" [resultTemplate]="rt"
+                                    [inputFormatter]="formatter" #instance="ngbTypeahead"
+                                    placeholder="Kategoria. Psh. Veture ose Offroad" formControlName="kategoria" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Targa. Psh. AA927AU"
+                                    formControlName="targa" />
+                                <div class="text-danger"
+                                    *ngIf="mjeteDataForm.controls['targa'].hasError('required')">
+                                    Targa s'mund të lihet bosh.</div>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Brand. Psh. Toyota ose Land Rover"
+                                    formControlName="brand" />
+                                <div class="text-danger"
+                                    *ngIf="mjeteDataForm.controls['brand'].hasError('required')">
+                                    Brandi s'mund të lihet bosh.</div>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="email" placeholder="Model. Psh LJ95, ose LR3"
+                                    formControlName="model" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Viti Prodhimit"
+                                    formControlName="viti" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Nr. Shasisë"
+                                    formControlName="nrShasise" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Klomentrazhi. Psh 127000"
+                                    formControlName="kilometrazhi" />
+                            </div>
+
+
+                            <!-- <button (click)="regKlientPastajPerfaqesues($event, mjeteDataForm.value)">REG_Përfaqësues</button> -->
+                        </form>
+
+                    </div>
+                    <div class="col-6" *ngIf="klientetFinanca">
+                        <div *ngIf="!klientIzgjedhurNgaFinanca">
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Kerko per klient nga Financa5"
+                                    [(ngModel)]="kerko" (ngModelChange)="filterKlientetFinanca($event)" />
+                            </div>
+                            <span *ngIf="kerko?.length <= 2">{{klientetFinanca?.length}} kliente nga Financa</span>
+                            <span *ngIf="kerko?.length > 2">{{klientetFinancaFiltruar?.length}} Rezultate</span>
+                            <p *ngFor="let klientetFiltruar of klientetFinancaFiltruar">
+                                <button class="btn btn-xs btn-secondary btn-block"
+                                    (click)="zgjidhKlientNgaFinanca(klientetFiltruar)">{{klientetFiltruar?.pershkrimi}}</button>
+                            </p>
+                        </div>
+                        <div *ngIf="klientIzgjedhurNgaFinanca">
+                            <table class="table table-bordered table-hover table-sm">
+                                <tr *ngFor="let klient of klientZgjedhurNgaFinanca | keyvalue">
+                                    <td>{{ klient.key }}</td>
+                                    <td>{{ klient.value }}</td>
+                                </tr>
+                            </table>
+                            <button class="btn btn-xs btn-secondary" (click)="pastroKlientinEZgjedhur()"
+                                type="button">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-primary" form="mjeteDataForm" type="submit"
+                    [disabled]="!mjeteDataForm.valid">Ruaj</button>
+                <button type="button" class="btn btn-secondary" (click)="regMjetModal.hide()">Mbyll</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End RegMjetet Modal -->

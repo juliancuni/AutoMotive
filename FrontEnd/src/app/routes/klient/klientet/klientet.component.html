@@ -5,7 +5,7 @@
 <div class="card card-default">
     <div class="card-header">Klientet total {{klientet?.length}}
         <div class="mr-auto float-right">
-            <div class="btn-group" dropdown>
+            <!-- <div class="btn-group" dropdown>
                 <button class="btn btn-link" dropdownToggle>
                     <em class="fa fa-ellipsis-v fa-lg"></em>
                 </button>
@@ -19,7 +19,8 @@
                         <span>Import Klient nga Financa</span>
                     </button>
                 </ul>
-            </div>
+            </div> -->
+            <button class="btn btn-xs btn-secondary" (click)="showNewKlient()">Reg_Klient</button>
         </div>
     </div>
     <div class="table-responsive">
@@ -83,9 +84,7 @@
                                     <option value="juridik">Juridik</option>
                                 </select>
                             </div>
-
                             <div class="form-group">
-
                                 <input class="form-control" type="text" placeholder="Emer Mbiemer ose Ndermarrja shpk" formControlName="emer" />
                             </div>
                             <div class="form-group">
@@ -107,8 +106,8 @@
                     <div class="col-6" *ngIf="klientetFinanca">
                         <div *ngIf="!klientIzgjedhurNgaFinanca">
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Kerko nga Financa5"
-                                    [(ngModel)]="kerko" (ngModelChange)="test($event)" />
+                                <input class="form-control" type="text" placeholder="Kerko per klient nga Financa5"
+                                    [(ngModel)]="kerko" (ngModelChange)="filterKlientetFinanca($event)" />
                             </div>
                             <span *ngIf="kerko?.length <= 2">{{klientetFinanca?.length}} kliente nga Financa</span>
                             <span *ngIf="kerko?.length > 2">{{klientetFinancaFiltruar?.length}} Rezultate</span>
@@ -132,7 +131,7 @@
                                     <td>{{ klient.value }}</td>
                                 </tr>
                             </table>
-                            <button class="btn btn-xs btn-secondary" (click)="pastroKlientinEZgjedhur()" type="button">Pastro</button>
+                            <button class="btn btn-xs btn-secondary" (click)="pastroKlientinEZgjedhur()" type="button">Cancel</button>
                             <!-- <pre>{{klientZgjedhurNgaFinanca | json}}</pre> -->
                         </div>
                     </div>

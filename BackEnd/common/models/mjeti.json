@@ -9,7 +9,7 @@
   "properties": {
     "brand": {
       "type": "string",
-      "default": "model"
+      "required": true
     },
     "model": {
       "type": "string"
@@ -21,7 +21,8 @@
       "type": "string"
     },
     "targa": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "nePark": {
       "type": "boolean",

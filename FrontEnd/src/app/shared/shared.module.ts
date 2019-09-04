@@ -33,6 +33,7 @@ import { NowDirective } from './directives/now/now.directive';
 import { ScrollableDirective } from './directives/scrollable/scrollable.directive';
 import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
 import { FileUploadModule } from 'ng2-file-upload';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // import { AgGridModule } from 'ag-grid-angular';
 
@@ -63,7 +64,7 @@ import { FileUploadModule } from 'ng2-file-upload';
         TypeaheadModule.forRoot(),
         ToasterModule,
         FileUploadModule,
-
+        NgbModule
         // AgGridModule.withComponents([])
     ],
     providers: [
@@ -112,7 +113,7 @@ import { FileUploadModule } from 'ng2-file-upload';
         ScrollableDirective,
         JqcloudDirective,
         FileUploadModule,
-
+        NgbModule
         // AgGridModule
     ]
 })

@@ -72,18 +72,17 @@ module.exports = function (Menu) {
         return new Promise((resolve, reject) => {
             let menuteLejuara = [];
             appModels.forEach((appModel) => {
-                acls.forEach((acl) => {
-                    if (appModel === acl.model) {
-                        menute.forEach((menu) => {
-                            if (!menu.protected) {
-                                menuteLejuara.push(menu);
-                            }
-                            if (menu.text === acl.model) {
-
-                                menuteLejuara.push(menu);
-                            }
-                        })
+                menute.forEach((menu) => {
+                    if (!menu.protected) {
+                        menuteLejuara.push(menu);
                     }
+                    acls.forEach((acl) => {
+                        if (appModel === acl.model) {
+                            if (menu.text === acl.model) {
+                                menuteLejuara.push(menu);
+                            }
+                        }
+                    })
                 })
             })
             menuteLejuara = [... new Set(menuteLejuara)];

@@ -27,7 +27,11 @@
                                 </div>
                                 <small>#</small>
                             </td>
-                            <td *ngFor="let appModel of appModels">{{appModel}}</td>
+                            <td *ngFor="let appModel of appModels">
+                                <div style="width:100px;overflow: hidden;">
+                                    {{appModel}}
+                                </div>
+                            </td>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,7 +44,7 @@
                                             <input type="checkbox" id="read"
                                                 [checked]="acl.permission === 'ALLOW' && (acl.accessType === 'READ' || acl.accessType === '*')"
                                                 (change)="onRoleChange($event, 'READ', acl)"
-                                                [disabled]="role.name === 'root' || loading" />
+                                                [disabled]="loading" />
                                             <label class="form-check-label" for="read">
                                                 <small> READ</small>
                                             </label>
@@ -49,7 +53,7 @@
                                             <input type="checkbox" id="write"
                                                 [checked]="acl.permission === 'ALLOW' && (acl.accessType === 'WRITE' || acl.accessType === '*')"
                                                 (change)="onRoleChange($event, 'WRITE', acl)"
-                                                [disabled]="role.name === 'root' || loading" />
+                                                [disabled]="loading" />
                                             <label class="form-check-label" for="write">
                                                 <small> WRITE</small>
                                             </label>
@@ -58,7 +62,7 @@
                                             <input type="checkbox" id="execute"
                                                 [checked]="acl.permission === 'ALLOW' && (acl.accessType === 'EXECUTE' || acl.accessType === '*')"
                                                 (change)="onRoleChange($event, 'EXECUTE', acl)"
-                                                [disabled]="role.name === 'root' || loading" />
+                                                [disabled]="loading" />
                                             <label class="form-check-label" for="execute">
                                                 <small> EXECUTE</small>
                                             </label>
@@ -67,7 +71,7 @@
                                             <input type="checkbox" id="all"
                                                 [checked]="acl.permission === 'ALLOW' && acl.accessType === '*'"
                                                 (change)="onRoleChange($event, '*', acl)"
-                                                [disabled]="role.name === 'root' || loading" />
+                                                [disabled]="loading" />
                                             <label class="form-check-label" for="all">
                                                 <small> ALL</small>
                                             </label>

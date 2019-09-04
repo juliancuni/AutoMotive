@@ -15,9 +15,10 @@ export class MsToasterService {
     }
 
     toastErr(err: HttpErrorResponse) {
+        console.log(err);
         let type = "error";
-        let title = err.status + ": " + err.statusText;
-        let body = err["error"].error ? err["error"].error.message : err.statusText;
+        let title = err.status + ": " + err.name;
+        let body = err["error"].error ? err["error"].error.message : err.message;
         this.toastConfigData.next({ type: type, title: title, body: body });
     }
 

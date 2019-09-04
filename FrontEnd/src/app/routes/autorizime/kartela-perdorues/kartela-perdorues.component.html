@@ -29,7 +29,7 @@
     </div>
 </div>
 <div class="row" *ngIf="perdorues">
-    <div class="col-xl-6 col-md-8 col-sm-12">
+    <div class="col-xl-8 col-md-9 col-sm-12">
         <div class="card card-default">
             <div class="card-header" [ngStyle]="!perdorues?.enabled && {'color': 'red' }">
                 {{ perdorues?.enabled ? "Të dhënat personale" : "Ky përdorues është i pezulluar" }}</div>
@@ -305,7 +305,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-6 col-md-4 col-sm-12">
+    <div class="col-xl-4 col-md-3 col-sm-12">
         <div class="card card-default">
             <div class="card-header">Rolet</div>
             <div class="card-body" *ngIf="perdorues?.enabled">

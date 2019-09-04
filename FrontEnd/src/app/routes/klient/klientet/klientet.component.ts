@@ -36,7 +36,7 @@ export class KlientetComponent implements OnInit {
         this.newClient.show();
     }
 
-    test(event: { length: number; toLowerCase: () => string; }) {
+    filterKlientetFinanca(event: { length: number; toLowerCase: () => string; }) {
         if (event.length > 2) {
             this.klientetFinancaFiltruar = [...this.klientetFinanca]
             this.klientetFinancaFiltruar = this.klientetFinancaFiltruar.filter((klient) => {
@@ -73,6 +73,8 @@ export class KlientetComponent implements OnInit {
         if(this.newKlientForm.valid) {
             this._klient.create(newKlient).subscribe((res: Klient) => {
                 this.klientet.push(res);
+            }, () =>{
+                this.newKlientForm.reset();
             })
         }
     }

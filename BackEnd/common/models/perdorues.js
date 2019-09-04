@@ -61,7 +61,7 @@ module.exports = function (Perdorues) {
                 subject: 'Verifikim ' + ndermarrje.emer,
                 headers: { 'Mime-Version': '1.0' },
                 template: './templates/verify.ejs',
-                redirect: (process.env.NODE_ENV == "production") ? ndermarrje.domain + "/login/?uid=" + user.id : "http://localhost:4200/login/?uid=" + user.id,
+                redirect: (process.env.NODE_ENV == "production") ? "https://" + ndermarrje.domain + "/login/?uid=" + user.id : "http://localhost:4200/login/?uid=" + user.id,
                 user: user,
                 ndermarrje: ndermarrje,
                 host: (process.env.NODE_ENV == "production") ? ndermarrje.domain : ndermarrjeDomain,

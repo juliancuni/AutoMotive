@@ -77,6 +77,8 @@ export class KartelaPerdoruesComponent implements OnInit {
                 } else {
                     this._perdorues.upsertPatch(updatedPerdorues).subscribe((res: Perdorues) => {
                         this.perdorues = res;
+                        this.enableEdit(field);
+                        this.loading = false;
                     })
                 }
             }
@@ -232,7 +234,8 @@ export class KartelaPerdoruesComponent implements OnInit {
         this.subscriptions.push(
             this._route.params.subscribe((params) => {
                 this._perdorues.getRolet(params.id).subscribe((res: Role[]) => {
-                    this.roletQeKa = res["Rolet"];
+                    console.log(res)
+                    this.roletQeKa = res;
                     this._rolet.find().subscribe((res: Role[]) => {
                         this.roletOrigj = res;
                         let roletOrigj = [...this.roletOrigj];

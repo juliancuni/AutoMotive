@@ -12,13 +12,13 @@ import {
 declare var Object: any;
 export interface MjetiInterface {
   "brand"?: string;
-  "model"?: string;
-  "viti"?: number;
+  "model": string;
+  "viti": number;
   "nrShasise"?: string;
   "targa"?: string;
-  "nePark"?: boolean;
-  "neOficine"?: boolean;
-  "kilometrazhi"?: number;
+  "nePark": boolean;
+  "neOficine": boolean;
+  "kilometrazhi": number;
   "id"?: any;
   "kategoriId"?: any;
   "klientId"?: any;
