@@ -26,10 +26,8 @@ export interface PerdoruesInterface {
   "password"?: string;
   accessTokens?: any[];
   rolet?: Role[];
-  urdheraDiagnozeTeLeshuar?: UrdherDiagnoze[];
-  urdheraDiagnozeTeMarre?: UrdherDiagnoze[];
+  urdheraDiagnoze?: UrdherDiagnoze[];
   diagnozat?: Diagnoza[];
-  urdheraPuneTeLeshuar?: UrdherPune[];
   urdheraPuneTeMarre?: UrdherPune[];
 }
 
@@ -52,10 +50,8 @@ export class Perdorues implements PerdoruesInterface {
   "password": string;
   accessTokens: any[];
   rolet: Role[];
-  urdheraDiagnozeTeLeshuar: UrdherDiagnoze[];
-  urdheraDiagnozeTeMarre: UrdherDiagnoze[];
+  urdheraDiagnoze: UrdherDiagnoze[];
   diagnozat: Diagnoza[];
-  urdheraPuneTeLeshuar: UrdherPune[];
   urdheraPuneTeMarre: UrdherPune[];
   constructor(data?: PerdoruesInterface) {
     Object.assign(this, data);
@@ -176,21 +172,13 @@ export class Perdorues implements PerdoruesInterface {
           keyFrom: 'id',
           keyTo: 'principalId'
         },
-        urdheraDiagnozeTeLeshuar: {
-          name: 'urdheraDiagnozeTeLeshuar',
+        urdheraDiagnoze: {
+          name: 'urdheraDiagnoze',
           type: 'UrdherDiagnoze[]',
           model: 'UrdherDiagnoze',
           relationType: 'hasMany',
                   keyFrom: 'id',
-          keyTo: 'leshoi'
-        },
-        urdheraDiagnozeTeMarre: {
-          name: 'urdheraDiagnozeTeMarre',
-          type: 'UrdherDiagnoze[]',
-          model: 'UrdherDiagnoze',
-          relationType: 'hasMany',
-                  keyFrom: 'id',
-          keyTo: 'morri'
+          keyTo: 'perdoruesId'
         },
         diagnozat: {
           name: 'diagnozat',
@@ -200,21 +188,13 @@ export class Perdorues implements PerdoruesInterface {
                   keyFrom: 'id',
           keyTo: 'perdoruesId'
         },
-        urdheraPuneTeLeshuar: {
-          name: 'urdheraPuneTeLeshuar',
-          type: 'UrdherPune[]',
-          model: 'UrdherPune',
-          relationType: 'hasMany',
-                  keyFrom: 'id',
-          keyTo: 'leshoi'
-        },
         urdheraPuneTeMarre: {
           name: 'urdheraPuneTeMarre',
           type: 'UrdherPune[]',
           model: 'UrdherPune',
           relationType: 'hasMany',
                   keyFrom: 'id',
-          keyTo: 'morri'
+          keyTo: 'perdoruesId'
         },
       }
     }

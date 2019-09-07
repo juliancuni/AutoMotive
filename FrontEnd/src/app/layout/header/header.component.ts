@@ -1,18 +1,9 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 const screenfull = require('screenfull');
-
 import { UserblockService } from '../sidebar/userblock/userblock.service';
 import { SettingsService } from '../../core/settings/settings.service';
-
-import { Router } from '@angular/router';
-import {
-    PerdoruesApi,
-    // MenuApi,
-    Ndermarrje,
-    // Menu
-} from 'src/app/shared/sdk';
-
-// import { MenuService } from 'src/app/shared/services/menu-service.service';
+import { Ndermarrje } from 'src/app/shared/sdk';
+import { LogoutService } from 'src/app/shared/services/auth/logout.service';
 
 @Component({
     selector: 'app-header',
@@ -29,18 +20,10 @@ export class HeaderComponent implements OnInit {
     @ViewChild('fsbutton', { static: true }) fsbutton;  // the fullscreen button
 
     constructor(
-        // public _menuService: MenuService,
-        // public _menu: MenuApi,
         public userblockService: UserblockService,
         public settings: SettingsService,
-        private _perdorues: PerdoruesApi,
-        private _router: Router,
+        private _logout: LogoutService
     ) {
-        // this._menuService.rreshtoMenu();
-        // this._menuService.cast.subscribe((menu: Menu[]) => {
-        //     this.menuItems = menu;
-        // })
-        // this.menuItems = this.menuItems.slice(0, 4); // for horizontal layout
     }
 
     ngOnInit() {
@@ -72,7 +55,6 @@ export class HeaderComponent implements OnInit {
     }
 
     setNavSearchVisible(stat: boolean) {
-        // console.log(stat);
         this.isNavSearchVisible = stat;
     }
 
@@ -99,11 +81,6 @@ export class HeaderComponent implements OnInit {
     }
 
     logOut() {
-        this.postLogOut();
-    }
-    postLogOut(): void {
-        localStorage.removeItem("NdermarrjeData");
-        this._perdorues.logout().subscribe();
-        this._router.navigate(['/login']);
+        this._logout.logOut();
     }
 }

@@ -4,6 +4,7 @@ import { UserblockService } from './userblock.service';
 import { Perdorues, PerdoruesApi, LoopBackAuth } from 'src/app/shared/sdk';
 import { Router } from '@angular/router';
 import { SettingsService } from 'src/app/core/settings/settings.service';
+import { LogoutService } from 'src/app/shared/services/auth/logout.service';
 
 @Component({
     selector: 'app-userblock',
@@ -18,6 +19,7 @@ export class UserblockComponent implements OnInit {
         private _router: Router,
         private settings: SettingsService,
         private _lbAuth: LoopBackAuth,
+        private _logout: LogoutService,
         ) {
     }
     ngOnInit() {
@@ -27,11 +29,7 @@ export class UserblockComponent implements OnInit {
         return this.userblockService.getVisibility();
     }
     logOut() {
-        this.postLogOut();
+        this._logout.logOut();
     }
-    postLogOut(): void {
-        localStorage.removeItem("NdermarrjeData");
-        this._perdorues.logout().subscribe();
-        this._router.navigate(['/login']);
-    }
+    
 }

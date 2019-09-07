@@ -89,7 +89,6 @@ export class NewPerfaqesuesComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.klient)
         this.newPerfaqesuesForm = this._fb.group({
             "emer": [null, Validators.required],
             "telefon": [null, null],

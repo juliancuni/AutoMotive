@@ -21,8 +21,7 @@ export interface UrdherPuneInterface {
   "klientId"?: any;
   "perdoruesMorriId"?: any;
   "perfaqesuesId"?: any;
-  "leshoi"?: any;
-  "morri"?: any;
+  "perdoruesId"?: any;
   "kategoriMjeteshId"?: any;
   mjeti?: Mjeti;
   klient?: Klient;
@@ -44,8 +43,7 @@ export class UrdherPune implements UrdherPuneInterface {
   "klientId": any;
   "perdoruesMorriId": any;
   "perfaqesuesId": any;
-  "leshoi": any;
-  "morri": any;
+  "perdoruesId": any;
   "kategoriMjeteshId": any;
   mjeti: Mjeti;
   klient: Klient;
@@ -130,12 +128,8 @@ export class UrdherPune implements UrdherPuneInterface {
           name: 'perfaqesuesId',
           type: 'any'
         },
-        "leshoi": {
-          name: 'leshoi',
-          type: 'any'
-        },
-        "morri": {
-          name: 'morri',
+        "perdoruesId": {
+          name: 'perdoruesId',
           type: 'any'
         },
         "kategoriMjeteshId": {

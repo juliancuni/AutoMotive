@@ -40,14 +40,14 @@
       "model": "Klient",
       "foreignKey": ""
     },
-    "perdoruesMorri": {
-      "type": "belongsTo",
-      "model": "Perdorues",
-      "foreignKey": ""
-    },
     "perfaqesues": {
       "type": "belongsTo",
       "model": "Perfaqesues",
+      "foreignKey": ""
+    },
+    "perdorues": {
+      "type": "belongsTo",
+      "model": "Perdorues",
       "foreignKey": ""
     }
   },

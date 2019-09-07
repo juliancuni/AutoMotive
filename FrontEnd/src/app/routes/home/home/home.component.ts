@@ -56,12 +56,11 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         if (this.eshteMekanik) {
-            this._perdorues.getUrdheraDiagnozeTeMarre(this._lbAuth.getCurrentUserId()).subscribe((res: UrdherDiagnoze[]) =>{
-                console.log(this._lbAuth.getCurrentUserId());
+            this._perdorues.getUrdheraDiagnoze(this._lbAuth.getCurrentUserId()).subscribe((res: UrdherDiagnoze[]) => {
                 this.urdheraDiagnoze = res;
             })
         } else {
-            this._urdherDiagnoze.find({ where: { statusi: { lte: 3 } } }).subscribe((res: UrdherDiagnoze[]) => {
+            this._urdherDiagnoze.find({ include: ["perdorues", "mjeti", "klient"] }).subscribe((res: UrdherDiagnoze[]) => {
                 this.urdheraDiagnoze = res;
             })
         }

@@ -61,29 +61,19 @@
       "foreignKey": "principalId",
       "through": "RoleMapping"
     },
-    "urdheraPuneTeLeshuar": {
-      "type": "hasMany",
-      "model": "UrdherPune",
-      "foreignKey": "leshoi"
-    },
     "urdheraPuneTeMarre": {
       "type": "hasMany",
       "model": "UrdherPune",
-      "foreignKey": "morri"
-    },
-    "urdheraDiagnozeTeLeshuar": {
-      "type": "hasMany",
-      "model": "UrdherDiagnoze",
-      "foreignKey": "leshoi"
-    },
-    "urdheraDiagnozeTeMarre": {
-      "type": "hasMany",
-      "model": "UrdherDiagnoze",
-      "foreignKey": "morri"
+      "foreignKey": ""
     },
     "diagnozat": {
       "type": "hasMany",
       "model": "Diagnoza",
+      "foreignKey": ""
+    },
+    "urdheraDiagnoze": {
+      "type": "hasMany",
+      "model": "UrdherDiagnoze",
       "foreignKey": ""
     }
   },

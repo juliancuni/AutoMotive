@@ -81,6 +81,36 @@
 </div>
 <!-- END cards box-->
 
+<div class="card b">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table w-100">
+                <thead>
+                    <tr>
+                        <th>Klienti</th>
+                        <th>Mjeti</th>
+                        <th>Targa</th>
+                        <th>Pershkrimi</th>
+                        <th>Prioriteti</th>
+                        <th>Punonjesi</th>
+                        <th>Statusi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let urdherDiag of urdheraDiagnoze">
+                        <td>{{urdherDiag?.klient?.emer}}</td>
+                        <td>{{urdherDiag?.mjeti?.brand}}</td>
+                        <td>{{urdherDiag?.mjeti?.targa}}</td>
+                        <td>{{urdherDiag?.pershkrim}}</td>
+                        <td>{{urdherDiag?.prioriteti}}</td>
+                        <td>{{urdherDiag?.perdorues?.username}}</td>
+                        <td>{{urdherDiag?.statusi}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 
 
@@ -97,8 +127,7 @@
 
 
 
-
-<div class="home-container" *ngIf="eshteMekanik">
+<!-- <div class="home-container" *ngIf="eshteMekanik">
     <div class="jumbotron">
         <div class="row">
             <div class="col-xl-3 col-lg-4">
@@ -116,4 +145,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

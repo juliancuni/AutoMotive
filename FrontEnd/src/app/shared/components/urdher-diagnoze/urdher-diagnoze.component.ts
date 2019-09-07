@@ -68,19 +68,20 @@ export class UrdherDiagnozeComponent implements OnInit {
                 klientId: urdheDiagForm.klient.id,
                 perfaqesuesId: urdheDiagForm.perfaqesues,
                 mjetiId: urdheDiagForm.mjeti,
-                perdoruesMorriId: urdheDiagForm.destinuarPer,
+                perdoruesId: urdheDiagForm.destinuarPer,
                 prioriteti: urdheDiagForm.prioriteti,
                 leshoi: this._auth.getCurrentUserId(),
                 pershkrim: urdheDiagForm.pershkrim,
                 statusi: 1
             });
             this._urdherDiagnoze.create(newUrdherdiagnoze).subscribe((res: UrdherDiagnoze) => {
-                this.toggle();
-                this.shtoUrdheraDiag.emit(res);
-                this.urdheDiagForm.reset();
+                this._urdherDiagnoze.findOne({ where: { id: res.id }, include: ["perdorues", "mjeti", "klient"] }).subscribe((res: UrdherDiagnoze) => {
+                    this.toggle();
+                    this.shtoUrdheraDiag.emit(res);
+                    this.urdheDiagForm.reset();
+                })
             });
         }
-
     }
 
     hapMbyllNgaNPChild(ev) {

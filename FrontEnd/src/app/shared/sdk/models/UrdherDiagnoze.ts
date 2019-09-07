@@ -2,14 +2,14 @@
 import {
   Mjeti,
   Klient,
-  Perdorues,
-  Perfaqesues
+  Perfaqesues,
+  Perdorues
 } from '../index';
 
 declare var Object: any;
 export interface UrdherDiagnozeInterface {
   "pershkrim"?: string;
-  "leshoi"?: any;
+  "leshoi"?: string;
   "prioriteti"?: number;
   "statusi"?: number;
   "krijuar"?: Date;
@@ -17,18 +17,17 @@ export interface UrdherDiagnozeInterface {
   "id"?: any;
   "mjetiId"?: any;
   "klientId"?: any;
-  "perdoruesMorriId"?: any;
   "perfaqesuesId"?: any;
-  "morri"?: any;
+  "perdoruesId"?: any;
   mjeti?: Mjeti;
   klient?: Klient;
-  perdoruesMorri?: Perdorues;
   perfaqesues?: Perfaqesues;
+  perdorues?: Perdorues;
 }
 
 export class UrdherDiagnoze implements UrdherDiagnozeInterface {
   "pershkrim": string;
-  "leshoi": any;
+  "leshoi": string;
   "prioriteti": number;
   "statusi": number;
   "krijuar": Date;
@@ -36,13 +35,12 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
   "id": any;
   "mjetiId": any;
   "klientId": any;
-  "perdoruesMorriId": any;
   "perfaqesuesId": any;
-  "morri": any;
+  "perdoruesId": any;
   mjeti: Mjeti;
   klient: Klient;
-  perdoruesMorri: Perdorues;
   perfaqesues: Perfaqesues;
+  perdorues: Perdorues;
   constructor(data?: UrdherDiagnozeInterface) {
     Object.assign(this, data);
   }
@@ -82,7 +80,7 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
         },
         "leshoi": {
           name: 'leshoi',
-          type: 'any'
+          type: 'string'
         },
         "prioriteti": {
           name: 'prioriteti',
@@ -112,16 +110,12 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
           name: 'klientId',
           type: 'any'
         },
-        "perdoruesMorriId": {
-          name: 'perdoruesMorriId',
-          type: 'any'
-        },
         "perfaqesuesId": {
           name: 'perfaqesuesId',
           type: 'any'
         },
-        "morri": {
-          name: 'morri',
+        "perdoruesId": {
+          name: 'perdoruesId',
           type: 'any'
         },
       },
@@ -142,20 +136,20 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
                   keyFrom: 'klientId',
           keyTo: 'id'
         },
-        perdoruesMorri: {
-          name: 'perdoruesMorri',
-          type: 'Perdorues',
-          model: 'Perdorues',
-          relationType: 'belongsTo',
-                  keyFrom: 'perdoruesMorriId',
-          keyTo: 'id'
-        },
         perfaqesues: {
           name: 'perfaqesues',
           type: 'Perfaqesues',
           model: 'Perfaqesues',
           relationType: 'belongsTo',
                   keyFrom: 'perfaqesuesId',
+          keyTo: 'id'
+        },
+        perdorues: {
+          name: 'perdorues',
+          type: 'Perdorues',
+          model: 'Perdorues',
+          relationType: 'belongsTo',
+                  keyFrom: 'perdoruesId',
           keyTo: 'id'
         },
       }

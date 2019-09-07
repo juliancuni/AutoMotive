@@ -5,9 +5,10 @@ import { SettingsService } from './core/settings/settings.service';
 import { ToasterService, ToasterConfig } from 'angular2-toaster/angular2-toaster';
 import { MsToasterService } from './shared/services/mstoaster.service';
 import { ToastModel } from './shared/msInterfaces/interfaces';
-import { LoopBackConfig } from './shared/sdk/lb.config';
-import { environment } from '../environments/environment'
+// import { LoopBackConfig } from './shared/sdk/lb.config';
+// import { environment } from '../environments/environment'
 import { ThemesService } from './core/themes/themes.service';
+import { PubsubService } from './shared/services/pubsub.service';
 
 @Component({
     selector: 'app-root',
@@ -41,10 +42,11 @@ export class AppComponent implements OnInit {
         public _toasterService: ToasterService,
         public _msToasterService: MsToasterService,
         public _themesService: ThemesService,
+        public _pubsub: PubsubService,
     ) { }
 
     ngOnInit() {
-        // prevent empty links to reload the page
+        this._pubsub.rtConnect();
         this._themesService.setTheme('A');
         // LoopBackConfig.setBaseURL(environment.API_BASE_PATH);
         document.addEventListener('click', e => {
