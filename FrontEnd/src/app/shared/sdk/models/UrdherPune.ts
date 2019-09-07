@@ -1,4 +1,12 @@
 /* tslint:disable */
+import {
+  Mjeti,
+  Klient,
+  Perdorues,
+  Perfaqesues,
+  KategoriSherbimesh,
+  PjeseKembimi
+} from '../index';
 
 declare var Object: any;
 export interface UrdherPuneInterface {
@@ -6,11 +14,22 @@ export interface UrdherPuneInterface {
   "shenim"?: string;
   "prioriteti"?: number;
   "statusi"?: number;
+  "krijuar"?: Date;
+  "modifikuar"?: Date;
   "id"?: any;
-  "klientId"?: any;
-  "kategoriMjeteshId"?: any;
   "mjetiId"?: any;
-  "kategoriSherbimeshId"?: any;
+  "klientId"?: any;
+  "perdoruesMorriId"?: any;
+  "perfaqesuesId"?: any;
+  "leshoi"?: any;
+  "morri"?: any;
+  "kategoriMjeteshId"?: any;
+  mjeti?: Mjeti;
+  klient?: Klient;
+  perdoruesMorri?: Perdorues;
+  perfaqesues?: Perfaqesues;
+  kategoriSherbimesh?: KategoriSherbimesh[];
+  pjeseKembimi?: PjeseKembimi[];
 }
 
 export class UrdherPune implements UrdherPuneInterface {
@@ -18,11 +37,22 @@ export class UrdherPune implements UrdherPuneInterface {
   "shenim": string;
   "prioriteti": number;
   "statusi": number;
+  "krijuar": Date;
+  "modifikuar": Date;
   "id": any;
-  "klientId": any;
-  "kategoriMjeteshId": any;
   "mjetiId": any;
-  "kategoriSherbimeshId": any;
+  "klientId": any;
+  "perdoruesMorriId": any;
+  "perfaqesuesId": any;
+  "leshoi": any;
+  "morri": any;
+  "kategoriMjeteshId": any;
+  mjeti: Mjeti;
+  klient: Klient;
+  perdoruesMorri: Perdorues;
+  perfaqesues: Perfaqesues;
+  kategoriSherbimesh: KategoriSherbimesh[];
+  pjeseKembimi: PjeseKembimi[];
   constructor(data?: UrdherPuneInterface) {
     Object.assign(this, data);
   }
@@ -72,28 +102,100 @@ export class UrdherPune implements UrdherPuneInterface {
           name: 'statusi',
           type: 'number'
         },
+        "krijuar": {
+          name: 'krijuar',
+          type: 'Date'
+        },
+        "modifikuar": {
+          name: 'modifikuar',
+          type: 'Date'
+        },
         "id": {
           name: 'id',
-          type: 'any'
-        },
-        "klientId": {
-          name: 'klientId',
-          type: 'any'
-        },
-        "kategoriMjeteshId": {
-          name: 'kategoriMjeteshId',
           type: 'any'
         },
         "mjetiId": {
           name: 'mjetiId',
           type: 'any'
         },
-        "kategoriSherbimeshId": {
-          name: 'kategoriSherbimeshId',
+        "klientId": {
+          name: 'klientId',
+          type: 'any'
+        },
+        "perdoruesMorriId": {
+          name: 'perdoruesMorriId',
+          type: 'any'
+        },
+        "perfaqesuesId": {
+          name: 'perfaqesuesId',
+          type: 'any'
+        },
+        "leshoi": {
+          name: 'leshoi',
+          type: 'any'
+        },
+        "morri": {
+          name: 'morri',
+          type: 'any'
+        },
+        "kategoriMjeteshId": {
+          name: 'kategoriMjeteshId',
           type: 'any'
         },
       },
       relations: {
+        mjeti: {
+          name: 'mjeti',
+          type: 'Mjeti',
+          model: 'Mjeti',
+          relationType: 'belongsTo',
+                  keyFrom: 'mjetiId',
+          keyTo: 'id'
+        },
+        klient: {
+          name: 'klient',
+          type: 'Klient',
+          model: 'Klient',
+          relationType: 'belongsTo',
+                  keyFrom: 'klientId',
+          keyTo: 'id'
+        },
+        perdoruesMorri: {
+          name: 'perdoruesMorri',
+          type: 'Perdorues',
+          model: 'Perdorues',
+          relationType: 'belongsTo',
+                  keyFrom: 'perdoruesMorriId',
+          keyTo: 'id'
+        },
+        perfaqesues: {
+          name: 'perfaqesues',
+          type: 'Perfaqesues',
+          model: 'Perfaqesues',
+          relationType: 'belongsTo',
+                  keyFrom: 'perfaqesuesId',
+          keyTo: 'id'
+        },
+        kategoriSherbimesh: {
+          name: 'kategoriSherbimesh',
+          type: 'KategoriSherbimesh[]',
+          model: 'KategoriSherbimesh',
+          relationType: 'hasMany',
+          modelThrough: 'UrdherPuneKategoriSherbimesh',
+          keyThrough: 'kategoriSherbimeshId',
+          keyFrom: 'id',
+          keyTo: 'urdherPuneId'
+        },
+        pjeseKembimi: {
+          name: 'pjeseKembimi',
+          type: 'PjeseKembimi[]',
+          model: 'PjeseKembimi',
+          relationType: 'hasMany',
+          modelThrough: 'UrdherPunePjeseKembimi',
+          keyThrough: 'pjeseKembimiId',
+          keyFrom: 'id',
+          keyTo: 'urdherPuneId'
+        },
       }
     }
   }

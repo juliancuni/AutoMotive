@@ -1,0 +1,41 @@
+<div class="draggable-box" cdkDrag *ngIf="showNewPerdorues">
+    <div class="draggable-handle" cdkDragHandle>
+        <span class="float-left ml-3">Përdorues i ri</span>
+        <button type="button" class="close mr-3" aria-label="Close" (click)="toggle()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-10 col-md-6 col-xl-7">
+            <form class="form-horizontal" [formGroup]="newPerdoruesForm"
+                (submit)="regNewPerdorues($event, newPerdoruesForm.value)">
+                <div class="form-group row ml-4">
+                    <input type="text" class="form-control mb-2" formControlName="emer" placeholder="Emër">
+                    <input type="text" class="form-control mb-2" formControlName="mbiemer" placeholder="Mbiemër">
+                    <input type="email" class="form-control mb-2" formControlName="email" placeholder="Email">
+                    <input type="text" class="form-control mb-2" formControlName="telefon" placeholder="Telefon">
+                    <input type="text" class="form-control mb-2" formControlName="adresa" placeholder="Adresa">
+                    <input type="text" class="form-control mb-2" formControlName="password" placeholder="Fjalëkalimi">
+                </div>
+                <div class="form-group row ml-2">
+                    <div class="col-12">
+                        <button class="btn btn-sm btn-secondary mr-2" type="submit">Ruaj</button>
+                        <button class="btn btn-sm btn-secondary" type="button" (click)="toggle()">Mbyll</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-10 col-md-4 col-xl-3 mr-4">
+            <div class="d-flex align-items-center mb-3" *ngFor="let role of rolet; let i = index;">
+                <div><label for="role{{i}}">{{role?.name}}</label></div>
+                <div class="ml-auto">
+                    <label class="switch m-0">
+                        <input id="role{{i}}" type="checkbox" (change)="onRoleAdded($event, role)" />
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,38 +1,48 @@
 /* tslint:disable */
 import {
   Mjeti,
-  Perdorues
+  Klient,
+  Perdorues,
+  Perfaqesues
 } from '../index';
 
 declare var Object: any;
 export interface UrdherDiagnozeInterface {
   "pershkrim"?: string;
+  "leshoi"?: any;
   "prioriteti"?: number;
   "statusi"?: number;
+  "krijuar"?: Date;
+  "modifikuar"?: Date;
   "id"?: any;
-  "mejtiId"?: any;
-  "leshuarPerdoruesId"?: any;
-  "destinuarPerdoruesId"?: any;
-  "leshoiPerdoruesId"?: any;
   "mjetiId"?: any;
+  "klientId"?: any;
+  "perdoruesMorriId"?: any;
+  "perfaqesuesId"?: any;
+  "morri"?: any;
   mjeti?: Mjeti;
-  leshuarNga?: Perdorues;
-  destinuarPer?: Perdorues;
+  klient?: Klient;
+  perdoruesMorri?: Perdorues;
+  perfaqesues?: Perfaqesues;
 }
 
 export class UrdherDiagnoze implements UrdherDiagnozeInterface {
   "pershkrim": string;
+  "leshoi": any;
   "prioriteti": number;
   "statusi": number;
+  "krijuar": Date;
+  "modifikuar": Date;
   "id": any;
-  "mejtiId": any;
-  "leshuarPerdoruesId": any;
-  "destinuarPerdoruesId": any;
-  "leshoiPerdoruesId": any;
   "mjetiId": any;
+  "klientId": any;
+  "perdoruesMorriId": any;
+  "perfaqesuesId": any;
+  "morri": any;
   mjeti: Mjeti;
-  leshuarNga: Perdorues;
-  destinuarPer: Perdorues;
+  klient: Klient;
+  perdoruesMorri: Perdorues;
+  perfaqesues: Perfaqesues;
   constructor(data?: UrdherDiagnozeInterface) {
     Object.assign(this, data);
   }
@@ -70,6 +80,10 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
           name: 'pershkrim',
           type: 'string'
         },
+        "leshoi": {
+          name: 'leshoi',
+          type: 'any'
+        },
         "prioriteti": {
           name: 'prioriteti',
           type: 'number'
@@ -78,28 +92,36 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
           name: 'statusi',
           type: 'number'
         },
+        "krijuar": {
+          name: 'krijuar',
+          type: 'Date'
+        },
+        "modifikuar": {
+          name: 'modifikuar',
+          type: 'Date'
+        },
         "id": {
           name: 'id',
           type: 'any'
         },
-        "mejtiId": {
-          name: 'mejtiId',
-          type: 'any'
-        },
-        "leshuarPerdoruesId": {
-          name: 'leshuarPerdoruesId',
-          type: 'any'
-        },
-        "destinuarPerdoruesId": {
-          name: 'destinuarPerdoruesId',
-          type: 'any'
-        },
-        "leshoiPerdoruesId": {
-          name: 'leshoiPerdoruesId',
-          type: 'any'
-        },
         "mjetiId": {
           name: 'mjetiId',
+          type: 'any'
+        },
+        "klientId": {
+          name: 'klientId',
+          type: 'any'
+        },
+        "perdoruesMorriId": {
+          name: 'perdoruesMorriId',
+          type: 'any'
+        },
+        "perfaqesuesId": {
+          name: 'perfaqesuesId',
+          type: 'any'
+        },
+        "morri": {
+          name: 'morri',
           type: 'any'
         },
       },
@@ -109,23 +131,31 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
           type: 'Mjeti',
           model: 'Mjeti',
           relationType: 'belongsTo',
-                  keyFrom: 'mejtiId',
+                  keyFrom: 'mjetiId',
           keyTo: 'id'
         },
-        leshuarNga: {
-          name: 'leshuarNga',
+        klient: {
+          name: 'klient',
+          type: 'Klient',
+          model: 'Klient',
+          relationType: 'belongsTo',
+                  keyFrom: 'klientId',
+          keyTo: 'id'
+        },
+        perdoruesMorri: {
+          name: 'perdoruesMorri',
           type: 'Perdorues',
           model: 'Perdorues',
           relationType: 'belongsTo',
-                  keyFrom: 'leshuarPerdoruesId',
+                  keyFrom: 'perdoruesMorriId',
           keyTo: 'id'
         },
-        destinuarPer: {
-          name: 'destinuarPer',
-          type: 'Perdorues',
-          model: 'Perdorues',
+        perfaqesues: {
+          name: 'perfaqesues',
+          type: 'Perfaqesues',
+          model: 'Perfaqesues',
           relationType: 'belongsTo',
-                  keyFrom: 'destinuarPerdoruesId',
+                  keyFrom: 'perfaqesuesId',
           keyTo: 'id'
         },
       }

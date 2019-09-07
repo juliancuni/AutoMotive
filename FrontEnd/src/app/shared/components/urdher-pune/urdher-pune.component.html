@@ -1,0 +1,99 @@
+<div class="draggable-box" cdkDrag *ngIf="showUrdherPune">
+  <div class="draggable-handle" cdkDragHandle>
+      <span class="float-left ml-3">Urdhër Pune</span>
+      <button type="button" class="close mr-3" aria-label="Close" (click)="toggle()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <hr>
+  <form class="form-horizontal m-3" [formGroup]="urdherPuneForm"
+      (submit)="regUrdherPune($event, urdherPuneForm.value)">
+      <div class="form-group row">
+          <div class="col-9">
+              <ng-template #rt let-r="result" let-t="term">
+                  <ngb-highlight [result]="r.emer" [term]="t"></ngb-highlight>
+              </ng-template>
+              <input id="typeahead-template" type="text" class="form-control" [ngbTypeahead]="search"
+                  (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)"
+                  [resultTemplate]="rt" [inputFormatter]="formatter" #instance="ngbTypeahead"
+                  placeholder="Zgjidh klientin" formControlName="klient" />
+              <!-- <input class="form-control" type="text" formControlName="klient" placeholder="Klienti"
+                  autocomplete="off" /> -->
+          </div>
+          <div class="col-1">
+              <button class="btn btn-primary" type="submit" title="Regjistro klient të ri">
+                  <i class="fas fa-angle-double-right"></i>
+              </button>
+          </div>
+      </div>
+      <div class="form-group row">
+          <div class="col-9">
+              <select class="form-control" formControlName="perfaqesues">
+                  <option [selected]="true" [disabled]="true" [value]="null">Përfaqesuesi</option>
+                  <option *ngFor="let perfaqesues of perfaqesuesitEklientit" [value]="perfaqesues?.id">
+                      {{perfaqesues?.emer}}</option>
+              </select>
+              <!-- <input class="form-control" type="text" formControlName="perfaqesues" placeholder="Përfaqesuesi"
+                  autocomplete="off" /> -->
+          </div>
+          <div class="col-1">
+              <button class="btn btn-primary" type="submit" title="Regjistro perfaqesues për këtë klient">
+                  <i class="fas fa-angle-double-right"></i>
+              </button>
+          </div>
+      </div>
+      <div class="form-group row">
+          <div class="col-9">
+              <select class="form-control" formControlName="mjeti">
+                  <option [selected]="true" [disabled]="true" [value]="null">Mjeti</option>
+                  <option *ngFor="let mjeti of mjetetEklientit" [value]="mjeti?.id">{{mjeti?.brand}} | {{mjeti?.targa}}
+                  </option>
+              </select>
+              <!-- <input class="form-control" type="text" formControlName="mjeti" placeholder="Mjeti"
+                  autocomplete="off" /> -->
+          </div>
+          <div class="col-1">
+              <button class="btn btn-primary" type="submit" title="Regjistro mjet të ri për këtë klient">
+                  <i class="fas fa-angle-double-right"></i>
+              </button>
+          </div>
+      </div>
+      <div class="form-group row">
+          <div class="col-9">
+              <select class="form-control" formControlName="destinuarPer">
+                  <option [selected]="true" [disabled]="true" [value]="null">Për punonjësin</option>
+                  <option *ngFor="let perdorues of perdoruesit" [value]="perdorues?.id">{{perdorues?.emer}}
+                      {{perdorues?.mbiemer}}</option>
+              </select>
+              <!-- <input class="form-control" type="text" formControlName="destinuarPer" placeholder="Për punonjësin"
+                  autocomplete="off" /> -->
+          </div>
+          <div class="col-1">
+              <button class="btn btn-primary" type="submit" title="Regjistro punonjës të ri">
+                  <i class="fas fa-angle-double-right"></i>
+              </button>
+          </div>
+      </div>
+      <div class="form-group row">
+          <div class="col-12">
+              <textarea rows="2" class="form-control" formControlName="pershkrim"
+                  placeholder="Pershkrim i simptomave"></textarea>
+          </div>
+      </div>
+      <div class="form-group row">
+          <div class="col-12">
+              <input type="range" class="form-control-range" id="formControlRange" formControlName="prioriteti"
+                  min="0" max="10">
+          </div>
+          <span class="ml-3">
+              Prioriteti: {{(prioriteti > 0 && prioriteti) <= 2 ? 'Ska rëndësi' : (prioriteti > 2 && prioriteti) <= 4 ? 'Pret Puna' : (prioriteti > 4 && prioriteti <= 6) ? 'Normal' : (prioriteti > 6 && prioriteti <= 8) ? 'I lartë' : 'Shumë i lartë'}}
+          </span>
+      </div>
+      <div class="form-group row">
+          <div class="col-12">
+              <button class="btn btn-sm btn-secondary mr-2" type="submit">Ruaj</button>
+              <button class="btn btn-sm btn-secondary" type="button" (click)="toggle()">Mbyll</button>
+          </div>
+      </div>
+  </form>
+</div>

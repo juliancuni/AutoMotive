@@ -1,0 +1,68 @@
+<div class="draggable-box" cdkDrag *ngIf="showNewMjet">
+    <div class="draggable-handle" cdkDragHandle>
+        <span class="float-left ml-3">Regjistro Mjet për {{klient?.emer}}</span>
+        <button type="button" class="close mr-3" aria-label="Close" (click)="toggle()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-10 col-md-6 col-xl-7">
+            <form class="form-horizontal m-3" [formGroup]="newMjetForm"
+                (submit)="regNewMjet($event, newMjetForm.value)">
+                <div class="form-group row ml-4">
+                    <ng-template #rt let-r="result" let-t="term">
+                        <ngb-highlight [result]="r.emer" [term]="t"></ngb-highlight>
+                    </ng-template>
+                    <input id="typeahead-template" type="text" class="form-control mb-2" [ngbTypeahead]="search"
+                        (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)"
+                        [resultTemplate]="rt" [inputFormatter]="formatter" #instance="ngbTypeahead"
+                        placeholder="Kategoria. Psh. Veture ose Offroad" formControlName="kategoria" />
+                    <input class="form-control mb-2" type="text" placeholder="Targa. Psh. AA927AU" formControlName="targa" />
+                    <input class="form-control mb-2" type="text" placeholder="Brand. Psh. Toyota ose Land Rover"
+                        formControlName="brand" />
+                    <input class="form-control mb-2" type="email" placeholder="Model. Psh LJ95, ose LR3"
+                        formControlName="model" />
+                    <input class="form-control mb-2" type="text" placeholder="Viti Prodhimit" formControlName="viti" />
+                    <input class="form-control mb-2" type="text" placeholder="Nr. Shasisë" formControlName="nrShasise" />
+                    <input class="form-control mb-2" type="text" placeholder="Klomentrazhi. Psh 127000"
+                        formControlName="kilometrazhi" />
+                </div>
+                <div class="form-group row ml-2">
+                    <div class="col-12">
+                        <button class="btn btn-sm btn-secondary mr-2" type="submit">Ruaj</button>
+                        <button class="btn btn-sm btn-secondary" type="button" (click)="toggle()">Mbyll</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-10 col-md-4 col-xl-3 mr-4">
+            <input type="checkbox" (change)="kerkoNgaFinanca($event)" /> Kerko nga financa
+            <div *ngIf="hapFinancen">
+                <div *ngIf="!klientIzgjedhurNgaFinanca">
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Kerko per klient nga Financa5"
+                            [(ngModel)]="kerko" (ngModelChange)="filterKlientetFinanca($event)" />
+                    </div>
+                    <span *ngIf="kerko?.length <= 2">{{klientetFinanca?.length}} kliente nga Financa</span>
+                    <span *ngIf="kerko?.length > 2">{{klientetFinancaFiltruar?.length}} Rezultate</span>
+                    <p *ngFor="let klientetFiltruar of klientetFinancaFiltruar">
+                        <button class="btn btn-xs btn-secondary btn-block"
+                            (click)="zgjidhKlientNgaFinanca(klientetFiltruar)">{{klientetFiltruar?.pershkrimi}}</button>
+                    </p>
+                </div>
+                <div *ngIf="klientIzgjedhurNgaFinanca">
+                    <table class="table table-bordered table-hover table-sm">
+                        <tr *ngFor="let klient of klientZgjedhurNgaFinanca | keyvalue">
+                            <td>{{ klient.key }}</td>
+                            <td>{{ klient.value }}</td>
+                        </tr>
+                    </table>
+                    <button class="btn btn-xs btn-secondary mb-2" (click)="pastroKlientinEZgjedhur()"
+                        type="button">Cancel</button>
+                    <!-- <pre>{{klientZgjedhurNgaFinanca | json}}</pre> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

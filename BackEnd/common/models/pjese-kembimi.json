@@ -59,10 +59,24 @@
         "columnName": "CMSH",
         "dataType": "float"
       }
+    },
+    "krijuar": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "modifikuar": {
+      "type": "date",
+      "defaultFn": "now"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "urdheraPune": {
+      "type": "hasAndBelongsToMany",
+      "model": "UrdherPune",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

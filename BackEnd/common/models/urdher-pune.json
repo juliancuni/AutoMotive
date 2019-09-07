@@ -18,10 +18,50 @@
     },
     "statusi": {
       "type": "number"
+    },
+    "krijuar": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "modifikuar": {
+      "type": "date",
+      "defaultFn": "now"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "mjeti": {
+      "type": "belongsTo",
+      "model": "Mjeti",
+      "foreignKey": ""
+    },
+    "klient": {
+      "type": "belongsTo",
+      "model": "Klient",
+      "foreignKey": ""
+    },
+    "perdoruesMorri": {
+      "type": "belongsTo",
+      "model": "Perdorues",
+      "foreignKey": "",
+      "primaryKey": "id"
+    },
+    "perfaqesues": {
+      "type": "belongsTo",
+      "model": "Perfaqesues",
+      "foreignKey": ""
+    },
+    "kategoriSherbimesh": {
+      "type": "hasAndBelongsToMany",
+      "model": "KategoriSherbimesh",
+      "foreignKey": ""
+    },
+    "pjeseKembimi": {
+      "type": "hasAndBelongsToMany",
+      "model": "PjeseKembimi",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

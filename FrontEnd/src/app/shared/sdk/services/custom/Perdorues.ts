@@ -14,6 +14,8 @@ import { SocketConnection } from '../../sockets/socket.connections';
 import { RoleMapping } from '../../models/RoleMapping';
 import { Role } from '../../models/Role';
 import { UrdherDiagnoze } from '../../models/UrdherDiagnoze';
+import { Diagnoza } from '../../models/Diagnoza';
+import { UrdherPune } from '../../models/UrdherPune';
 
 
 /**
@@ -312,11 +314,11 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Find a related item by id for urdheraTeLeshuar.
+   * Find a related item by id for urdheraDiagnozeTeLeshuar.
    *
    * @param {any} id Perdorues id
    *
-   * @param {any} fk Foreign key for urdheraTeLeshuar
+   * @param {any} fk Foreign key for urdheraDiagnozeTeLeshuar
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -327,10 +329,10 @@ export class PerdoruesApi extends BaseLoopBackApi {
    * This usually means the response is a `Perdorues` object.)
    * </em>
    */
-  public findByIdUrdheraTeLeshuar(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public findByIdUrdheraDiagnozeTeLeshuar(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeLeshuar/:fk";
+    "/Perdoruesit/:id/urdheraDiagnozeTeLeshuar/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -342,11 +344,11 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Delete a related item by id for urdheraTeLeshuar.
+   * Delete a related item by id for urdheraDiagnozeTeLeshuar.
    *
    * @param {any} id Perdorues id
    *
-   * @param {any} fk Foreign key for urdheraTeLeshuar
+   * @param {any} fk Foreign key for urdheraDiagnozeTeLeshuar
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -354,10 +356,10 @@ export class PerdoruesApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyByIdUrdheraTeLeshuar(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public destroyByIdUrdheraDiagnozeTeLeshuar(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeLeshuar/:fk";
+    "/Perdoruesit/:id/urdheraDiagnozeTeLeshuar/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -369,11 +371,11 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Update a related item by id for urdheraTeLeshuar.
+   * Update a related item by id for urdheraDiagnozeTeLeshuar.
    *
    * @param {any} id Perdorues id
    *
-   * @param {any} fk Foreign key for urdheraTeLeshuar
+   * @param {any} fk Foreign key for urdheraDiagnozeTeLeshuar
    *
    * @param {object} data Request data.
    *
@@ -388,10 +390,10 @@ export class PerdoruesApi extends BaseLoopBackApi {
    * This usually means the response is a `Perdorues` object.)
    * </em>
    */
-  public updateByIdUrdheraTeLeshuar(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public updateByIdUrdheraDiagnozeTeLeshuar(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeLeshuar/:fk";
+    "/Perdoruesit/:id/urdheraDiagnozeTeLeshuar/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -405,11 +407,11 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Find a related item by id for urdheraTeMarre.
+   * Find a related item by id for urdheraDiagnozeTeMarre.
    *
    * @param {any} id Perdorues id
    *
-   * @param {any} fk Foreign key for urdheraTeMarre
+   * @param {any} fk Foreign key for urdheraDiagnozeTeMarre
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -420,10 +422,10 @@ export class PerdoruesApi extends BaseLoopBackApi {
    * This usually means the response is a `Perdorues` object.)
    * </em>
    */
-  public findByIdUrdheraTeMarre(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public findByIdUrdheraDiagnozeTeMarre(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeMarre/:fk";
+    "/Perdoruesit/:id/urdheraDiagnozeTeMarre/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -435,11 +437,11 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Delete a related item by id for urdheraTeMarre.
+   * Delete a related item by id for urdheraDiagnozeTeMarre.
    *
    * @param {any} id Perdorues id
    *
-   * @param {any} fk Foreign key for urdheraTeMarre
+   * @param {any} fk Foreign key for urdheraDiagnozeTeMarre
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -447,10 +449,10 @@ export class PerdoruesApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyByIdUrdheraTeMarre(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public destroyByIdUrdheraDiagnozeTeMarre(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeMarre/:fk";
+    "/Perdoruesit/:id/urdheraDiagnozeTeMarre/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -462,11 +464,11 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Update a related item by id for urdheraTeMarre.
+   * Update a related item by id for urdheraDiagnozeTeMarre.
    *
    * @param {any} id Perdorues id
    *
-   * @param {any} fk Foreign key for urdheraTeMarre
+   * @param {any} fk Foreign key for urdheraDiagnozeTeMarre
    *
    * @param {object} data Request data.
    *
@@ -481,10 +483,289 @@ export class PerdoruesApi extends BaseLoopBackApi {
    * This usually means the response is a `Perdorues` object.)
    * </em>
    */
-  public updateByIdUrdheraTeMarre(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public updateByIdUrdheraDiagnozeTeMarre(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeMarre/:fk";
+    "/Perdoruesit/:id/urdheraDiagnozeTeMarre/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Find a related item by id for diagnozat.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {any} fk Foreign key for diagnozat
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public findByIdDiagnozat(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/diagnozat/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Delete a related item by id for diagnozat.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {any} fk Foreign key for diagnozat
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public destroyByIdDiagnozat(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/diagnozat/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Update a related item by id for diagnozat.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {any} fk Foreign key for diagnozat
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public updateByIdDiagnozat(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/diagnozat/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Find a related item by id for urdheraPuneTeLeshuar.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {any} fk Foreign key for urdheraPuneTeLeshuar
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public findByIdUrdheraPuneTeLeshuar(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeLeshuar/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Delete a related item by id for urdheraPuneTeLeshuar.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {any} fk Foreign key for urdheraPuneTeLeshuar
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public destroyByIdUrdheraPuneTeLeshuar(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeLeshuar/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Update a related item by id for urdheraPuneTeLeshuar.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {any} fk Foreign key for urdheraPuneTeLeshuar
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public updateByIdUrdheraPuneTeLeshuar(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeLeshuar/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Find a related item by id for urdheraPuneTeMarre.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {any} fk Foreign key for urdheraPuneTeMarre
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public findByIdUrdheraPuneTeMarre(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeMarre/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Delete a related item by id for urdheraPuneTeMarre.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {any} fk Foreign key for urdheraPuneTeMarre
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public destroyByIdUrdheraPuneTeMarre(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeMarre/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Update a related item by id for urdheraPuneTeMarre.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {any} fk Foreign key for urdheraPuneTeMarre
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public updateByIdUrdheraPuneTeMarre(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeMarre/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -730,7 +1011,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Queries urdheraTeLeshuar of Perdorues.
+   * Queries urdheraDiagnozeTeLeshuar of Perdorues.
    *
    * @param {any} id Perdorues id
    *
@@ -745,10 +1026,10 @@ export class PerdoruesApi extends BaseLoopBackApi {
    * This usually means the response is a `Perdorues` object.)
    * </em>
    */
-  public getUrdheraTeLeshuar(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+  public getUrdheraDiagnozeTeLeshuar(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeLeshuar";
+    "/Perdoruesit/:id/urdheraDiagnozeTeLeshuar";
     let _routeParams: any = {
       id: id
     };
@@ -760,7 +1041,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in urdheraTeLeshuar of this model.
+   * Creates a new instance in urdheraDiagnozeTeLeshuar of this model.
    *
    * @param {any} id Perdorues id
    *
@@ -777,10 +1058,10 @@ export class PerdoruesApi extends BaseLoopBackApi {
    * This usually means the response is a `Perdorues` object.)
    * </em>
    */
-  public createUrdheraTeLeshuar(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public createUrdheraDiagnozeTeLeshuar(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeLeshuar";
+    "/Perdoruesit/:id/urdheraDiagnozeTeLeshuar";
     let _routeParams: any = {
       id: id
     };
@@ -793,7 +1074,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Deletes all urdheraTeLeshuar of this model.
+   * Deletes all urdheraDiagnozeTeLeshuar of this model.
    *
    * @param {any} id Perdorues id
    *
@@ -803,10 +1084,10 @@ export class PerdoruesApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public deleteUrdheraTeLeshuar(id: any, customHeaders?: Function): Observable<any> {
+  public deleteUrdheraDiagnozeTeLeshuar(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeLeshuar";
+    "/Perdoruesit/:id/urdheraDiagnozeTeLeshuar";
     let _routeParams: any = {
       id: id
     };
@@ -817,7 +1098,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Counts urdheraTeLeshuar of Perdorues.
+   * Counts urdheraDiagnozeTeLeshuar of Perdorues.
    *
    * @param {any} id Perdorues id
    *
@@ -831,10 +1112,10 @@ export class PerdoruesApi extends BaseLoopBackApi {
    *
    *  - `count` – `{number}` - 
    */
-  public countUrdheraTeLeshuar(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
+  public countUrdheraDiagnozeTeLeshuar(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeLeshuar/count";
+    "/Perdoruesit/:id/urdheraDiagnozeTeLeshuar/count";
     let _routeParams: any = {
       id: id
     };
@@ -846,7 +1127,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Queries urdheraTeMarre of Perdorues.
+   * Queries urdheraDiagnozeTeMarre of Perdorues.
    *
    * @param {any} id Perdorues id
    *
@@ -861,10 +1142,10 @@ export class PerdoruesApi extends BaseLoopBackApi {
    * This usually means the response is a `Perdorues` object.)
    * </em>
    */
-  public getUrdheraTeMarre(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+  public getUrdheraDiagnozeTeMarre(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeMarre";
+    "/Perdoruesit/:id/urdheraDiagnozeTeMarre";
     let _routeParams: any = {
       id: id
     };
@@ -876,7 +1157,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in urdheraTeMarre of this model.
+   * Creates a new instance in urdheraDiagnozeTeMarre of this model.
    *
    * @param {any} id Perdorues id
    *
@@ -893,10 +1174,10 @@ export class PerdoruesApi extends BaseLoopBackApi {
    * This usually means the response is a `Perdorues` object.)
    * </em>
    */
-  public createUrdheraTeMarre(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public createUrdheraDiagnozeTeMarre(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeMarre";
+    "/Perdoruesit/:id/urdheraDiagnozeTeMarre";
     let _routeParams: any = {
       id: id
     };
@@ -909,7 +1190,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Deletes all urdheraTeMarre of this model.
+   * Deletes all urdheraDiagnozeTeMarre of this model.
    *
    * @param {any} id Perdorues id
    *
@@ -919,10 +1200,10 @@ export class PerdoruesApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public deleteUrdheraTeMarre(id: any, customHeaders?: Function): Observable<any> {
+  public deleteUrdheraDiagnozeTeMarre(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeMarre";
+    "/Perdoruesit/:id/urdheraDiagnozeTeMarre";
     let _routeParams: any = {
       id: id
     };
@@ -933,7 +1214,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Counts urdheraTeMarre of Perdorues.
+   * Counts urdheraDiagnozeTeMarre of Perdorues.
    *
    * @param {any} id Perdorues id
    *
@@ -947,10 +1228,358 @@ export class PerdoruesApi extends BaseLoopBackApi {
    *
    *  - `count` – `{number}` - 
    */
-  public countUrdheraTeMarre(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
+  public countUrdheraDiagnozeTeMarre(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeMarre/count";
+    "/Perdoruesit/:id/urdheraDiagnozeTeMarre/count";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Queries diagnozat of Perdorues.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {object} filter 
+   *
+   * @returns {object[]} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public getDiagnozat(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/diagnozat";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Creates a new instance in diagnozat of this model.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public createDiagnozat(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/diagnozat";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Deletes all diagnozat of this model.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public deleteDiagnozat(id: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/diagnozat";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Counts diagnozat of Perdorues.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {object} where Criteria to match model instances
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * Data properties:
+   *
+   *  - `count` – `{number}` - 
+   */
+  public countDiagnozat(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/diagnozat/count";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Queries urdheraPuneTeLeshuar of Perdorues.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {object} filter 
+   *
+   * @returns {object[]} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public getUrdheraPuneTeLeshuar(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeLeshuar";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Creates a new instance in urdheraPuneTeLeshuar of this model.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public createUrdheraPuneTeLeshuar(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeLeshuar";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Deletes all urdheraPuneTeLeshuar of this model.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public deleteUrdheraPuneTeLeshuar(id: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeLeshuar";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Counts urdheraPuneTeLeshuar of Perdorues.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {object} where Criteria to match model instances
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * Data properties:
+   *
+   *  - `count` – `{number}` - 
+   */
+  public countUrdheraPuneTeLeshuar(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeLeshuar/count";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Queries urdheraPuneTeMarre of Perdorues.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {object} filter 
+   *
+   * @returns {object[]} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public getUrdheraPuneTeMarre(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeMarre";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Creates a new instance in urdheraPuneTeMarre of this model.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public createUrdheraPuneTeMarre(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeMarre";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Deletes all urdheraPuneTeMarre of this model.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public deleteUrdheraPuneTeMarre(id: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeMarre";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Counts urdheraPuneTeMarre of Perdorues.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {object} where Criteria to match model instances
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * Data properties:
+   *
+   *  - `count` – `{number}` - 
+   */
+  public countUrdheraPuneTeMarre(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeMarre/count";
     let _routeParams: any = {
       id: id
     };
@@ -1308,7 +1937,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in urdheraTeLeshuar of this model.
+   * Creates a new instance in urdheraDiagnozeTeLeshuar of this model.
    *
    * @param {any} id Perdorues id
    *
@@ -1325,10 +1954,10 @@ export class PerdoruesApi extends BaseLoopBackApi {
    * This usually means the response is a `Perdorues` object.)
    * </em>
    */
-  public createManyUrdheraTeLeshuar(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyUrdheraDiagnozeTeLeshuar(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeLeshuar";
+    "/Perdoruesit/:id/urdheraDiagnozeTeLeshuar";
     let _routeParams: any = {
       id: id
     };
@@ -1341,7 +1970,7 @@ export class PerdoruesApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in urdheraTeMarre of this model.
+   * Creates a new instance in urdheraDiagnozeTeMarre of this model.
    *
    * @param {any} id Perdorues id
    *
@@ -1358,10 +1987,109 @@ export class PerdoruesApi extends BaseLoopBackApi {
    * This usually means the response is a `Perdorues` object.)
    * </em>
    */
-  public createManyUrdheraTeMarre(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyUrdheraDiagnozeTeMarre(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Perdoruesit/:id/urdheraTeMarre";
+    "/Perdoruesit/:id/urdheraDiagnozeTeMarre";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Creates a new instance in diagnozat of this model.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object[]} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public createManyDiagnozat(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/diagnozat";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Creates a new instance in urdheraPuneTeLeshuar of this model.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object[]} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public createManyUrdheraPuneTeLeshuar(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeLeshuar";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Creates a new instance in urdheraPuneTeMarre of this model.
+   *
+   * @param {any} id Perdorues id
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object[]} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Perdorues` object.)
+   * </em>
+   */
+  public createManyUrdheraPuneTeMarre(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Perdoruesit/:id/urdheraPuneTeMarre";
     let _routeParams: any = {
       id: id
     };

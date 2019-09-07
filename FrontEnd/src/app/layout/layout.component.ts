@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationsService } from '../shared/services/notifications.service';
-import { Ndermarrje, Perdorues } from '../shared/sdk';
+import { Ndermarrje } from '../shared/sdk';
 
 @Component({
     selector: 'app-layout',

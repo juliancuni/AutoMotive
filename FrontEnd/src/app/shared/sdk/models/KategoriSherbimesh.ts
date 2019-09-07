@@ -91,7 +91,9 @@ export class KategoriSherbimesh implements KategoriSherbimeshInterface {
           type: 'UrdherPune[]',
           model: 'UrdherPune',
           relationType: 'hasMany',
-                  keyFrom: 'id',
+          modelThrough: 'UrdherPuneKategoriSherbimesh',
+          keyThrough: 'urdherPuneId',
+          keyFrom: 'id',
           keyTo: 'kategoriSherbimeshId'
         },
       }

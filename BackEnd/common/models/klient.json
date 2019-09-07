@@ -29,6 +29,14 @@
     },
     "adresa": {
       "type": "string"
+    },
+    "krijuar": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "modifikuar": {
+      "type": "date",
+      "defaultFn": "now"
     }
   },
   "validations": [],
@@ -57,6 +65,11 @@
     "liberMjeti": {
       "type": "hasMany",
       "model": "LiberMjeti",
+      "foreignKey": ""
+    },
+    "urdheraDiagnoze": {
+      "type": "hasMany",
+      "model": "UrdherDiagnoze",
       "foreignKey": ""
     }
   },

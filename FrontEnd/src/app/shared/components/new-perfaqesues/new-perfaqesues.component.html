@@ -1,0 +1,64 @@
+<div class="draggable-box" cdkDrag *ngIf="showNewPerfaqesues">
+    <div class="draggable-handle" cdkDragHandle>
+        <span class="float-left ml-3">Regjistro Përfaqesues për {{klient?.emer}}</span>
+        <button type="button" class="close mr-3" aria-label="Close" (click)="toggle()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-10 col-md-6 col-xl-7">
+            <form class="form-horizontal m-3" [formGroup]="newPerfaqesuesForm"
+                (submit)="regNewPerfaqesues($event, newPerfaqesuesForm.value)">
+                <div class="form-group row ml-4">
+                    <input class="form-control mb-2" type="text" placeholder="Emer Mbiemer" formControlName="emer" />
+                    <input class="form-control mb-2" type="text" placeholder="Telefon" formControlName="telefon" />
+                    <input class="form-control mb-2" type="email" placeholder="email" formControlName="email" />
+                    <input class="form-control mb-2" type="text" placeholder="adresa" formControlName="adresa" />
+                </div>
+                <div class="form-group row ml-2">
+                    <div class="col-12">
+                        <button class="btn btn-sm btn-secondary mr-2" type="submit">Ruaj</button>
+                        <button class="btn btn-sm btn-secondary" type="button" (click)="toggle()">Mbyll</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-10 col-md-4 col-xl-3 mr-4">
+            <input type="checkbox" (change)="kerkoNgaFinanca($event)" /> Kerko nga financa
+            <div *ngIf="hapFinancen">
+                <div *ngIf="!klientIzgjedhurNgaFinanca">
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Kerko per klient nga Financa5"
+                            [(ngModel)]="kerko" (ngModelChange)="filterKlientetFinanca($event)" />
+                    </div>
+                    <span *ngIf="kerko?.length <= 2">{{klientetFinanca?.length}} kliente nga Financa</span>
+                    <span *ngIf="kerko?.length > 2">{{klientetFinancaFiltruar?.length}} Rezultate</span>
+                    <!-- <table class="table-bordered table-hover">
+                                <tr *ngFor="let klientetFiltruar of klientetFinancaFiltruar"
+                                    (click)="zgjidhKlientNgaFinanca(klientetFiltruar)">
+                                    <td>{{klientetFiltruar?.id}}</td>
+                                    <td>{{klientetFiltruar?.kodi}}</td>
+                                    <td>{{klientetFiltruar?.pershkrimi}}</td>
+                                </tr>
+                            </table> -->
+                    <p *ngFor="let klientetFiltruar of klientetFinancaFiltruar">
+                        <button class="btn btn-xs btn-secondary btn-block"
+                            (click)="zgjidhKlientNgaFinanca(klientetFiltruar)">{{klientetFiltruar?.pershkrimi}}</button>
+                    </p>
+                </div>
+                <div *ngIf="klientIzgjedhurNgaFinanca">
+                    <table class="table table-bordered table-hover table-sm">
+                        <tr *ngFor="let klient of klientZgjedhurNgaFinanca | keyvalue">
+                            <td>{{ klient.key }}</td>
+                            <td>{{ klient.value }}</td>
+                        </tr>
+                    </table>
+                    <button class="btn btn-xs btn-secondary mb-2" (click)="pastroKlientinEZgjedhur()"
+                        type="button">Cancel</button>
+                    <!-- <pre>{{klientZgjedhurNgaFinanca | json}}</pre> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

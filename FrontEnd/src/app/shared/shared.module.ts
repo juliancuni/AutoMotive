@@ -35,6 +35,13 @@ import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { UrdherDiagnozeComponent } from './components/urdher-diagnoze/urdher-diagnoze.component';
+import { UrdherPuneComponent } from './components/urdher-pune/urdher-pune.component';
+import { NewPerdoruesComponent } from './components/new-perdorues/new-perdorues.component';
+import { NewKlientComponent } from './components/new-klient/new-klient.component';
+import { NewPerfaqesuesComponent } from './components/new-perfaqesues/new-perfaqesues.component';
+import { NewMjetComponent } from './components/new-mjet/new-mjet.component';
 // import { AgGridModule } from 'ag-grid-angular';
 
 
@@ -64,7 +71,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         TypeaheadModule.forRoot(),
         ToasterModule,
         FileUploadModule,
-        NgbModule
+        NgbModule,
+        DragDropModule
         // AgGridModule.withComponents([])
     ],
     providers: [
@@ -78,7 +86,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         VectormapDirective,
         NowDirective,
         ScrollableDirective,
-        JqcloudDirective
+        JqcloudDirective,
+        UrdherDiagnozeComponent,
+        UrdherPuneComponent,
+        NewPerdoruesComponent,
+        NewKlientComponent,
+        NewPerfaqesuesComponent,
+        NewMjetComponent,
     ],
     exports: [
         CommonModule,
@@ -113,7 +127,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         ScrollableDirective,
         JqcloudDirective,
         FileUploadModule,
-        NgbModule
+        UrdherDiagnozeComponent,
+        UrdherPuneComponent,
+        NewPerdoruesComponent,
+        NewPerfaqesuesComponent,
+        NewMjetComponent,
+        NgbModule,
+        NewKlientComponent,
+        DragDropModule
         // AgGridModule
     ]
 })

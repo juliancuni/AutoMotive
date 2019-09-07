@@ -27,6 +27,14 @@
     },
     "vlera": {
       "type": "string"
+    },
+    "krijuar": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "modifikuar": {
+      "type": "date",
+      "defaultFn": "now"
     }
   },
   "validations": [],

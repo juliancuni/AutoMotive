@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PerdoruesApi } from '../../sdk/services/custom';
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
-
 
 
 @NgModule({
@@ -12,7 +10,6 @@ import { UnauthGuard } from './guards/unauth.guard';
   ],
   declarations: [],
   providers: [
-    PerdoruesApi,
     AuthGuard,
     UnauthGuard,
   ]

@@ -2,6 +2,7 @@
 import {
   Mjeti,
   Perfaqesues,
+  UrdherDiagnoze,
   UrdherPune,
   Preventiv,
   LiberMjeti
@@ -16,9 +17,12 @@ export interface KlientInterface {
   "nius"?: string;
   "email"?: string;
   "adresa"?: string;
+  "krijuar"?: Date;
+  "modifikuar"?: Date;
   "id"?: any;
   mjetet?: Mjeti[];
   perfaqesues?: Perfaqesues[];
+  urdheraDiagnoze?: UrdherDiagnoze[];
   urdheraPune?: UrdherPune[];
   preventiva?: Preventiv[];
   liberMjeti?: LiberMjeti[];
@@ -32,9 +36,12 @@ export class Klient implements KlientInterface {
   "nius": string;
   "email": string;
   "adresa": string;
+  "krijuar": Date;
+  "modifikuar": Date;
   "id": any;
   mjetet: Mjeti[];
   perfaqesues: Perfaqesues[];
+  urdheraDiagnoze: UrdherDiagnoze[];
   urdheraPune: UrdherPune[];
   preventiva: Preventiv[];
   liberMjeti: LiberMjeti[];
@@ -99,6 +106,14 @@ export class Klient implements KlientInterface {
           name: 'adresa',
           type: 'string'
         },
+        "krijuar": {
+          name: 'krijuar',
+          type: 'Date'
+        },
+        "modifikuar": {
+          name: 'modifikuar',
+          type: 'Date'
+        },
         "id": {
           name: 'id',
           type: 'any'
@@ -121,6 +136,14 @@ export class Klient implements KlientInterface {
           modelThrough: 'KlientPerfaqesuesMapper',
           keyThrough: 'perfaqesuesId',
           keyFrom: 'id',
+          keyTo: 'klientId'
+        },
+        urdheraDiagnoze: {
+          name: 'urdheraDiagnoze',
+          type: 'UrdherDiagnoze[]',
+          model: 'UrdherDiagnoze',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
           keyTo: 'klientId'
         },
         urdheraPune: {

@@ -11,14 +11,16 @@ import {
 
 declare var Object: any;
 export interface MjetiInterface {
-  "brand"?: string;
-  "model": string;
-  "viti": number;
+  "brand": string;
+  "model"?: string;
+  "viti"?: number;
   "nrShasise"?: string;
-  "targa"?: string;
-  "nePark": boolean;
-  "neOficine": boolean;
-  "kilometrazhi": number;
+  "targa": string;
+  "nePark"?: boolean;
+  "neOficine"?: boolean;
+  "kilometrazhi"?: number;
+  "krijuar"?: Date;
+  "modifikuar"?: Date;
   "id"?: any;
   "kategoriId"?: any;
   "klientId"?: any;
@@ -41,6 +43,8 @@ export class Mjeti implements MjetiInterface {
   "nePark": boolean;
   "neOficine": boolean;
   "kilometrazhi": number;
+  "krijuar": Date;
+  "modifikuar": Date;
   "id": any;
   "kategoriId": any;
   "klientId": any;
@@ -87,8 +91,7 @@ export class Mjeti implements MjetiInterface {
       properties: {
         "brand": {
           name: 'brand',
-          type: 'string',
-          default: 'model'
+          type: 'string'
         },
         "model": {
           name: 'model',
@@ -117,6 +120,14 @@ export class Mjeti implements MjetiInterface {
         "kilometrazhi": {
           name: 'kilometrazhi',
           type: 'number'
+        },
+        "krijuar": {
+          name: 'krijuar',
+          type: 'Date'
+        },
+        "modifikuar": {
+          name: 'modifikuar',
+          type: 'Date'
         },
         "id": {
           name: 'id',

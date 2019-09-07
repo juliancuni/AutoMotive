@@ -1,6 +1,8 @@
 /* tslint:disable */
 import {
-  Klient
+  Klient,
+  UrdherDiagnoze,
+  UrdherPune
 } from '../index';
 
 declare var Object: any;
@@ -10,8 +12,12 @@ export interface PerfaqesuesInterface {
   "telefon"?: string;
   "email"?: string;
   "adresa"?: string;
+  "krijuar"?: Date;
+  "modifikuar"?: Date;
   "id"?: any;
   klientet?: Klient[];
+  urdheraDiagnoze?: UrdherDiagnoze[];
+  urdheraPune?: UrdherPune[];
 }
 
 export class Perfaqesues implements PerfaqesuesInterface {
@@ -20,8 +26,12 @@ export class Perfaqesues implements PerfaqesuesInterface {
   "telefon": string;
   "email": string;
   "adresa": string;
+  "krijuar": Date;
+  "modifikuar": Date;
   "id": any;
   klientet: Klient[];
+  urdheraDiagnoze: UrdherDiagnoze[];
+  urdheraPune: UrdherPune[];
   constructor(data?: PerfaqesuesInterface) {
     Object.assign(this, data);
   }
@@ -75,6 +85,14 @@ export class Perfaqesues implements PerfaqesuesInterface {
           name: 'adresa',
           type: 'string'
         },
+        "krijuar": {
+          name: 'krijuar',
+          type: 'Date'
+        },
+        "modifikuar": {
+          name: 'modifikuar',
+          type: 'Date'
+        },
         "id": {
           name: 'id',
           type: 'any'
@@ -89,6 +107,22 @@ export class Perfaqesues implements PerfaqesuesInterface {
           modelThrough: 'KlientPerfaqesuesMapper',
           keyThrough: 'klientId',
           keyFrom: 'id',
+          keyTo: 'perfaqesuesId'
+        },
+        urdheraDiagnoze: {
+          name: 'urdheraDiagnoze',
+          type: 'UrdherDiagnoze[]',
+          model: 'UrdherDiagnoze',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'perfaqesuesId'
+        },
+        urdheraPune: {
+          name: 'urdheraPune',
+          type: 'UrdherPune[]',
+          model: 'UrdherPune',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
           keyTo: 'perfaqesuesId'
         },
       }

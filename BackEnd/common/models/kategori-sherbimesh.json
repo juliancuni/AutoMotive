@@ -28,7 +28,7 @@
       "foreignKey": ""
     },
     "urdheraPune": {
-      "type": "hasMany",
+      "type": "hasAndBelongsToMany",
       "model": "UrdherPune",
       "foreignKey": ""
     }

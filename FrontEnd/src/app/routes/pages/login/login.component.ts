@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.errorLoginTxt = "";
             this.perdoruesResponseErr = false;
             this.fjaleKalimiResponseErr = false;
-            this._perdorues.login(kredencialet, "", value.remebmerMe).subscribe((res) => {
+            this._perdorues.login(kredencialet).subscribe((res) => {
                 this._router.navigate(['/home']);
             }, (err) => {
                 this.loading = false;

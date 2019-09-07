@@ -5,8 +5,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { Subscription } from 'rxjs/Subscription';
 import { FileUploader } from 'ng2-file-upload';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import { SettingsService } from 'src/app/core/settings/settings.service';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
@@ -27,7 +25,7 @@ export class ProfileComponent implements OnInit {
     public uploader = new FileUploader({ url: URL, allowedMimeType: ['image/png', 'image/gif', 'image/jpeg'] });
     private subscriptions: Subscription[] = new Array<Subscription>();
 
-    private editavatar: boolean = false;
+    public editavatar: boolean = false;
 
     bsValue = new Date();
     bsConfig = {
@@ -40,9 +38,8 @@ export class ProfileComponent implements OnInit {
         private _perdorues: PerdoruesApi,
         private _fb: FormBuilder,
         private _lbAuth: LoopBackAuth,
-        private _http: HttpClient,
-        private settings: SettingsService,
         private _notificationService: NotificationsService,
+        public settings: SettingsService,
     ) { }
 
     enableEdit(field: string): void {
@@ -87,6 +84,7 @@ export class ProfileComponent implements OnInit {
                     this._perdorues.upsertPatch(updatedPerdorues).subscribe((res: Perdorues) => {
                         this.perdorues = res;
                         this._notificationService.perdoruesDataChanged(this.perdorues);
+                        this._lbAuth.setUser(res);
                     }, (err) => {
                         if (typeof err.details.codes !== 'undefined' && err.details.codes.username[0] === "uniqueness") {
                             this.perdoruesDataForm.get(field).setErrors({ perdoruesNotUnique: true })

@@ -17,6 +17,7 @@ export class PerdoruesComponent implements OnInit {
     public tableColumnDefs: any[];
     public tableRowData: any[];
     public loading: boolean = false;
+    public showNewPerdorues: boolean;
     constructor(
         private _perdorues: PerdoruesApi,
     ) { }
@@ -32,6 +33,14 @@ export class PerdoruesComponent implements OnInit {
 
     pezullo(perdorues: Perdorues) {
 
+    }
+
+    hapMbyllNgaNPChild(ev) {
+        this.showNewPerdorues = ev;
+    }
+
+    shtoPerdorues(ev: Perdorues) {
+        this.perdoruesit.push(ev);
     }
 
     ngOnInit() {

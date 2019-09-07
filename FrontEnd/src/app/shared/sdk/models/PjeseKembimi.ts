@@ -1,4 +1,7 @@
 /* tslint:disable */
+import {
+  UrdherPune
+} from '../index';
 
 declare var Object: any;
 export interface PjeseKembimiInterface {
@@ -7,6 +10,9 @@ export interface PjeseKembimiInterface {
   "pershkrimi"?: string;
   "pozicioni"?: string;
   "cmimShitje"?: number;
+  "krijuar"?: Date;
+  "modifikuar"?: Date;
+  urdheraPune?: UrdherPune[];
 }
 
 export class PjeseKembimi implements PjeseKembimiInterface {
@@ -15,6 +21,9 @@ export class PjeseKembimi implements PjeseKembimiInterface {
   "pershkrimi": string;
   "pozicioni": string;
   "cmimShitje": number;
+  "krijuar": Date;
+  "modifikuar": Date;
+  urdheraPune: UrdherPune[];
   constructor(data?: PjeseKembimiInterface) {
     Object.assign(this, data);
   }
@@ -68,8 +77,26 @@ export class PjeseKembimi implements PjeseKembimiInterface {
           name: 'cmimShitje',
           type: 'number'
         },
+        "krijuar": {
+          name: 'krijuar',
+          type: 'Date'
+        },
+        "modifikuar": {
+          name: 'modifikuar',
+          type: 'Date'
+        },
       },
       relations: {
+        urdheraPune: {
+          name: 'urdheraPune',
+          type: 'UrdherPune[]',
+          model: 'UrdherPune',
+          relationType: 'hasMany',
+          modelThrough: 'UrdherPunePjeseKembimi',
+          keyThrough: 'urdherPuneId',
+          keyFrom: 'id',
+          keyTo: 'pjeseKembimiId'
+        },
       }
     }
   }

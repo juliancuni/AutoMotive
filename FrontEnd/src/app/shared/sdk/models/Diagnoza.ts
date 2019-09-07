@@ -2,7 +2,8 @@
 import {
   UrdherDiagnoze,
   Mjeti,
-  KategoriSherbimesh
+  KategoriSherbimesh,
+  Perdorues
 } from '../index';
 
 declare var Object: any;
@@ -11,15 +12,19 @@ export interface DiagnozaInterface {
   "sasia"?: number;
   "gjendjaDifektit"?: number;
   "kilometrazhi"?: number;
+  "krijuar"?: Date;
+  "modifikuar"?: Date;
   "id"?: any;
   "urdherDiagnozeId"?: any;
   "mjetiId"?: any;
   "kategoriSherbimeshId"?: any;
+  "perdoruesId"?: any;
   "kategoriMjeteshId"?: any;
   "preventivId"?: any;
   urdherDiagnoze?: UrdherDiagnoze;
   mjeti?: Mjeti;
   kategoriSherbimesh?: KategoriSherbimesh;
+  perdorues?: Perdorues;
 }
 
 export class Diagnoza implements DiagnozaInterface {
@@ -27,15 +32,19 @@ export class Diagnoza implements DiagnozaInterface {
   "sasia": number;
   "gjendjaDifektit": number;
   "kilometrazhi": number;
+  "krijuar": Date;
+  "modifikuar": Date;
   "id": any;
   "urdherDiagnozeId": any;
   "mjetiId": any;
   "kategoriSherbimeshId": any;
+  "perdoruesId": any;
   "kategoriMjeteshId": any;
   "preventivId": any;
   urdherDiagnoze: UrdherDiagnoze;
   mjeti: Mjeti;
   kategoriSherbimesh: KategoriSherbimesh;
+  perdorues: Perdorues;
   constructor(data?: DiagnozaInterface) {
     Object.assign(this, data);
   }
@@ -85,6 +94,14 @@ export class Diagnoza implements DiagnozaInterface {
           name: 'kilometrazhi',
           type: 'number'
         },
+        "krijuar": {
+          name: 'krijuar',
+          type: 'Date'
+        },
+        "modifikuar": {
+          name: 'modifikuar',
+          type: 'Date'
+        },
         "id": {
           name: 'id',
           type: 'any'
@@ -99,6 +116,10 @@ export class Diagnoza implements DiagnozaInterface {
         },
         "kategoriSherbimeshId": {
           name: 'kategoriSherbimeshId',
+          type: 'any'
+        },
+        "perdoruesId": {
+          name: 'perdoruesId',
           type: 'any'
         },
         "kategoriMjeteshId": {
@@ -133,6 +154,14 @@ export class Diagnoza implements DiagnozaInterface {
           model: 'KategoriSherbimesh',
           relationType: 'belongsTo',
                   keyFrom: 'kategoriSherbimeshId',
+          keyTo: 'id'
+        },
+        perdorues: {
+          name: 'perdorues',
+          type: 'Perdorues',
+          model: 'Perdorues',
+          relationType: 'belongsTo',
+                  keyFrom: 'perdoruesId',
           keyTo: 'id'
         },
       }

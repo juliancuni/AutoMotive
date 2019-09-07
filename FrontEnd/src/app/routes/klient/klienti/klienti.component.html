@@ -383,15 +383,13 @@
                             <div class="form-group">
                                 <input class="form-control" type="text" placeholder="Targa. Psh. AA927AU"
                                     formControlName="targa" />
-                                <div class="text-danger"
-                                    *ngIf="mjeteDataForm.controls['targa'].hasError('required')">
+                                <div class="text-danger" *ngIf="mjeteDataForm.controls['targa'].hasError('required')">
                                     Targa s'mund të lihet bosh.</div>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" type="text" placeholder="Brand. Psh. Toyota ose Land Rover"
                                     formControlName="brand" />
-                                <div class="text-danger"
-                                    *ngIf="mjeteDataForm.controls['brand'].hasError('required')">
+                                <div class="text-danger" *ngIf="mjeteDataForm.controls['brand'].hasError('required')">
                                     Brandi s'mund të lihet bosh.</div>
                             </div>
                             <div class="form-group">

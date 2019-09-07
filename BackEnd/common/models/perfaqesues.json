@@ -22,6 +22,14 @@
     },
     "adresa": {
       "type": "string"
+    },
+    "krijuar": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "modifikuar": {
+      "type": "date",
+      "defaultFn": "now"
     }
   },
   "validations": [],
@@ -31,6 +39,16 @@
       "model": "Klient",
       "foreignKey": "perfaqesuesId",
       "through": "KlientPerfaqesuesMapper"
+    },
+    "urdheraDiagnoze": {
+      "type": "hasMany",
+      "model": "UrdherDiagnoze",
+      "foreignKey": ""
+    },
+    "urdheraPune": {
+      "type": "hasMany",
+      "model": "UrdherPune",
+      "foreignKey": ""
     }
   },
   "acls": [],

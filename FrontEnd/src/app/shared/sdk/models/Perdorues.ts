@@ -1,7 +1,9 @@
 /* tslint:disable */
 import {
   Role,
-  UrdherDiagnoze
+  UrdherDiagnoze,
+  Diagnoza,
+  UrdherPune
 } from '../index';
 
 declare var Object: any;
@@ -14,6 +16,9 @@ export interface PerdoruesInterface {
   "avatar"?: string;
   "enabled": boolean;
   "adresa"?: string;
+  "krijuar"?: Date;
+  "modifikuar"?: Date;
+  "mekanik": boolean;
   "realm"?: string;
   "username"?: string;
   "emailVerified"?: boolean;
@@ -21,8 +26,11 @@ export interface PerdoruesInterface {
   "password"?: string;
   accessTokens?: any[];
   rolet?: Role[];
-  urdheraTeLeshuar?: UrdherDiagnoze[];
-  urdheraTeMarre?: UrdherDiagnoze[];
+  urdheraDiagnozeTeLeshuar?: UrdherDiagnoze[];
+  urdheraDiagnozeTeMarre?: UrdherDiagnoze[];
+  diagnozat?: Diagnoza[];
+  urdheraPuneTeLeshuar?: UrdherPune[];
+  urdheraPuneTeMarre?: UrdherPune[];
 }
 
 export class Perdorues implements PerdoruesInterface {
@@ -34,6 +42,9 @@ export class Perdorues implements PerdoruesInterface {
   "avatar": string;
   "enabled": boolean;
   "adresa": string;
+  "krijuar": Date;
+  "modifikuar": Date;
+  "mekanik": boolean;
   "realm": string;
   "username": string;
   "emailVerified": boolean;
@@ -41,8 +52,11 @@ export class Perdorues implements PerdoruesInterface {
   "password": string;
   accessTokens: any[];
   rolet: Role[];
-  urdheraTeLeshuar: UrdherDiagnoze[];
-  urdheraTeMarre: UrdherDiagnoze[];
+  urdheraDiagnozeTeLeshuar: UrdherDiagnoze[];
+  urdheraDiagnozeTeMarre: UrdherDiagnoze[];
+  diagnozat: Diagnoza[];
+  urdheraPuneTeLeshuar: UrdherPune[];
+  urdheraPuneTeMarre: UrdherPune[];
   constructor(data?: PerdoruesInterface) {
     Object.assign(this, data);
   }
@@ -109,6 +123,19 @@ export class Perdorues implements PerdoruesInterface {
           name: 'adresa',
           type: 'string'
         },
+        "krijuar": {
+          name: 'krijuar',
+          type: 'Date'
+        },
+        "modifikuar": {
+          name: 'modifikuar',
+          type: 'Date'
+        },
+        "mekanik": {
+          name: 'mekanik',
+          type: 'boolean',
+          default: false
+        },
         "realm": {
           name: 'realm',
           type: 'string'
@@ -149,21 +176,45 @@ export class Perdorues implements PerdoruesInterface {
           keyFrom: 'id',
           keyTo: 'principalId'
         },
-        urdheraTeLeshuar: {
-          name: 'urdheraTeLeshuar',
+        urdheraDiagnozeTeLeshuar: {
+          name: 'urdheraDiagnozeTeLeshuar',
           type: 'UrdherDiagnoze[]',
           model: 'UrdherDiagnoze',
           relationType: 'hasMany',
                   keyFrom: 'id',
-          keyTo: 'leshoiPerdoruesId'
+          keyTo: 'leshoi'
         },
-        urdheraTeMarre: {
-          name: 'urdheraTeMarre',
+        urdheraDiagnozeTeMarre: {
+          name: 'urdheraDiagnozeTeMarre',
           type: 'UrdherDiagnoze[]',
           model: 'UrdherDiagnoze',
           relationType: 'hasMany',
                   keyFrom: 'id',
-          keyTo: 'destinuarPerdoruesId'
+          keyTo: 'morri'
+        },
+        diagnozat: {
+          name: 'diagnozat',
+          type: 'Diagnoza[]',
+          model: 'Diagnoza',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'perdoruesId'
+        },
+        urdheraPuneTeLeshuar: {
+          name: 'urdheraPuneTeLeshuar',
+          type: 'UrdherPune[]',
+          model: 'UrdherPune',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'leshoi'
+        },
+        urdheraPuneTeMarre: {
+          name: 'urdheraPuneTeMarre',
+          type: 'UrdherPune[]',
+          model: 'UrdherPune',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'morri'
         },
       }
     }

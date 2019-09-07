@@ -1,5 +1,11 @@
+<!-- new Perdorues Form -->
+<app-new-perdorues [showNewPerdorues]="showNewPerdorues" (hapMbyllNPNgaSelf)="hapMbyllNgaNPChild($event)" (shtoPerdorues)="shtoPerdorues($event)"></app-new-perdorues>
+<!-- End new Perdorues Form -->
+
 <div class="card card-default">
-    <div class="card-header">Përdorues total {{perdoruesit?.length}}</div>
+    <div class="card-header">Përdorues total {{perdoruesit?.length}}
+        <button class="btn btn-secondary btn-sm float-right"  (click)="showNewPerdorues = !showNewPerdorues">Reg_Perdorues</button>
+    </div>
     <div class="table-responsive">
         <table class="table table-hover table-condensed">
             <thead>

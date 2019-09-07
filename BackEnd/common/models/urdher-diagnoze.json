@@ -10,11 +10,22 @@
     "pershkrim": {
       "type": "string"
     },
+    "leshoi": {
+      "type": "string"
+    },
     "prioriteti": {
       "type": "number"
     },
     "statusi": {
       "type": "number"
+    },
+    "krijuar": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "modifikuar": {
+      "type": "date",
+      "defaultFn": "now"
     }
   },
   "validations": [],
@@ -22,17 +33,22 @@
     "mjeti": {
       "type": "belongsTo",
       "model": "Mjeti",
-      "foreignKey": "mejtiId"
+      "foreignKey": ""
     },
-    "leshuarNga": {
+    "klient": {
+      "type": "belongsTo",
+      "model": "Klient",
+      "foreignKey": ""
+    },
+    "perdoruesMorri": {
       "type": "belongsTo",
       "model": "Perdorues",
-      "foreignKey": "leshuarPerdoruesId"
+      "foreignKey": ""
     },
-    "destinuarPer": {
+    "perfaqesues": {
       "type": "belongsTo",
-      "model": "Perdorues",
-      "foreignKey": "destinuarPerdoruesId"
+      "model": "Perfaqesues",
+      "foreignKey": ""
     }
   },
   "acls": [],

@@ -90,6 +90,27 @@ module.exports = function (app: any) {
                                                         console.log(`ACL model: Ndermarrje : ALLOW $everyone findOne u krijua`)
                                                     })
                                                     Role.create({
+                                                        name: "admin",
+                                                        description: "Administratori i ndermarrjes"
+                                                    }, (err: any, role: any) => {
+                                                        if (err) console.log(err);
+                                                        console.log(`U krijua role ${role.name}`);
+                                                    });
+                                                    Role.create({
+                                                        name: "operator",
+                                                        description: "Data entry"
+                                                    }, (err: any, role: any) => {
+                                                        if (err) console.log(err);
+                                                        console.log(`U krijua role ${role.name}`);
+                                                    });
+                                                    Role.create({
+                                                        name: "mekanik",
+                                                        description: "Punonjes mekanik"
+                                                    }, (err: any, role: any) => {
+                                                        if (err) console.log(err);
+                                                        console.log(`U krijua role ${role.name}`);
+                                                    });
+                                                    Role.create({
                                                         name: "klient",
                                                         description: "klient role. Nuk ka shume te drejta"
                                                     }, (err: any, role: any) => {

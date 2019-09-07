@@ -10,6 +10,8 @@ export interface NdermarrjeInterface {
   "telefon"?: string;
   "email"?: string;
   "nius"?: string;
+  "krijuar"?: Date;
+  "modifikuar"?: Date;
   "id"?: any;
 }
 
@@ -22,6 +24,8 @@ export class Ndermarrje implements NdermarrjeInterface {
   "telefon": string;
   "email": string;
   "nius": string;
+  "krijuar": Date;
+  "modifikuar": Date;
   "id": any;
   constructor(data?: NdermarrjeInterface) {
     Object.assign(this, data);
@@ -88,6 +92,14 @@ export class Ndermarrje implements NdermarrjeInterface {
         "nius": {
           name: 'nius',
           type: 'string'
+        },
+        "krijuar": {
+          name: 'krijuar',
+          type: 'Date'
+        },
+        "modifikuar": {
+          name: 'modifikuar',
+          type: 'Date'
         },
         "id": {
           name: 'id',

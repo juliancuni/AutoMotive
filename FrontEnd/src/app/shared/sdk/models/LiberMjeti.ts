@@ -8,6 +8,8 @@ declare var Object: any;
 export interface LiberMjetiInterface {
   "data"?: Date;
   "shenime"?: string;
+  "krijuar"?: Date;
+  "modifikuar"?: Date;
   "id"?: any;
   "klientId"?: any;
   "mjetiId"?: any;
@@ -18,6 +20,8 @@ export interface LiberMjetiInterface {
 export class LiberMjeti implements LiberMjetiInterface {
   "data": Date;
   "shenime": string;
+  "krijuar": Date;
+  "modifikuar": Date;
   "id": any;
   "klientId": any;
   "mjetiId": any;
@@ -63,6 +67,14 @@ export class LiberMjeti implements LiberMjetiInterface {
         "shenime": {
           name: 'shenime',
           type: 'string'
+        },
+        "krijuar": {
+          name: 'krijuar',
+          type: 'Date'
+        },
+        "modifikuar": {
+          name: 'modifikuar',
+          type: 'Date'
         },
         "id": {
           name: 'id',

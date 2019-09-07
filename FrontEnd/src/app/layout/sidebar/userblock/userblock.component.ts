@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { UserblockService } from './userblock.service';
-import { Perdorues, PerdoruesApi } from 'src/app/shared/sdk';
+import { Perdorues, PerdoruesApi, LoopBackAuth } from 'src/app/shared/sdk';
 import { Router } from '@angular/router';
 import { SettingsService } from 'src/app/core/settings/settings.service';
 
@@ -16,23 +16,13 @@ export class UserblockComponent implements OnInit {
         public userblockService: UserblockService,
         private _perdorues: PerdoruesApi,
         private _router: Router,
-        private settings: SettingsService
+        private settings: SettingsService,
+        private _lbAuth: LoopBackAuth,
         ) {
     }
     ngOnInit() {
-        if (localStorage.getItem("PerdoruesData")) {
-            this.perdorues = JSON.parse(localStorage.getItem("PerdoruesData"));
-        } else {
-            this._perdorues.getCurrent().subscribe((res: Perdorues) => {
-                this.perdorues = res;
-            }, (err) => {
-                console.log(err);
-            }, () => {
-                localStorage.setItem("PerdoruesData", JSON.stringify(this.perdorues))
-            })
-        }
-
-    }
+        this.perdorues = this._lbAuth.getCurrentUserData();
+     }
     userBlockIsVisible() {
         return this.userblockService.getVisibility();
     }
@@ -41,7 +31,6 @@ export class UserblockComponent implements OnInit {
     }
     postLogOut(): void {
         localStorage.removeItem("NdermarrjeData");
-        localStorage.removeItem("PerdoruesData");
         this._perdorues.logout().subscribe();
         this._router.navigate(['/login']);
     }

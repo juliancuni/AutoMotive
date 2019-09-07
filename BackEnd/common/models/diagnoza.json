@@ -18,6 +18,14 @@
     },
     "kilometrazhi": {
       "type": "number"
+    },
+    "krijuar": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "modifikuar": {
+      "type": "date",
+      "defaultFn": "now"
     }
   },
   "validations": [],
@@ -35,6 +43,11 @@
     "kategoriSherbimesh": {
       "type": "belongsTo",
       "model": "KategoriSherbimesh",
+      "foreignKey": ""
+    },
+    "perdorues": {
+      "type": "belongsTo",
+      "model": "Perdorues",
       "foreignKey": ""
     }
   },

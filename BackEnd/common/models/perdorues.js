@@ -9,12 +9,14 @@ module.exports = function (Perdorues) {
     //Disa validation me mesazhe te percaktuara.
     //<TODO> duhen rishikuar. Erroret nuk jane standard.
     Perdorues.beforeRemote('create', function (context, empty, next) {
+
         if (context.args.data.password.length < 6) {
             let error = new Error("Fjalëkalimi i shkurtër. Duhet 6 karaktere")
             error.statusCode = 422;
             error.code = "FJALEKALIMI_SHKURTER";
             return next(error);
         }
+
         Perdorues.validatesUniquenessOf('email', { code: "EMAIL_UNIQUE", message: 'Ky email është regjistruar më parë' });
         Perdorues.validatesUniquenessOf('username', { code: "USERNAME_UNIQUE", message: 'Ky përdorues është regjistruar më parë' });
         next();
@@ -51,47 +53,53 @@ module.exports = function (Perdorues) {
     })
     //Pasi user eshte regjistruar dergo email per konfirmim
     Perdorues.afterRemote('create', function (context, user, next) {
-        gjejNdermarrje().then(function (ndermarrje) {
-            const ndermarrjeDomain = ndermarrje.domain.split(":")[0];
+        if (context.req.accessToken) {
+            user.emailVerified = true;
+            Perdorues.upsert(user, function (err, user) {
+                if (err) next(err);
+            })
+        } else {
+            gjejNdermarrje().then(function (ndermarrje) {
+                const ndermarrjeDomain = ndermarrje.domain.split(":")[0];
+                var options = {
+                    type: 'email',
+                    to: user.email,
+                    from: 'noreply@' + ndermarrje.domain,
+                    subject: 'Verifikim ' + ndermarrje.emer,
+                    headers: { 'Mime-Version': '1.0' },
+                    template: './templates/verify.ejs',
+                    redirect: (process.env.NODE_ENV == "production") ? "https://" + ndermarrje.domain + "/login/?uid=" + user.id : "http://localhost:4200/login/?uid=" + user.id,
+                    user: user,
+                    ndermarrje: ndermarrje,
+                    host: (process.env.NODE_ENV == "production") ? ndermarrje.domain : ndermarrjeDomain,
+                    protocol: (process.env.NODE_ENV == "production") ? 'https' : 'http',
+                    port: (process.env.NODE_ENV == "production") ? 443 : null,
+                };
 
-            var options = {
-                type: 'email',
-                to: user.email,
-                from: 'noreply@' + ndermarrje.domain,
-                subject: 'Verifikim ' + ndermarrje.emer,
-                headers: { 'Mime-Version': '1.0' },
-                template: './templates/verify.ejs',
-                redirect: (process.env.NODE_ENV == "production") ? "https://" + ndermarrje.domain + "/login/?uid=" + user.id : "http://localhost:4200/login/?uid=" + user.id,
-                user: user,
-                ndermarrje: ndermarrje,
-                host: (process.env.NODE_ENV == "production") ? ndermarrje.domain : ndermarrjeDomain,
-                protocol: (process.env.NODE_ENV == "production") ? 'https' : 'http',
-                port: (process.env.NODE_ENV == "production") ? 443 : null,
-            };
-
-            user.verify(options, function (err, response) {
-                if (err) {
-                    User.deleteById(user.id);
-                    return next(err);
-                }
-            });
-            //Pasi te krijohet user i ri (nga admin, root, ose veteRegjistrim) shiko nese i eshte percaktuar ndonje role
-            //Nese jo caktoi automatikisht rolin klient. 
-            if (!user.role) {
-                const Role = app.models.Role;
-                Role.findOne({ where: { name: "klient" } }, function (err, role) {
-                    if (err) next(err);
-                    role.principals.create({
-                        principalType: app.models.RoleMapping.USER,
-                        principalId: user.id
-                    }, function (err, principal) {
-                        if (err) next(err)
+                user.verify(options, function (err, response) {
+                    if (err) {
+                        User.deleteById(user.id);
+                        return next(err);
+                    }
+                });
+                //Pasi te krijohet user i ri (nga admin, root, ose veteRegjistrim) shiko nese i eshte percaktuar ndonje role
+                //Nese jo caktoi automatikisht rolin klient. 
+                if (!user.role) {
+                    const Role = app.models.Role;
+                    Role.findOne({ where: { name: "klient" } }, function (err, role) {
+                        if (err) next(err);
+                        role.principals.create({
+                            principalType: app.models.RoleMapping.USER,
+                            principalId: user.id
+                        }, function (err, principal) {
+                            if (err) next(err)
+                        })
                     })
-                })
-            }
-        }).catch(function (err) {
-            next(err);
-        })
+                }
+            }).catch(function (err) {
+                next(err);
+            })
+        }
         next();
     });
     //Before Login Shiko per vlefshmerine e username ose password
@@ -147,40 +155,13 @@ module.exports = function (Perdorues) {
                 subject: ndermarrje.emer + " - Reset Fjalëkalimin",
                 html: html,
                 user: info.user
-            }, function(err, mail) {
-                if(err) console.log(err);
+            }, function (err, mail) {
+                if (err) console.log(err);
             })
         }).catch(function (err) {
             console.log(err);
         })
     })
-    // //Gjej Rolet Remote Method
-    // Perdorues.gjejRolet = async (perdoruesId) => {
-    //     const RoleMapping = app.models.RoleMapping;
-    //     const Role = app.models.Role;
-    //     let rolet = [];
-    //     try {
-    //         let mappings = await RoleMapping.find({ where: { principalId: perdoruesId } });
-            
-    //         let mappsIdArr = [];
-    //         mappings.forEach(mapp => {
-    //             mappsIdArr.push(mapp.roleId);
-    //         });
-    //     rolet = await Role.find({where: {id: {inq: mappsIdArr}}});
-           
-    //     } catch (error) {
-    //         err = new Error()
-    //         mapps = [error.message];
-    //     }
-    //     return rolet;
-    // };
-    // //Gjej Rolet Definitions
-    // Perdorues.remoteMethod('gjejRolet', {
-    //     description: "Gjej Rolet per Perdoruesin me perdoruesId",
-    //     accepts: [{ arg: 'perdoruesId', type: 'string' }],
-    //     returns: [{ arg: 'Rolet', type: 'array' }],
-    //     http: [{ verb: "get", path: "/rolet" }],
-    // });
     //Gjejndermarrje. 
     function gjejNdermarrje() {
         return new Promise(function (resolve, reject) {

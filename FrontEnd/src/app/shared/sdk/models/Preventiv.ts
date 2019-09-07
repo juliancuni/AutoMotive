@@ -14,6 +14,8 @@ export interface PreventivInterface {
   "parashikimDorezimi"?: Date;
   "cmimi"?: string;
   "vlera"?: string;
+  "krijuar"?: Date;
+  "modifikuar"?: Date;
   "id"?: any;
   "klientId"?: any;
   "mjetiId"?: any;
@@ -30,6 +32,8 @@ export class Preventiv implements PreventivInterface {
   "parashikimDorezimi": Date;
   "cmimi": string;
   "vlera": string;
+  "krijuar": Date;
+  "modifikuar": Date;
   "id": any;
   "klientId": any;
   "mjetiId": any;
@@ -96,6 +100,14 @@ export class Preventiv implements PreventivInterface {
         "vlera": {
           name: 'vlera',
           type: 'string'
+        },
+        "krijuar": {
+          name: 'krijuar',
+          type: 'Date'
+        },
+        "modifikuar": {
+          name: 'modifikuar',
+          type: 'Date'
         },
         "id": {
           name: 'id',

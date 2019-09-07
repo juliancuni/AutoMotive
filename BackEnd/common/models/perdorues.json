@@ -38,6 +38,19 @@
     },
     "adresa": {
       "type": "string"
+    },
+    "krijuar": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "modifikuar": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "mekanik": {
+      "type": "boolean",
+      "required": true,
+      "default": false
     }
   },
   "validations": [],
@@ -48,15 +61,30 @@
       "foreignKey": "principalId",
       "through": "RoleMapping"
     },
-    "urdheraTeLeshuar": {
+    "urdheraPuneTeLeshuar": {
       "type": "hasMany",
-      "model": "UrdherDiagnoze",
-      "foreignKey": "leshoiPerdoruesId"
+      "model": "UrdherPune",
+      "foreignKey": "leshoi"
     },
-    "urdheraTeMarre": {
+    "urdheraPuneTeMarre": {
+      "type": "hasMany",
+      "model": "UrdherPune",
+      "foreignKey": "morri"
+    },
+    "urdheraDiagnozeTeLeshuar": {
       "type": "hasMany",
       "model": "UrdherDiagnoze",
-      "foreignKey": "destinuarPerdoruesId"
+      "foreignKey": "leshoi"
+    },
+    "urdheraDiagnozeTeMarre": {
+      "type": "hasMany",
+      "model": "UrdherDiagnoze",
+      "foreignKey": "morri"
+    },
+    "diagnozat": {
+      "type": "hasMany",
+      "model": "Diagnoza",
+      "foreignKey": ""
     }
   },
   "acls": [],

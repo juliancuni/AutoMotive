@@ -218,6 +218,99 @@ export class KategoriSherbimeshApi extends BaseLoopBackApi {
   }
 
   /**
+   * Add a related item by id for urdheraPune.
+   *
+   * @param {any} id KategoriSherbimesh id
+   *
+   * @param {any} fk Foreign key for urdheraPune
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `KategoriSherbimesh` object.)
+   * </em>
+   */
+  public linkUrdheraPune(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/KategoriSherbimesh/:id/urdheraPune/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Remove the urdheraPune relation to an item by id.
+   *
+   * @param {any} id KategoriSherbimesh id
+   *
+   * @param {any} fk Foreign key for urdheraPune
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public unlinkUrdheraPune(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/KategoriSherbimesh/:id/urdheraPune/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Check the existence of urdheraPune relation to an item by id.
+   *
+   * @param {any} id KategoriSherbimesh id
+   *
+   * @param {any} fk Foreign key for urdheraPune
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `KategoriSherbimesh` object.)
+   * </em>
+   */
+  public existsUrdheraPune(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "HEAD";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/KategoriSherbimesh/:id/urdheraPune/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
    * Queries diagnozat of KategoriSherbimesh.
    *
    * @param {any} id KategoriSherbimesh id

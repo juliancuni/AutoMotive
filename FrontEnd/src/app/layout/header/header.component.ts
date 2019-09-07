@@ -102,7 +102,6 @@ export class HeaderComponent implements OnInit {
         this.postLogOut();
     }
     postLogOut(): void {
-        localStorage.removeItem("PerdoruesData");
         localStorage.removeItem("NdermarrjeData");
         this._perdorues.logout().subscribe();
         this._router.navigate(['/login']);
