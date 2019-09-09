@@ -10,6 +10,7 @@ import { TermsComponent } from './terms/terms.component';
 import { SharedModule } from '../../shared/shared.module';
 
 import { UnauthGuard } from '../../shared/services/auth/guards/unauth.guard';
+import { MekaniketComponent } from './mekaniket/mekaniket.component';
 
 
 const routes: Routes = [
@@ -20,10 +21,19 @@ const routes: Routes = [
   { path: 'reset', component: ResetComponent, canActivate: [UnauthGuard] },
   { path: 'terms', component: TermsComponent },
   { path: '404', component: Error404Component },
+  { path: 'mekaniket', component: MekaniketComponent },
 ];
 
 @NgModule({
-  declarations: [LoginComponent, Error404Component, RegisterComponent, RecoverComponent, TermsComponent, ResetComponent],
+  declarations: [
+    LoginComponent,
+    Error404Component,
+    RegisterComponent,
+    RecoverComponent,
+    TermsComponent,
+    ResetComponent,
+    MekaniketComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,

@@ -4,7 +4,7 @@ import { PerdoruesApi, RealTime } from '../sdk';
 @Injectable({
     providedIn: 'root'
 })
-export class PubsubService {
+export class RTConnService {
 
     constructor(
         private _perdorues: PerdoruesApi,
@@ -18,13 +18,5 @@ export class PubsubService {
 
     public rtDisconnect(): void {
         if (this._rt.connection.isConnected()) this._rt.connection.disconnect();
-    }
-
-    public subscribe(channel: string): object {
-        return {};
-    }
-
-    public publish(channel: string, msg: any): void {
-
     }
 }

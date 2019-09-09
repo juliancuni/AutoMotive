@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
 
     public ndermarrje: Ndermarrje
     public urdheraDiagnoze: UrdherDiagnoze[];
+    public urdherDiag: UrdherDiagnoze;
     public perdorues: Perdorues;
     public rolet: Role[];
     public showUrdherDiag: boolean;
@@ -47,25 +48,50 @@ export class HomeComponent implements OnInit {
     }
 
     shtoUrdheraDiag(ev: UrdherDiagnoze) {
+        let evIndex = this.urdheraDiagnoze.map((urdherDiag) => { return urdherDiag.id }).indexOf(ev.id)
+        if (evIndex !== -1) {
+            this.urdheraDiagnoze.splice(evIndex, 1);
+        }
         this.urdheraDiagnoze.push(ev);
+        if (ev["delete"]) {
+            this.urdheraDiagnoze.splice(evIndex, 1);
+        }
     }
 
     shtoUrdheraPune(ev: UrdherPune) {
         // this.urdheraDiagnoze.push(ev);
     }
 
+    editUrdherDiag(urdherDiag: UrdherDiagnoze) {
+        if (urdherDiag) {
+            this.urdherDiag = urdherDiag;
+        } else {
+            this.urdherDiag = new UrdherDiagnoze;
+        }
+        if (!this.showUrdherDiag) {
+            this.showUrdherDiag = !this.showUrdherDiag
+        }
+    }
+
     ngOnInit() {
         if (this.eshteMekanik) {
-            this._perdorues.getUrdheraDiagnoze(this._lbAuth.getCurrentUserId()).subscribe((res: UrdherDiagnoze[]) => {
+            this._perdorues.getUrdheraDiagnoze(this._lbAuth.getCurrentUserId(), { include: ["mjeti"] }).subscribe((res: UrdherDiagnoze[]) => {
                 this.urdheraDiagnoze = res;
+
             })
         } else {
-            this._urdherDiagnoze.find({ include: ["perdorues", "mjeti", "klient"] }).subscribe((res: UrdherDiagnoze[]) => {
+            this._urdherDiagnoze.find({ include: ["perdorues", "mjeti", "klient", "perfaqesues"] }).subscribe((res: UrdherDiagnoze[]) => {
                 this.urdheraDiagnoze = res;
+                console.log(res);
             })
         }
 
         this.ndermarrje = JSON.parse(localStorage.getItem("NdermarrjeData"));
+
+        // Test Event-Stream
+        // this._urdherDiagnoze.createChangeStream().subscribe((res) => {
+        //     console.log(res)
+        // })
     }
 
 }

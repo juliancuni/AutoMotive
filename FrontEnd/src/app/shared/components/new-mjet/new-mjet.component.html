@@ -18,13 +18,15 @@
                         (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)"
                         [resultTemplate]="rt" [inputFormatter]="formatter" #instance="ngbTypeahead"
                         placeholder="Kategoria. Psh. Veture ose Offroad" formControlName="kategoria" />
-                    <input class="form-control mb-2" type="text" placeholder="Targa. Psh. AA927AU" formControlName="targa" />
+                    <input class="form-control mb-2" type="text" placeholder="Targa. Psh. AA927AU"
+                        formControlName="targa" />
                     <input class="form-control mb-2" type="text" placeholder="Brand. Psh. Toyota ose Land Rover"
                         formControlName="brand" />
                     <input class="form-control mb-2" type="email" placeholder="Model. Psh LJ95, ose LR3"
                         formControlName="model" />
                     <input class="form-control mb-2" type="text" placeholder="Viti Prodhimit" formControlName="viti" />
-                    <input class="form-control mb-2" type="text" placeholder="Nr. Shasisë" formControlName="nrShasise" />
+                    <input class="form-control mb-2" type="text" placeholder="Nr. Shasisë"
+                        formControlName="nrShasise" />
                     <input class="form-control mb-2" type="text" placeholder="Klomentrazhi. Psh 127000"
                         formControlName="kilometrazhi" />
                 </div>
@@ -37,7 +39,11 @@
             </form>
         </div>
         <div class="col-sm-10 col-md-4 col-xl-3 mr-4">
-            <input type="checkbox" (change)="kerkoNgaFinanca($event)" /> Kerko nga financa
+            <div class="checkbox c-checkbox">
+                <label for="fin5">
+                    <input type="checkbox" (change)="kerkoNgaFinanca($event)" id="fin5" />
+                    <span class="fa fa-check"></span>Kërko nga financa5</label>
+            </div>
             <div *ngIf="hapFinancen">
                 <div *ngIf="!klientIzgjedhurNgaFinanca">
                     <div class="form-group">

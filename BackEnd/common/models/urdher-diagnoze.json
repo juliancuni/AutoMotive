@@ -14,10 +14,14 @@
       "type": "string"
     },
     "prioriteti": {
-      "type": "number"
+      "type": "number",
+      "required": true,
+      "default": 2
     },
     "statusi": {
-      "type": "number"
+      "type": "number",
+      "required": true,
+      "default": 1
     },
     "krijuar": {
       "type": "date",

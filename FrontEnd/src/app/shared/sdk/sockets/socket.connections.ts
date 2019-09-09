@@ -23,11 +23,11 @@ export class SocketConnection {
     onAuthenticated: Subject<any>,
     onUnAuthorized: Subject<any>
   } = {
-    onConnect: new Subject(),
-    onDisconnect: new Subject(),
-    onAuthenticated: new Subject(),
-    onUnAuthorized: new Subject()
-  };
+      onConnect: new Subject(),
+      onDisconnect: new Subject(),
+      onAuthenticated: new Subject(),
+      onUnAuthorized: new Subject()
+    };
   public sharedObservables: {
     sharedOnConnect?: Observable<any>,
     sharedOnDisconnect?: Observable<any>,
@@ -71,7 +71,7 @@ export class SocketConnection {
    **/
   public connect(token: AccessToken = null): void {
     if (!this.socket) {
-      console.info('Creating a new connection with: ', LoopBackConfig.getPath());
+      // console.info('Creating a new connection with: ', LoopBackConfig.getPath());
       // Create new socket connection
       this.socket = this.driver.connect(LoopBackConfig.getPath(), {
         log: false,
@@ -99,7 +99,7 @@ export class SocketConnection {
       })
       // Listen for disconnections
       this.on('disconnect', (status: any) => this.subjects.onDisconnect.next(status));
-    } else if (this.socket && !this.socket.connected){
+    } else if (this.socket && !this.socket.connected) {
       if (typeof this.socket.off === 'function') {
         this.socket.off();
       }
@@ -202,6 +202,8 @@ export class SocketConnection {
         clearInterval(heartbeater);
       }
     }, 15000);
-    this.socket.on('lb-pong', (data: any) => console.info('Heartbeat: ', data));
+    this.socket.on('lb-pong', (data: any) => {
+      // console.info('Heartbeat: ', data)
+    });
   }
 }

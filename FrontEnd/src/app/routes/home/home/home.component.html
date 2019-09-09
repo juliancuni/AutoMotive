@@ -4,7 +4,7 @@
         Dashboard
         <small>Mirëseerdhët!</small>
     </div> -->
-        <button class="btn btn-labeled btn-secondary mr-2" (click)="showUrdherDiag = !showUrdherDiag">
+        <button class="btn btn-labeled btn-secondary mr-2" (click)="editUrdherDiag()">
             <span class="btn-label">
                 <i class="fas fa-file-medical-alt"></i>
             </span>
@@ -18,17 +18,18 @@
         </button>
     </div>
     <!-- Urdher Diagnoze -->
-    <app-urdher-diagnoze [showUrdherDiag]="showUrdherDiag" (hapMbyllUDNgaSelf)="hapMbyllNgaUDChild($event)"
-        (shtoUrdheraDiag)="shtoUrdheraDiag($event)"></app-urdher-diagnoze>
+    <app-urdher-diagnoze [showUrdherDiag]="showUrdherDiag" [urdherDiag]="urdherDiag"
+        (hapMbyllUDNgaSelf)="hapMbyllNgaUDChild($event)" (shtoUrdheraDiag)="shtoUrdheraDiag($event)">
+    </app-urdher-diagnoze>
     <!-- End Urdher Diagnoze -->
     <!-- Urdher Pune -->
     <app-urdher-pune [showUrdherPune]="showUrdherPune" (hapMbyllUPNgaSelf)="hapMbyllNgaUPChild($event)"
         (shtoUrdheraPune)="shtoUrdheraPune($event)" width="500px"></app-urdher-pune>
     <!-- End Urdher Pune -->
+
     <!-- START cards box-->
     <div class="row">
         <div class="col-xl-3 col-md-6">
-
             <!-- START card-->
             <div class="card flex-row align-items-center align-items-stretch border-0">
                 <div class="col-4 d-flex align-items-center bg-primary-dark justify-content-center rounded-left">
@@ -81,30 +82,53 @@
 </div>
 <!-- END cards box-->
 
-<div class="card b">
+<div class="card b" *ngIf="urdheraDiagnoze?.length !== 0">
     <div class="card-body">
-        <div class="table-responsive">
-            <table class="table w-100">
-                <thead>
+        <div style="cursor: pointer;">
+            <table class="table table-responsive table-hover">
+                <!-- <thead>
                     <tr>
                         <th>Klienti</th>
                         <th>Mjeti</th>
                         <th>Targa</th>
                         <th>Pershkrimi</th>
-                        <th>Prioriteti</th>
+                        <th></th>
                         <th>Punonjesi</th>
-                        <th>Statusi</th>
+                        <th></th>
                     </tr>
-                </thead>
+                </thead> -->
                 <tbody>
-                    <tr *ngFor="let urdherDiag of urdheraDiagnoze">
-                        <td>{{urdherDiag?.klient?.emer}}</td>
+                    <tr *ngFor="let urdherDiag of urdheraDiagnoze" (click)="editUrdherDiag(urdherDiag)">
+                        <!-- <td>{{urdherDiag?.klient?.emer}}</td> -->
                         <td>{{urdherDiag?.mjeti?.brand}}</td>
                         <td>{{urdherDiag?.mjeti?.targa}}</td>
-                        <td>{{urdherDiag?.pershkrim}}</td>
-                        <td>{{urdherDiag?.prioriteti}}</td>
                         <td>{{urdherDiag?.perdorues?.username}}</td>
-                        <td>{{urdherDiag?.statusi}}</td>
+                        <td>{{urdherDiag?.pershkrim}}</td>
+                        <td>
+                            <i class="fas fa-volume-off text-muted" *ngIf="urdherDiag?.prioriteti == 1"
+                                title="Prioritet i ulët"></i>
+                            <!-- <i class="icon-volume-off text-muted" *ngIf="urdherDiag?.prioriteti == 1"  title="Prioritet i ulët"></i> -->
+                            <i class="fas fa-volume-down text-primary" *ngIf="urdherDiag?.prioriteti == 2"
+                                title="Prioritet normal"></i>
+                            <!-- <i class="icon-volume-1 text-primary" *ngIf="urdherDiag?.prioriteti == 2" title="Prioritet i normal"></i> -->
+                            <i class="fas fa-volume-up text-danger" *ngIf="urdherDiag?.prioriteti == 3"
+                                title="Prioritet i lartë"></i>
+                            <!-- <i class="icon-volume-2 text-danger" *ngIf="urdherDiag?.prioriteti == 3"  title="Prioritet i lartë"></i> -->
+                            <!-- <small>{{urdherDiag?.prioriteti == 1 ? 'i Ulët' : urdherDiag?.prioriteti == 2 ? 'Normal' : urdherDiag?.prioriteti == 3 ? 'i Lartë' : ''}}</small> -->
+                        </td>
+                        <td>
+                            <!-- <em class="fas fa-angle-down" ></em> -->
+                            <!-- <em class="fas fas fa-angle-double-down text-success" ></em> -->
+                            <img src="assets/img/derguar.png" *ngIf="urdherDiag?.statusi === 1" title="U dergua" />
+                            <img src="assets/img/lexuar.png" *ngIf="urdherDiag?.statusi === 2" title="E lexoi" />
+                            <em class="fa fa-cog fa-spin text-primary" *ngIf="urdherDiag?.statusi === 3"
+                                title="Në punë e sipër"></em>
+                            <em class="fas fa-check-circle text-success" *ngIf="urdherDiag?.statusi === 4"
+                                title="Përfunduar"></em>
+
+                        </td>
+                        <td [title]="urdherDiag?.krijuar | date :'dd MMM yyyy hh:mm:ss'">
+                            <small>{{urdherDiag?.krijuar | dateAgo}}</small></td>
                     </tr>
                 </tbody>
             </table>

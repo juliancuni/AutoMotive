@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { PerdoruesApi, NdermarrjeApi, Ndermarrje } from '../../../shared/sdk';
-import { PubsubService } from 'src/app/shared/services/pubsub.service';
+import { RTConnService } from 'src/app/shared/services/rtcon.service';
 const swal = require('sweetalert');
 
 @Component({
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         private _perdorues: PerdoruesApi,
         private _ndermarrje: NdermarrjeApi,
         private _route: ActivatedRoute,
-        private _pubsub: PubsubService,
+        private _rtCon: RTConnService,
     ) {
         this.loginForm = fb.group({
             'username': [null, [Validators.required]],
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.perdoruesResponseErr = false;
             this.fjaleKalimiResponseErr = false;
             this._perdorues.login(kredencialet).subscribe((res) => {
-                this._pubsub.rtConnect();
+                this._rtCon.rtConnect();
                 this._router.navigate(['/home']);
             }, (err) => {
                 this.loading = false;

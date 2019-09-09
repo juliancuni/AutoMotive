@@ -8,7 +8,7 @@ import { ToastModel } from './shared/msInterfaces/interfaces';
 // import { LoopBackConfig } from './shared/sdk/lb.config';
 // import { environment } from '../environments/environment'
 import { ThemesService } from './core/themes/themes.service';
-import { PubsubService } from './shared/services/pubsub.service';
+import { RTConnService } from './shared/services/rtcon.service';
 
 @Component({
     selector: 'app-root',
@@ -22,7 +22,8 @@ export class AppComponent implements OnInit {
     toasterConfig: any;
     toasterconfig: ToasterConfig = new ToasterConfig({
         positionClass: 'toast-bottom-right',
-        showCloseButton: true
+        showCloseButton: true,
+        timeout: 10000
     });
 
 
@@ -42,11 +43,11 @@ export class AppComponent implements OnInit {
         public _toasterService: ToasterService,
         public _msToasterService: MsToasterService,
         public _themesService: ThemesService,
-        public _pubsub: PubsubService,
+        public _rtCon: RTConnService,
     ) { }
 
     ngOnInit() {
-        this._pubsub.rtConnect();
+        this._rtCon.rtConnect();
         this._themesService.setTheme('A');
         // LoopBackConfig.setBaseURL(environment.API_BASE_PATH);
         document.addEventListener('click', e => {

@@ -1,5 +1,5 @@
 'use strict';
 
-module.exports = function(Urdherdiagnoze) {
-
+module.exports = function (Urdherdiagnoze) {
+    // Urdherdiagnoze.disableRemoteMethodByName('createChangeStream');
 };

@@ -74,7 +74,7 @@ export class NewKlientComponent implements OnInit {
         this.hapMbyllNKNgaSelf.emit(this.showNewKlient = !this.showNewKlient);
     }
 
-    regNewklient(ev, newKlientForm) {
+    regNewKlient(ev, newKlientForm) {
         ev.preventDefault();
         if (this.newKlientForm.valid) {
             this._klient.create(newKlientForm).subscribe((res: Klient) => {

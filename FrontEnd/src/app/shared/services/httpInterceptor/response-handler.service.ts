@@ -8,6 +8,6 @@ export class ResponseHandlerService {
   constructor() { }
 
   handleReq(req: any, elapsed: number) {
-    // console.log(req.url + " - " + elapsed + " ms")
+    console.log(req.url + " - " + elapsed + " ms")
   }
 }

@@ -1,6 +1,6 @@
-import { Component, Input, Output, ViewChild, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, ViewChild, OnInit, EventEmitter, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UrdherDiagnoze, KlientApi, Perfaqesues, Mjeti, PerdoruesApi, Klient, PerfaqesuesApi, MjetiApi, Perdorues, LoopBackAuth, UrdherDiagnozeApi } from '../../sdk';
+import { UrdherDiagnoze, KlientApi, Perfaqesues, Mjeti, PerdoruesApi, Klient, Perdorues, LoopBackAuth, UrdherDiagnozeApi, RealTime } from '../../sdk';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subject, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
@@ -9,8 +9,9 @@ import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators'
     templateUrl: 'urdher-diagnoze.component.html',
     styleUrls: ['urdher-diagnoze.component.scss']
 })
-export class UrdherDiagnozeComponent implements OnInit {
+export class UrdherDiagnozeComponent implements OnInit, OnChanges {
     @Input() showUrdherDiag: boolean;
+    @Input() urdherDiag: UrdherDiagnoze;
     @Output() hapMbyllUDNgaSelf = new EventEmitter();
     @Output() shtoUrdheraDiag = new EventEmitter<UrdherDiagnoze>();
 
@@ -22,7 +23,7 @@ export class UrdherDiagnozeComponent implements OnInit {
     public urdheraDiagnoze: UrdherDiagnoze[];
     public klientet: Klient[];
     public klient: Klient;
-    public perfaqesuesitEklientit: Perfaqesues[];
+    public perfaqesuesitEklientit: Perfaqesues[] = [];
     public mjetetEklientit: Mjeti[];
     public perdoruesit: Perdorues[];
     public prioriteti = 5;
@@ -32,15 +33,14 @@ export class UrdherDiagnozeComponent implements OnInit {
     public showNewMjet: boolean;
     public klientIzgjedhur: boolean = false;
     public urdheDiagForm: FormGroup;
-
+    public fshiKonfirm: boolean = false;
     constructor(
         private _fb: FormBuilder,
         private _klient: KlientApi,
-        private _perfaqesues: PerfaqesuesApi,
-        private _mjeti: MjetiApi,
         private _perdoruesi: PerdoruesApi,
         private _urdherDiagnoze: UrdherDiagnozeApi,
         private _auth: LoopBackAuth,
+        private _rt: RealTime,
     ) {
     }
 
@@ -50,38 +50,72 @@ export class UrdherDiagnozeComponent implements OnInit {
         const inputFocus$ = this.focus$;
 
         return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-            map(term => (term === '' ? this.klientet
-                : this.klientet.filter(v => v.emer.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+            map(term => (term === '' ? this.klientet : this.klientet.filter(v => v.emer.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
         );
     }
 
     formatter = (x: { emer: string }) => x.emer;
 
     toggle() {
+        this.fshiKonfirm = false;
         this.hapMbyllUDNgaSelf.emit(this.showUrdherDiag = !this.showUrdherDiag);
     }
 
     regUrdherDiagnoze(ev, urdheDiagForm) {
         ev.preventDefault();
         if (this.urdheDiagForm.valid) {
+            let klient = { ...this.klient };
+            if (this.urdherDiag.id) {
+                urdheDiagForm.klient = this.urdherDiag.klient;
+                urdheDiagForm.mjeti = this.urdherDiag.mjeti
+                urdheDiagForm.statusi = this.urdherDiag.statusi;
+            }
             let newUrdherdiagnoze = new UrdherDiagnoze({
                 klientId: urdheDiagForm.klient.id,
-                perfaqesuesId: urdheDiagForm.perfaqesues,
-                mjetiId: urdheDiagForm.mjeti,
-                perdoruesId: urdheDiagForm.destinuarPer,
-                prioriteti: urdheDiagForm.prioriteti,
+                perfaqesuesId: typeof urdheDiagForm.perfaqesues.id !== 'undefined' ? urdheDiagForm.perfaqesues.id : null,
+                mjetiId: urdheDiagForm.mjeti.id,
+                perdoruesId: urdheDiagForm.destinuarPer.id,
+                prioriteti: urdheDiagForm.prioriteti || 2,
                 leshoi: this._auth.getCurrentUserId(),
                 pershkrim: urdheDiagForm.pershkrim,
-                statusi: 1
+                statusi: urdheDiagForm.statusi
             });
-            this._urdherDiagnoze.create(newUrdherdiagnoze).subscribe((res: UrdherDiagnoze) => {
-                this._urdherDiagnoze.findOne({ where: { id: res.id }, include: ["perdorues", "mjeti", "klient"] }).subscribe((res: UrdherDiagnoze) => {
+
+            this.urdherDiag.id ? newUrdherdiagnoze.id = this.urdherDiag.id : null;
+
+            if (this.janeNjelloj(newUrdherdiagnoze, this.urdherDiag)) {
+                    this.urdheDiagForm.reset();
+                    this.toggle();
+                console.log("Jane Njelloj")
+            } else {
+                this._urdherDiagnoze.upsert(newUrdherdiagnoze).subscribe((res: UrdherDiagnoze) => {
+                    let mjeti = klient.mjetet.filter((mjet) => { return mjet.id === urdheDiagForm.mjeti.id });
+                    let perdorues = this.perdoruesit.filter((perdorues) => { return perdorues.id === urdheDiagForm.destinuarPer.id });
+                    let perfaqesues = klient.perfaqesues.filter((perfaqesues) => { return perfaqesues.id === urdheDiagForm.perfaqesues.id });
+                    res.mjeti = mjeti[0];
+                    res.perdorues = perdorues[0];
+                    res.perfaqesues = perfaqesues[0];
+                    delete klient.mjetet;
+                    delete klient.perfaqesues;
+                    res.klient = klient;
                     this.toggle();
                     this.shtoUrdheraDiag.emit(res);
                     this.urdheDiagForm.reset();
-                })
-            });
+                    this._rt.IO.emit("urdherPune", res);
+                });
+            }
         }
+    }
+
+    deleteUrdherDiagnoze(urdherDiag) {
+        urdherDiag.delete = true;
+        this._urdherDiagnoze.deleteById(urdherDiag.id).subscribe(() => {
+            this.toggle();
+            this.shtoUrdheraDiag.emit(urdherDiag);
+            this.urdheDiagForm.reset();
+        })
+        this._rt.IO.emit("urdherPune", urdherDiag);
+
     }
 
     hapMbyllNgaNPChild(ev) {
@@ -116,17 +150,20 @@ export class UrdherDiagnozeComponent implements OnInit {
         this.mjetetEklientit.push(ev);
     }
 
+    clearKlient() {
+        if (!this.urdherDiag.id) {
+            this.urdheDiagForm.controls.klient.reset();
+        }
+    }
+
     ngOnInit() {
-        // this._urdherDiagnoze.find().subscribe((res: UrdherDiagnoze[]) => {
-        //     this.urdheraDiagnoze = res;
-        // })
         this.urdheDiagForm = this._fb.group({
-            "klient": [null, Validators.required],
+            "klient": [{ value: "", disabled: false }, Validators.required],
             "perfaqesues": [{ value: "", disabled: true }, null],
             "mjeti": [{ value: "", disabled: true }, Validators.required],
             "destinuarPer": [{ value: "", disabled: true }, Validators.required],
-            "prioriteti": [{ value: 5, disabled: true }, null],
-            "pershkrim": [null, null],
+            "prioriteti": [{ value: "2", disabled: false }, null],
+            "pershkrim": [null, Validators.required],
         })
 
         this._klient.find({ include: ["mjetet", "perfaqesues"] }).subscribe((res: Klient[]) => {
@@ -139,17 +176,15 @@ export class UrdherDiagnozeComponent implements OnInit {
             if (typeof value === 'object' && value !== null) {
                 this.klient = value;
                 this.mjetetEklientit = this.klient.mjetet;
-                this.perfaqesuesitEklientit = this.klient.perfaqesues;
+                this.perfaqesuesitEklientit = this.klient.perfaqesues || [];
                 this.urdheDiagForm.controls.perfaqesues.enable()
-                this.urdheDiagForm.controls.perfaqesues.setValue(null)
                 this.urdheDiagForm.controls.mjeti.enable()
                 this.urdheDiagForm.controls.prioriteti.enable()
-                this.urdheDiagForm.controls.mjeti.setValue(null)
                 this.urdheDiagForm.controls.destinuarPer.enable()
-                this.urdheDiagForm.controls.destinuarPer.setValue(null)
                 this.klientIzgjedhur = true;
 
-            } else {
+            }
+            else {
                 this.urdheDiagForm.controls.prioriteti.disable()
                 this.urdheDiagForm.controls.perfaqesues.disable()
                 this.urdheDiagForm.controls.mjeti.disable()
@@ -160,5 +195,62 @@ export class UrdherDiagnozeComponent implements OnInit {
         this.urdheDiagForm.controls.prioriteti.valueChanges.subscribe((value) => {
             this.prioriteti = value;
         })
+    }
+
+    compareFn(c1: any, c2: any): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
+    }
+
+    ngOnChanges() {
+        if (this.urdherDiag && Object.entries(this.urdherDiag).length !== 0) {
+            let klient = this.klientet.filter((klient) => { return klient.id === this.urdherDiag.klient.id })
+            this.klient = klient[0]
+            this.urdheDiagForm.controls.klient.setValue(this.klient);
+            this.urdheDiagForm.controls.klient.disable();
+            this.urdheDiagForm.controls.mjeti.setValue(this.urdherDiag.mjeti);
+            this.urdheDiagForm.controls.mjeti.disable();
+            this.urdheDiagForm.controls.perfaqesues.setValue(this.urdherDiag.perfaqesues);
+            this.urdheDiagForm.controls.destinuarPer.setValue(this.urdherDiag.perdorues);
+            this.urdheDiagForm.controls.pershkrim.setValue(this.urdherDiag.pershkrim);
+            this.urdheDiagForm.controls.prioriteti.setValue(this.urdherDiag.prioriteti);
+        } else {
+            if (typeof this.urdheDiagForm !== 'undefined') {
+                this.urdheDiagForm.reset();
+                this.urdheDiagForm.controls.klient.enable();
+            }
+        }
+        this.fshiKonfirm = false;
+    }
+
+    janeNjelloj(a, b): boolean {
+        // console.log(a.id === b.id)
+        // console.log(a.id, b.id)
+        // console.log(a.klientId === b.klientId) 
+        // console.log(a.leshoi === b.leshoi)
+        // console.log(a.mjetiId === b.mjetiId)
+        // console.log(a.perdoruesId === b.perdoruesId)
+        // console.log(a.perfaqesuesId === b.perfaqesuesId)
+        // console.log(a.pershkrim === b.pershkrim)
+        // console.log(a.prioriteti === b.prioriteti)
+        // console.log(a.statusi === b.statusi)
+
+        if (a.id === b.id && a.klientId === b.klientId && a.leshoi === b.leshoi && a.mjetiId === b.mjetiId && a.perdoruesId === b.perdoruesId && a.perfaqesuesId === b.perfaqesuesId && a.pershkrim === b.pershkrim && a.prioriteti === b.prioriteti && a.statusi === b.statusi) {
+            return true
+        } else {
+            return false
+        }
+        // var aProps = Object.getOwnPropertyNames(a);
+        // var bProps = Object.getOwnPropertyNames(b);
+        // if (aProps.length != bProps.length) {
+        //     return false;
+        // }
+        // for (var i = 0; i < aProps.length; i++) {
+        //     var propName = aProps[i];
+
+        //     if (a[propName] !== b[propName]) {
+        //         return false;
+        //     }
+        // }
+        // return true;
     }
 }

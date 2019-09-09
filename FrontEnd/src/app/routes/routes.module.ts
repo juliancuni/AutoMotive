@@ -3,9 +3,9 @@ import { RouterModule } from '@angular/router';
 import { TranslatorService } from '../core/translator/translator.service';
 import { SharedModule } from '../shared/shared.module';
 import { PagesModule } from './pages/pages.module';
-import { AuthGuard } from '../shared/services/auth/guards/auth.guard';
+// import { AuthGuard } from '../shared/services/auth/guards/auth.guard';
 
-import { menu } from './menu';
+// import { menu } from './menu';
 import { routes } from './routes';
 
 @NgModule({

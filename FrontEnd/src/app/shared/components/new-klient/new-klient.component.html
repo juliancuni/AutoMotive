@@ -33,7 +33,11 @@
             </form>
         </div>
         <div class="col-sm-10 col-md-4 col-xl-3 mr-4">
-            <input type="checkbox" (change)="kerkoNgaFinanca($event)" /> Kerko nga financa
+            <div class="checkbox c-checkbox">
+                <label for="fin5">
+                    <input type="checkbox" (change)="kerkoNgaFinanca($event)" id="fin5" />
+                    <span class="fa fa-check"></span>Kërko nga financa5</label>
+            </div>
             <div *ngIf="hapFinancen">
                 <div *ngIf="!klientIzgjedhurNgaFinanca">
                     <div class="form-group">
