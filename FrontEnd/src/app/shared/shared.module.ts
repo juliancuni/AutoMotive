@@ -36,13 +36,15 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { UrdherDiagnozeComponent } from './components/urdher-diagnoze/urdher-diagnoze.component';
+import { NewUrdherDiagComponent } from './components/new-urdher-diag/new-urdher-diag.component';
 import { UrdherPuneComponent } from './components/urdher-pune/urdher-pune.component';
 import { NewPerdoruesComponent } from './components/new-perdorues/new-perdorues.component';
 import { NewKlientComponent } from './components/new-klient/new-klient.component';
 import { NewPerfaqesuesComponent } from './components/new-perfaqesues/new-perfaqesues.component';
 import { NewMjetComponent } from './components/new-mjet/new-mjet.component';
 // import { AgGridModule } from 'ag-grid-angular';
+import { TimeAgoPipe } from 'src/app/shared/pipes/time-ago.pipe';
+import { MekUrdherDiagComponent } from './components/mek-urdher-diag/mek-urdher-diag.component';
 
 
 // https://angular.io/styleguide#!#04-10
@@ -87,12 +89,14 @@ import { NewMjetComponent } from './components/new-mjet/new-mjet.component';
         NowDirective,
         ScrollableDirective,
         JqcloudDirective,
-        UrdherDiagnozeComponent,
+        NewUrdherDiagComponent,
         UrdherPuneComponent,
         NewPerdoruesComponent,
         NewKlientComponent,
         NewPerfaqesuesComponent,
         NewMjetComponent,
+        TimeAgoPipe,
+        MekUrdherDiagComponent
     ],
     exports: [
         CommonModule,
@@ -127,14 +131,17 @@ import { NewMjetComponent } from './components/new-mjet/new-mjet.component';
         ScrollableDirective,
         JqcloudDirective,
         FileUploadModule,
-        UrdherDiagnozeComponent,
+        NewUrdherDiagComponent,
         UrdherPuneComponent,
         NewPerdoruesComponent,
         NewPerfaqesuesComponent,
         NewMjetComponent,
         NgbModule,
         NewKlientComponent,
-        DragDropModule
+        DragDropModule,
+        TimeAgoPipe,
+        MekUrdherDiagComponent,
+        
         // AgGridModule
     ]
 })

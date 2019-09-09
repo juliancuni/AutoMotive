@@ -1,0 +1,14 @@
+<div class="draggable-box" cdkDrag *ngIf="showMekUrdherDiag">
+    <div class="draggable-handle" cdkDragHandle>
+        <span class="float-left ml-3 mr-1">Urdhër Diagnoze</span>
+        <!-- <span class="float-left text-primary">{{ urdherDiag?.mjeti?.brand }}</span> -->
+        <!-- <span class="ml-1">{{ urdherDiag?.mjeti?.targa }}</span> -->
+        <button type="button" class="close mr-3" aria-label="Close" (click)="toggle()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <hr>
+    <p (click)="showMekUrdherDiag = !showMekUrdherDiag">
+        mek-urdher-diag works!
+    </p>
+</div>

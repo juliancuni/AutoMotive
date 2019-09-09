@@ -48,14 +48,16 @@ export class HomeComponent implements OnInit {
     }
 
     shtoUrdheraDiag(ev: UrdherDiagnoze) {
-        let evIndex = this.urdheraDiagnoze.map((urdherDiag) => { return urdherDiag.id }).indexOf(ev.id)
-        if (evIndex !== -1) {
-            this.urdheraDiagnoze.splice(evIndex, 1);
-        }
-        this.urdheraDiagnoze.push(ev);
+        let evIndex = this.urdheraDiagnoze.map((urdherDiag) => { return urdherDiag.id }).indexOf(ev.id);
         if (ev["delete"]) {
             this.urdheraDiagnoze.splice(evIndex, 1);
+        } else if (evIndex !== -1) {
+            this.urdheraDiagnoze.splice(evIndex, 1);
+            this.urdheraDiagnoze.push(ev);
+        } else {
+            this.urdheraDiagnoze.push(ev);
         }
+        this.sortUrdheraDiagnoze(this.urdheraDiagnoze);
     }
 
     shtoUrdheraPune(ev: UrdherPune) {
@@ -73,25 +75,23 @@ export class HomeComponent implements OnInit {
         }
     }
 
+    sortUrdheraDiagnoze(urdheraDiag: UrdherDiagnoze[]) {
+        this.urdheraDiagnoze = urdheraDiag.sort((a, b) => (a.id < b.id) ? 1 : ((b.id < a.id) ? -1 : 0));
+    }
+
     ngOnInit() {
         if (this.eshteMekanik) {
             this._perdorues.getUrdheraDiagnoze(this._lbAuth.getCurrentUserId(), { include: ["mjeti"] }).subscribe((res: UrdherDiagnoze[]) => {
-                this.urdheraDiagnoze = res;
-
+                this.sortUrdheraDiagnoze(res);
             })
         } else {
             this._urdherDiagnoze.find({ include: ["perdorues", "mjeti", "klient", "perfaqesues"] }).subscribe((res: UrdherDiagnoze[]) => {
-                this.urdheraDiagnoze = res;
-                console.log(res);
+                this.sortUrdheraDiagnoze(res);
             })
         }
 
         this.ndermarrje = JSON.parse(localStorage.getItem("NdermarrjeData"));
 
-        // Test Event-Stream
-        // this._urdherDiagnoze.createChangeStream().subscribe((res) => {
-        //     console.log(res)
-        // })
     }
 
 }

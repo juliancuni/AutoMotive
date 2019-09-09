@@ -5,11 +5,11 @@ import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subject, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 @Component({
-    selector: 'app-urdher-diagnoze',
-    templateUrl: 'urdher-diagnoze.component.html',
-    styleUrls: ['urdher-diagnoze.component.scss']
+    selector: 'app-new-urdher-diag',
+    templateUrl: './new-urdher-diag.component.html',
+    styleUrls: ['./new-urdher-diag.component.scss']
 })
-export class UrdherDiagnozeComponent implements OnInit, OnChanges {
+export class NewUrdherDiagComponent implements OnInit, OnChanges {
     @Input() showUrdherDiag: boolean;
     @Input() urdherDiag: UrdherDiagnoze;
     @Output() hapMbyllUDNgaSelf = new EventEmitter();
@@ -72,7 +72,7 @@ export class UrdherDiagnozeComponent implements OnInit, OnChanges {
             }
             let newUrdherdiagnoze = new UrdherDiagnoze({
                 klientId: urdheDiagForm.klient.id,
-                perfaqesuesId: typeof urdheDiagForm.perfaqesues.id !== 'undefined' ? urdheDiagForm.perfaqesues.id : null,
+                perfaqesuesId: urdheDiagForm.perfaqesues !== null && typeof urdheDiagForm.perfaqesues !== 'undefined' ? urdheDiagForm.perfaqesues.id : null,
                 mjetiId: urdheDiagForm.mjeti.id,
                 perdoruesId: urdheDiagForm.destinuarPer.id,
                 prioriteti: urdheDiagForm.prioriteti || 2,
@@ -84,11 +84,12 @@ export class UrdherDiagnozeComponent implements OnInit, OnChanges {
             this.urdherDiag.id ? newUrdherdiagnoze.id = this.urdherDiag.id : null;
 
             if (this.janeNjelloj(newUrdherdiagnoze, this.urdherDiag)) {
-                    this.urdheDiagForm.reset();
-                    this.toggle();
-                console.log("Jane Njelloj")
+                this.urdheDiagForm.reset();
+                this.toggle();
+                console.log("UrdheraDiagnoze jane Njelloj")
             } else {
                 this._urdherDiagnoze.upsert(newUrdherdiagnoze).subscribe((res: UrdherDiagnoze) => {
+                    let perRT = { ...res };
                     let mjeti = klient.mjetet.filter((mjet) => { return mjet.id === urdheDiagForm.mjeti.id });
                     let perdorues = this.perdoruesit.filter((perdorues) => { return perdorues.id === urdheDiagForm.destinuarPer.id });
                     let perfaqesues = klient.perfaqesues.filter((perfaqesues) => { return perfaqesues.id === urdheDiagForm.perfaqesues.id });
@@ -101,7 +102,8 @@ export class UrdherDiagnozeComponent implements OnInit, OnChanges {
                     this.toggle();
                     this.shtoUrdheraDiag.emit(res);
                     this.urdheDiagForm.reset();
-                    this._rt.IO.emit("urdherPune", res);
+                    perRT.mjeti = mjeti[0];
+                    this._rt.IO.emit("urdherPune", perRT);
                 });
             }
         }
@@ -109,12 +111,16 @@ export class UrdherDiagnozeComponent implements OnInit, OnChanges {
 
     deleteUrdherDiagnoze(urdherDiag) {
         urdherDiag.delete = true;
+        let urdherDiagPerRT = { ...urdherDiag };
         this._urdherDiagnoze.deleteById(urdherDiag.id).subscribe(() => {
             this.toggle();
             this.shtoUrdheraDiag.emit(urdherDiag);
             this.urdheDiagForm.reset();
         })
-        this._rt.IO.emit("urdherPune", urdherDiag);
+        delete urdherDiagPerRT.klient;
+        delete urdherDiagPerRT.perfaqesues;
+        delete urdherDiagPerRT.perdorues;
+        this._rt.IO.emit("urdherPune", urdherDiagPerRT);
 
     }
 
@@ -223,34 +229,10 @@ export class UrdherDiagnozeComponent implements OnInit, OnChanges {
     }
 
     janeNjelloj(a, b): boolean {
-        // console.log(a.id === b.id)
-        // console.log(a.id, b.id)
-        // console.log(a.klientId === b.klientId) 
-        // console.log(a.leshoi === b.leshoi)
-        // console.log(a.mjetiId === b.mjetiId)
-        // console.log(a.perdoruesId === b.perdoruesId)
-        // console.log(a.perfaqesuesId === b.perfaqesuesId)
-        // console.log(a.pershkrim === b.pershkrim)
-        // console.log(a.prioriteti === b.prioriteti)
-        // console.log(a.statusi === b.statusi)
-
         if (a.id === b.id && a.klientId === b.klientId && a.leshoi === b.leshoi && a.mjetiId === b.mjetiId && a.perdoruesId === b.perdoruesId && a.perfaqesuesId === b.perfaqesuesId && a.pershkrim === b.pershkrim && a.prioriteti === b.prioriteti && a.statusi === b.statusi) {
             return true
         } else {
             return false
         }
-        // var aProps = Object.getOwnPropertyNames(a);
-        // var bProps = Object.getOwnPropertyNames(b);
-        // if (aProps.length != bProps.length) {
-        //     return false;
-        // }
-        // for (var i = 0; i < aProps.length; i++) {
-        //     var propName = aProps[i];
-
-        //     if (a[propName] !== b[propName]) {
-        //         return false;
-        //     }
-        // }
-        // return true;
     }
 }

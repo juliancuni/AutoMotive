@@ -1,3 +1,15 @@
-<p>
-  mekaniket works!
-</p>
+<table class="table table-responsive table-hover">
+    <tbody>
+        <tr *ngFor="let urdherDiag of urdheraDiagnoze" (click)="showMekUrdherDiag = !showMekUrdherDiag">
+            <td>
+            <td>{{urdherDiag?.mjeti?.brand}}</td>
+            <td>{{urdherDiag?.mjeti?.targa}}</td>
+            <td>{{urdherDiag?.pershkrim}}</td>
+            <td [title]="urdherDiag?.krijuar | date :'dd MMM yyyy hh:mm:ss'">
+                <small>{{urdherDiag?.krijuar | dateAgo}}</small>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<app-mek-urdher-diag [showMekUrdherDiag]="showMekUrdherDiag"></app-mek-urdher-diag>

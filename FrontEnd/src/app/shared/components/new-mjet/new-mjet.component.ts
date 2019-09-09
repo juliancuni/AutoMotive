@@ -95,6 +95,7 @@ export class NewMjetComponent implements OnInit {
                 this._kategoriMjetesh.create({ emer: newMjetForm.kategoria }).subscribe((res: KategoriMjetesh) => {
                     this.kategoriMjetesh.push(res);
                     newMjetForm.kategoriMjeteshId = res.id;
+                    delete newMjetForm.kategoria;
                     this._klient.createMjetet(this.klient.id, newMjetForm).subscribe((res: Mjeti) => {
                         this.shtoMjet.emit(res);
                         this.newMjetForm.reset();
