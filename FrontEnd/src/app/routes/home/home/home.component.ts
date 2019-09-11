@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Ndermarrje, UrdherDiagnoze, UrdherDiagnozeApi, UrdherPune, PerdoruesApi, Perdorues, Role, LoopBackAuth } from 'src/app/shared/sdk';
+import { Ndermarrje, UrdherDiagnoze, UrdherDiagnozeApi, UrdherPune, PerdoruesApi, Perdorues, Role, LoopBackAuth, RealTime } from 'src/app/shared/sdk';
 import { SettingsService } from '../../../core/settings/settings.service';
+import { ColorsService } from '../../../shared/colors/colors.service';
 
 
 @Component({
@@ -9,6 +10,21 @@ import { SettingsService } from '../../../core/settings/settings.service';
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+    easyPiePercent1 = 0;
+
+    pieOptions1 = {
+        animate: {
+            duration: 800,
+            enabled: true
+        },
+        barColor: this._colors.byName('info'),
+        trackColor: '#edf2f6',
+        scaleColor: false,
+        lineWidth: 2,
+        lineCap: 'round',
+        size: 25
+    };
 
     public ndermarrje: Ndermarrje
     public urdheraDiagnoze: UrdherDiagnoze[];
@@ -20,12 +36,15 @@ export class HomeComponent implements OnInit {
 
     public eshteMekanik: boolean = false;
 
+    public urdheraDiagnozeAktive = 0;
 
     constructor(
         public settings: SettingsService,
         private _urdherDiagnoze: UrdherDiagnozeApi,
         private _perdorues: PerdoruesApi,
         private _lbAuth: LoopBackAuth,
+        private _rt: RealTime,
+        public _colors: ColorsService
 
     ) {
         this.eshteMekanik = this._lbAuth.getCurrentUserData().mekanik;
@@ -64,6 +83,15 @@ export class HomeComponent implements OnInit {
         // this.urdheraDiagnoze.push(ev);
     }
 
+    resetTableRow() {
+        setTimeout(() => {
+            this.urdheraDiagnoze.forEach((urdherDiag) => {
+                delete urdherDiag["edited"];
+                delete urdherDiag["new"];
+            })
+        }, 60000)
+    }
+
     editUrdherDiag(urdherDiag: UrdherDiagnoze) {
         if (urdherDiag) {
             this.urdherDiag = urdherDiag;
@@ -76,7 +104,13 @@ export class HomeComponent implements OnInit {
     }
 
     sortUrdheraDiagnoze(urdheraDiag: UrdherDiagnoze[]) {
+        this.urdheraDiagnozeAktive = 0;
         this.urdheraDiagnoze = urdheraDiag.sort((a, b) => (a.id < b.id) ? 1 : ((b.id < a.id) ? -1 : 0));
+        this.urdheraDiagnoze.forEach((urdher) => {
+            urdher["perqindjePerfunduar"] = this.llogPerqindjDiag(urdher);
+            if(urdher.statusi !== 4) this.urdheraDiagnozeAktive++;
+        })
+        this.resetTableRow();
     }
 
     ngOnInit() {
@@ -90,8 +124,26 @@ export class HomeComponent implements OnInit {
             })
         }
 
+        //degjo per ndryshime nga mekaniket
+        this._rt.IO.on("urdherDiagEditedByMekanik").subscribe((msg: UrdherDiagnoze) => {
+            let urdherDiag = this.urdheraDiagnoze.filter((urdhDiag) => { return urdhDiag.id === msg.id });
+            msg.klient = urdherDiag[0].klient
+            msg.perfaqesues = urdherDiag[0].perfaqesues;
+            msg.perdorues = urdherDiag[0].perdorues;
+            this.shtoUrdheraDiag(msg);
+        })
         this.ndermarrje = JSON.parse(localStorage.getItem("NdermarrjeData"));
 
+    }
+
+    llogPerqindjDiag(urdherDiag: UrdherDiagnoze): number {
+        let totalKontrolle = urdherDiag.kontrolle.length;
+        let kontrolleKryer = 0;
+        urdherDiag.kontrolle.forEach((kontroll) => {
+            if (kontroll["perfunduar"]) kontrolleKryer++;
+        });
+        // return Math.round(kontrolleKryer / totalKontrolle * 100);
+        return kontrolleKryer / totalKontrolle * 100;
     }
 
 }

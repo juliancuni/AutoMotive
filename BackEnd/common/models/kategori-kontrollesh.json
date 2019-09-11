@@ -1,0 +1,25 @@
+{
+  "name": "kategoriKontrollesh",
+  "plural": "kategoriKontrollesh",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "emer": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "diagnozat": {
+      "type": "hasMany",
+      "model": "Diagnoza",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

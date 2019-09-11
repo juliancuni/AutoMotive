@@ -3,44 +3,53 @@ import {
   Mjeti,
   Klient,
   Perfaqesues,
-  Perdorues
+  Perdorues,
+  LiberMjeti
 } from '../index';
 
 declare var Object: any;
 export interface UrdherDiagnozeInterface {
-  "pershkrim"?: string;
+  "shenime"?: string;
   "leshoi"?: string;
-  "prioriteti"?: number;
-  "statusi"?: number;
+  "prioriteti": number;
+  "statusi": number;
   "krijuar"?: Date;
   "modifikuar"?: Date;
+  "konfirmuarNgaMek"?: boolean;
+  "kontrolle"?: Array<any>;
   "id"?: any;
   "mjetiId"?: any;
   "klientId"?: any;
   "perfaqesuesId"?: any;
   "perdoruesId"?: any;
+  "liberMjetiId"?: any;
   mjeti?: Mjeti;
   klient?: Klient;
   perfaqesues?: Perfaqesues;
   perdorues?: Perdorues;
+  liberMjeti?: LiberMjeti;
 }
 
 export class UrdherDiagnoze implements UrdherDiagnozeInterface {
-  "pershkrim": string;
+  "shenime": string;
   "leshoi": string;
   "prioriteti": number;
   "statusi": number;
   "krijuar": Date;
   "modifikuar": Date;
+  "konfirmuarNgaMek": boolean;
+  "kontrolle": Array<any>;
   "id": any;
   "mjetiId": any;
   "klientId": any;
   "perfaqesuesId": any;
   "perdoruesId": any;
+  "liberMjetiId": any;
   mjeti: Mjeti;
   klient: Klient;
   perfaqesues: Perfaqesues;
   perdorues: Perdorues;
+  liberMjeti: LiberMjeti;
   constructor(data?: UrdherDiagnozeInterface) {
     Object.assign(this, data);
   }
@@ -74,8 +83,8 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
       path: 'UrdheraDiagnoze',
       idName: 'id',
       properties: {
-        "pershkrim": {
-          name: 'pershkrim',
+        "shenime": {
+          name: 'shenime',
           type: 'string'
         },
         "leshoi": {
@@ -84,11 +93,13 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
         },
         "prioriteti": {
           name: 'prioriteti',
-          type: 'number'
+          type: 'number',
+          default: 2
         },
         "statusi": {
           name: 'statusi',
-          type: 'number'
+          type: 'number',
+          default: 1
         },
         "krijuar": {
           name: 'krijuar',
@@ -97,6 +108,15 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
         "modifikuar": {
           name: 'modifikuar',
           type: 'Date'
+        },
+        "konfirmuarNgaMek": {
+          name: 'konfirmuarNgaMek',
+          type: 'boolean',
+          default: false
+        },
+        "kontrolle": {
+          name: 'kontrolle',
+          type: 'Array&lt;any&gt;'
         },
         "id": {
           name: 'id',
@@ -116,6 +136,10 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
         },
         "perdoruesId": {
           name: 'perdoruesId',
+          type: 'any'
+        },
+        "liberMjetiId": {
+          name: 'liberMjetiId',
           type: 'any'
         },
       },
@@ -150,6 +174,14 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
           model: 'Perdorues',
           relationType: 'belongsTo',
                   keyFrom: 'perdoruesId',
+          keyTo: 'id'
+        },
+        liberMjeti: {
+          name: 'liberMjeti',
+          type: 'LiberMjeti',
+          model: 'LiberMjeti',
+          relationType: 'belongsTo',
+                  keyFrom: 'liberMjetiId',
           keyTo: 'id'
         },
       }

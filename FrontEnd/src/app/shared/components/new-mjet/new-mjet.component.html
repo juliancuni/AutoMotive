@@ -28,7 +28,7 @@
                     <input class="form-control mb-2" type="text" placeholder="Nr. Shasisë"
                         formControlName="nrShasise" />
                     <input class="form-control mb-2" type="text" placeholder="Klomentrazhi. Psh 127000"
-                        formControlName="kilometrazhi" />
+                        formControlName="odometer" />
                 </div>
                 <div class="form-group row ml-2">
                     <div class="col-12">
@@ -48,7 +48,7 @@
                 <div *ngIf="!klientIzgjedhurNgaFinanca">
                     <div class="form-group">
                         <input class="form-control" type="text" placeholder="Kerko per klient nga Financa5"
-                            [(ngModel)]="kerko" (ngModelChange)="filterKlientetFinanca($event)" />
+                            [(ngModel)]="kerko" (ngModelChange)="filterKlientetFinanca($event)"/>
                     </div>
                     <span *ngIf="kerko?.length <= 2">{{klientetFinanca?.length}} kliente nga Financa</span>
                     <span *ngIf="kerko?.length > 2">{{klientetFinancaFiltruar?.length}} Rezultate</span>

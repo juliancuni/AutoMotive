@@ -19,6 +19,7 @@ import { UrdherPune } from '../../models/UrdherPune';
 import { Preventiv } from '../../models/Preventiv';
 import { LiberMjeti } from '../../models/LiberMjeti';
 import { KlientFinanca } from '../../models/KlientFinanca';
+import { KategoriKontrollesh } from '../../models/KategoriKontrollesh';
 
 export interface Models { [name: string]: any }
 
@@ -45,6 +46,7 @@ export class SDKModels {
     Preventiv: Preventiv,
     LiberMjeti: LiberMjeti,
     KlientFinanca: KlientFinanca,
+    KategoriKontrollesh: KategoriKontrollesh,
     
   };
 

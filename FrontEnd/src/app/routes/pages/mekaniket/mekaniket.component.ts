@@ -9,6 +9,10 @@ import { RealTime, UrdherDiagnoze, UrdherDiagnozeApi, LoopBackAuth } from 'src/a
 export class MekaniketComponent implements OnInit {
 
     public urdheraDiagnoze: UrdherDiagnoze[] = [];
+    public urdherDiag: UrdherDiagnoze;
+
+    public showMekUrdherDiag: boolean;
+
     constructor(
         private _rt: RealTime,
         private _urdheraDiagnoze: UrdherDiagnozeApi,
@@ -16,12 +20,44 @@ export class MekaniketComponent implements OnInit {
     ) { }
 
 
+    shtoUrdheraDiag(ev) {
+
+    }
+
+    hapMbyllNgaMUDChild(ev) {
+        this.showMekUrdherDiag = ev;
+    }
+
+    showUrdherDiag(urdherDiag: UrdherDiagnoze) {
+        if (urdherDiag) {
+            this.urdherDiag = urdherDiag;
+        } else {
+            this.urdherDiag = new UrdherDiagnoze;
+        }
+        if (!this.showMekUrdherDiag) {
+            this.showMekUrdherDiag = !this.showMekUrdherDiag
+        }
+    }
+
+    resetTableRow() {
+        setTimeout(() => {
+            this.urdheraDiagnoze.forEach((urdherDiag) => {
+                delete urdherDiag["edited"];
+                delete urdherDiag["new"];
+            })
+        }, 60000)
+    }
+
+    sortUrdheraDiagnoze(urdheraDiag: UrdherDiagnoze[]) {
+        this.urdheraDiagnoze = urdheraDiag.sort((a, b) => (a.id < b.id) ? 1 : ((b.id < a.id) ? -1 : 0));
+        this.resetTableRow();
+    }
 
     ngOnInit() {
         this._urdheraDiagnoze.find({ where: { perdoruesId: this._lbAuth.getCurrentUserId() }, include: ["mjeti"] }).subscribe((res: UrdherDiagnoze[]) => {
-            this.urdheraDiagnoze = res;
+            this.sortUrdheraDiagnoze(res);
         })
-        this._rt.IO.on("urdherPune").subscribe((msg: UrdherDiagnoze) => {
+        this._rt.IO.on("urdherDiag").subscribe((msg: UrdherDiagnoze) => {
             let msgIdIndex = this.urdheraDiagnoze.map((urdherDiag) => { return urdherDiag.id }).indexOf(msg.id)
             //Kerko njehere eshte apo jo ne urdheraDiag array
             if (msgIdIndex !== -1) {
@@ -46,26 +82,12 @@ export class MekaniketComponent implements OnInit {
                     //Nese nuk ka te njejtin mekanikId thjesht hiqe
                     this.urdheraDiagnoze.splice(msgIdIndex, 1);
                 }
-            } else if(msgIdIndex === -1 && msg.perdoruesId === this._lbAuth.getCurrentUserId()) {
+            } else if (msgIdIndex === -1 && msg.perdoruesId === this._lbAuth.getCurrentUserId()) {
                 console.log("Nuk eshte ne array + eshte per kete mekanik")
                 this.urdheraDiagnoze.push(msg);
                 this.playAlert(msg.prioriteti);
             }
-            // else {
-            //     console.log("Nuk eshte ne array")
-            //     this.urdheraDiagnoze.push(msg);
-            //     this.playAlert(msg.prioriteti);
-            // }
-            // if (msg.perdoruesId === this._lbAuth.getCurrentUserId()) {
-            //     if (msg["delete"]) {
-            //         this.urdheraDiagnoze.splice(msgIdIndex, 1);
-            //     } else if (msgIdIndex === -1) {
-            //         this.urdheraDiagnoze.splice(msgIdIndex, 1);
-            //     } else {
-            //         this.urdheraDiagnoze.push(msg);
-            //         this.playAlert(msg.prioriteti);
-            //     }
-            // }
+            this.sortUrdheraDiagnoze(this.urdheraDiagnoze);
         })
     }
 

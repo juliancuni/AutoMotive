@@ -9,20 +9,16 @@ import { LoopBackFilter,  } from '../../models/BaseModels';
 import { ErrorHandler } from '../core/error.service';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { UrdherDiagnoze } from '../../models/UrdherDiagnoze';
+import { KategoriKontrollesh } from '../../models/KategoriKontrollesh';
 import { SocketConnection } from '../../sockets/socket.connections';
-import { Mjeti } from '../../models/Mjeti';
-import { Klient } from '../../models/Klient';
-import { Perfaqesues } from '../../models/Perfaqesues';
-import { Perdorues } from '../../models/Perdorues';
-import { LiberMjeti } from '../../models/LiberMjeti';
+import { Diagnoza } from '../../models/Diagnoza';
 
 
 /**
- * Api services for the `UrdherDiagnoze` model.
+ * Api services for the `KategoriKontrollesh` model.
  */
 @Injectable()
-export class UrdherDiagnozeApi extends BaseLoopBackApi {
+export class KategoriKontrolleshApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(HttpClient) protected http: HttpClient,
@@ -35,11 +31,11 @@ export class UrdherDiagnozeApi extends BaseLoopBackApi {
   }
 
   /**
-   * Fetches belongsTo relation mjeti.
+   * Find a related item by id for diagnozat.
    *
-   * @param {any} id UrdherDiagnoze id
+   * @param {any} id kategoriKontrollesh id
    *
-   * @param {boolean} refresh 
+   * @param {any} fk Foreign key for diagnozat
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -47,59 +43,60 @@ export class UrdherDiagnozeApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `UrdherDiagnoze` object.)
+   * This usually means the response is a `KategoriKontrollesh` object.)
    * </em>
    */
-  public getMjeti(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
+  public findByIdDiagnozat(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/UrdheraDiagnoze/:id/mjeti";
+    "/kategoriKontrollesh/:id/diagnozat/:fk";
     let _routeParams: any = {
-      id: id
+      id: id,
+      fk: fk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
   /**
-   * Fetches belongsTo relation klient.
+   * Delete a related item by id for diagnozat.
    *
-   * @param {any} id UrdherDiagnoze id
+   * @param {any} id kategoriKontrollesh id
    *
-   * @param {boolean} refresh 
+   * @param {any} fk Foreign key for diagnozat
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `UrdherDiagnoze` object.)
-   * </em>
+   * This method returns no data.
    */
-  public getKlient(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
+  public destroyByIdDiagnozat(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/UrdheraDiagnoze/:id/klient";
+    "/kategoriKontrollesh/:id/diagnozat/:fk";
     let _routeParams: any = {
-      id: id
+      id: id,
+      fk: fk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
   /**
-   * Fetches belongsTo relation perfaqesues.
+   * Update a related item by id for diagnozat.
    *
-   * @param {any} id UrdherDiagnoze id
+   * @param {any} id kategoriKontrollesh id
    *
-   * @param {boolean} refresh 
+   * @param {any} fk Foreign key for diagnozat
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -107,59 +104,63 @@ export class UrdherDiagnozeApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `UrdherDiagnoze` object.)
+   * This usually means the response is a `KategoriKontrollesh` object.)
    * </em>
    */
-  public getPerfaqesues(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
+  public updateByIdDiagnozat(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/UrdheraDiagnoze/:id/perfaqesues";
+    "/kategoriKontrollesh/:id/diagnozat/:fk";
     let _routeParams: any = {
-      id: id
+      id: id,
+      fk: fk
     };
-    let _postBody: any = {};
+    let _postBody: any = {
+      data: data
+    };
     let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
   /**
-   * Fetches belongsTo relation perdorues.
+   * Queries diagnozat of kategoriKontrollesh.
    *
-   * @param {any} id UrdherDiagnoze id
+   * @param {any} id kategoriKontrollesh id
    *
-   * @param {boolean} refresh 
+   * @param {object} filter 
    *
-   * @returns {object} An empty reference that will be
+   * @returns {object[]} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `UrdherDiagnoze` object.)
+   * This usually means the response is a `KategoriKontrollesh` object.)
    * </em>
    */
-  public getPerdorues(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
+  public getDiagnozat(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/UrdheraDiagnoze/:id/perdorues";
+    "/kategoriKontrollesh/:id/diagnozat";
     let _routeParams: any = {
       id: id
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
+    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
   /**
-   * Fetches belongsTo relation liberMjeti.
+   * Creates a new instance in diagnozat of this model.
    *
-   * @param {any} id UrdherDiagnoze id
+   * @param {any} id kategoriKontrollesh id
    *
-   * @param {boolean} refresh 
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -167,19 +168,73 @@ export class UrdherDiagnozeApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `UrdherDiagnoze` object.)
+   * This usually means the response is a `KategoriKontrollesh` object.)
    * </em>
    */
-  public getLiberMjeti(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
+  public createDiagnozat(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/UrdheraDiagnoze/:id/liberMjeti";
+    "/kategoriKontrollesh/:id/diagnozat";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Deletes all diagnozat of this model.
+   *
+   * @param {any} id kategoriKontrollesh id
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public deleteDiagnozat(id: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/kategoriKontrollesh/:id/diagnozat";
     let _routeParams: any = {
       id: id
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Counts diagnozat of kategoriKontrollesh.
+   *
+   * @param {any} id kategoriKontrollesh id
+   *
+   * @param {object} where Criteria to match model instances
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * Data properties:
+   *
+   *  - `count` – `{number}` - 
+   */
+  public countDiagnozat(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/kategoriKontrollesh/:id/diagnozat/count";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
@@ -197,13 +252,13 @@ export class UrdherDiagnozeApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `UrdherDiagnoze` object.)
+   * This usually means the response is a `KategoriKontrollesh` object.)
    * </em>
    */
   public patchOrCreate(data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/UrdheraDiagnoze";
+    "/kategoriKontrollesh";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -216,7 +271,7 @@ export class UrdherDiagnozeApi extends BaseLoopBackApi {
   /**
    * Patch attributes for a model instance and persist it into the data source.
    *
-   * @param {any} id UrdherDiagnoze id
+   * @param {any} id kategoriKontrollesh id
    *
    * @param {object} data Request data.
    *
@@ -228,13 +283,46 @@ export class UrdherDiagnozeApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `UrdherDiagnoze` object.)
+   * This usually means the response is a `KategoriKontrollesh` object.)
    * </em>
    */
   public patchAttributes(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/UrdheraDiagnoze/:id";
+    "/kategoriKontrollesh/:id";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Creates a new instance in diagnozat of this model.
+   *
+   * @param {any} id kategoriKontrollesh id
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object[]} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `KategoriKontrollesh` object.)
+   * </em>
+   */
+  public createManyDiagnozat(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/kategoriKontrollesh/:id/diagnozat";
     let _routeParams: any = {
       id: id
     };
@@ -248,9 +336,9 @@ export class UrdherDiagnozeApi extends BaseLoopBackApi {
 
   /**
    * The name of the model represented by this $resource,
-   * i.e. `UrdherDiagnoze`.
+   * i.e. `KategoriKontrollesh`.
    */
   public getModelName() {
-    return "UrdherDiagnoze";
+    return "KategoriKontrollesh";
   }
 }

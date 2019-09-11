@@ -60,6 +60,11 @@
       "type": "hasAndBelongsToMany",
       "model": "PjeseKembimi",
       "foreignKey": ""
+    },
+    "liberMjeti": {
+      "type": "belongsTo",
+      "model": "LiberMjeti",
+      "foreignKey": ""
     }
   },
   "acls": [],

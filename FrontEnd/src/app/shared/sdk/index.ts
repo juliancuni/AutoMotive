@@ -67,6 +67,7 @@ import { UrdherPuneApi } from './services/custom/UrdherPune';
 import { PreventivApi } from './services/custom/Preventiv';
 import { LiberMjetiApi } from './services/custom/LiberMjeti';
 import { KlientFinancaApi } from './services/custom/KlientFinanca';
+import { KategoriKontrolleshApi } from './services/custom/KategoriKontrollesh';
 /**
 * @module SDKBrowserModule
 * @description
@@ -116,6 +117,7 @@ export class SDKBrowserModule {
         PreventivApi,
         LiberMjetiApi,
         KlientFinancaApi,
+        KategoriKontrolleshApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

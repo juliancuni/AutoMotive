@@ -12,6 +12,12 @@
     "shenime": {
       "type": "string"
     },
+    "odometer": {
+      "type": "number"
+    },
+    "diferencaOdoMeter": {
+      "type": "number"
+    },
     "krijuar": {
       "type": "date",
       "defaultFn": "now"
@@ -31,6 +37,26 @@
     "mjeti": {
       "type": "belongsTo",
       "model": "Mjeti",
+      "foreignKey": ""
+    },
+    "urdheraDiagnoze": {
+      "type": "hasMany",
+      "model": "UrdherDiagnoze",
+      "foreignKey": ""
+    },
+    "urdheraPune": {
+      "type": "hasMany",
+      "model": "UrdherPune",
+      "foreignKey": ""
+    },
+    "preventivet": {
+      "type": "hasMany",
+      "model": "Preventiv",
+      "foreignKey": ""
+    },
+    "diagnozat": {
+      "type": "hasMany",
+      "model": "Diagnoza",
       "foreignKey": ""
     }
   },

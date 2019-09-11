@@ -49,18 +49,21 @@ export class NewMjetComponent implements OnInit {
                 this._klientFinanca.find().subscribe((res: KlientFinanca[]) => {
                     this.klientetFinanca = res;
                     this.hapFinancen = true;
+                    this.filterKlientetFinanca(this.klient.emer);
                 })
             }
+            this.filterKlientetFinanca(this.klient.emer);
+            this.kerko = this.klient.emer || "";
             this.hapFinancen = true;
         } else {
             this.hapFinancen = false;
-            this.kerko = "";
             this.klientetFinancaFiltruar = [];
             this.pastroKlientinEZgjedhur();
         }
     }
 
-    filterKlientetFinanca(event: { length: number; toLowerCase: () => string; }) {
+    filterKlientetFinanca(event) {
+        console.log(event)
         if (event.length > 2) {
             this.klientetFinancaFiltruar = [...this.klientetFinanca]
             this.klientetFinancaFiltruar = this.klientetFinancaFiltruar.filter((klient) => {
@@ -146,7 +149,7 @@ export class NewMjetComponent implements OnInit {
             "targa": [null, Validators.required],
             "nePark": [null, null],
             "neOficine": [null, null],
-            "kilometrazhi": [null, null],
+            "odometer": [null, null],
         })
     }
 }

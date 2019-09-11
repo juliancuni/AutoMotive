@@ -3,15 +3,17 @@ import {
   UrdherDiagnoze,
   Mjeti,
   KategoriSherbimesh,
-  Perdorues
+  Perdorues,
+  LiberMjeti,
+  KategoriKontrollesh
 } from '../index';
 
 declare var Object: any;
 export interface DiagnozaInterface {
-  "shenime"?: string;
+  "diagnoza"?: string;
   "sasia"?: number;
   "gjendjaDifektit"?: number;
-  "kilometrazhi"?: number;
+  "odometer"?: number;
   "krijuar"?: Date;
   "modifikuar"?: Date;
   "id"?: any;
@@ -21,17 +23,21 @@ export interface DiagnozaInterface {
   "perdoruesId"?: any;
   "kategoriMjeteshId"?: any;
   "preventivId"?: any;
+  "liberMjetiId"?: any;
+  "kategoriKontrolleshId"?: any;
   urdherDiagnoze?: UrdherDiagnoze;
   mjeti?: Mjeti;
   kategoriSherbimesh?: KategoriSherbimesh;
   perdorues?: Perdorues;
+  liberMjeti?: LiberMjeti;
+  kategoriKontrollesh?: KategoriKontrollesh;
 }
 
 export class Diagnoza implements DiagnozaInterface {
-  "shenime": string;
+  "diagnoza": string;
   "sasia": number;
   "gjendjaDifektit": number;
-  "kilometrazhi": number;
+  "odometer": number;
   "krijuar": Date;
   "modifikuar": Date;
   "id": any;
@@ -41,10 +47,14 @@ export class Diagnoza implements DiagnozaInterface {
   "perdoruesId": any;
   "kategoriMjeteshId": any;
   "preventivId": any;
+  "liberMjetiId": any;
+  "kategoriKontrolleshId": any;
   urdherDiagnoze: UrdherDiagnoze;
   mjeti: Mjeti;
   kategoriSherbimesh: KategoriSherbimesh;
   perdorues: Perdorues;
+  liberMjeti: LiberMjeti;
+  kategoriKontrollesh: KategoriKontrollesh;
   constructor(data?: DiagnozaInterface) {
     Object.assign(this, data);
   }
@@ -78,8 +88,8 @@ export class Diagnoza implements DiagnozaInterface {
       path: 'Diagnozat',
       idName: 'id',
       properties: {
-        "shenime": {
-          name: 'shenime',
+        "diagnoza": {
+          name: 'diagnoza',
           type: 'string'
         },
         "sasia": {
@@ -90,8 +100,8 @@ export class Diagnoza implements DiagnozaInterface {
           name: 'gjendjaDifektit',
           type: 'number'
         },
-        "kilometrazhi": {
-          name: 'kilometrazhi',
+        "odometer": {
+          name: 'odometer',
           type: 'number'
         },
         "krijuar": {
@@ -130,6 +140,14 @@ export class Diagnoza implements DiagnozaInterface {
           name: 'preventivId',
           type: 'any'
         },
+        "liberMjetiId": {
+          name: 'liberMjetiId',
+          type: 'any'
+        },
+        "kategoriKontrolleshId": {
+          name: 'kategoriKontrolleshId',
+          type: 'any'
+        },
       },
       relations: {
         urdherDiagnoze: {
@@ -162,6 +180,22 @@ export class Diagnoza implements DiagnozaInterface {
           model: 'Perdorues',
           relationType: 'belongsTo',
                   keyFrom: 'perdoruesId',
+          keyTo: 'id'
+        },
+        liberMjeti: {
+          name: 'liberMjeti',
+          type: 'LiberMjeti',
+          model: 'LiberMjeti',
+          relationType: 'belongsTo',
+                  keyFrom: 'liberMjetiId',
+          keyTo: 'id'
+        },
+        kategoriKontrollesh: {
+          name: 'kategoriKontrollesh',
+          type: 'KategoriKontrollesh',
+          model: 'KategoriKontrollesh',
+          relationType: 'belongsTo',
+                  keyFrom: 'kategoriKontrolleshId',
           keyTo: 'id'
         },
       }

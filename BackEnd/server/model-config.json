@@ -105,5 +105,9 @@
   "KlientFinanca": {
     "dataSource": "MsSql",
     "public": true
+  },
+  "kategoriKontrollesh": {
+    "dataSource": "MongoLocal",
+    "public": true
   }
 }

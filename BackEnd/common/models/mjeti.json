@@ -32,7 +32,7 @@
       "type": "boolean",
       "defaut": false
     },
-    "kilometrazhi": {
+    "odometer": {
       "type": "number"
     },
     "krijuar": {

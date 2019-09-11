@@ -30,7 +30,10 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/app/core/wrapper/wrapper.js"
+              "src/app/core/wrapper/wrapper.js",
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/flot/jquery.flot.js",
+              "node_modules/flot/jquery.flot.pie.js"
             ]
           },
           "configurations": {
@@ -92,7 +95,10 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/app/core/wrapper/wrapper.js"
+              "src/app/core/wrapper/wrapper.js",
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/flot/jquery.flot.js",
+              "node_modules/flot/jquery.flot.pie.js"
             ]
           }
         },

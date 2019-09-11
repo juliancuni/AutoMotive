@@ -18,7 +18,7 @@ export interface MjetiInterface {
   "targa": string;
   "nePark"?: boolean;
   "neOficine"?: boolean;
-  "kilometrazhi"?: number;
+  "odometer"?: number;
   "krijuar"?: Date;
   "modifikuar"?: Date;
   "id"?: any;
@@ -42,7 +42,7 @@ export class Mjeti implements MjetiInterface {
   "targa": string;
   "nePark": boolean;
   "neOficine": boolean;
-  "kilometrazhi": number;
+  "odometer": number;
   "krijuar": Date;
   "modifikuar": Date;
   "id": any;
@@ -117,8 +117,8 @@ export class Mjeti implements MjetiInterface {
           name: 'neOficine',
           type: 'boolean'
         },
-        "kilometrazhi": {
-          name: 'kilometrazhi',
+        "odometer": {
+          name: 'odometer',
           type: 'number'
         },
         "krijuar": {

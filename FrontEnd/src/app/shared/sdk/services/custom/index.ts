@@ -18,5 +18,6 @@ export * from './UrdherPune';
 export * from './Preventiv';
 export * from './LiberMjeti';
 export * from './KlientFinanca';
+export * from './KategoriKontrollesh';
 export * from './SDKModels';
 export * from './logger.service';

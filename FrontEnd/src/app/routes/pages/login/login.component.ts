@@ -49,8 +49,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.perdoruesResponseErr = false;
             this.fjaleKalimiResponseErr = false;
             this._perdorues.login(kredencialet).subscribe((res) => {
-                this._rtCon.rtConnect();
                 this._router.navigate(['/home']);
+                this._rtCon.rtConnect();
+                // res.user.mekanik ? this._router.navigate(['/mekaniket']) : this._router.navigate(['/home']);
             }, (err) => {
                 this.loading = false;
                 this.loginForm.enable();

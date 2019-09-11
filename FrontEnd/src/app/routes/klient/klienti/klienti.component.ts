@@ -186,7 +186,7 @@ export class KlientiComponent implements OnInit {
             "targa": [null, Validators.required],
             "nePark": [null, null],
             "neOficine": [null, null],
-            "kilometrazhi": [null, null],
+            "odometer": [null, null],
         })
         this._route.params.subscribe((params) => {
             this.klientId = params.id;

@@ -17,10 +17,11 @@
                     <ng-template #rt let-r="result" let-t="term">
                         <ngb-highlight [result]="r.emer" [term]="t"></ngb-highlight>
                     </ng-template>
-                    <input id="klientiId" type="text" class="form-control" [ngbTypeahead]="search"
-                        (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)"
-                        [resultTemplate]="rt" [inputFormatter]="formatter" #instance="ngbTypeahead"
-                        placeholder="Zgjidh klientin" formControlName="klient" />
+                    <input id="klientiId" type="text" class="form-control" [ngbTypeahead]="searchKlientet"
+                        (focus)="focusKlientet$.next($event.target.value)"
+                        (click)="clickKlientet$.next($event.target.value)" [resultTemplate]="rt"
+                        [inputFormatter]="formatterKlientet" #instance="ngbTypeahead" placeholder="Zgjidh klientin"
+                        formControlName="klient" />
                     <div class="input-group-append" (click)="clearKlient()">
                         <a class="input-group-text bg-transparent border-left-0" title="Pastro fushën">
                             <em
@@ -86,21 +87,55 @@
             </div>
         </div>
         <div class="form-group row">
-            <div class="col-12">
-                <textarea rows="4" class="form-control" formControlName="pershkrim"
-                    placeholder="Pershkrim i simptomave"></textarea>
+            <label class="text-bold col-3 col-form-label text-right" for="kontrolliId">Check-Up</label>
+            <div class="col-7">
+                <div class="input-group input-group-sm">
+                    <ng-template #rt let-r="result" let-t="term">
+                        <ngb-highlight [result]="r.emer" [term]="t" (click)="shtoKontroll(r)"></ngb-highlight>
+                        <ngb-highlight (click)="shtoKontroll(r)" *ngIf="!result">Term: {{term}}</ngb-highlight>
+                    </ng-template>
+                    <input id="kontrolliId" type="text" class="form-control" [ngbTypeahead]="searchKontrolle"
+                        (focus)="focusKontrolle$.next($event.target.value)"
+                        (click)="clickKontrolle$.next($event.target.value)" [resultTemplate]="rt"
+                        [inputFormatter]="formatterKontrolle" #instance="ngbTypeahead"
+                        placeholder="Kontrolle të zakonshme" formControlName="kontrolle" />
+                    <div class="input-group-append" (click)="ruajNewKontrolleFunction()" *ngIf="kontrollNukEgziston">
+                        <a class="input-group-text bg-transparent border-left-0" title="Shto Check-Up">
+                            <em class="far fa-save"></em>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row" *ngIf="katKontrolleTeZgjedhura?.length > 0">
+            <span class="col-3"></span>
+            <div class="col-7">
+                <div class="d-flex" *ngFor="let kontroll of katKontrolleTeZgjedhura; let i=index;">
+                    <span class="float-left">{{i+1}}. {{kontroll?.emer}}</span>
+                    <span class="ml-auto">
+                        <button class="btn btn-square btn-xs" title="Hiqe nga lista" (click)="hiqKontroll(kontroll)">
+                            <i class="far fa-window-close"></i>
+                        </button>
+                    </span>
+                </div>
             </div>
         </div>
         <div class="form-group row">
-            <div class="col-12">
+            <label class="text-bold col-3 col-form-label text-right" for="kontrolliId">Shënime</label>
+            <div class="col-7">
+                <textarea rows="" class="form-control" formControlName="shenime" placeholder="Shënime"></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="text-bold col-3 col-form-label text-right" for="kontrolliId">Prioriteti</label>
+            <div class="col-7">
                 <input type="range" class="form-control-range" id="formControlRange" formControlName="prioriteti"
                     min="1" max="3">
             </div>
-            <span class="ml-3">
-                <!-- {{(prioriteti === 0) ? 0 : (prioriteti > 0 && prioriteti) <= 2 ? 'S\'ka rëndësi' : (prioriteti > 2 && prioriteti) <= 4 ? 'Pret Puna' : (prioriteti > 4 && prioriteti <= 6) ? 'Normal' : (prioriteti > 6 && prioriteti <= 8) ? 'I lartë' : 'Shumë i lartë'}} -->
-                Prioriteti:
-                {{prioriteti === 1 ? 'i Ulët' : prioriteti === 2 ? 'Normal' : prioriteti === 3 ? 'i Lartë' : ''}}
-            </span>
+            <div class="col-1">
+                <small
+                    [ngClass]="{'text-muted': prioriteti === 1, 'text-primary': prioriteti === 2, 'text-danger': prioriteti === 3}">{{prioriteti === 1 ? 'iUlët' : prioriteti === 2 ? 'Normal' : prioriteti === 3 ? 'iLartë' : ''}}</small>
+            </div>
         </div>
         <div class="form-group row">
             <div class="col-12">
@@ -112,7 +147,8 @@
                     <button class="btn btn-info btn-xs" type="button" (click)="fshiKonfirm = !fshiKonfirm">Jo</button>
                 </span>
                 <button class="btn btn-sm btn-secondary float-right" type="button" (click)="toggle()">Mbyll</button>
-                <button class="btn btn-sm btn-secondary mr-2 float-right" type="submit">Ruaj</button>
+                <button class="btn btn-sm btn-secondary mr-2 float-right" type="submit"
+                    [disabled]="!urdheDiagForm.valid">Ruaj</button>
             </div>
         </div>
     </form>

@@ -1,14 +1,120 @@
 <div class="draggable-box" cdkDrag *ngIf="showMekUrdherDiag">
     <div class="draggable-handle" cdkDragHandle>
         <span class="float-left ml-3 mr-1">Urdhër Diagnoze</span>
-        <!-- <span class="float-left text-primary">{{ urdherDiag?.mjeti?.brand }}</span> -->
-        <!-- <span class="ml-1">{{ urdherDiag?.mjeti?.targa }}</span> -->
         <button type="button" class="close mr-3" aria-label="Close" (click)="toggle()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <hr>
-    <p (click)="showMekUrdherDiag = !showMekUrdherDiag">
-        mek-urdher-diag works!
-    </p>
+    <div class="form-horizontal m-3">
+        <div class="form-group row">
+            <div class="col-12">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="media">
+                            <div class="align-self-start mr-2">
+                                <span class="fa-stack">
+                                    <em class="fa fa-car fa-stack-2x text-purple"></em>
+                                </span>
+                            </div>
+                            <div class="media-body text-truncate">
+                                <p class="mb-1 text-purple m-0">{{ urdherDiag?.mjeti?.targa }}</p>
+                                <p class="m-0">
+                                    <small>{{ urdherDiag?.mjeti?.brand }} {{ urdherDiag?.mjeti?.model }}</small>
+                                </p>
+                            </div>
+                            <div class="ml-auto">
+                                <p class="text-muted ml-2">KM: {{ urdherDiag?.mjeti?.odometer || 'N/A'}}</p>
+                            </div>
+                        </div>
+                        <div class="media-body text-truncate">
+                            <hr>
+                            <div class="d-flex col-10" *ngFor="let kontroll of urdherDiag?.kontrolle; let i=index;">
+                                <span class="float-left ml-2">
+                                    <button *ngIf="urdherDiag?.konfirmuarNgaMek && !kontroll?.perfunduar" class="btn"
+                                        (click)="showDiagnoze(kontroll)">
+                                        {{i+1}}. {{kontroll?.emer}}
+                                    </button>
+                                    <span *ngIf="!urdherDiag?.konfirmuarNgaMek || kontroll?.perfunduar">
+                                        {{i+1}}. {{kontroll?.emer}}
+                                    </span>
+                                </span>
+                                <em class="ml-auto fas fa-check text-success" *ngIf="kontroll?.perfunduar"></em>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-12">
+                <span class="mb-1 m-0 text-danger text-bold">Shënime: </span><span>{{urdherDiag?.shenime }}</span>
+            </div>
+        </div>
+        <div class="form-group row" *ngIf="!urdherDiag?.konfirmuarNgaMek">
+            <div class="col-12">
+                <button class="btn btn-sm btn-secondary float-right " type="button" (click)="toggle()">Mbyll</button>
+                <button class="btn btn-sm btn-danger float-right mr-2" type="button" (click)="refuzo()">Refuzo</button>
+                <button class="btn btn-sm btn-success mr-2 float-right" type="submit"
+                    (click)="konfirmo()">Konfirmo</button>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal m-3" [formGroup]="diagForm"
+        (submit)="regDiagnoze($event, diagForm.value)" *ngIf="urdherDiag?.konfirmuarNgaMek">
+        <div class="form-group row">
+            <label class="text-bold col-3 col-form-label text-right" for="emer">Odometer</label>
+            <div class="col">
+                <input type="number" max="9999999" maxlength="7" class="form-control" formControlName="odometer" />
+            </div>
+        </div>
+        <hr>
+        <div *ngIf="showDiagBlock">
+            <div class="form-group row">
+                <div class="col">
+                    {{kontroll?.emer}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="text-bold col-3 col-form-label text-right" for="emer">Diagnoza</label>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Diagnoza" formControlName="diagnoza"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="text-bold col-3 col-form-label text-right" for="emer">Gjëndja</label>
+                <div class="col">
+                    <label class="c-radio text-success">
+                        <input id="inlineradio1" type="radio" name="gjendjaDifektit" formControlName="gjendjaDifektit" value="1"/>
+                        <span class="fa fa-circle "></span>Mirë</label>
+                    <label class="c-radio">
+                        <input id="inlineradio2" type="radio" name="gjendjaDifektit" formControlName="gjendjaDifektit" value="2"/>
+                        <span class="fa fa-circle"></span>Çka</label>
+                    <label class="c-radio text-danger">
+                        <input id="inlineradio3" type="radio" name="gjendjaDifektit" formControlName="gjendjaDifektit" value="3"/>
+                        <span class="fa fa-circle"></span>Keq</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="text-bold col-3 col-form-label text-right" for="emer">Sasia</label>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Sasia e njësisë" formControlName="sasia"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-12">
+                    <button class="btn btn-xs btn-primary float-right" type="submit" [disabled]="!diagForm.valid">Ok</button>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <div class="form-group row">
+            <div class="col-12">
+                <button class="btn btn-sm btn-secondary float-right" type="button" (click)="toggle()">Mbyll</button>
+                <!-- <button class="btn btn-sm btn-secondary mr-2 float-right" type="submit">Ruaj</button> -->
+            </div>
+        </div>
+    </form>
 </div>

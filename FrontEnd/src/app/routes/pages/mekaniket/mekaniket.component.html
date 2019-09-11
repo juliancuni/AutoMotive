@@ -1,15 +1,31 @@
+<!-- UrdherDiag per Mekaniket -->
+<app-mek-urdher-diag [showMekUrdherDiag]="showMekUrdherDiag" [urdherDiag]="urdherDiag"
+    (hapMbyllMUDNgaSelf)="hapMbyllNgaMUDChild($event)" (shtoMekUrdheraDiag)="shtoUrdheraDiag($event)">
+</app-mek-urdher-diag>
+<!-- End UrdherDiag per Mekaniket -->
 <table class="table table-responsive table-hover">
     <tbody>
-        <tr *ngFor="let urdherDiag of urdheraDiagnoze" (click)="showMekUrdherDiag = !showMekUrdherDiag">
+        <tr *ngFor="let urdherDiag of urdheraDiagnoze" (click)="showUrdherDiag(urdherDiag)"
+            [ngClass]="{'table-info': urdherDiag?.edited, 'table-success': urdherDiag?.new}" style="cursor: pointer;">
             <td>
             <td>{{urdherDiag?.mjeti?.brand}}</td>
             <td>{{urdherDiag?.mjeti?.targa}}</td>
-            <td>{{urdherDiag?.pershkrim}}</td>
-            <td [title]="urdherDiag?.krijuar | date :'dd MMM yyyy hh:mm:ss'">
+            <!-- <td>{{urdherDiag?.shenime}}</td> -->
+            <td>
+                <i class="fas fa-volume-off text-muted" *ngIf="urdherDiag?.prioriteti == 1"
+                    title="Prioritet i ulët"></i>
+                <!-- <i class="icon-volume-off text-muted" *ngIf="urdherDiag?.prioriteti == 1"  title="Prioritet i ulët"></i> -->
+                <i class="fas fa-volume-down text-primary" *ngIf="urdherDiag?.prioriteti == 2"
+                    title="Prioritet normal"></i>
+                <!-- <i class="icon-volume-1 text-primary" *ngIf="urdherDiag?.prioriteti == 2" title="Prioritet i normal"></i> -->
+                <i class="fas fa-volume-up text-danger" *ngIf="urdherDiag?.prioriteti == 3"
+                    title="Prioritet i lartë"></i>
+                <!-- <i class="icon-volume-2 text-danger" *ngIf="urdherDiag?.prioriteti == 3"  title="Prioritet i lartë"></i> -->
+                <!-- <small>{{urdherDiag?.prioriteti == 1 ? 'i Ulët' : urdherDiag?.prioriteti == 2 ? 'Normal' : urdherDiag?.prioriteti == 3 ? 'i Lartë' : ''}}</small> -->
+            </td>
+            <td [title]="urdherDiag?.krijuar | date :'dd MMM yyyy hh:mm:ss'" class="text-muted">
                 <small>{{urdherDiag?.krijuar | dateAgo}}</small>
             </td>
         </tr>
     </tbody>
 </table>
-
-<app-mek-urdher-diag [showMekUrdherDiag]="showMekUrdherDiag"></app-mek-urdher-diag>

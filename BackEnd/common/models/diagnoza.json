@@ -7,7 +7,7 @@
     "validateUpsert": true
   },
   "properties": {
-    "shenime": {
+    "diagnoza": {
       "type": "string"
     },
     "sasia": {
@@ -16,7 +16,7 @@
     "gjendjaDifektit": {
       "type": "number"
     },
-    "kilometrazhi": {
+    "odometer": {
       "type": "number"
     },
     "krijuar": {
@@ -48,6 +48,16 @@
     "perdorues": {
       "type": "belongsTo",
       "model": "Perdorues",
+      "foreignKey": ""
+    },
+    "liberMjeti": {
+      "type": "belongsTo",
+      "model": "LiberMjeti",
+      "foreignKey": ""
+    },
+    "kategoriKontrollesh": {
+      "type": "belongsTo",
+      "model": "kategoriKontrollesh",
       "foreignKey": ""
     }
   },

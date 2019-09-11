@@ -19,6 +19,7 @@ export interface PreventivInterface {
   "id"?: any;
   "klientId"?: any;
   "mjetiId"?: any;
+  "liberMjetiId"?: any;
   klient?: Klient;
   mjeti?: Mjeti;
   diagnozat?: Diagnoza[];
@@ -37,6 +38,7 @@ export class Preventiv implements PreventivInterface {
   "id": any;
   "klientId": any;
   "mjetiId": any;
+  "liberMjetiId": any;
   klient: Klient;
   mjeti: Mjeti;
   diagnozat: Diagnoza[];
@@ -119,6 +121,10 @@ export class Preventiv implements PreventivInterface {
         },
         "mjetiId": {
           name: 'mjetiId',
+          type: 'any'
+        },
+        "liberMjetiId": {
+          name: 'liberMjetiId',
           type: 'any'
         },
       },

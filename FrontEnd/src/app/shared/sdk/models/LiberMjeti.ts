@@ -1,13 +1,19 @@
 /* tslint:disable */
 import {
   Klient,
-  Mjeti
+  Mjeti,
+  UrdherDiagnoze,
+  UrdherPune,
+  Preventiv,
+  Diagnoza
 } from '../index';
 
 declare var Object: any;
 export interface LiberMjetiInterface {
   "data"?: Date;
   "shenime"?: string;
+  "odometer"?: number;
+  "diferencaOdoMeter"?: number;
   "krijuar"?: Date;
   "modifikuar"?: Date;
   "id"?: any;
@@ -15,11 +21,17 @@ export interface LiberMjetiInterface {
   "mjetiId"?: any;
   klient?: Klient;
   mjeti?: Mjeti;
+  urdheraDiagnoze?: UrdherDiagnoze[];
+  urdheraPune?: UrdherPune[];
+  preventivet?: Preventiv[];
+  diagnozat?: Diagnoza[];
 }
 
 export class LiberMjeti implements LiberMjetiInterface {
   "data": Date;
   "shenime": string;
+  "odometer": number;
+  "diferencaOdoMeter": number;
   "krijuar": Date;
   "modifikuar": Date;
   "id": any;
@@ -27,6 +39,10 @@ export class LiberMjeti implements LiberMjetiInterface {
   "mjetiId": any;
   klient: Klient;
   mjeti: Mjeti;
+  urdheraDiagnoze: UrdherDiagnoze[];
+  urdheraPune: UrdherPune[];
+  preventivet: Preventiv[];
+  diagnozat: Diagnoza[];
   constructor(data?: LiberMjetiInterface) {
     Object.assign(this, data);
   }
@@ -68,6 +84,14 @@ export class LiberMjeti implements LiberMjetiInterface {
           name: 'shenime',
           type: 'string'
         },
+        "odometer": {
+          name: 'odometer',
+          type: 'number'
+        },
+        "diferencaOdoMeter": {
+          name: 'diferencaOdoMeter',
+          type: 'number'
+        },
         "krijuar": {
           name: 'krijuar',
           type: 'Date'
@@ -105,6 +129,38 @@ export class LiberMjeti implements LiberMjetiInterface {
           relationType: 'belongsTo',
                   keyFrom: 'mjetiId',
           keyTo: 'id'
+        },
+        urdheraDiagnoze: {
+          name: 'urdheraDiagnoze',
+          type: 'UrdherDiagnoze[]',
+          model: 'UrdherDiagnoze',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'liberMjetiId'
+        },
+        urdheraPune: {
+          name: 'urdheraPune',
+          type: 'UrdherPune[]',
+          model: 'UrdherPune',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'liberMjetiId'
+        },
+        preventivet: {
+          name: 'preventivet',
+          type: 'Preventiv[]',
+          model: 'Preventiv',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'liberMjetiId'
+        },
+        diagnozat: {
+          name: 'diagnozat',
+          type: 'Diagnoza[]',
+          model: 'Diagnoza',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'liberMjetiId'
         },
       }
     }
