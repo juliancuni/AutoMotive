@@ -16,6 +16,12 @@
             </span>
             Urdhër Pune
         </button>
+        <button class="btn btn-labeled btn-secondary mr-2">
+            <span class="btn-label">
+                <i class="fas fa-euro-sign"></i>
+            </span>
+            Preventiv/Ofertë
+        </button>
     </div>
     <!-- Urdher Diagnoze -->
     <app-new-urdher-diag [showUrdherDiag]="showUrdherDiag" [urdherDiag]="urdherDiag"
@@ -36,7 +42,7 @@
                     <em class="fas fa-parking fa-3x"></em>
                 </div>
                 <div class="col-8 py-1 rounded-right">
-                    <div class="h2 mt-0">42</div>
+                    <div class="h2 mt-0">{{mjetetNePark}}</div>
                     <div class="text-uppercase"><small>Mjete në park</small></div>
                 </div>
             </div>
@@ -100,11 +106,23 @@
                 <tbody>
                     <tr *ngFor="let urdherDiag of urdheraDiagnoze" (click)="editUrdherDiag(urdherDiag)"
                         [ngClass]="{'table-info': urdherDiag?.edited, 'table-success': urdherDiag?.new}">
-                        <td>
+                        <!-- <td>
                             <div class="easypie-chart " easypiechart [options]="pieOptions1" [percent]="urdherDiag?.perqindjePerfunduar"
                                 title="{{urdherDiag?.perqindjePerfunduar || 0}}%">
-                                <!-- <small>{{easyPiePercent1}}%</small> -->
                             </div>
+                        </td> -->
+                        <td>
+                            <!-- <em class="fas fa-angle-down" ></em> -->
+                            <!-- <em class="fas fas fa-angle-double-down text-success" ></em> -->
+                            <img src="assets/img/derguar.png" *ngIf="urdherDiag?.statusi === 1" title="U dergua" />
+                            <img src="assets/img/lexuar.png" *ngIf="urdherDiag?.statusi === 2" title="E lexoi" />
+                            <em class="fa fa-cog fa-spin text-primary" *ngIf="urdherDiag?.statusi === 3"
+                                title="Në punë e sipër"></em>
+                            <em class="fas fa-check-circle text-success" *ngIf="urdherDiag?.statusi === 4"
+                                title="Përfunduar"></em>
+                            <em class="far fa-window-close text-danger" *ngIf="urdherDiag?.statusi === 5"
+                                title="Refuzuar"></em>
+
                         </td>
                         <td>{{urdherDiag?.mjeti?.brand}}</td>
                         <td>{{urdherDiag?.mjeti?.targa}}</td>
@@ -123,19 +141,7 @@
                             <!-- <i class="icon-volume-2 text-danger" *ngIf="urdherDiag?.prioriteti == 3"  title="Prioritet i lartë"></i> -->
                             <!-- <small>{{urdherDiag?.prioriteti == 1 ? 'i Ulët' : urdherDiag?.prioriteti == 2 ? 'Normal' : urdherDiag?.prioriteti == 3 ? 'i Lartë' : ''}}</small> -->
                         </td>
-                        <td>
-                            <!-- <em class="fas fa-angle-down" ></em> -->
-                            <!-- <em class="fas fas fa-angle-double-down text-success" ></em> -->
-                            <img src="assets/img/derguar.png" *ngIf="urdherDiag?.statusi === 1" title="U dergua" />
-                            <img src="assets/img/lexuar.png" *ngIf="urdherDiag?.statusi === 2" title="E lexoi" />
-                            <em class="fa fa-cog fa-spin text-primary" *ngIf="urdherDiag?.statusi === 3"
-                                title="Në punë e sipër"></em>
-                            <em class="fas fa-check-circle text-success" *ngIf="urdherDiag?.statusi === 4"
-                                title="Përfunduar"></em>
-                            <em class="far fa-window-close text-danger" *ngIf="urdherDiag?.statusi === 5"
-                                title="Refuzuar"></em>
-
-                        </td>
+                        <td>{{urdherDiag?.diagnozat?.length}}</td>
                         <td [title]="urdherDiag?.krijuar | date :'dd MMM yyyy hh:mm:ss'" class="text-muted">
                             <small>{{urdherDiag?.krijuar | dateAgo}}</small></td>
                     </tr>

@@ -46,17 +46,9 @@
                     </div>
                     <span *ngIf="kerko?.length <= 2">{{klientetFinanca?.length}} kliente nga Financa</span>
                     <span *ngIf="kerko?.length > 2">{{klientetFinancaFiltruar?.length}} Rezultate</span>
-                    <!-- <table class="table-bordered table-hover">
-                                <tr *ngFor="let klientetFiltruar of klientetFinancaFiltruar"
-                                    (click)="zgjidhKlientNgaFinanca(klientetFiltruar)">
-                                    <td>{{klientetFiltruar?.id}}</td>
-                                    <td>{{klientetFiltruar?.kodi}}</td>
-                                    <td>{{klientetFiltruar?.pershkrimi}}</td>
-                                </tr>
-                            </table> -->
                     <p *ngFor="let klientetFiltruar of klientetFinancaFiltruar">
                         <button class="btn btn-xs btn-secondary btn-block"
-                            (click)="zgjidhKlientNgaFinanca(klientetFiltruar)">{{klientetFiltruar?.shenime}}</button>
+                            (click)="zgjidhKlientNgaFinanca(klientetFiltruar)">{{klientetFiltruar?.pershkrimi}}</button>
                     </p>
                 </div>
                 <div *ngIf="klientIzgjedhurNgaFinanca">
@@ -68,7 +60,6 @@
                     </table>
                     <button class="btn btn-xs btn-secondary mb-2" (click)="pastroKlientinEZgjedhur()"
                         type="button">Cancel</button>
-                    <!-- <pre>{{klientZgjedhurNgaFinanca | json}}</pre> -->
                 </div>
             </div>
         </div>

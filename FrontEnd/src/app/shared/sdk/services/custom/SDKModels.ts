@@ -14,12 +14,13 @@ import { Perfaqesues } from '../../models/Perfaqesues';
 import { UrdherDiagnoze } from '../../models/UrdherDiagnoze';
 import { KategoriSherbimesh } from '../../models/KategoriSherbimesh';
 import { Diagnoza } from '../../models/Diagnoza';
-import { PjeseKembimi } from '../../models/PjeseKembimi';
+import { PjeseKembimiFin } from '../../models/PjeseKembimiFin';
 import { UrdherPune } from '../../models/UrdherPune';
 import { Preventiv } from '../../models/Preventiv';
 import { LiberMjeti } from '../../models/LiberMjeti';
 import { KlientFinanca } from '../../models/KlientFinanca';
 import { KategoriKontrollesh } from '../../models/KategoriKontrollesh';
+import { PjeseKembimi } from '../../models/PjeseKembimi';
 
 export interface Models { [name: string]: any }
 
@@ -41,12 +42,13 @@ export class SDKModels {
     UrdherDiagnoze: UrdherDiagnoze,
     KategoriSherbimesh: KategoriSherbimesh,
     Diagnoza: Diagnoza,
-    PjeseKembimi: PjeseKembimi,
+    PjeseKembimiFin: PjeseKembimiFin,
     UrdherPune: UrdherPune,
     Preventiv: Preventiv,
     LiberMjeti: LiberMjeti,
     KlientFinanca: KlientFinanca,
     KategoriKontrollesh: KategoriKontrollesh,
+    PjeseKembimi: PjeseKembimi,
     
   };
 

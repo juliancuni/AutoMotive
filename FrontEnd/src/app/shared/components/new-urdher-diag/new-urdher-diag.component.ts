@@ -1,6 +1,20 @@
 import { Component, Input, Output, ViewChild, OnInit, EventEmitter, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UrdherDiagnoze, KlientApi, Perfaqesues, Mjeti, PerdoruesApi, Klient, Perdorues, LoopBackAuth, UrdherDiagnozeApi, RealTime, KategoriKontrollesh, KategoriKontrolleshApi } from '../../sdk';
+import {
+    UrdherDiagnoze,
+    KlientApi,
+    Perfaqesues,
+    Mjeti,
+    PerdoruesApi,
+    Klient,
+    Perdorues,
+    LoopBackAuth,
+    UrdherDiagnozeApi,
+    RealTime,
+    KategoriKontrollesh,
+    KategoriKontrolleshApi,
+    MjetiApi
+} from '../../sdk';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subject, merge, fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
@@ -19,7 +33,9 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
     @Output() hapMbyllUDNgaSelf = new EventEmitter();
     @Output() shtoUrdheraDiag = new EventEmitter<UrdherDiagnoze>();
 
-    @ViewChild('instance', { static: false }) instance: NgbTypeahead;
+    @ViewChild('instanceKlient', { static: false }) instanceKlient: NgbTypeahead;
+
+    @ViewChild('instanceKontrolle', { static: false }) instanceKontrolle: NgbTypeahead;
     focusKlientet$ = new Subject<string>();
     clickKlientet$ = new Subject<string>();
 
@@ -27,7 +43,8 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
     clickKontrolle$ = new Subject<string>();
 
     public katKontrollesh: KategoriKontrollesh[];
-    public katKontrolleTeZgjedhura: KategoriKontrollesh[];
+    public katKontrolleshOrgj: KategoriKontrollesh[];
+    public katKontrolleTeZgjedhura: KategoriKontrollesh[] = [];
     public urdherDiagnoze: UrdherDiagnoze;
     public urdheraDiagnoze: UrdherDiagnoze[];
     public klientet: Klient[];
@@ -46,12 +63,15 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
     public urdheDiagForm: FormGroup;
     public fshiKonfirm: boolean = false;
     public kontrollNukEgziston: boolean = false;
+    public showNewPreventiv: boolean;
 
     constructor(
         private _fb: FormBuilder,
         private _klient: KlientApi,
         private _perdoruesi: PerdoruesApi,
         private _urdherDiagnoze: UrdherDiagnozeApi,
+        private _mjeti: MjetiApi,
+        // private _liberMjeti: LiberMjetiApi,
         private _auth: LoopBackAuth,
         private _rt: RealTime,
         private _katKontrollesh: KategoriKontrolleshApi
@@ -60,7 +80,7 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
 
     searchKlientet = (text$: Observable<string>) => {
         const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
-        const clicksWithClosedPopup$ = this.clickKlientet$.pipe(filter(() => !this.instance.isPopupOpen()));
+        const clicksWithClosedPopup$ = this.clickKlientet$.pipe(filter(() => !this.instanceKlient.isPopupOpen()));
         const inputFocus$ = this.focusKlientet$;
         return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
             map(term => (term === '' ? this.klientet : this.klientet.filter(v => v.emer.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
@@ -73,7 +93,7 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
 
 
         const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
-        const clicksWithClosedPopup$ = this.clickKontrolle$.pipe(filter(() => !this.instance.isPopupOpen()));
+        const clicksWithClosedPopup$ = this.clickKontrolle$.pipe(filter(() => !this.instanceKontrolle.isPopupOpen()));
         const inputFocus$ = this.focusKontrolle$;
 
         return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
@@ -84,21 +104,20 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
     formatterKontrolle = (x: { emer: string }) => null;
 
     shtoKontroll(r) {
-        let katKontrollesh = [...this.katKontrollesh]
-        let kontrollIndex = katKontrollesh.map((kontroll) => { return kontroll.emer }).indexOf(r.emer);
-        if (kontrollIndex !== -1) {
-            let spliced = katKontrollesh.splice(kontrollIndex, 1);
-            this.katKontrolleTeZgjedhura.push(spliced[0]);
+        let kontrollIndex = this.katKontrollesh.map((kontroll) => { return kontroll.emer }).indexOf(r.emer);
+        let kontrollZgjedhurIndex = this.katKontrolleTeZgjedhura.map((kontroll) => { return kontroll.emer }).indexOf(r.emer);
+        if (kontrollIndex !== -1 && kontrollZgjedhurIndex === -1) {
+            this.katKontrolleTeZgjedhura.push(this.katKontrollesh[kontrollIndex]);
         }
     }
 
-    // hiqKontroll(kontroll) {
-    //     let kontrollIndex = this.katKontrolleTeZgjedhura.map((kontroll) => { return kontroll.emer }).indexOf(kontroll.emer);
-    //     if (kontrollIndex !== -1) {
-    //         let spliced = this.katKontrolleTeZgjedhura.splice(kontrollIndex, 1);
-    //         this.katKontrollesh.push(spliced[0]);
-    //     }
-    // }
+    hiqKontroll(kontroll) {
+        let kontrollIndex = this.katKontrolleTeZgjedhura.map((kontroll) => { return kontroll.emer }).indexOf(kontroll.emer);
+        if (kontrollIndex !== -1) {
+            let spliced = this.katKontrolleTeZgjedhura.splice(kontrollIndex, 1);
+            this.katKontrollesh.push(spliced[0]);
+        }
+    }
 
     ruajNewKontrolleFunction() {
         let newKontroll = { emer: this.urdheDiagForm.controls.kontrolle.value };
@@ -114,14 +133,75 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
         this.hapMbyllUDNgaSelf.emit(this.showUrdherDiag = !this.showUrdherDiag);
     }
 
-    regUrdherDiagnoze(ev, urdheDiagForm) {
+    modifikoUrdherDiagnoze(ev, urdheDiagForm) {
         ev.preventDefault();
         if (this.urdheDiagForm.valid) {
-            let klient = { ...this.klient };
+
+            if (this.urdheDiagForm.dirty) {
+                this.upsertUrdherDiag(urdheDiagForm).then((urdherDiag) => {
+                    if (this.urdherDiag.id) {
+                        urdherDiag["edited"] = true;
+                        urdherDiag.diagnozat = this.urdherDiag.diagnozat;
+                    } else {
+                        urdherDiag["new"] = true;
+                        urdheDiagForm.diagnozat = [];
+                    }
+                    let klient = { ...this.klient };
+                    let perRT = { ...urdherDiag };
+                    let mjeti = klient.mjetet.filter((mjet) => { return mjet.id === urdheDiagForm.mjeti.id });
+                    let perdorues = this.perdoruesit.filter((perdorues) => { return perdorues.id === urdheDiagForm.destinuarPer.id });
+                    let perfaqesues;
+                    if (urdheDiagForm.perfaqesues) {
+                        perfaqesues = klient.perfaqesues.filter((perfaqesues) => { return perfaqesues.id === urdheDiagForm.perfaqesues.id });
+                        urdherDiag.perfaqesues = perfaqesues[0];
+                    }
+                    mjeti[0].nePark = true;
+                    mjeti[0].odometer = urdheDiagForm.odometer;
+                    urdherDiag.mjeti = mjeti[0];
+                    urdherDiag.perdorues = perdorues[0];
+                    delete klient.mjetet;
+                    delete klient.perfaqesues;
+                    urdherDiag.klient = klient;
+                    this.shtoUrdheraDiag.emit(urdherDiag);
+                    this.urdheDiagForm.reset();
+                    perRT.mjeti = mjeti[0];
+                    this._rt.IO.emit("urdherDiag", perRT);
+                    this._mjeti.upsert(mjeti[0]).subscribe(() => {
+                        this._rt.IO.emit("refreshMjetet", 1);
+                    })
+                }).catch((err) => { console.log(err) });
+            }
+            this.toggle();
+        }
+    }
+
+    // krijoLiberMjeti(): Promise<LiberMjeti> {
+    //     return new Promise((resolve, reject) => {
+    //         if (!this.urdherDiag.id) {
+    //             let liberMjeti = new LiberMjeti;
+    //             //Krijo Liber Mjeti
+    //             liberMjeti.odometer = this.urdheDiagForm.controls.odometer.value;
+    //             liberMjeti.shenime = "UrdherDiagnoze";
+    //             liberMjeti.klientId = this.klient.id;
+    //             liberMjeti.mjetiId = this.urdheDiagForm.controls.mjeti.value.id;
+    //             this._liberMjeti.create(liberMjeti).subscribe(async (res: LiberMjeti) => {
+    //                 resolve(res);
+    //             }, (err) => {
+    //                 reject(err);
+    //             })
+    //         } else {
+    //             resolve(new LiberMjeti)
+    //         }
+    //     })
+    // }
+
+    upsertUrdherDiag(urdheDiagForm): Promise<UrdherDiagnoze> {
+        return new Promise((resolve, reject) => {
             if (this.urdherDiag.id) {
                 urdheDiagForm.klient = this.urdherDiag.klient;
                 urdheDiagForm.mjeti = this.urdherDiag.mjeti
                 urdheDiagForm.statusi = this.urdherDiag.statusi;
+                urdheDiagForm.konfirmuarNgaMek = this.urdherDiag.konfirmuarNgaMek;
                 if (this.urdherDiag.perdorues.id !== urdheDiagForm.perfaqesuesId) {
                     urdheDiagForm.statusi = 1;
                 }
@@ -135,49 +215,28 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
                 leshoi: this._auth.getCurrentUserId(),
                 shenime: urdheDiagForm.shenime,
                 statusi: urdheDiagForm.statusi,
-                kontrolle: this.katKontrolleTeZgjedhura
+                kontrolle: this.katKontrolleTeZgjedhura,
+                liberMjetiId: urdheDiagForm.liberMjetiId,
+                ["konfirmuarNgaMek"]: urdheDiagForm.konfirmuarNgaMek
             });
-
             this.urdherDiag.id ? newUrdherdiagnoze.id = this.urdherDiag.id : null;
-
-            // if (this.janeNjelloj(newUrdherdiagnoze, this.urdherDiag)) {
-            //     this.urdheDiagForm.reset();
-            //     this.toggle();
-            //     console.log("UrdheraDiagnoze jane Njelloj")
-            // } else {
             delete this.urdherDiag["edited"];
             delete this.urdherDiag["new"];
             this._urdherDiagnoze.upsert(newUrdherdiagnoze).subscribe((res: UrdherDiagnoze) => {
-                //vendos nje key edited nese ka urdherDiag.Id
-                if (this.urdherDiag.id) {
-                    res["edited"] = true;
-                } else {
-                    res["new"] = true;
-                }
-                let perRT = { ...res };
-                let mjeti = klient.mjetet.filter((mjet) => { return mjet.id === urdheDiagForm.mjeti.id });
-                let perdorues = this.perdoruesit.filter((perdorues) => { return perdorues.id === urdheDiagForm.destinuarPer.id });
-                let perfaqesues = klient.perfaqesues.filter((perfaqesues) => { return perfaqesues.id === urdheDiagForm.perfaqesues.id });
-                res.mjeti = mjeti[0];
-                res.perdorues = perdorues[0];
-                res.perfaqesues = perfaqesues[0];
-                delete klient.mjetet;
-                delete klient.perfaqesues;
-                res.klient = klient;
-                this.toggle();
-                this.shtoUrdheraDiag.emit(res);
-                this.urdheDiagForm.reset();
-                perRT.mjeti = mjeti[0];
-                this._rt.IO.emit("urdherDiag", perRT);
-                // console.log(this.katKontrollesh)
+                resolve(res);
+            }, (err) => {
+                reject(err);
             });
-            // }
-        }
+        })
     }
 
     deleteUrdherDiagnoze(urdherDiag) {
         urdherDiag.delete = true;
         let urdherDiagPerRT = { ...urdherDiag };
+        urdherDiagPerRT.mjeti.nePark = false;
+        this._mjeti.upsert(urdherDiag.mjeti).subscribe(() => {
+            this._rt.IO.emit("refreshMjetet", 1);
+        });
         this._urdherDiagnoze.deleteById(urdherDiag.id).subscribe(() => {
             this.toggle();
             this.shtoUrdheraDiag.emit(urdherDiag);
@@ -187,7 +246,14 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
         delete urdherDiagPerRT.perfaqesues;
         delete urdherDiagPerRT.perdorues;
         this._rt.IO.emit("urdherDiag", urdherDiagPerRT);
-        // console.log(this.katKontrollesh)
+
+    }
+
+    hapMbyllNgaNPrChild(ev) {
+        this.showNewPreventiv = ev;
+    }
+
+    shtoPreventiv(ev) {
 
     }
 
@@ -220,7 +286,11 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
     }
 
     shtoMjet(ev: Mjeti) {
-        this.mjetetEklientit.push(ev);
+        console.log(ev)
+        if (typeof this.mjetetEklientit !== "undefined") {
+            this.mjetetEklientit = [];
+            this.mjetetEklientit.push(ev);
+        }
     }
 
     clearKlient() {
@@ -236,8 +306,9 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
             "mjeti": [{ value: "", disabled: true }, Validators.required],
             "destinuarPer": [{ value: "", disabled: true }, Validators.required],
             "prioriteti": [{ value: "2", disabled: false }, null],
-            "kontrolle": [{ value: "", disabled: true }, Validators.required],
+            "kontrolle": [{ value: "", disabled: true }, null],
             "shenime": [{ value: "", disabled: true }, null],
+            "odometer": [{ value: "", disabled: true }, null],
         })
 
         this._klient.find({ include: ["mjetet", "perfaqesues"] }).subscribe((res: Klient[]) => {
@@ -248,11 +319,12 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
         })
         this._katKontrollesh.find().subscribe((res: KategoriKontrollesh[]) => {
             this.katKontrollesh = res;
+            this.katKontrolleshOrgj = [...res];
         })
         this.urdheDiagForm.controls.klient.valueChanges.subscribe((value: Klient) => {
             if (typeof value === 'object' && value !== null) {
                 this.klient = value;
-                this.mjetetEklientit = this.klient.mjetet;
+                this.mjetetEklientit = this.klient.mjetet || [];
                 this.perfaqesuesitEklientit = this.klient.perfaqesues || [];
                 this.urdheDiagForm.controls.perfaqesues.enable()
                 this.urdheDiagForm.controls.mjeti.enable()
@@ -260,6 +332,8 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
                 this.urdheDiagForm.controls.destinuarPer.enable()
                 this.urdheDiagForm.controls.kontrolle.enable()
                 this.urdheDiagForm.controls.shenime.enable()
+                this.urdheDiagForm.controls.odometer.enable()
+
                 this.klientIzgjedhur = true;
 
             }
@@ -270,7 +344,14 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
                 this.urdheDiagForm.controls.destinuarPer.disable()
                 this.urdheDiagForm.controls.kontrolle.disable()
                 this.urdheDiagForm.controls.shenime.disable()
+                this.urdheDiagForm.controls.odometer.disable()
                 this.klientIzgjedhur = false;
+            }
+        })
+        this.urdheDiagForm.controls.mjeti.valueChanges.subscribe((value: Mjeti) => {
+            if (typeof value === 'object' && value !== null) {
+                this.urdheDiagForm.controls.odometer.setValue(value.odometer);
+                this.urdheDiagForm.controls.odometer.enable()
             }
         })
         this.urdheDiagForm.controls.kontrolle.valueChanges.subscribe((value) => {
@@ -301,28 +382,18 @@ export class NewUrdherDiagComponent implements OnInit, OnChanges {
             this.urdheDiagForm.controls.destinuarPer.setValue(this.urdherDiag.perdorues);
             this.urdheDiagForm.controls.shenime.setValue(this.urdherDiag.shenime);
             this.urdheDiagForm.controls.prioriteti.setValue(this.urdherDiag.prioriteti);
-
             this.katKontrolleTeZgjedhura = this.urdherDiag.kontrolle;
-            // console.log(this.urdherDiag.kontrolle)
-            // this.urdherDiag.kontrolle.forEach((kontroll) => {
-            //     this.shtoKontroll(kontroll);
-            // })
-
+            if (this.urdherDiag.statusi === 4) {
+                this.urdheDiagForm.disable();
+            }
         } else {
-            console.log(this.katKontrollesh);
             this.katKontrolleTeZgjedhura = [];
-            // this.katKontrolleTeZgjedhura.forEach((kontroll) => {
-            //     this.hiqKontroll(kontroll);
-            // })
             if (typeof this.urdheDiagForm !== 'undefined') {
                 this.urdheDiagForm.reset();
                 this.urdheDiagForm.controls.klient.enable();
             }
 
         }
-        // this.kontrolleTeZgjedhura.forEach((kontroll) => {
-        //     this.hiqKontroll(kontroll);
-        // })
         this.fshiKonfirm = false;
 
         source.subscribe((e: KeyboardEvent) => {

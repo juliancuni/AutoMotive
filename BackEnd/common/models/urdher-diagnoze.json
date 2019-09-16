@@ -68,6 +68,16 @@
       "type": "belongsTo",
       "model": "LiberMjeti",
       "foreignKey": ""
+    },
+    "diagnozat": {
+      "type": "hasMany",
+      "model": "Diagnoza",
+      "foreignKey": ""
+    },
+    "preventiva": {
+      "type": "hasMany",
+      "model": "Preventiv",
+      "foreignKey": ""
     }
   },
   "acls": [],

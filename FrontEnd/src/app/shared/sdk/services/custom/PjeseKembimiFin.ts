@@ -9,19 +9,16 @@ import { LoopBackFilter,  } from '../../models/BaseModels';
 import { ErrorHandler } from '../core/error.service';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Preventiv } from '../../models/Preventiv';
+import { PjeseKembimiFin } from '../../models/PjeseKembimiFin';
 import { SocketConnection } from '../../sockets/socket.connections';
-import { Klient } from '../../models/Klient';
-import { Mjeti } from '../../models/Mjeti';
-import { Diagnoza } from '../../models/Diagnoza';
-import { UrdherDiagnoze } from '../../models/UrdherDiagnoze';
+import { UrdherPune } from '../../models/UrdherPune';
 
 
 /**
- * Api services for the `Preventiv` model.
+ * Api services for the `PjeseKembimiFin` model.
  */
 @Injectable()
-export class PreventivApi extends BaseLoopBackApi {
+export class PjeseKembimiFinApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(HttpClient) protected http: HttpClient,
@@ -34,41 +31,11 @@ export class PreventivApi extends BaseLoopBackApi {
   }
 
   /**
-   * Fetches belongsTo relation klient.
+   * Find a related item by id for urdheraPune.
    *
-   * @param {any} id Preventiv id
+   * @param {any} id PjeseKembimiFin id
    *
-   * @param {boolean} refresh 
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Preventiv` object.)
-   * </em>
-   */
-  public getKlient(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Preventivet/:id/klient";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Fetches belongsTo relation mjeti.
-   *
-   * @param {any} id Preventiv id
-   *
-   * @param {boolean} refresh 
+   * @param {any} fk Foreign key for urdheraPune
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -76,43 +43,13 @@ export class PreventivApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Preventiv` object.)
+   * This usually means the response is a `PjeseKembimiFin` object.)
    * </em>
    */
-  public getMjeti(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
+  public findByIdUrdheraPune(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Preventivet/:id/mjeti";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Find a related item by id for diagnozat.
-   *
-   * @param {any} id Preventiv id
-   *
-   * @param {any} fk Foreign key for diagnozat
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Preventiv` object.)
-   * </em>
-   */
-  public findByIdDiagnozat(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Preventivet/:id/diagnozat/:fk";
+    "/PjeseKembimiFin/:id/urdheraPune/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -124,11 +61,11 @@ export class PreventivApi extends BaseLoopBackApi {
   }
 
   /**
-   * Delete a related item by id for diagnozat.
+   * Delete a related item by id for urdheraPune.
    *
-   * @param {any} id Preventiv id
+   * @param {any} id PjeseKembimiFin id
    *
-   * @param {any} fk Foreign key for diagnozat
+   * @param {any} fk Foreign key for urdheraPune
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -136,10 +73,10 @@ export class PreventivApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyByIdDiagnozat(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public destroyByIdUrdheraPune(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Preventivet/:id/diagnozat/:fk";
+    "/PjeseKembimiFin/:id/urdheraPune/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -151,11 +88,11 @@ export class PreventivApi extends BaseLoopBackApi {
   }
 
   /**
-   * Update a related item by id for diagnozat.
+   * Update a related item by id for urdheraPune.
    *
-   * @param {any} id Preventiv id
+   * @param {any} id PjeseKembimiFin id
    *
-   * @param {any} fk Foreign key for diagnozat
+   * @param {any} fk Foreign key for urdheraPune
    *
    * @param {object} data Request data.
    *
@@ -167,13 +104,13 @@ export class PreventivApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Preventiv` object.)
+   * This usually means the response is a `PjeseKembimiFin` object.)
    * </em>
    */
-  public updateByIdDiagnozat(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public updateByIdUrdheraPune(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Preventivet/:id/diagnozat/:fk";
+    "/PjeseKembimiFin/:id/urdheraPune/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -187,11 +124,15 @@ export class PreventivApi extends BaseLoopBackApi {
   }
 
   /**
-   * Fetches belongsTo relation urdherDiagnoze.
+   * Add a related item by id for urdheraPune.
    *
-   * @param {any} id Preventiv id
+   * @param {any} id PjeseKembimiFin id
    *
-   * @param {boolean} refresh 
+   * @param {any} fk Foreign key for urdheraPune
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -199,27 +140,86 @@ export class PreventivApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Preventiv` object.)
+   * This usually means the response is a `PjeseKembimiFin` object.)
    * </em>
    */
-  public getUrdherDiagnoze(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
+  public linkUrdheraPune(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Preventivet/:id/urdherDiagnoze";
+    "/PjeseKembimiFin/:id/urdheraPune/rel/:fk";
     let _routeParams: any = {
-      id: id
+      id: id,
+      fk: fk
     };
-    let _postBody: any = {};
+    let _postBody: any = {
+      data: data
+    };
     let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
   /**
-   * Queries diagnozat of Preventiv.
+   * Remove the urdheraPune relation to an item by id.
    *
-   * @param {any} id Preventiv id
+   * @param {any} id PjeseKembimiFin id
+   *
+   * @param {any} fk Foreign key for urdheraPune
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public unlinkUrdheraPune(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/PjeseKembimiFin/:id/urdheraPune/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Check the existence of urdheraPune relation to an item by id.
+   *
+   * @param {any} id PjeseKembimiFin id
+   *
+   * @param {any} fk Foreign key for urdheraPune
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `PjeseKembimiFin` object.)
+   * </em>
+   */
+  public existsUrdheraPune(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "HEAD";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/PjeseKembimiFin/:id/urdheraPune/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Queries urdheraPune of PjeseKembimiFin.
+   *
+   * @param {any} id PjeseKembimiFin id
    *
    * @param {object} filter 
    *
@@ -229,13 +229,13 @@ export class PreventivApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Preventiv` object.)
+   * This usually means the response is a `PjeseKembimiFin` object.)
    * </em>
    */
-  public getDiagnozat(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+  public getUrdheraPune(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Preventivet/:id/diagnozat";
+    "/PjeseKembimiFin/:id/urdheraPune";
     let _routeParams: any = {
       id: id
     };
@@ -247,9 +247,9 @@ export class PreventivApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in diagnozat of this model.
+   * Creates a new instance in urdheraPune of this model.
    *
-   * @param {any} id Preventiv id
+   * @param {any} id PjeseKembimiFin id
    *
    * @param {object} data Request data.
    *
@@ -261,13 +261,13 @@ export class PreventivApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Preventiv` object.)
+   * This usually means the response is a `PjeseKembimiFin` object.)
    * </em>
    */
-  public createDiagnozat(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public createUrdheraPune(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Preventivet/:id/diagnozat";
+    "/PjeseKembimiFin/:id/urdheraPune";
     let _routeParams: any = {
       id: id
     };
@@ -280,9 +280,9 @@ export class PreventivApi extends BaseLoopBackApi {
   }
 
   /**
-   * Deletes all diagnozat of this model.
+   * Deletes all urdheraPune of this model.
    *
-   * @param {any} id Preventiv id
+   * @param {any} id PjeseKembimiFin id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -290,10 +290,10 @@ export class PreventivApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public deleteDiagnozat(id: any, customHeaders?: Function): Observable<any> {
+  public deleteUrdheraPune(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Preventivet/:id/diagnozat";
+    "/PjeseKembimiFin/:id/urdheraPune";
     let _routeParams: any = {
       id: id
     };
@@ -304,9 +304,9 @@ export class PreventivApi extends BaseLoopBackApi {
   }
 
   /**
-   * Counts diagnozat of Preventiv.
+   * Counts urdheraPune of PjeseKembimiFin.
    *
-   * @param {any} id Preventiv id
+   * @param {any} id PjeseKembimiFin id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -318,10 +318,10 @@ export class PreventivApi extends BaseLoopBackApi {
    *
    *  - `count` – `{number}` - 
    */
-  public countDiagnozat(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
+  public countUrdheraPune(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Preventivet/:id/diagnozat/count";
+    "/PjeseKembimiFin/:id/urdheraPune/count";
     let _routeParams: any = {
       id: id
     };
@@ -345,13 +345,13 @@ export class PreventivApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Preventiv` object.)
+   * This usually means the response is a `PjeseKembimiFin` object.)
    * </em>
    */
   public patchOrCreate(data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Preventivet";
+    "/PjeseKembimiFin";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -364,7 +364,7 @@ export class PreventivApi extends BaseLoopBackApi {
   /**
    * Patch attributes for a model instance and persist it into the data source.
    *
-   * @param {any} id Preventiv id
+   * @param {any} id PjeseKembimiFin id
    *
    * @param {object} data Request data.
    *
@@ -376,13 +376,13 @@ export class PreventivApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Preventiv` object.)
+   * This usually means the response is a `PjeseKembimiFin` object.)
    * </em>
    */
   public patchAttributes(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Preventivet/:id";
+    "/PjeseKembimiFin/:id";
     let _routeParams: any = {
       id: id
     };
@@ -395,9 +395,9 @@ export class PreventivApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in diagnozat of this model.
+   * Creates a new instance in urdheraPune of this model.
    *
-   * @param {any} id Preventiv id
+   * @param {any} id PjeseKembimiFin id
    *
    * @param {object} data Request data.
    *
@@ -409,13 +409,13 @@ export class PreventivApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Preventiv` object.)
+   * This usually means the response is a `PjeseKembimiFin` object.)
    * </em>
    */
-  public createManyDiagnozat(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyUrdheraPune(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Preventivet/:id/diagnozat";
+    "/PjeseKembimiFin/:id/urdheraPune";
     let _routeParams: any = {
       id: id
     };
@@ -429,9 +429,9 @@ export class PreventivApi extends BaseLoopBackApi {
 
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Preventiv`.
+   * i.e. `PjeseKembimiFin`.
    */
   public getModelName() {
-    return "Preventiv";
+    return "PjeseKembimiFin";
   }
 }

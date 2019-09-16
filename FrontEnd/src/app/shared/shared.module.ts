@@ -45,6 +45,7 @@ import { NewMjetComponent } from './components/new-mjet/new-mjet.component';
 // import { AgGridModule } from 'ag-grid-angular';
 import { TimeAgoPipe } from 'src/app/shared/pipes/time-ago.pipe';
 import { MekUrdherDiagComponent } from './components/mek-urdher-diag/mek-urdher-diag.component';
+import { PreventivComponent } from './components/new-preventiv/new-preventiv.component';
 
 
 // https://angular.io/styleguide#!#04-10
@@ -96,7 +97,8 @@ import { MekUrdherDiagComponent } from './components/mek-urdher-diag/mek-urdher-
         NewPerfaqesuesComponent,
         NewMjetComponent,
         TimeAgoPipe,
-        MekUrdherDiagComponent
+        MekUrdherDiagComponent,
+        PreventivComponent
     ],
     exports: [
         CommonModule,
@@ -141,6 +143,7 @@ import { MekUrdherDiagComponent } from './components/mek-urdher-diag/mek-urdher-
         DragDropModule,
         TimeAgoPipe,
         MekUrdherDiagComponent,
+        PreventivComponent
         
         // AgGridModule
     ]

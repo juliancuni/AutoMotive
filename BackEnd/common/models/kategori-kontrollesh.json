@@ -1,6 +1,6 @@
 {
-  "name": "kategoriKontrollesh",
-  "plural": "kategoriKontrollesh",
+  "name": "KategoriKontrollesh",
+  "plural": "KategoriKontrollesh",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {

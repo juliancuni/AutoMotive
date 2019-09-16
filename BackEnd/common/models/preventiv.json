@@ -13,20 +13,20 @@
     "perfaqesuesi": {
       "type": "string"
     },
-    "sherbimi": {
-      "type": "string"
-    },
     "sasia": {
-      "type": "string"
+      "type": "number"
     },
     "parashikimDorezimi": {
       "type": "date"
     },
     "cmimi": {
-      "type": "string"
+      "type": "number"
     },
     "vlera": {
-      "type": "string"
+      "type": "number"
+    },
+    "ulje": {
+      "type": "number"
     },
     "krijuar": {
       "type": "date",
@@ -35,6 +35,16 @@
     "modifikuar": {
       "type": "date",
       "defaultFn": "now"
+    },
+    "sherbimet": {
+      "type": [
+        "object"
+      ]
+    },
+    "pjeset": {
+      "type": [
+        "object"
+      ]
     }
   },
   "validations": [],
@@ -52,6 +62,11 @@
     "diagnozat": {
       "type": "hasMany",
       "model": "Diagnoza",
+      "foreignKey": ""
+    },
+    "urdherDiagnoze": {
+      "type": "belongsTo",
+      "model": "UrdherDiagnoze",
       "foreignKey": ""
     }
   },

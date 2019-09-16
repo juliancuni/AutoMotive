@@ -86,7 +86,7 @@
     "dataSource": "MongoLocal",
     "public": true
   },
-  "PjeseKembimi": {
+  "PjeseKembimiFin": {
     "dataSource": "MsSql",
     "public": true
   },
@@ -106,7 +106,11 @@
     "dataSource": "MsSql",
     "public": true
   },
-  "kategoriKontrollesh": {
+  "KategoriKontrollesh": {
+    "dataSource": "MongoLocal",
+    "public": true
+  },
+  "PjeseKembimi": {
     "dataSource": "MongoLocal",
     "public": true
   }

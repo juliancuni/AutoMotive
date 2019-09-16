@@ -62,12 +62,13 @@ import { PerfaqesuesApi } from './services/custom/Perfaqesues';
 import { UrdherDiagnozeApi } from './services/custom/UrdherDiagnoze';
 import { KategoriSherbimeshApi } from './services/custom/KategoriSherbimesh';
 import { DiagnozaApi } from './services/custom/Diagnoza';
-import { PjeseKembimiApi } from './services/custom/PjeseKembimi';
+import { PjeseKembimiFinApi } from './services/custom/PjeseKembimiFin';
 import { UrdherPuneApi } from './services/custom/UrdherPune';
 import { PreventivApi } from './services/custom/Preventiv';
 import { LiberMjetiApi } from './services/custom/LiberMjeti';
 import { KlientFinancaApi } from './services/custom/KlientFinanca';
 import { KategoriKontrolleshApi } from './services/custom/KategoriKontrollesh';
+import { PjeseKembimiApi } from './services/custom/PjeseKembimi';
 /**
 * @module SDKBrowserModule
 * @description
@@ -112,12 +113,13 @@ export class SDKBrowserModule {
         UrdherDiagnozeApi,
         KategoriSherbimeshApi,
         DiagnozaApi,
-        PjeseKembimiApi,
+        PjeseKembimiFinApi,
         UrdherPuneApi,
         PreventivApi,
         LiberMjetiApi,
         KlientFinancaApi,
         KategoriKontrolleshApi,
+        PjeseKembimiApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

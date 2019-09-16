@@ -1,0 +1,250 @@
+<div class="draggable-box" cdkDrag *ngIf="showNewPreventiv">
+    <div class="draggable-handle" cdkDragHandle>
+        <span class="float-left ml-3 mr-1">Preventiv</span>
+        <span class="float-left text-primary">{{ urdherDiag?.mjeti?.brand }}</span><span
+            class="ml-1">{{ urdherDiag?.mjeti?.targa }}</span>
+        <button type="button" class="close mr-3" aria-label="Close" (click)="toggle()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <hr>
+    <div class="form-horizontal ml-3 mr-3">
+        <div class="form-group row">
+            <div class="col-12">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="media">
+                            <div class="align-self-start mr-2">
+                                <span class="fa-stack">
+                                    <em class="fa fa-car fa-stack-2x text-purple"></em>
+                                </span>
+                            </div>
+                            <div class="media-body text-truncate">
+                                <p class="mb-1 text-purple m-0">{{ urdherDiag?.mjeti?.targa }}</p>
+                                <p class="m-0">
+                                    <small>{{ urdherDiag?.mjeti?.brand }} {{ urdherDiag?.mjeti?.model }}</small>
+                                </p>
+                                <p>
+                                    <small>KM: {{ urdherDiag?.mjeti?.odometer || 'N/A'}}</small>
+                                </p>
+                            </div>
+                            <div class="ml-auto">
+                                <p class="text-muted ml-2">{{ urdherDiag?.klient?.emer || 'N/A'}}</p>
+                                <small class="text-muted ml-2">{{ urdherDiag?.perfaqesues?.emer }}</small>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <hr>
+                            <p class="float-left">Urdhëra Diagnoze:</p>
+                            <div class="d-flex" *ngFor="let kontroll of urdherDiag?.kontrolle; let i=index;">
+                                <span class="float-left ml-2">
+                                    {{i+1}}. {{kontroll?.emer}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Pjese: {{pjesetKembimi?.length}} (Rekorde nga Financa5)
+        <div class="input-group">
+            <ng-template #rt1 let-r="result" let-t="term">
+                <ngb-highlight [result]="r.pershkrimi" [term]="t"></ngb-highlight>
+            </ng-template>
+            <input id="pjeseKembimiId" type="text" class="form-control" [ngbTypeahead]="searchPjeseKembimi"
+                (focus)="focusPjeseKembimi$.next($event.target.value)" (click)="clickPjeseKembimi$.next($event.target.value)"
+                [resultTemplate]="rt1" [inputFormatter]="formatterPjeseKembimi" #instancePjeseKembimi="ngbTypeahead"
+                placeholder="Zgjidh Pjesëkëmbimi" style="width: 150px;" />
+        </div> -->
+        <div class="form-group row">
+            <div class="col-12" style="cursor: pointer;">
+                <div class="card card-default">
+                    <div class="card-header">Lista e diagnozave nga {{urdherDiag?.perdorues?.emer}}
+                        {{urdherDiag?.perdorues?.mbiemer}}</div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-sm" *ngIf="diagnozat?.length !== 0">
+                            <tr *ngFor="let diagnoza of diagnozat">
+                                <td>{{diagnoza?.diagnoza}}</td>
+                                <td>
+                                    {{diagnoza?.sasia !== null && diagnoza?.sasia !== 0 ? 'Sasia: ' + diagnoza?.sasia : '' }}
+                                </td>
+                                <td>
+                                    Gjëndja
+                                    {{diagnoza?.gjendjaDifektit === 1 ? "e Mirë": diagnoza?.gjendjaDifektit === 2 ? "Çka" :  "e Keqe"}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card card-default ml-3 mr-3">
+        <tabset class="bg-white p-0" justified="true">
+            <tab>
+                <ng-template tabHeading>
+                    Shërbime
+                </ng-template>
+                <div>
+                    <!-- Forma e sherbimeve -->
+                    <form class="form-inline" [formGroup]="preventivForm"
+                        (submit)="regPreventiv($event, preventivForm.value)">
+                        <table class="table">
+                            <thead>
+                                <th>Shërbimi</th>
+                                <th>Orë Pune</th>
+                                <th>Çmimi</th>
+                                <th>Ulje %</th>
+                                <th>Vlera</th>
+                                <th></th>
+                            </thead>
+                            <td>
+                                <div class="input-group">
+                                    <ng-template #rt let-r="result" let-t="term">
+                                        <ngb-highlight [result]="r.emer" [term]="t"></ngb-highlight>
+                                    </ng-template>
+                                    <input id="katSherbId" type="text" class="form-control"
+                                        [ngbTypeahead]="searchKatSherb"
+                                        (focus)="focusKatSherb$.next($event.target.value)"
+                                        (click)="clickKatSherb$.next($event.target.value)" [resultTemplate]="rt"
+                                        [inputFormatter]="formatterKatSherb" #instanceKatSherb="ngbTypeahead"
+                                        placeholder="Zgjidh Sherbimin" style="width: 150px;"
+                                        formControlName="sherbimi" />
+                                </div>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control " placeholder="Orë pune"
+                                    formControlName="orePune" style="width: 70px;" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control " placeholder="Çmimi" formControlName="cmimi"
+                                    style="width: 100px;" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control " placeholder="Ulje %" formControlName="ulje"
+                                    style="width: 80px;" />
+                            </td>
+                            <td>
+                                <label class="text-bold col-form-label text-right"
+                                    for="emer">{{ vlereSherbimi | currency: 'ALL':'symbol':'2.2-4':'al'}}</label>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-primary mr-2" type="submit"
+                                    [disabled]="!preventivForm.valid">Ok</button>
+                                <button class="btn btn-sm btn-secondary " type="button" (click)="preventivForm.reset()">
+                                    <em class="far fa-window-close"></em>
+                                </button>
+                            </td>
+                        </table>
+                    </form>
+                    <!-- End Forma e sherbimeve -->
+                </div>
+            </tab>
+            <tab>
+                <ng-template tabHeading>
+                    Pjesë këmbimi
+                </ng-template>
+                <div>
+                    <!-- Forma e pjeseve -->
+                    <form class="form-inline" [formGroup]="pjeseKembimiForm"
+                        (submit)="regPjeseKembimi($event, pjeseKembimiForm.value)">
+                        <table class="table">
+                            <thead>
+                                <th>PartNo</th>
+                                <th>Përshkrimi</th>
+                                <th>Sasia</th>
+                                <th>Çmimi</th>
+                                <th>Ulje %</th>
+                                <th>Vlera</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control m-0  p-0" placeholder="PartNo"
+                                            formControlName="partNo" style="width: 150px;" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control m-0 p-0" placeholder="Përshkrimi"
+                                            formControlName="pershkrimi" style="width: 150px;" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control  m-0  p-0" placeholder="Sasia"
+                                            formControlName="cmimi" style="width: 50px;" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control  m-0  p-0" placeholder="Çmimi"
+                                            formControlName="sasia" style="width: 50px;" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control  m-0  p-0" placeholder="Ulje %"
+                                            formControlName="ulje" style="width: 50px;" />
+                                    </td>
+                                    <td>
+                                        <label class="text-bold col-form-label text-right"
+                                            for="emer">{{ vlerePjesesh | currency: 'ALL':'symbol':'2.2-4':'al'}}</label>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary mr-2" type="submit"
+                                            [disabled]="!preventivForm.valid">Ok</button>
+                                        <button class="btn btn-sm btn-secondary " type="button"
+                                            (click)="pjeseKembimiForm.reset()">
+                                            <em class="far fa-window-close"></em>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <!-- End Forma e pjeseve -->
+                </div>
+            </tab>
+        </tabset>
+    </div>
+    <div class="card card-default ml-3 mr-3">
+        <div class="card-body">
+            <table class="table table-hover" *ngIf="preventivet?.length > 0">
+                <thead>
+                    <th>Shërbimi</th>
+                    <th>Orë pune</th>
+                    <th>Çmimi</th>
+                    <th>Vlera</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let preventiv of preventivet" style="cursor: pointer;">
+                        <!-- <span (click)="editPreventiv(preventiv)" style="cursor: pointer;"> -->
+                        <td (click)="editPreventiv(preventiv)">{{preventiv?.zeri}}</td>
+                        <td>{{preventiv?.sasia}}</td>
+                        <td>{{preventiv?.cmimi}}</td>
+                        <td>
+                            {{preventiv?.vlera}} <small
+                                class="text-success">{{ preventiv?.ulje ? preventiv?.ulje + '% Ulje' : null }} </small>
+                        </td>
+                        <!-- </span> -->
+                        <td>
+                            <button class="btn btn-sm btn-secondary " type="button" (click)="fshiPreventiv(preventiv)">
+                                <em class="far fa-window-close"></em>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <td></td>
+                    <td></td>
+                    <td><span class="float-right">Total:</span></td>
+                    <td>{{totalVleraSherbime}}</td>
+                    <td></td>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="form-horizontal m-3">
+        <div class="form-group row">
+            <div class="col-12">
+                <button class="btn btn-sm btn-secondary float-right" type="button" (click)="toggle()">Mbyll</button>
+                <button class="btn btn-sm btn-secondary mr-2 float-right" type="submit" [disabled]="true">Ruaj</button>
+            </div>
+        </div>
+    </div>
+</div>

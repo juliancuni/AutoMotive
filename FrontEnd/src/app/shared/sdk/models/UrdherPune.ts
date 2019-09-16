@@ -5,8 +5,8 @@ import {
   Perdorues,
   Perfaqesues,
   KategoriSherbimesh,
-  PjeseKembimi,
-  LiberMjeti
+  LiberMjeti,
+  PjeseKembimi
 } from '../index';
 
 declare var Object: any;
@@ -30,8 +30,8 @@ export interface UrdherPuneInterface {
   perdoruesMorri?: Perdorues;
   perfaqesues?: Perfaqesues;
   kategoriSherbimesh?: KategoriSherbimesh[];
-  pjeseKembimi?: PjeseKembimi[];
   liberMjeti?: LiberMjeti;
+  pjeseKembimi?: PjeseKembimi[];
 }
 
 export class UrdherPune implements UrdherPuneInterface {
@@ -54,8 +54,8 @@ export class UrdherPune implements UrdherPuneInterface {
   perdoruesMorri: Perdorues;
   perfaqesues: Perfaqesues;
   kategoriSherbimesh: KategoriSherbimesh[];
-  pjeseKembimi: PjeseKembimi[];
   liberMjeti: LiberMjeti;
+  pjeseKembimi: PjeseKembimi[];
   constructor(data?: UrdherPuneInterface) {
     Object.assign(this, data);
   }
@@ -189,6 +189,14 @@ export class UrdherPune implements UrdherPuneInterface {
           keyFrom: 'id',
           keyTo: 'urdherPuneId'
         },
+        liberMjeti: {
+          name: 'liberMjeti',
+          type: 'LiberMjeti',
+          model: 'LiberMjeti',
+          relationType: 'belongsTo',
+                  keyFrom: 'liberMjetiId',
+          keyTo: 'id'
+        },
         pjeseKembimi: {
           name: 'pjeseKembimi',
           type: 'PjeseKembimi[]',
@@ -198,14 +206,6 @@ export class UrdherPune implements UrdherPuneInterface {
           keyThrough: 'pjeseKembimiId',
           keyFrom: 'id',
           keyTo: 'urdherPuneId'
-        },
-        liberMjeti: {
-          name: 'liberMjeti',
-          type: 'LiberMjeti',
-          model: 'LiberMjeti',
-          relationType: 'belongsTo',
-                  keyFrom: 'liberMjetiId',
-          keyTo: 'id'
         },
       }
     }

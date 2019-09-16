@@ -4,8 +4,7 @@ import {
   Mjeti,
   KategoriSherbimesh,
   Perdorues,
-  LiberMjeti,
-  KategoriKontrollesh
+  LiberMjeti
 } from '../index';
 
 declare var Object: any;
@@ -30,7 +29,6 @@ export interface DiagnozaInterface {
   kategoriSherbimesh?: KategoriSherbimesh;
   perdorues?: Perdorues;
   liberMjeti?: LiberMjeti;
-  kategoriKontrollesh?: KategoriKontrollesh;
 }
 
 export class Diagnoza implements DiagnozaInterface {
@@ -54,7 +52,6 @@ export class Diagnoza implements DiagnozaInterface {
   kategoriSherbimesh: KategoriSherbimesh;
   perdorues: Perdorues;
   liberMjeti: LiberMjeti;
-  kategoriKontrollesh: KategoriKontrollesh;
   constructor(data?: DiagnozaInterface) {
     Object.assign(this, data);
   }
@@ -188,14 +185,6 @@ export class Diagnoza implements DiagnozaInterface {
           model: 'LiberMjeti',
           relationType: 'belongsTo',
                   keyFrom: 'liberMjetiId',
-          keyTo: 'id'
-        },
-        kategoriKontrollesh: {
-          name: 'kategoriKontrollesh',
-          type: 'KategoriKontrollesh',
-          model: 'KategoriKontrollesh',
-          relationType: 'belongsTo',
-                  keyFrom: 'kategoriKontrolleshId',
           keyTo: 'id'
         },
       }

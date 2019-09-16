@@ -2,81 +2,26 @@
   "name": "PjeseKembimi",
   "plural": "PjeseKembimi",
   "base": "PersistedModel",
+  "idInjection": true,
   "options": {
-    "idInjection": false,
-    "mssql": {
-      "schema": "dbo",
-      "table": "ARTIKUJ"
-    }
+    "validateUpsert": true
   },
   "properties": {
-    "id": {
-      "type": "Number",
-      "id": true,
-      "required": false,
-      "length": 64,
-      "precision": null,
-      "scale": null,
-      "mssql": {
-        "columnName": "NRRENDOR",
-        "dataType": "int",
-        "dataLength": 64,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "NO"
-      }
+    "kod": {
+      "type": "string"
     },
-    "kodi": {
-      "type": "String",
-      "length": 25,
-      "mssql": {
-        "columnName": "KOD",
-        "dataType": "varchar",
-        "dataLength": 25
-      }
-    },
-    "pershkrimi": {
-      "type": "String",
-      "length": 100,
-      "mssql": {
-        "columnName": "PERSHKRIM",
-        "dataType": "varchar",
-        "dataLength": 100
-      }
+    "pershkrim": {
+      "type": "string"
     },
     "pozicioni": {
-      "type": "String",
-      "length": 8,
-      "mssql": {
-        "columnName": "POZIC",
-        "dataType": "varchar",
-        "dataLength": 8
-      }
+      "type": "string"
     },
     "cmimShitje": {
-      "type": "Number",
-      "mssql": {
-        "columnName": "CMSH",
-        "dataType": "float"
-      }
-    },
-    "krijuar": {
-      "type": "date",
-      "defaultFn": "now"
-    },
-    "modifikuar": {
-      "type": "date",
-      "defaultFn": "now"
+      "type": "number"
     }
   },
   "validations": [],
-  "relations": {
-    "urdheraPune": {
-      "type": "hasAndBelongsToMany",
-      "model": "UrdherPune",
-      "foreignKey": ""
-    }
-  },
+  "relations": {},
   "acls": [],
   "methods": {}
 }

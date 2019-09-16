@@ -9,7 +9,7 @@
     </div>
     <hr>
     <form class="form-horizontal m-3" [formGroup]="urdheDiagForm"
-        (submit)="regUrdherDiagnoze($event, urdheDiagForm.value)">
+        (submit)="modifikoUrdherDiagnoze($event, urdheDiagForm.value)">
         <div class="form-group row">
             <label class="text-bold col-3 col-form-label text-right" for="emer">Klienti</label>
             <div class="col-7">
@@ -20,8 +20,8 @@
                     <input id="klientiId" type="text" class="form-control" [ngbTypeahead]="searchKlientet"
                         (focus)="focusKlientet$.next($event.target.value)"
                         (click)="clickKlientet$.next($event.target.value)" [resultTemplate]="rt"
-                        [inputFormatter]="formatterKlientet" #instance="ngbTypeahead" placeholder="Zgjidh klientin"
-                        formControlName="klient" />
+                        [inputFormatter]="formatterKlientet" #instanceKlient="ngbTypeahead"
+                        placeholder="Zgjidh klientin" formControlName="klient" />
                     <div class="input-group-append" (click)="clearKlient()">
                         <a class="input-group-text bg-transparent border-left-0" title="Pastro fushën">
                             <em
@@ -71,6 +71,12 @@
             </div>
         </div>
         <div class="form-group row">
+            <label class="text-bold col-3 col-form-label text-right" for="emer">OdoMeter</label>
+            <div class="col-7">
+                <input class="form-control" type="number" formControlName="odometer" placeholder="OdoMeter">
+            </div>
+        </div>
+        <div class="form-group row">
             <label class="text-bold col-3 col-form-label text-right" for="emer">Punonjësi</label>
             <div class="col-7">
                 <select class="form-control" formControlName="destinuarPer" [compareWith]="compareFn">
@@ -89,20 +95,23 @@
         <div class="form-group row">
             <label class="text-bold col-3 col-form-label text-right" for="kontrolliId">Check-Up</label>
             <div class="col-7">
-                <div class="input-group input-group-sm">
-                    <ng-template #rt let-r="result" let-t="term">
-                        <ngb-highlight [result]="r.emer" [term]="t" (click)="shtoKontroll(r)"></ngb-highlight>
-                        <ngb-highlight (click)="shtoKontroll(r)" *ngIf="!result">Term: {{term}}</ngb-highlight>
-                    </ng-template>
-                    <input id="kontrolliId" type="text" class="form-control" [ngbTypeahead]="searchKontrolle"
-                        (focus)="focusKontrolle$.next($event.target.value)"
-                        (click)="clickKontrolle$.next($event.target.value)" [resultTemplate]="rt"
-                        [inputFormatter]="formatterKontrolle" #instance="ngbTypeahead"
-                        placeholder="Kontrolle të zakonshme" formControlName="kontrolle" />
-                    <div class="input-group-append" (click)="ruajNewKontrolleFunction()" *ngIf="kontrollNukEgziston">
-                        <a class="input-group-text bg-transparent border-left-0" title="Shto Check-Up">
-                            <em class="far fa-save"></em>
-                        </a>
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <ng-template #rt let-r="result" let-t="term">
+                            <ngb-highlight [result]="r.emer" [term]="t" (click)="shtoKontroll(r)"></ngb-highlight>
+                            <ngb-highlight (click)="shtoKontroll(r)" *ngIf="!result">Term: {{term}}</ngb-highlight>
+                        </ng-template>
+                        <input id="kontrolliId" type="text" class="form-control" [ngbTypeahead]="searchKontrolle"
+                            (focus)="focusKontrolle$.next($event.target.value)"
+                            (click)="clickKontrolle$.next($event.target.value)" [resultTemplate]="rt"
+                            [inputFormatter]="formatterKontrolle" #instanceKontrolle="ngbTypeahead"
+                            placeholder="Kontrolle të zakonshme" formControlName="kontrolle" />
+                        <div class="input-group-append" (click)="ruajNewKontrolleFunction()"
+                            *ngIf="kontrollNukEgziston">
+                            <a class="input-group-text bg-transparent border-left-0" title="Shto Check-Up">
+                                <em class="far fa-save"></em>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -113,9 +122,11 @@
                 <div class="d-flex" *ngFor="let kontroll of katKontrolleTeZgjedhura; let i=index;">
                     <span class="float-left">{{i+1}}. {{kontroll?.emer}}</span>
                     <span class="ml-auto">
-                        <button class="btn btn-square btn-xs" title="Hiqe nga lista" (click)="hiqKontroll(kontroll)">
+                        <button class="btn btn-square btn-xs" title="Hiqe nga lista" (click)="hiqKontroll(kontroll)"
+                            *ngIf="!kontroll?.perfunduar" type="button" [disabled]="urdherDiag?.statusi === 4">
                             <i class="far fa-window-close"></i>
                         </button>
+                        <i class="fas fa-check text-success" *ngIf="kontroll?.perfunduar"></i>
                     </span>
                 </div>
             </div>
@@ -139,13 +150,20 @@
         </div>
         <div class="form-group row">
             <div class="col-12">
-                <button class="btn btn-sm btn-danger mr-2" type="button" *ngIf="urdherDiag?.id"
-                    (click)="fshiKonfirm = !fshiKonfirm">Fshije</button>
-                <span class="block" *ngIf="fshiKonfirm">
-                    <button class="btn btn-warning btn-xs mr-1" type="button"
-                        (click)="deleteUrdherDiagnoze(urdherDiag)">Po</button>
-                    <button class="btn btn-info btn-xs" type="button" (click)="fshiKonfirm = !fshiKonfirm">Jo</button>
-                </span>
+                <div *ngIf="urdherDiag?.statusi !== 4">
+                    <button class="btn btn-sm btn-danger mr-2" type="button" *ngIf="urdherDiag?.id"
+                        (click)="fshiKonfirm = !fshiKonfirm">Fshije</button>
+                    <span class="block" *ngIf="fshiKonfirm">
+                        <button class="btn btn-warning btn-xs mr-1" type="button"
+                            (click)="deleteUrdherDiagnoze(urdherDiag)">Po</button>
+                        <button class="btn btn-info btn-xs" type="button"
+                            (click)="fshiKonfirm = !fshiKonfirm">Jo</button>
+                    </span>
+                </div>
+                <div *ngIf="urdherDiag?.statusi === 4">
+                    <button class="btn btn-sm btn-success mr-2" type="button" *ngIf="urdherDiag?.id"
+                        (click)="showNewPreventiv = !showNewPreventiv">Preventiv</button>
+                </div>
                 <button class="btn btn-sm btn-secondary float-right" type="button" (click)="toggle()">Mbyll</button>
                 <button class="btn btn-sm btn-secondary mr-2 float-right" type="submit"
                     [disabled]="!urdheDiagForm.valid">Ruaj</button>
@@ -170,3 +188,8 @@
 <app-new-perdorues [showNewPerdorues]="showNewPerdorues" (hapMbyllNPNgaSelf)="hapMbyllNgaNPChild($event)"
     (shtoPerdorues)="shtoPerdorues($event)"></app-new-perdorues>
 <!-- End new Perdorues Form -->
+
+<!-- new Preventiv Form -->
+<app-new-preventiv [showNewPreventiv]="showNewPreventiv" [urdherDiag]="urdherDiag"
+    (hapMbyllNPrNgaSelf)="hapMbyllNgaNPrChild($event)" (shtoPreventiv)="shtoPreventiv($event)"></app-new-preventiv>
+<!-- End new Preventiv Form -->

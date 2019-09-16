@@ -33,7 +33,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for diagnozat.
    *
-   * @param {any} id kategoriKontrollesh id
+   * @param {any} id KategoriKontrollesh id
    *
    * @param {any} fk Foreign key for diagnozat
    *
@@ -49,7 +49,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   public findByIdDiagnozat(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/kategoriKontrollesh/:id/diagnozat/:fk";
+    "/KategoriKontrollesh/:id/diagnozat/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -63,7 +63,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for diagnozat.
    *
-   * @param {any} id kategoriKontrollesh id
+   * @param {any} id KategoriKontrollesh id
    *
    * @param {any} fk Foreign key for diagnozat
    *
@@ -76,7 +76,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   public destroyByIdDiagnozat(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/kategoriKontrollesh/:id/diagnozat/:fk";
+    "/KategoriKontrollesh/:id/diagnozat/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -90,7 +90,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for diagnozat.
    *
-   * @param {any} id kategoriKontrollesh id
+   * @param {any} id KategoriKontrollesh id
    *
    * @param {any} fk Foreign key for diagnozat
    *
@@ -110,7 +110,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   public updateByIdDiagnozat(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/kategoriKontrollesh/:id/diagnozat/:fk";
+    "/KategoriKontrollesh/:id/diagnozat/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -124,9 +124,9 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   }
 
   /**
-   * Queries diagnozat of kategoriKontrollesh.
+   * Queries diagnozat of KategoriKontrollesh.
    *
-   * @param {any} id kategoriKontrollesh id
+   * @param {any} id KategoriKontrollesh id
    *
    * @param {object} filter 
    *
@@ -142,7 +142,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   public getDiagnozat(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/kategoriKontrollesh/:id/diagnozat";
+    "/KategoriKontrollesh/:id/diagnozat";
     let _routeParams: any = {
       id: id
     };
@@ -156,7 +156,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in diagnozat of this model.
    *
-   * @param {any} id kategoriKontrollesh id
+   * @param {any} id KategoriKontrollesh id
    *
    * @param {object} data Request data.
    *
@@ -174,7 +174,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   public createDiagnozat(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/kategoriKontrollesh/:id/diagnozat";
+    "/KategoriKontrollesh/:id/diagnozat";
     let _routeParams: any = {
       id: id
     };
@@ -189,7 +189,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   /**
    * Deletes all diagnozat of this model.
    *
-   * @param {any} id kategoriKontrollesh id
+   * @param {any} id KategoriKontrollesh id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -200,7 +200,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   public deleteDiagnozat(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/kategoriKontrollesh/:id/diagnozat";
+    "/KategoriKontrollesh/:id/diagnozat";
     let _routeParams: any = {
       id: id
     };
@@ -211,9 +211,9 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   }
 
   /**
-   * Counts diagnozat of kategoriKontrollesh.
+   * Counts diagnozat of KategoriKontrollesh.
    *
-   * @param {any} id kategoriKontrollesh id
+   * @param {any} id KategoriKontrollesh id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -228,7 +228,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   public countDiagnozat(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/kategoriKontrollesh/:id/diagnozat/count";
+    "/KategoriKontrollesh/:id/diagnozat/count";
     let _routeParams: any = {
       id: id
     };
@@ -258,7 +258,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   public patchOrCreate(data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/kategoriKontrollesh";
+    "/KategoriKontrollesh";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -271,7 +271,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   /**
    * Patch attributes for a model instance and persist it into the data source.
    *
-   * @param {any} id kategoriKontrollesh id
+   * @param {any} id KategoriKontrollesh id
    *
    * @param {object} data Request data.
    *
@@ -289,7 +289,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   public patchAttributes(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/kategoriKontrollesh/:id";
+    "/KategoriKontrollesh/:id";
     let _routeParams: any = {
       id: id
     };
@@ -304,7 +304,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in diagnozat of this model.
    *
-   * @param {any} id kategoriKontrollesh id
+   * @param {any} id KategoriKontrollesh id
    *
    * @param {object} data Request data.
    *
@@ -322,7 +322,7 @@ export class KategoriKontrolleshApi extends BaseLoopBackApi {
   public createManyDiagnozat(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/kategoriKontrollesh/:id/diagnozat";
+    "/KategoriKontrollesh/:id/diagnozat";
     let _routeParams: any = {
       id: id
     };

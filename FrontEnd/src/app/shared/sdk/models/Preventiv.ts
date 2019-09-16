@@ -2,46 +2,55 @@
 import {
   Klient,
   Mjeti,
-  Diagnoza
+  Diagnoza,
+  UrdherDiagnoze
 } from '../index';
 
 declare var Object: any;
 export interface PreventivInterface {
   "klienti"?: string;
   "perfaqesuesi"?: string;
-  "sherbimi"?: string;
-  "sasia"?: string;
+  "sasia"?: number;
   "parashikimDorezimi"?: Date;
-  "cmimi"?: string;
-  "vlera"?: string;
+  "cmimi"?: number;
+  "vlera"?: number;
+  "ulje"?: number;
   "krijuar"?: Date;
   "modifikuar"?: Date;
+  "sherbimet"?: Array<any>;
+  "pjeset"?: Array<any>;
   "id"?: any;
   "klientId"?: any;
   "mjetiId"?: any;
+  "urdherDiagnozeId"?: any;
   "liberMjetiId"?: any;
   klient?: Klient;
   mjeti?: Mjeti;
   diagnozat?: Diagnoza[];
+  urdherDiagnoze?: UrdherDiagnoze;
 }
 
 export class Preventiv implements PreventivInterface {
   "klienti": string;
   "perfaqesuesi": string;
-  "sherbimi": string;
-  "sasia": string;
+  "sasia": number;
   "parashikimDorezimi": Date;
-  "cmimi": string;
-  "vlera": string;
+  "cmimi": number;
+  "vlera": number;
+  "ulje": number;
   "krijuar": Date;
   "modifikuar": Date;
+  "sherbimet": Array<any>;
+  "pjeset": Array<any>;
   "id": any;
   "klientId": any;
   "mjetiId": any;
+  "urdherDiagnozeId": any;
   "liberMjetiId": any;
   klient: Klient;
   mjeti: Mjeti;
   diagnozat: Diagnoza[];
+  urdherDiagnoze: UrdherDiagnoze;
   constructor(data?: PreventivInterface) {
     Object.assign(this, data);
   }
@@ -83,13 +92,9 @@ export class Preventiv implements PreventivInterface {
           name: 'perfaqesuesi',
           type: 'string'
         },
-        "sherbimi": {
-          name: 'sherbimi',
-          type: 'string'
-        },
         "sasia": {
           name: 'sasia',
-          type: 'string'
+          type: 'number'
         },
         "parashikimDorezimi": {
           name: 'parashikimDorezimi',
@@ -97,11 +102,15 @@ export class Preventiv implements PreventivInterface {
         },
         "cmimi": {
           name: 'cmimi',
-          type: 'string'
+          type: 'number'
         },
         "vlera": {
           name: 'vlera',
-          type: 'string'
+          type: 'number'
+        },
+        "ulje": {
+          name: 'ulje',
+          type: 'number'
         },
         "krijuar": {
           name: 'krijuar',
@@ -110,6 +119,14 @@ export class Preventiv implements PreventivInterface {
         "modifikuar": {
           name: 'modifikuar',
           type: 'Date'
+        },
+        "sherbimet": {
+          name: 'sherbimet',
+          type: 'Array&lt;any&gt;'
+        },
+        "pjeset": {
+          name: 'pjeset',
+          type: 'Array&lt;any&gt;'
         },
         "id": {
           name: 'id',
@@ -121,6 +138,10 @@ export class Preventiv implements PreventivInterface {
         },
         "mjetiId": {
           name: 'mjetiId',
+          type: 'any'
+        },
+        "urdherDiagnozeId": {
+          name: 'urdherDiagnozeId',
           type: 'any'
         },
         "liberMjetiId": {
@@ -152,6 +173,14 @@ export class Preventiv implements PreventivInterface {
           relationType: 'hasMany',
                   keyFrom: 'id',
           keyTo: 'preventivId'
+        },
+        urdherDiagnoze: {
+          name: 'urdherDiagnoze',
+          type: 'UrdherDiagnoze',
+          model: 'UrdherDiagnoze',
+          relationType: 'belongsTo',
+                  keyFrom: 'urdherDiagnozeId',
+          keyTo: 'id'
         },
       }
     }

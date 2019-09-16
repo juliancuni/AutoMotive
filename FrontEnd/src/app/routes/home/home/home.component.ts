@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Ndermarrje, UrdherDiagnoze, UrdherDiagnozeApi, UrdherPune, PerdoruesApi, Perdorues, Role, LoopBackAuth, RealTime } from 'src/app/shared/sdk';
+import { Ndermarrje, UrdherDiagnoze, UrdherDiagnozeApi, UrdherPune, PerdoruesApi, Perdorues, Role, LoopBackAuth, RealTime, Mjeti, MjetiApi } from 'src/app/shared/sdk';
 import { SettingsService } from '../../../core/settings/settings.service';
 import { ColorsService } from '../../../shared/colors/colors.service';
 
@@ -36,12 +36,14 @@ export class HomeComponent implements OnInit {
 
     public eshteMekanik: boolean = false;
 
+    public mjetetNePark = 0;
     public urdheraDiagnozeAktive = 0;
 
     constructor(
         public settings: SettingsService,
         private _urdherDiagnoze: UrdherDiagnozeApi,
         private _perdorues: PerdoruesApi,
+        private _mjetet: MjetiApi,
         private _lbAuth: LoopBackAuth,
         private _rt: RealTime,
         public _colors: ColorsService
@@ -108,9 +110,15 @@ export class HomeComponent implements OnInit {
         this.urdheraDiagnoze = urdheraDiag.sort((a, b) => (a.id < b.id) ? 1 : ((b.id < a.id) ? -1 : 0));
         this.urdheraDiagnoze.forEach((urdher) => {
             urdher["perqindjePerfunduar"] = this.llogPerqindjDiag(urdher);
-            if(urdher.statusi !== 4) this.urdheraDiagnozeAktive++;
+            if (urdher.statusi !== 4) this.urdheraDiagnozeAktive++;
         })
         this.resetTableRow();
+    }
+
+    numeroMjetet() {
+        this._mjetet.count({ nePark: true }).subscribe((res) => {
+            this.mjetetNePark = res.count;
+        })
     }
 
     ngOnInit() {
@@ -119,10 +127,11 @@ export class HomeComponent implements OnInit {
                 this.sortUrdheraDiagnoze(res);
             })
         } else {
-            this._urdherDiagnoze.find({ include: ["perdorues", "mjeti", "klient", "perfaqesues"] }).subscribe((res: UrdherDiagnoze[]) => {
+            this._urdherDiagnoze.find({ include: ["perdorues", "mjeti", "klient", "perfaqesues", "diagnozat"] }).subscribe((res: UrdherDiagnoze[]) => {
                 this.sortUrdheraDiagnoze(res);
             })
         }
+        this.numeroMjetet();
 
         //degjo per ndryshime nga mekaniket
         this._rt.IO.on("urdherDiagEditedByMekanik").subscribe((msg: UrdherDiagnoze) => {
@@ -132,6 +141,11 @@ export class HomeComponent implements OnInit {
             msg.perdorues = urdherDiag[0].perdorues;
             this.shtoUrdheraDiag(msg);
         })
+        //degjo per ndryshime nga Mjetet Ne park
+        this._rt.IO.on("refreshMjetet").subscribe((msg: number) => {
+            if(msg === 1) this.numeroMjetet();
+        })
+
         this.ndermarrje = JSON.parse(localStorage.getItem("NdermarrjeData"));
 
     }

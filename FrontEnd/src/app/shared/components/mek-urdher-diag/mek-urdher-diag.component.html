@@ -1,6 +1,7 @@
 <div class="draggable-box" cdkDrag *ngIf="showMekUrdherDiag">
     <div class="draggable-handle" cdkDragHandle>
-        <span class="float-left ml-3 mr-1">Urdhër Diagnoze</span>
+        <span class="float-left ml-3 mr-1">Urdhër Diagnoze
+            <small>{{ urdherDiag?.statusi === 4 ? "Dorëzuar" : urdherDiag?.statusi !== 4 ? "Në punë e sipër" : ""}}</small></span>
         <button type="button" class="close mr-3" aria-label="Close" (click)="toggle()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -28,28 +29,40 @@
                             </div>
                         </div>
                         <div class="media-body text-truncate">
-                            <hr>
                             <div class="d-flex col-10" *ngFor="let kontroll of urdherDiag?.kontrolle; let i=index;">
                                 <span class="float-left ml-2">
-                                    <button *ngIf="urdherDiag?.konfirmuarNgaMek && !kontroll?.perfunduar" class="btn"
-                                        (click)="showDiagnoze(kontroll)">
-                                        {{i+1}}. {{kontroll?.emer}}
-                                    </button>
-                                    <span *ngIf="!urdherDiag?.konfirmuarNgaMek || kontroll?.perfunduar">
+                                    <span>
                                         {{i+1}}. {{kontroll?.emer}}
                                     </span>
                                 </span>
-                                <em class="ml-auto fas fa-check text-success" *ngIf="kontroll?.perfunduar"></em>
                             </div>
-                            <hr>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <span class="mb-1 m-0 text-danger text-bold">Shënime:
+                                    </span><span>{{urdherDiag?.shenime }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="form-group row">
-            <div class="col-12">
-                <span class="mb-1 m-0 text-danger text-bold">Shënime: </span><span>{{urdherDiag?.shenime }}</span>
+            <div class="col-12" style="cursor: pointer;">
+                <table style="width:100%" *ngIf="diagnozat?.length !== 0">
+                    <thead>
+                        <th colspan="2">
+                            Lista e diagnozave
+                        </th>
+                    </thead>
+                    <tr *ngFor="let diagnoza of diagnozat" >
+                        <td (click)="editDiagnoze(diagnoza)">{{diagnoza?.diagnoza}}</td>
+                        <td><button class="btn btn-xs btn-square btn-secondary" type="button" (click)="fshiDiagnoze(diagnoza)">X</button></td>
+                    </tr>
+                </table>
+                <!-- <ul>
+                    <li *ngFor="let diagnoza of diagnozat">{{diagnoza?.diagnoza}}</li>
+                </ul> -->
             </div>
         </div>
         <div class="form-group row" *ngIf="!urdherDiag?.konfirmuarNgaMek">
@@ -61,8 +74,14 @@
             </div>
         </div>
     </div>
-    <form class="form-horizontal m-3" [formGroup]="diagForm"
-        (submit)="regDiagnoze($event, diagForm.value)" *ngIf="urdherDiag?.konfirmuarNgaMek">
+    <form class="form-horizontal m-3" [formGroup]="diagForm" (submit)="regDiagnoze($event, diagForm.value)"
+        *ngIf="urdherDiag?.konfirmuarNgaMek">
+        <div class="form-group row">
+            <!-- <label class="text-bold col-3 col-form-label text-right" for="kontrolliId">Check-Up</label> -->
+            <div class="col">
+
+            </div>
+        </div>
         <div class="form-group row">
             <label class="text-bold col-3 col-form-label text-right" for="emer">Odometer</label>
             <div class="col">
@@ -70,7 +89,7 @@
             </div>
         </div>
         <hr>
-        <div *ngIf="showDiagBlock">
+        <div>
             <div class="form-group row">
                 <div class="col">
                     {{kontroll?.emer}}
@@ -79,32 +98,36 @@
             <div class="form-group row">
                 <label class="text-bold col-3 col-form-label text-right" for="emer">Diagnoza</label>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Diagnoza" formControlName="diagnoza"/>
+                    <input type="text" class="form-control" placeholder="Diagnoza" formControlName="diagnoza" />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="text-bold col-3 col-form-label text-right" for="emer">Gjëndja</label>
                 <div class="col">
                     <label class="c-radio text-success">
-                        <input id="inlineradio1" type="radio" name="gjendjaDifektit" formControlName="gjendjaDifektit" value="1"/>
+                        <input id="inlineradio1" type="radio" name="gjendjaDifektit" formControlName="gjendjaDifektit"
+                            value="1" />
                         <span class="fa fa-circle "></span>Mirë</label>
                     <label class="c-radio">
-                        <input id="inlineradio2" type="radio" name="gjendjaDifektit" formControlName="gjendjaDifektit" value="2"/>
+                        <input id="inlineradio2" type="radio" name="gjendjaDifektit" formControlName="gjendjaDifektit"
+                            value="2" />
                         <span class="fa fa-circle"></span>Çka</label>
                     <label class="c-radio text-danger">
-                        <input id="inlineradio3" type="radio" name="gjendjaDifektit" formControlName="gjendjaDifektit" value="3"/>
+                        <input id="inlineradio3" type="radio" name="gjendjaDifektit" formControlName="gjendjaDifektit"
+                            value="3" />
                         <span class="fa fa-circle"></span>Keq</label>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="text-bold col-3 col-form-label text-right" for="emer">Sasia</label>
                 <div class="col">
-                    <input type="number" class="form-control" placeholder="Sasia e njësisë" formControlName="sasia"/>
+                    <input type="number" class="form-control" placeholder="Sasia e njësisë" formControlName="sasia" />
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-12">
-                    <button class="btn btn-xs btn-primary float-right" type="submit" [disabled]="!diagForm.valid">Ok</button>
+                    <button class="btn btn-xs btn-primary float-right" type="submit"
+                        [disabled]="!diagForm.valid">Ok</button>
                 </div>
             </div>
         </div>
@@ -113,7 +136,8 @@
         <div class="form-group row">
             <div class="col-12">
                 <button class="btn btn-sm btn-secondary float-right" type="button" (click)="toggle()">Mbyll</button>
-                <!-- <button class="btn btn-sm btn-secondary mr-2 float-right" type="submit">Ruaj</button> -->
+                <button class="btn btn-sm btn-secondary mr-2 float-right" type="button" (click)="dorezoDiagnozat()"
+                    *ngIf="urdherDiag?.statusi !== 4 && urdherDiag?.statusi === 3">Dorëzo Diagnozat</button>
             </div>
         </div>
     </form>

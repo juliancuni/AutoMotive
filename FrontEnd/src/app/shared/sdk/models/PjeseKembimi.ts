@@ -1,29 +1,20 @@
 /* tslint:disable */
-import {
-  UrdherPune
-} from '../index';
 
 declare var Object: any;
 export interface PjeseKembimiInterface {
-  "id"?: number;
-  "kodi"?: string;
-  "pershkrimi"?: string;
+  "kod"?: string;
+  "pershkrim"?: string;
   "pozicioni"?: string;
   "cmimShitje"?: number;
-  "krijuar"?: Date;
-  "modifikuar"?: Date;
-  urdheraPune?: UrdherPune[];
+  "id"?: any;
 }
 
 export class PjeseKembimi implements PjeseKembimiInterface {
-  "id": number;
-  "kodi": string;
-  "pershkrimi": string;
+  "kod": string;
+  "pershkrim": string;
   "pozicioni": string;
   "cmimShitje": number;
-  "krijuar": Date;
-  "modifikuar": Date;
-  urdheraPune: UrdherPune[];
+  "id": any;
   constructor(data?: PjeseKembimiInterface) {
     Object.assign(this, data);
   }
@@ -57,16 +48,12 @@ export class PjeseKembimi implements PjeseKembimiInterface {
       path: 'PjeseKembimi',
       idName: 'id',
       properties: {
-        "id": {
-          name: 'id',
-          type: 'number'
-        },
-        "kodi": {
-          name: 'kodi',
+        "kod": {
+          name: 'kod',
           type: 'string'
         },
-        "pershkrimi": {
-          name: 'pershkrimi',
+        "pershkrim": {
+          name: 'pershkrim',
           type: 'string'
         },
         "pozicioni": {
@@ -77,26 +64,12 @@ export class PjeseKembimi implements PjeseKembimiInterface {
           name: 'cmimShitje',
           type: 'number'
         },
-        "krijuar": {
-          name: 'krijuar',
-          type: 'Date'
-        },
-        "modifikuar": {
-          name: 'modifikuar',
-          type: 'Date'
+        "id": {
+          name: 'id',
+          type: 'any'
         },
       },
       relations: {
-        urdheraPune: {
-          name: 'urdheraPune',
-          type: 'UrdherPune[]',
-          model: 'UrdherPune',
-          relationType: 'hasMany',
-          modelThrough: 'UrdherPunePjeseKembimi',
-          keyThrough: 'urdherPuneId',
-          keyFrom: 'id',
-          keyTo: 'pjeseKembimiId'
-        },
       }
     }
   }

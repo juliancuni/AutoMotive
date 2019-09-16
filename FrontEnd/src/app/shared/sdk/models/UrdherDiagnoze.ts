@@ -4,6 +4,8 @@ import {
   Klient,
   Perfaqesues,
   Perdorues,
+  Diagnoza,
+  Preventiv,
   LiberMjeti
 } from '../index';
 
@@ -27,6 +29,8 @@ export interface UrdherDiagnozeInterface {
   klient?: Klient;
   perfaqesues?: Perfaqesues;
   perdorues?: Perdorues;
+  diagnozat?: Diagnoza[];
+  preventiva?: Preventiv[];
   liberMjeti?: LiberMjeti;
 }
 
@@ -49,6 +53,8 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
   klient: Klient;
   perfaqesues: Perfaqesues;
   perdorues: Perdorues;
+  diagnozat: Diagnoza[];
+  preventiva: Preventiv[];
   liberMjeti: LiberMjeti;
   constructor(data?: UrdherDiagnozeInterface) {
     Object.assign(this, data);
@@ -175,6 +181,22 @@ export class UrdherDiagnoze implements UrdherDiagnozeInterface {
           relationType: 'belongsTo',
                   keyFrom: 'perdoruesId',
           keyTo: 'id'
+        },
+        diagnozat: {
+          name: 'diagnozat',
+          type: 'Diagnoza[]',
+          model: 'Diagnoza',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'urdherDiagnozeId'
+        },
+        preventiva: {
+          name: 'preventiva',
+          type: 'Preventiv[]',
+          model: 'Preventiv',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'urdherDiagnozeId'
         },
         liberMjeti: {
           name: 'liberMjeti',

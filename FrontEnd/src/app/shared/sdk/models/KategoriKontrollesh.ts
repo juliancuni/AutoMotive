@@ -43,8 +43,8 @@ export class KategoriKontrollesh implements KategoriKontrolleshInterface {
   public static getModelDefinition() {
     return {
       name: 'KategoriKontrollesh',
-      plural: 'kategoriKontrollesh',
-      path: 'kategoriKontrollesh',
+      plural: 'KategoriKontrollesh',
+      path: 'KategoriKontrollesh',
       idName: 'id',
       properties: {
         "emer": {
