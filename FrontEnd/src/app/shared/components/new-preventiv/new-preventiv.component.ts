@@ -16,27 +16,35 @@ export class PreventivComponent implements OnInit, OnChanges {
     @Output() hapMbyllNPrNgaSelf = new EventEmitter();
     @ViewChild('instanceKatSherb', { static: false }) instanceKatSherb: NgbTypeahead;
     @ViewChild('instancePjeseKembimi', { static: false }) instancePjeseKembimi: NgbTypeahead;
+
     focusKatSherb$ = new Subject<string>();
     clickKatSherb$ = new Subject<string>();
-    focusPjeseKembimi$ = new Subject<string>();
-    clickPjeseKembimi$ = new Subject<string>();
+
+    // focusPjeseKembimi$ = new Subject<string>();
+    // clickPjeseKembimi$ = new Subject<string>();
 
     public diagnozat: Diagnoza[];
     public katSherbimesh: KategoriSherbimesh[];
     public preventivet: Preventiv[] = [];
-    public pjesetKembimiFin: PjeseKembimiFin[];
-    public pjesaKembimitFin: PjeseKembimiFin;
+    // public pjesetKembimiFin: PjeseKembimiFin[];
+    // public pjesaKembimitFin: PjeseKembimiFin;
     public preventiv: Preventiv;
-    
+
     public vlereSherbimi: number;
+    public vlerePjese: number;
     public orePune: number;
     public cmimi: number;
     public ulje: number;
+
+    public sasiaPjese: number;
+    public cmimiPjese: number;
+    public uljePjese: number;
+
     public totalVleraSherbime: number = 0;
-    
+
     public sherbimNukEgziston: boolean = false;
-    
-    public preventivForm: FormGroup;
+
+    public sherbimeForm: FormGroup;
     public pjeseKembimiForm: FormGroup;
 
 
@@ -44,7 +52,7 @@ export class PreventivComponent implements OnInit, OnChanges {
         private _urdherDiag: UrdherDiagnozeApi,
         private _katSherbimesh: KategoriSherbimeshApi,
         private _preventiv: PreventivApi,
-        private _pjeseKembimiFin: PjeseKembimiFinApi,
+        // private _pjeseKembimiFin: PjeseKembimiFinApi,
         private _fb: FormBuilder,
     ) { }
 
@@ -59,168 +67,199 @@ export class PreventivComponent implements OnInit, OnChanges {
 
     formatterKatSherb = (x: { emer: string }) => x.emer;
 
-    searchPjeseKembimi = (text$: Observable<string>) => {
-        const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
-        const clicksWithClosedPopup$ = this.clickPjeseKembimi$.pipe(filter(() => !this.instancePjeseKembimi.isPopupOpen()));
-        const inputFocus$ = this.focusPjeseKembimi$;
-        return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-            map(term => (term === '' ? this.pjesetKembimiFin : this.pjesetKembimiFin.filter(v => v.pershkrimi.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
-        );
-    }
+    // searchPjeseKembimi = (text$: Observable<string>) => {
+    //     const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+    //     const clicksWithClosedPopup$ = this.clickPjeseKembimi$.pipe(filter(() => !this.instancePjeseKembimi.isPopupOpen()));
+    //     const inputFocus$ = this.focusPjeseKembimi$;
+    //     return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
+    //         map(term => (term === '' ? this.pjesetKembimiFin : this.pjesetKembimiFin.filter(v => v.pershkrimi.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+    //     );
+    // }
 
-    formatterPjeseKembimi = (x: { emer: string }) => x.emer;
+    // formatterPjeseKembimi = (x: { emer: string }) => x.emer;
 
     toggle() {
-        this.preventivForm.reset();
+        this.sherbimeForm.reset();
         this.preventiv = new Preventiv();
         this.hapMbyllNPrNgaSelf.emit(this.showNewPreventiv = !this.showNewPreventiv);
     }
 
-    ruajNewSherbim() {
-        return new Promise((resolve, reject) => {
-            if (this.preventivForm.valid) {
-                if (!this.preventivForm.controls.sherbimi.value.id) {
-                    let newKatSherbimi = new KategoriSherbimesh({
-                        emer: this.preventivForm.controls.sherbimi.value,
-                        orePune: this.preventivForm.controls.orePune.value,
-                        cmimiPerOre: this.preventivForm.controls.cmimi.value
-                    })
-                    this._katSherbimesh.create(newKatSherbimi).subscribe((res: KategoriSherbimesh) => {
-                        this.katSherbimesh.push(res);
-                        this.sherbimNukEgziston = false;
-                        resolve(res);
-                    })
-                } else {
-                    resolve(this.preventivForm.controls.sherbimi.value)
-                }
-            }
-        })
-    }
-
-    ruajNewPjese() {
-
-    }
-
-    regPreventiv(ev, preventivForm) {
+    // ruajNewSherbim() {
+    //     return new Promise((resolve, reject) => {
+    //         if (this.sherbimeForm.valid) {
+    //             if (!this.sherbimeForm.controls.sherbimi.value.id) {
+    //                 let newKatSherbimi = new KategoriSherbimesh({
+    //                     emer: this.sherbimeForm.controls.sherbimi.value,
+    //                     orePune: this.sherbimeForm.controls.orePune.value,
+    //                     cmimiPerOre: this.sherbimeForm.controls.cmimi.value
+    //                 })
+    //                 this._katSherbimesh.create(newKatSherbimi).subscribe((res: KategoriSherbimesh) => {
+    //                     this.katSherbimesh.push(res);
+    //                     this.sherbimNukEgziston = false;
+    //                     resolve(res);
+    //                 })
+    //             } else {
+    //                 resolve(this.sherbimeForm.controls.sherbimi.value)
+    //             }
+    //         }
+    //     })
+    // }
+    addSherbim(ev, sherbimeForm) {
         ev.preventDefault();
-        if (this.preventivForm.valid) {
-        //     let newKategoriSherbimi = new KategoriSherbimesh;
-        //     this.ruajNewSherbim().then((katSherbimi: KategoriSherbimesh) => {
-        //         let newPreventiv = new Preventiv({
-        //             zeri: katSherbimi.emer,
-        //             sasia: preventivForm.orePune,
-        //             cmimi: preventivForm.cmimi,
-        //             vlera: this.vlereSherbimi,
-        //             ulje: preventivForm.ulje,
-        //             klientId: this.urdherDiag.klientId,
-        //             mjetiId: this.urdherDiag.mjetiId,
-        //             urdherDiagnozeId: this.urdherDiag.id,
-        //         })
-        //         console.log(this.preventiv);
-        //         if (this.preventiv) newPreventiv.id = this.preventiv.id;
-        //         this._preventiv.upsert(newPreventiv).subscribe((res: Preventiv) => {
-        //             let indexPreventiv = this.preventivet.map((preventiv) => { return preventiv.id }).indexOf(res.id);
-        //             if (indexPreventiv !== -1) this.preventivet.splice(indexPreventiv, 1);
-        //             this.preventivet.push(res);
-        //             this.preventiv = res;
-        //             this.preventivForm.reset();
-        //             this.preventiv = new Preventiv();
-        //             this.gjejVlerenTotalSherbime();
-        //         })
-        //     });
+        if (this.sherbimeForm.valid) {
+            let sherbim = {
+                id: sherbimeForm.sherbimi.id,
+                emer: sherbimeForm.sherbimi.emer,
+                orePune: sherbimeForm.orePune,
+                cmimiPerOre: sherbimeForm.cmimi,
+                ulje: sherbimeForm.ulje,
+                vlera: this.vlereSherbimi
+            }
+            if (typeof this.preventiv.vlera === 'undefined') this.preventiv.vlera = 0;
+
+            let sherbimPreventivIndex = this.preventiv.sherbimet.map((sherbim) => { return sherbim.id }).indexOf(sherbimeForm.sherbimi.id);
+            if (sherbimPreventivIndex !== -1) {
+                this.preventiv.sherbimet.splice(sherbimPreventivIndex, 1);
+            }
+            this.preventiv.sherbimet.push(sherbim);
+            this.preventiv.vlera = this.gjejVlerenEPreventivit();
+            this._preventiv.upsert(this.preventiv).subscribe((res: Preventiv) => {
+                this.preventiv = res;
+                this.sherbimeForm.reset();
+            })
         }
     }
 
-    editPreventiv(preventiv) {
-        this.preventiv = preventiv;
-        let zgjidhSherbimin = this.katSherbimesh.filter((katSherb) => { return katSherb.emer === preventiv.zeri })
-        this.preventivForm.controls.sherbimi.setValue(zgjidhSherbimin[0]);
-        this.preventivForm.controls.orePune.setValue(preventiv.sasia);
-        this.preventivForm.controls.cmimi.setValue(preventiv.cmimi);
-        this.preventivForm.controls.ulje.setValue(preventiv.ulje);
+    editSherbim(sherbim) {
+        this.sherbimeForm.controls.sherbimi.setValue(sherbim);
+        this.sherbimeForm.controls.orePune.setValue(sherbim.orePune);
+        this.sherbimeForm.controls.cmimi.setValue(sherbim.cmimiPerOre);
+        this.sherbimeForm.controls.ulje.setValue(sherbim.ulje);
     }
 
-    fshiPreventiv(preventiv) {
-        this._preventiv.deleteById(preventiv.id).subscribe(() => {
-            let indexPreventiv = this.preventivet.map((prev) => { return prev.id }).indexOf(preventiv.id);
-            if (indexPreventiv !== -1) this.preventivet.splice(indexPreventiv, 1);
+    fshiSherbim(sherbim) {
+        let sherbimPreventivIndex = this.preventiv.sherbimet.map((sherbim) => { return sherbim.id }).indexOf(sherbim.id);
+        if (sherbimPreventivIndex !== -1) this.preventiv.sherbimet.splice(sherbimPreventivIndex, 1);
+        this.preventiv.vlera = this.gjejVlerenEPreventivit();
+        this._preventiv.upsert(this.preventiv).subscribe((res: Preventiv) => {
+            this.preventiv = res;
         })
     }
 
+    addPjeseKembimi(ev, pjeseKembimiForm) {
+        ev.preventDefault();
+        if (this.pjeseKembimiForm.valid) {
+            console.log(pjeseKembimiForm);
+            let pjeseKembimiPreventivIndex = this.preventiv.pjeset.map((pjese) => { return pjese.partNo }).indexOf(pjeseKembimiForm.partNo);
+            if (pjeseKembimiPreventivIndex !== -1) this.preventiv.pjeset.splice(pjeseKembimiPreventivIndex, 1);
+            this.preventiv.pjeset.push(pjeseKembimiForm);
+            this._preventiv.upsert(this.preventiv).subscribe((res: Preventiv) => {
+                this.preventiv = res;
+            })
+        }
+    }
     ngOnInit() {
-        this._pjeseKembimiFin.find().subscribe((res: PjeseKembimiFin[]) => {
-            this.pjesetKembimiFin = res;
-        })
+        // this._pjeseKembimiFin.find().subscribe((res: PjeseKembimiFin[]) => {
+        // this.pjesetKembimiFin = res;
+        // })
 
         this._katSherbimesh.find().subscribe((res: KategoriSherbimesh[]) => {
             this.katSherbimesh = res;
         })
 
-        this.preventivForm = this._fb.group({
+        this.sherbimeForm = this._fb.group({
             "sherbimi": [null, Validators.required],
             "orePune": [null, Validators.required],
             "cmimi": [null, Validators.required],
-            "ulje": [null],
+            "ulje": [0],
         })
 
         this.pjeseKembimiForm = this._fb.group({
             "partNo": [null, Validators.required],
             "pershkrimi": [null, Validators.required],
+            "gjendje": [null, Validators.required],
+            "vonesa": [null, Validators.required],
             "sasia": [null, Validators.required],
             "cmimi": [null, Validators.required],
-            "ulje": [null],
+            "ulje": [0],
         })
 
-        this.preventivForm.controls.sherbimi.valueChanges.subscribe((value) => {
+        this.sherbimeForm.controls.sherbimi.valueChanges.subscribe((value) => {
             if (value instanceof KategoriSherbimesh) {
-                this.preventivForm.controls.orePune.setValue(value.orePune);
-                this.preventivForm.controls.cmimi.setValue(value.cmimiPerOre);
+                this.sherbimeForm.controls.orePune.setValue(value.orePune);
+                this.sherbimeForm.controls.cmimi.setValue(value.cmimiPerOre);
                 this.sherbimNukEgziston = false;
             }
         })
 
-        this.preventivForm.controls.orePune.valueChanges.subscribe((value) => {
+        this.sherbimeForm.controls.orePune.valueChanges.subscribe((value) => {
             this.orePune = value;
             this.gjejVlerenEsherbimit();
 
         })
 
-        this.preventivForm.controls.cmimi.valueChanges.subscribe((value) => {
+        this.sherbimeForm.controls.cmimi.valueChanges.subscribe((value) => {
             this.cmimi = value;
             this.gjejVlerenEsherbimit();
 
         })
 
-        this.preventivForm.controls.ulje.valueChanges.subscribe((value) => {
+        this.sherbimeForm.controls.ulje.valueChanges.subscribe((value) => {
             this.ulje = value;
             this.gjejVlerenEsherbimit();
+        })
+
+        this.pjeseKembimiForm.controls.sasia.valueChanges.subscribe((value) => {
+            this.sasiaPjese = value;
+        })
+        this.pjeseKembimiForm.controls.cmimi.valueChanges.subscribe((value) => {
+            this.cmimiPjese = value;
+        })
+
+        this.pjeseKembimiForm.controls.ulje.valueChanges.subscribe((value) => {
+            this.uljePjese = value;
+            
         })
     }
 
     ngOnChanges() {
         if (typeof this.urdherDiag !== "undefined" && Object.entries(this.urdherDiag).length !== 0) {
-            this._urdherDiag.getDiagnozat(this.urdherDiag.id).subscribe((res: Diagnoza[]) => {
-                this.diagnozat = res;
-                // this.preventivet = res.preventiva;
+            this._urdherDiag.findById(this.urdherDiag.id, { include: ["diagnozat", "preventiva"] }).subscribe((res: UrdherDiagnoze) => {
+                if (res.preventiva.length === 0) {
+                    this.preventiv = new Preventiv({
+                        klientId: this.urdherDiag.klientId,
+                        mjetiId: this.urdherDiag.mjetiId,
+                        urdherDiagnozeId: this.urdherDiag.id,
+                        sherbimet: [],
+                        pjeset: []
+                    })
+                } else {
+                    this.preventiv = res.preventiva[0];
+                }
             })
         }
-        this.gjejVlerenEsherbimit();
-        this.gjejVlerenTotalSherbime();
     }
 
     gjejVlerenEsherbimit() {
         let vlera = 0;
         let vleraPerqindjes = 0;
-        if (this.orePune > 0 && this.cmimi > 0) {
-            vlera = this.orePune * this.cmimi;
-        }
-        if (this.ulje > 0 && vlera > 0) {
-            vleraPerqindjes = (this.ulje * vlera) / 100;
-        }
+        if (this.orePune > 0 && this.cmimi > 0) vlera = this.orePune * this.cmimi;
+        if (this.ulje > 0 && vlera > 0) vleraPerqindjes = (this.ulje * vlera) / 100;
         this.vlereSherbimi = vlera - vleraPerqindjes;
+
     }
 
-    gjejVlerenTotalSherbime() {
-        // this.totalVleraSherbime = this.preventivet.reduce((acc, prev) => acc += prev.vlera, 0);
+    gjejVlerenEPjeses() { 
+        let vlera = 0;
+        let vleraPerqindjes = 0;
+        if (this.sasiaPjese > 0 && this.cmimiPjese > 0) vlera = this.sasiaPjese * this.cmimiPjese;
+        if (this.uljePjese > 0 && vlera > 0) vleraPerqindjes = (this.uljePjese * vlera) / 100;
+        this.vlerePjese = vlera - vleraPerqindjes;
+    }
+
+    gjejVlerenEPreventivit(): number {
+        let vleraSherbime = this.preventiv.sherbimet.reduce((acc, sherbim) => acc += sherbim.vlera, 0);
+        let vleraPjeset = this.preventiv.pjeset.reduce((acc, pjese) => acc += pjese.vlera, 0);
+        return
     }
 }

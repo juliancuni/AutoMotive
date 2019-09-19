@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     public rolet: Role[];
     public showUrdherDiag: boolean;
     public showUrdherPune: boolean;
-
+    public showNewPreventiv: boolean;
     public eshteMekanik: boolean = false;
 
     public mjetetNePark = 0;
@@ -66,6 +66,10 @@ export class HomeComponent implements OnInit {
 
     shtoPerdorues(ev: Perdorues) {
         // this.urdheraDiagnoze.push(ev);
+    }
+
+    hapMbyllNgaNPrChild(ev) {
+        this.showNewPreventiv = ev;
     }
 
     shtoUrdheraDiag(ev: UrdherDiagnoze) {
@@ -143,7 +147,7 @@ export class HomeComponent implements OnInit {
         })
         //degjo per ndryshime nga Mjetet Ne park
         this._rt.IO.on("refreshMjetet").subscribe((msg: number) => {
-            if(msg === 1) this.numeroMjetet();
+            if (msg === 1) this.numeroMjetet();
         })
 
         this.ndermarrje = JSON.parse(localStorage.getItem("NdermarrjeData"));

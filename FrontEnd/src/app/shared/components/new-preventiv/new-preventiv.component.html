@@ -8,7 +8,8 @@
         </button>
     </div>
     <hr>
-    <div class="form-horizontal ml-3 mr-3">
+    <!-- urdherDiag -->
+    <div class="form-horizontal ml-3 mr-3" *ngIf="urdherDiag">
         <div class="form-group row">
             <div class="col-12">
                 <div class="list-group">
@@ -46,6 +47,8 @@
                 </div>
             </div>
         </div>
+
+
         <!-- Pjese: {{pjesetKembimi?.length}} (Rekorde nga Financa5)
         <div class="input-group">
             <ng-template #rt1 let-r="result" let-t="term">
@@ -79,6 +82,12 @@
             </div>
         </div>
     </div>
+    <!-- END urdherDiag -->
+    <!-- !urdherDiag -->
+    <div *ngIf="!urdherDiag">
+        Ska urdherDiag
+    </div>
+    <!-- END Ne !urdherDiag -->
     <div class="card card-default ml-3 mr-3">
         <tabset class="bg-white p-0" justified="true">
             <tab>
@@ -87,8 +96,8 @@
                 </ng-template>
                 <div>
                     <!-- Forma e sherbimeve -->
-                    <form class="form-inline" [formGroup]="preventivForm"
-                        (submit)="regPreventiv($event, preventivForm.value)">
+                    <form class="form-inline" [formGroup]="sherbimeForm"
+                        (submit)="addSherbim($event, sherbimeForm.value)">
                         <table class="table">
                             <thead>
                                 <th>Shërbimi</th>
@@ -130,8 +139,8 @@
                             </td>
                             <td>
                                 <button class="btn btn-sm btn-primary mr-2" type="submit"
-                                    [disabled]="!preventivForm.valid">Ok</button>
-                                <button class="btn btn-sm btn-secondary " type="button" (click)="preventivForm.reset()">
+                                    [disabled]="!sherbimeForm.valid">Ok</button>
+                                <button class="btn btn-sm btn-secondary " type="button" (click)="sherbimeForm.reset()">
                                     <em class="far fa-window-close"></em>
                                 </button>
                             </td>
@@ -147,11 +156,13 @@
                 <div>
                     <!-- Forma e pjeseve -->
                     <form class="form-inline" [formGroup]="pjeseKembimiForm"
-                        (submit)="regPjeseKembimi($event, pjeseKembimiForm.value)">
+                        (submit)="addPjeseKembimi($event, pjeseKembimiForm.value)">
                         <table class="table">
                             <thead>
                                 <th>PartNo</th>
                                 <th>Përshkrimi</th>
+                                <th>Gjëndje</th>
+                                <th>Vonesa</th>
                                 <th>Sasia</th>
                                 <th>Çmimi</th>
                                 <th>Ulje %</th>
@@ -169,12 +180,20 @@
                                             formControlName="pershkrimi" style="width: 150px;" />
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control  m-0  p-0" placeholder="Sasia"
-                                            formControlName="cmimi" style="width: 50px;" />
+                                        <input type="checkbox" class="form-control m-0 p-0" formControlName="gjendje" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control  m-0  p-0" #dp="bsDatepicker"
+                                            bsDatepicker [bsValue]="bsValue" name="dp-basic" [bsConfig]="bsConfig"
+                                            formControlName="vonesa" />
                                     </td>
                                     <td>
                                         <input type="text" class="form-control  m-0  p-0" placeholder="Çmimi"
                                             formControlName="sasia" style="width: 50px;" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control  m-0  p-0" placeholder="Sasia"
+                                            formControlName="cmimi" style="width: 50px;" />
                                     </td>
                                     <td>
                                         <input type="text" class="form-control  m-0  p-0" placeholder="Ulje %"
@@ -182,11 +201,11 @@
                                     </td>
                                     <td>
                                         <label class="text-bold col-form-label text-right"
-                                            for="emer">{{ vlerePjesesh | currency: 'ALL':'symbol':'2.2-4':'al'}}</label>
+                                            for="emer">{{ vlerePjese | currency: 'ALL':'symbol':'2.2-4':'al'}}</label>
                                     </td>
                                     <td>
                                         <button class="btn btn-sm btn-primary mr-2" type="submit"
-                                            [disabled]="!preventivForm.valid">Ok</button>
+                                            [disabled]="!pjeseKembimiForm.valid">Ok</button>
                                         <button class="btn btn-sm btn-secondary " type="button"
                                             (click)="pjeseKembimiForm.reset()">
                                             <em class="far fa-window-close"></em>
@@ -203,7 +222,7 @@
     </div>
     <div class="card card-default ml-3 mr-3">
         <div class="card-body">
-            <table class="table table-hover" *ngIf="preventivet?.length > 0">
+            <table class="table table-hover" *ngIf="preventiv?.sherbimet?.length > 0">
                 <thead>
                     <th>Shërbimi</th>
                     <th>Orë pune</th>
@@ -212,28 +231,56 @@
                     <th></th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let preventiv of preventivet" style="cursor: pointer;">
+                    <tr *ngFor="let sherbim of preventiv?.sherbimet" style="cursor: pointer;">
                         <!-- <span (click)="editPreventiv(preventiv)" style="cursor: pointer;"> -->
-                        <td (click)="editPreventiv(preventiv)">{{preventiv?.zeri}}</td>
-                        <td>{{preventiv?.sasia}}</td>
-                        <td>{{preventiv?.cmimi}}</td>
+                        <td (click)="editSherbim(sherbim)">{{sherbim?.emer}}</td>
+                        <td>{{sherbim?.orePune}}</td>
+                        <td>{{sherbim?.cmimiPerOre}}</td>
                         <td>
-                            {{preventiv?.vlera}} <small
-                                class="text-success">{{ preventiv?.ulje ? preventiv?.ulje + '% Ulje' : null }} </small>
+                            {{sherbim?.vlera}} <small
+                                class="text-success">{{ sherbim?.ulje ? sherbim?.ulje + '% Ulje' : null }} </small>
                         </td>
                         <!-- </span> -->
                         <td>
-                            <button class="btn btn-sm btn-secondary " type="button" (click)="fshiPreventiv(preventiv)">
+                            <button class="btn btn-sm btn-secondary " type="button" (click)="fshiSherbim(sherbim)">
                                 <em class="far fa-window-close"></em>
                             </button>
                         </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- *ngIf="preventiv?.pjeset?.length > 0" -->
+            <table class="table table-hover">
+                <thead>
+                    <th colspan="7">Pjesë këmbimi</th>
+                </thead>
+                <thead>
+                    <th><small>PartNo</small></th>
+                    <th><small>Pershkrim</small></th>
+                    <th><small>Gjëndje</small></th>
+                    <th><small>Vonesa</small></th>
+                    <th><small>sasia</small></th>
+                    <th><small>cmimi</small></th>
+                    <th><small>vlera</small></th>
+                    <th><small></small></th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>asd123456</td>
+                        <td>Me the te thashe origjinale</td>
+                        <td>false</td>
+                        <td>2 jave</td>
+                        <td>1</td>
+                        <td>20000</td>
+                        <td>20000</td>
+                        <td><input type="checkbox"></td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <td></td>
                     <td></td>
                     <td><span class="float-right">Total:</span></td>
-                    <td>{{totalVleraSherbime}}</td>
+                    <td>{{preventiv?.vlera}}</td>
                     <td></td>
                 </tfoot>
             </table>

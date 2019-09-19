@@ -106,7 +106,8 @@ export class Preventiv implements PreventivInterface {
         },
         "vlera": {
           name: 'vlera',
-          type: 'number'
+          type: 'number',
+          default: 0
         },
         "ulje": {
           name: 'ulje',

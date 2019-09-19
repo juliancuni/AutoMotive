@@ -16,7 +16,7 @@
             </span>
             Urdhër Pune
         </button>
-        <button class="btn btn-labeled btn-secondary mr-2">
+        <button class="btn btn-labeled btn-secondary mr-2" (click)="showNewPreventiv = !showNewPreventiv">
             <span class="btn-label">
                 <i class="fas fa-euro-sign"></i>
             </span>
@@ -32,6 +32,9 @@
     <app-urdher-pune [showUrdherPune]="showUrdherPune" (hapMbyllUPNgaSelf)="hapMbyllNgaUPChild($event)"
         (shtoUrdheraPune)="shtoUrdheraPune($event)" width="500px"></app-urdher-pune>
     <!-- End Urdher Pune -->
+    <!-- new Preventiv Form -->
+    <app-new-preventiv [showNewPreventiv]="showNewPreventiv" (hapMbyllNPrNgaSelf)="hapMbyllNgaNPrChild($event)" (shtoPreventiv)="shtoPreventiv($event)"></app-new-preventiv>
+    <!-- End new Preventiv Form -->
 
     <!-- START cards box-->
     <div class="row">

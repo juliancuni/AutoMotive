@@ -23,7 +23,8 @@
       "type": "number"
     },
     "vlera": {
-      "type": "number"
+      "type": "number",
+      "default": 0
     },
     "ulje": {
       "type": "number"
