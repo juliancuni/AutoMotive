@@ -56,7 +56,7 @@
     "jquery.browser": "0.1.0",
     "jquery.flot.spline": "themicon/jquery.flot.spline",
     "jquery.flot.tooltip": "github:krzysu/flot.tooltip",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "modernizr": "3.7.1",
     "moment": "2.22.2",
     "ng2-charts": "1.6.0",
