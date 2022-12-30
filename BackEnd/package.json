@@ -31,7 +31,7 @@
     "loopback-component-explorer": "^6.4.0",
     "loopback-connector-mongodb": "github:juliancuni/loopback-connector-mongodb#mongo_DeprecationWarning",
     "loopback-ds-timestamp-mixin": "^3.4.1",
-    "mocha": "^6.2.0",
+    "mocha": "^10.2.0",
     "serve-favicon": "^2.5.0",
     "strong-error-handler": "^2.3.2",
     "supertest": "^3.4.2",
